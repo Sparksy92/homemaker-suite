@@ -1,0 +1,24 @@
+{
+    "meta": {
+        "toolName": "Budget Calculator",
+        "version": "1.0",
+        "description": "Helps allocate grocery budget based on the Homemaker philosophy."
+    },
+    "ratios": {
+        "pantry_restock": 0.20,
+        "meat_protein": 0.25,
+        "produce_fresh": 0.30,
+        "dairy_eggs": 0.15,
+        "household_misc": 0.10
+    },
+    "example_100_dollar_budget": {
+        "pantry_restock": 20.00,
+        "meat_protein": 25.00,
+        "produce_fresh": 30.00,
+        "dairy_eggs": 15.00,
+        "household_misc": 10.00
+    },
+    "logic": {
+        "instruction": "User inputs total budget. System outputs category limits. 'Pantry Restock' is for bulk/sale items, not immediate consumption."
+    }
+}

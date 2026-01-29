@@ -1,0 +1,179 @@
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Calculator, Soup, Repeat } from 'lucide-react';
+
+// Import JSON data directly
+import ingredientWizardData from '../data/IngredientWizard.json';
+import subEngineData from '../data/SubstitutionEngine.json';
+import pantryCalcData from '../data/PantryCalculator.json';
+
+const Tools = () => {
+    const [activeTab, setActiveTab] = useState('wizard');
+
+    return (
+        <div className="p-6 min-h-screen pb-24">
+            <h1 className="text-3xl mb-6 font-serif text-sage-900">Toolkit</h1>
+
+            {/* Tabs */}
+            <div className="flex gap-2 mb-6 overflow-x-auto pb-2 no-scrollbar">
+                <TabButton
+                    active={activeTab === 'wizard'}
+                    onClick={() => setActiveTab('wizard')}
+                    icon={<Soup size={18} />}
+                    label="Chef"
+                />
+                <TabButton
+                    active={activeTab === 'pantry'}
+                    onClick={() => setActiveTab('pantry')}
+                    icon={<Calculator size={18} />}
+                    label="Pantry"
+                />
+                <TabButton
+                    active={activeTab === 'sub'}
+                    onClick={() => setActiveTab('sub')}
+                    icon={<Repeat size={18} />}
+                    label="Subs"
+                />
+            </div>
+
+            {/* Content Area */}
+            <AnimatePresence mode="wait">
+                {activeTab === 'wizard' && <IngredientWizard key="wizard" data={ingredientWizardData} />}
+                {activeTab === 'pantry' && <PantryCalculator key="pantry" data={pantryCalcData} />}
+                {activeTab === 'sub' && <SubstitutionEngine key="sub" data={subEngineData} />}
+            </AnimatePresence>
+        </div>
+    );
+};
+
+const TabButton = ({ active, onClick, icon, label }) => (
+    <button
+        onClick={onClick}
+        className={`flex items-center gap-2 px-4 py-2 rounded-full whitespace-nowrap transition-all ${active
+                ? 'bg-sage-600 text-white shadow-lg'
+                : 'bg-white text-sage-700 border border-sage-200 hover:bg-sage-50'
+            }`}
+    >
+        {icon}
+        <span className="font-medium text-sm">{label}</span>
+    </button>
+);
+
+/* ---------------- Sub-Components ---------------- */
+
+const IngredientWizard = ({ data }) => {
+    const [searchTerm, setSearchTerm] = useState('');
+
+    // Simple filter logic
+    const results = data.database.filter(r =>
+        r.base.some(i => i.toLowerCase().includes(searchTerm.toLowerCase())) ||
+        r.recipe.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+    return (
+        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}>
+            <div className="bg-white p-4 rounded-3xl shadow-sm border border-sand-200 mb-4">
+                <label className="text-xs font-bold text-sage-600 uppercase tracking-widest mb-2 block">I have...</label>
+                <input
+                    type="text"
+                    placeholder="e.g., eggs, rice, chicken"
+                    className="w-full bg-sand-50 p-3 rounded-xl border border-sand-200 focus:outline-none focus:border-sage-500 font-serif text-lg"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                />
+            </div>
+
+            <div className="space-y-4">
+                {searchTerm && results.length === 0 && (
+                    <div className="text-center p-8 text-charcoal-light">No recipes found. Try a different ingredient.</div>
+                )}
+                {results.map((r, i) => (
+                    <div key={i} className="bg-white p-5 rounded-3xl shadow-sm border border-sand-100">
+                        <h3 className="text-xl font-bold text-sage-800 mb-2">{r.recipe}</h3>
+                        <p className="text-sm text-charcoal-light italic mb-3">{r.method}</p>
+                        <div className="flex flex-wrap gap-2">
+                            {r.base.map(b => <span key={b} className="bg-sage-50 text-sage-700 px-2 py-1 rounded-md text-xs">{b}</span>)}
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </motion.div>
+    );
+};
+
+const PantryCalculator = ({ data }) => {
+    const [people, setPeople] = useState(4);
+    const [weeks, setWeeks] = useState(2);
+
+    const categories = Object.entries(data.categories);
+
+    return (
+        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}>
+            <div className="bg-white p-6 rounded-3xl shadow-sm border border-sand-200 mb-6">
+                <div className="grid grid-cols-2 gap-4">
+                    <div>
+                        <label className="text-xs font-bold text-sage-600 uppercase tracking-widest">People</label>
+                        <input type="number" value={people} onChange={e => setPeople(e.target.value)} className="w-full text-3xl font-serif text-sage-900 border-b border-sand-200 focus:outline-none py-2" />
+                    </div>
+                    <div>
+                        <label className="text-xs font-bold text-sage-600 uppercase tracking-widest">Weeks</label>
+                        <input type="number" value={weeks} onChange={e => setWeeks(e.target.value)} className="w-full text-3xl font-serif text-sage-900 border-b border-sand-200 focus:outline-none py-2" />
+                    </div>
+                </div>
+            </div>
+
+            <div className="space-y-3">
+                {categories.map(([key, cat]) => {
+                    const totalLbs = (cat.recommendation_lbs_per_week * people * weeks).toFixed(1);
+                    return (
+                        <div key={key} className="flex justify-between items-center bg-sand-50 p-4 rounded-2xl">
+                            <div>
+                                <h4 className="font-bold text-sage-800 capitalize">{key.replace('_', ' ')}</h4>
+                                <p className="text-xs text-charcoal-light">{cat.items.slice(0, 3).join(', ')}...</p>
+                            </div>
+                            <div className="text-right">
+                                <span className="text-2xl font-serif font-bold text-terracotta-600">{totalLbs}</span>
+                                <span className="text-xs text-terracotta-400 block">lbs total</span>
+                            </div>
+                        </div>
+                    );
+                })}
+            </div>
+
+            <div className="mt-8 p-4 bg-blue-50 text-blue-800 rounded-xl text-sm text-center">
+                Water Needed: <strong>{people * weeks * 7} Gallons</strong>
+            </div>
+        </motion.div>
+    );
+};
+
+const SubstitutionEngine = ({ data }) => {
+    const subCategories = Object.keys(data.substitutions);
+
+    return (
+        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}>
+            {subCategories.map(cat => (
+                <div key={cat} className="mb-8">
+                    <h3 className="text-lg font-bold text-sage-900 mb-4 capitalize border-b border-sand-300 pb-2">{cat}</h3>
+                    <div className="space-y-3">
+                        {Object.entries(data.substitutions[cat]).map(([item, subs]) => (
+                            <div key={item} className="bg-white p-4 rounded-xl border border-sand-100">
+                                <h4 className="font-bold text-terracotta-600 mb-2 capitalize">{item.replace(/_/g, ' ')}</h4>
+                                <ul className="text-sm space-y-1 text-charcoal">
+                                    {Object.values(subs).map((s, i) => (
+                                        <li key={i} className="flex gap-2">
+                                            <span className="text-sage-400">•</span>
+                                            {s}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            ))}
+        </motion.div>
+    );
+};
+
+export default Tools;

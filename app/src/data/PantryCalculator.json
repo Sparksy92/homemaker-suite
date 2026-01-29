@@ -1,0 +1,71 @@
+{
+    "meta": {
+        "toolName": "Pantry Calculator",
+        "version": "1.0",
+        "description": "Calculates detailed food requirements based on person-days."
+    },
+    "constants": {
+        "water_per_person_day_gallons": 1,
+        "calories_per_person_day_avg": 2000
+    },
+    "categories": {
+        "grains_starch": {
+            "recommendation_lbs_per_week": 5,
+            "items": [
+                "Rice",
+                "Flour",
+                "Pasta",
+                "Oats",
+                "Potatoes (Fresh/Flakes)"
+            ]
+        },
+        "proteins_legumes": {
+            "recommendation_lbs_per_week": 3,
+            "items": [
+                "Dried Beans",
+                "Lentils",
+                "Canned Meat",
+                "Peanut Butter",
+                "Eggs (Powdered/Fresh)"
+            ]
+        },
+        "dairy": {
+            "recommendation_lbs_per_week": 0.5,
+            "items": [
+                "Powdered Milk",
+                "Evaporated Milk",
+                "Hard Cheese"
+            ]
+        },
+        "fats_oils": {
+            "recommendation_lbs_per_week": 0.5,
+            "items": [
+                "Oil",
+                "Butter/Ghee",
+                "Lard",
+                "Mayonnaise"
+            ]
+        },
+        "sugars_fruits": {
+            "recommendation_lbs_per_week": 2,
+            "items": [
+                "Sugar",
+                "Honey",
+                "Dried Fruit",
+                "Canned Fruit",
+                "Jams"
+            ]
+        }
+    },
+    "calculator_logic": {
+        "formula": "People * Weeks * CategoryWarningAmount",
+        "example_family_4_2_weeks": {
+            "grains": 40,
+            "proteins": 24,
+            "dairy": 4,
+            "fats": 4,
+            "sugars": 16,
+            "water_gallons": 56
+        }
+    }
+}

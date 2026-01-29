@@ -1,0 +1,50 @@
+{
+  "meta": {
+    "toolName": "Ingredient Wizard",
+    "version": "1.0",
+    "description": "Logic for suggesting recipes based on available ingredients."
+  },
+  "database": [
+    {
+      "recipe": "Frittata",
+      "base": ["eggs"],
+      "liquid": ["milk", "water", "cream"],
+      "mixins": ["cheese", "vegetables", "meats", "potatoes"],
+      "method": "Whisk eggs and liquid. Pour fast over sautéed mixins in skillet. Cook until set. Broil top."
+    },
+    {
+      "recipe": "Stir Fry",
+      "base": ["rice", "noodles"],
+      "protein": ["chicken", "tofu", "beef", "shrimp", "eggs"],
+      "vegetables": ["broccoli", "carrots", "peas", "peppers", "onions"],
+      "sauce_components": ["soy sauce", "ginger", "garlic", "sugar", "vinegar"],
+      "method": "Sauté protein. Remove. Sauté veggies. Return protein. Add sauce. Serve over base."
+    },
+    {
+      "recipe": "Pantry Pasta",
+      "base": ["pasta"],
+      "sauce": ["tomato sauce", "olive oil & garlic", "butter & parmesan"],
+      "add_ins": ["canned beans", "tuna", "frozen peas", "spinach"],
+      "method": "Boil pasta. Reserve water. Sauté add-ins with sauce base. Toss pasta with sauce and water."
+    },
+    {
+      "recipe": "Stone Soup",
+      "base": ["broth", "water & bouillon"],
+      "starch": ["potatoes", "rice", "barley", "pasta"],
+      "vegetables": ["carrots", "celery", "onions", "tomatoes", "cabbage"],
+      "protein": ["beans", "lentils", "leftover meat"],
+      "method": "Sauté aromatics. Add liquid and sturdy ingredients. Simmer until tender. Add soft ingredients at end."
+    },
+    {
+      "recipe": "Oatmeal Savory Bowl",
+      "base": ["oats"],
+      "liquid": ["broth", "water"],
+      "toppings": ["fried egg", "green onions", "soy sauce", "sautéed spinach", "cheese"],
+      "method": "Cook oats in salted liquid. Top with savory ingredients."
+    }
+  ],
+  "logic": {
+    "match_threshold": 0.5,
+    "instruction": "Input user's available list. Scan 'database'. Return recipes where user has Base + at least 1 item from other categories."
+  }
+}
