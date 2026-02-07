@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planting Calendar</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: #fdfcf6;
+            color: #2c3e50;
+            padding: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e5e7eb;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            margin-top: 0;
+            color: #27ae60;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #2c3e50;
+            font-size: 0.9em;
+        }
+
+        input[type="date"] {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+            font-family: inherit;
+        }
+
+        .schedule {
+            display: grid;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .item {
+            padding: 15px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 5px solid #bdc3c7;
+            background: #f9f9f9;
+        }
+
+        .item.indoor {
+            border-color: #9b59b6;
+            background: #f5eef8;
+        }
+
+        .item.cool {
+            border-color: #3498db;
+            background: #ebf5fb;
+        }
+
+        .item.warm {
+            border-color: #e67e22;
+            background: #fdf2e9;
+        }
+
+        .date {
+            font-weight: bold;
+            font-family: monospace;
+            font-size: 1.1em;
+            color: #2c3e50;
+        }
+
+        .name {
+            font-weight: 500;
+        }
+
+        .tag {
+            font-size: 0.7em;
+            text-transform: uppercase;
+            padding: 3px 6px;
+            border-radius: 4px;
+            background: rgba(0, 0, 0, 0.1);
+            margin-left: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>🌱 Planting Calculator</h1>
+
+    <div class="card">
+        <label>Last Spring Frost Date</label>
+        <div style="font-size: 0.8em; color: #7f8c8d; margin-bottom: 5px;">When is the last night of freezing temps?
+            (avg)</div>
+        <input type="date" id="frostDate" onchange="calculateSchedule()">
+
+        <div id="results" class="schedule" style="display:none">
+            <!-- Filled by JS -->
+        </div>
+    </div>
+
+    <script>
+        // Set default date to May 1st of current year
+        const today = new Date();
+        const year = today.getFullYear();
+        document.getElementById('frostDate').value = `${year}-05-01`;
+
+        const crops = [
+            { name: "Onions / Leeks", offset: -10, type: "indoor", tag: "Start Indoors" },
+            { name: "Peppers / Tomatoes", offset: -8, type: "indoor", tag: "Start Indoors" },
+            { name: "Cabbage / Kale", offset: -6, type: "indoor", tag: "Start Indoors" },
+            { name: "Peas / Spinach", offset: -4, type: "cool", tag: "Direct Sow" },
+            { name: "Carrots / Lettuce", offset: -2, type: "cool", tag: "Direct Sow" },
+            { name: "Beans / Corn", offset: 1, type: "warm", tag: "Direct Sow" },
+            { name: "Squash / Cucumber", offset: 2, type: "warm", tag: "Direct Sow" }
+        ];
+
+        function calculateSchedule() {
+            const frostInput = document.getElementById('frostDate').value;
+            if (!frostInput) return;
+
+            const frost = new Date(frostInput);
+            const container = document.getElementById('results');
+            container.innerHTML = '';
+            container.style.display = 'grid';
+
+            // Sort by date (offset)
+            crops.sort((a, b) => a.offset - b.offset);
+
+            crops.forEach(crop => {
+                const date = new Date(frost);
+                date.setDate(frost.getDate() + (crop.offset * 7)); // Offset is in weeks
+
+                const dateStr = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+
+                const div = document.createElement('div');
+                div.className = `item ${crop.type}`;
+                div.innerHTML = `
+                    <div>
+                        <span class="name">${crop.name}</span>
+                        <span class="tag">${crop.tag}</span>
+                    </div>
+                    <div class="date">${dateStr}</div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        // Init
+        calculateSchedule();
+    </script>
+</body>
+
+</html>

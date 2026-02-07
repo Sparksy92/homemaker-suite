@@ -1,0 +1,262 @@
+{
+  "0 Foundations": [
+    "0.1 Welcome.md",
+    "0.2 Philosophy.md",
+    "0.3 Tools & Equipment.md",
+    "0.4 Kitchen Setup.md",
+    "0.5 Food Safety.md",
+    "0.6 How to Use.md"
+  ],
+  "1 Pantry Systems": [
+    "1.1 Homemaker Pantry.md",
+    "1.2 Long Term Storage.md",
+    "1.3 Budget Grocery Framework.md",
+    "1.4 Ingredient Substitutions.md",
+    "1.5 Shelf Life Guide.md"
+  ],
+  "2 Cooking Basics": [
+    "2.1 Knife Skills.md",
+    "2.2 How to Read Recipes.md",
+    "2.3 Heat & Doneness.md",
+    "2.4 Flavor Balancing.md",
+    "2.5 Limited Ingredients.md",
+    "2.6 One Pot Cooking.md",
+    "2.7 Cast Iron Restoration.md",
+    "2.8 Knife Sharpening.md",
+    "2.9 Mise en Place.md"
+  ],
+  "3 Recipes": [
+    "3.1 Breakfasts.md",
+    "3.2 Soups & Stews.md",
+    "3.3 Main Dishes.md",
+    "3.4 Breads & Grains.md",
+    "3.5 Sauces & Condiments.md",
+    "3.6 Sourdough.md",
+    "3.7 Cast Iron.md",
+    "3.8 Home Dairy.md",
+    "3.9 Fermentation.md",
+    "3.10 Butchery Basics.md",
+    "3.11 Curing and Smoking.md",
+    "3.12 Bagels.md",
+    "3.13 Pizza Dough.md",
+    "3.14 Pie Crust.md",
+    "3.15 Pasta.md",
+    "3.16 Tortillas.md"
+  ],
+  "4 Preservation": [
+    "4.1 Water Bath Canning.md",
+    "4.2 Pressure Canning.md",
+    "4.3 Dehydrating.md",
+    "4.4 Fermentation.md",
+    "4.5 Root Cellaring.md",
+    "4.6 Jams & Jellies.md",
+    "4.7 Quick Pickles.md",
+    "4.8 Salt Curing.md",
+    "4.9 Freeze Drying.md",
+    "4.10 Curing Safety.md"
+  ],
+  "5 Gardening": [
+    "5.1 Garden Planning.md",
+    "5.2 Soil Health.md",
+    "5.3 Seed Starting.md",
+    "5.4 Composting.md",
+    "5.5 Pest Management.md",
+    "5.6 Medicinal Herbs.md",
+    "5.7 Seed Saving.md",
+    "5.8 Permaculture 101.md",
+    "5.9 Mushrooms.md",
+    "5.10 Tomatoes.md",
+    "5.11 Potatoes.md",
+    "5.12 Carrots.md",
+    "5.13 Onions and Garlic.md",
+    "5.14 Berry Bushes.md",
+    "5.15 Fruit Trees.md"
+  ],
+  "6 Home Maintenance": [
+    "6.1 Cleaning Chemistry.md",
+    "6.2 Basic Repairs.md",
+    "6.3 Soap Making.md",
+    "6.4 Tool Maintenance.md",
+    "6.5 Plumbing 101.md",
+    "6.6 Electrical 101.md",
+    "6.7 Drywall Repair.md",
+    "6.8 Painting.md",
+    "6.9 Stain Removal.md",
+    "6.10 Laundry Hacking.md"
+  ],
+  "7 Budget & Lifestyle": [
+    "7.1 The Envelope System.md",
+    "7.2 Frugal Living.md",
+    "7.3 Side Hustles.md",
+    "7.4 Bulk Buying.md"
+  ],
+  "8 Nutrition": [
+    "8.1 Nutrition 101.md"
+  ],
+  "9 Seasonal Guides": [
+    "9.1 Spring.md",
+    "9.2 Summer.md",
+    "9.3 Autumn.md",
+    "9.4 Winter.md"
+  ],
+  "11 Printables": [
+    "CleaningChecklists.md",
+    "EmergencyReference.md",
+    "GardenPlanner.md",
+    "MealPlanner.md",
+    "PantryInventory.md"
+  ],
+  "12 Construction": [
+    "12.1 Log Cabin.md",
+    "12.2 Root Cellar Build.md",
+    "12.3 Fencing 101.md",
+    "12.4 Rainwater Catchment.md",
+    "12.5 Solar Dehydrator.md",
+    "12.6 Composting Toilet.md",
+    "12.7 Timber Framing.md",
+    "12.8 Masonry Basics.md"
+  ],
+  "13 Animal Husbandry": [
+    "13.1 Backyard Chickens.md",
+    "13.2 Rabbits.md",
+    "13.3 Beekeeping.md",
+    "13.4 Pig Farming.md"
+  ],
+  "14 Textiles & Crafts": [
+    "14.1 Sewing Basics.md",
+    "14.2 Natural Dyes.md",
+    "14.3 Candle Making.md",
+    "14.4 Knitting Basics.md",
+    "14.5 Crochet Basics.md",
+    "14.6 Quilting.md",
+    "14.7 Visible Mending.md"
+  ],
+  "15 Emergency & Health": [
+    "15.1 72 Hour Kits.md",
+    "15.2 Home Pharmacy.md",
+    "15.3 Water Purification.md"
+  ],
+  "16 Bushcraft": [
+    "16.1 Survival Priorities.md",
+    "16.2 Fire Starting.md",
+    "16.3 River Fishing.md",
+    "16.4 Small Game Trapping.md",
+    "16.5 Primitive Water Filtration.md",
+    "16.6 Navigation.md",
+    "16.7 Essential Knots.md",
+    "16.8 Foraging 101.md",
+    "16.9 Wild Medicine.md",
+    "16.10 Emergency Shelter.md",
+    "16.11 Tracking Basics.md"
+  ],
+  "17 Blacksmithing": [
+    "17.1 The Primitive Forge.md",
+    "17.2 Scrap Metal Scavenging.md",
+    "17.3 Basic Tools.md"
+  ],
+  "18 Leatherworking": [
+    "18.1 Brain Tanning.md",
+    "18.2 Making Moccasins.md",
+    "18.3 Sewing Leather.md"
+  ],
+  "19 Off-Grid Water & Power": [
+    "19.1 Ram Pumps.md",
+    "19.2 Micro Hydro.md",
+    "19.3 Solar Battery Bank Sizing.md"
+  ],
+  "20 Advanced Hygiene": [
+    "20.1 Ash Soap.md"
+  ],
+  "21 Field Crops": [
+    "21.1 Growing Grain Corn.md",
+    "21.2 Growing Wheat.md",
+    "21.3 Growing Oats.md",
+    "21.4 Cover Crops.md",
+    "21.5 Seed Saving.md"
+  ],
+  "22 Orchard Management": [
+    "22.1 Grafting 101.md",
+    "22.2 Pruning Types.md",
+    "22.3 IPM Strategies.md"
+  ],
+  "23 Soil Science": [
+    "23.1 Understanding NPK.md",
+    "23.2 Biochar.md"
+  ],
+  "24 Aquaponics": [
+    "24.1 System Basics.md"
+  ],
+  "25 Renewable Energy": [
+    "25.1 Solar Sizing.md",
+    "25.2 Battery Basics.md"
+  ],
+  "26 Water Systems": [
+    "26.1 Cisterns and Wells.md"
+  ],
+  "27 Mechanics": [
+    "27.1 Stick Welding.md"
+  ],
+  "28 Communications": [
+    "28.1 HAM Radio Basics.md"
+  ],
+  "29 Dental Emergency": [
+    "29.1 Emergency Dental.md"
+  ],
+  "30 Trauma Medicine": [
+    "30.1 Stop the Bleed.md",
+    "30.2 Wound Closure.md",
+    "30.3 Field Suturing.md",
+    "30.4 Field Antibiotics.md"
+  ],
+  "31 Advanced Botany": [
+    "31.1 Apothecary.md"
+  ],
+  "32 Sanitation": [
+    "32.1 Disease Prevention.md"
+  ],
+  "33 Advanced Dairy": [
+    "33.1 Hard Cheese Basics.md"
+  ],
+  "34 Brewing and Distillation": [
+    "34.1 Survival Beer.md",
+    "34.2 Distillation Basics.md",
+    "34.3 Distillation Fuel.md"
+  ],
+  "35 Big Game Butchery": [
+    "35.1 Field Dressing.md",
+    "35.2 Curing Hams.md"
+  ],
+  "36 Fiber Arts": [
+    "36.1 Spinning Wool.md",
+    "36.2 Weaving Basics.md"
+  ],
+  "37 Heavy Leather": [
+    "37.1 Making Boots.md"
+  ],
+  "38 Timber Framing": [
+    "38.1 Mortise and Tenon.md"
+  ],
+  "39 Masonry": [
+    "39.1 Mortar Chemistry.md"
+  ],
+  "40 Technical Manuals": [
+    "40.1 Test Manual.pdf"
+  ],
+  "50 Interactive Tools": [
+    "50.1 Solar Calculator.html",
+    "50.2 Ballistics Calculator.html",
+    "50.3 Unit Converter.html",
+    "50.4 Construction Calculator.html",
+    "50.5 Medical Dosage Calculator.html",
+    "50.6 Ration Calculator.html",
+    "50.7 Planting Calendar.html",
+    "50.8 Pantry Manager.html"
+  ],
+  "99 Reference Library": [
+    "99.1 Knots, Splices and Rope Work.md",
+    "99.2 First Aid in Illness and Injury.md",
+    "99.3 The Amateur Machinist.md",
+    "99.4 Camp Life in the Woods.md",
+    "99.5 Steam, Its Generation and Use.md"
+  ]
+}

@@ -1,14 +1,30 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Calculator, Soup, Repeat } from 'lucide-react';
+import { Calculator, Soup, Repeat, Calendar, Wrench } from 'lucide-react';
 
 // Import JSON data directly
 import ingredientWizardData from '../data/IngredientWizard.json';
 import subEngineData from '../data/SubstitutionEngine.json';
 import pantryCalcData from '../data/PantryCalculator.json';
 
+import MealPlans from './MealPlans';
+
+// Import generic file fetcher (simplified for this view)
 const Tools = () => {
     const [activeTab, setActiveTab] = useState('wizard');
+    const [survivalTools, setSurvivalTools] = useState([]);
+
+    // Fetch survival tools on mount
+    React.useEffect(() => {
+        fetch('/library_index.json')
+            .then(res => res.json())
+            .then(data => {
+                const tools = data["50 Interactive Tools"] || [];
+                setSurvivalTools(tools);
+            });
+    }, []);
+
+    const [activeToolUrl, setActiveToolUrl] = useState(null);
 
     return (
         <div className="p-6 min-h-screen pb-24">
@@ -23,6 +39,12 @@ const Tools = () => {
                     label="Chef"
                 />
                 <TabButton
+                    active={activeTab === 'survival'}
+                    onClick={() => setActiveTab('survival')}
+                    icon={<Wrench size={18} />}
+                    label="Survival"
+                />
+                <TabButton
                     active={activeTab === 'pantry'}
                     onClick={() => setActiveTab('pantry')}
                     icon={<Calculator size={18} />}
@@ -34,6 +56,12 @@ const Tools = () => {
                     icon={<Repeat size={18} />}
                     label="Subs"
                 />
+                <TabButton
+                    active={activeTab === 'plans'}
+                    onClick={() => setActiveTab('plans')}
+                    icon={<Calendar size={18} />}
+                    label="Plans"
+                />
             </div>
 
             {/* Content Area */}
@@ -41,7 +69,49 @@ const Tools = () => {
                 {activeTab === 'wizard' && <IngredientWizard key="wizard" data={ingredientWizardData} />}
                 {activeTab === 'pantry' && <PantryCalculator key="pantry" data={pantryCalcData} />}
                 {activeTab === 'sub' && <SubstitutionEngine key="sub" data={subEngineData} />}
+                {activeTab === 'survival' && (
+                    <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}>
+                        <div className="grid gap-4">
+                            {survivalTools.map(tool => (
+                                <button
+                                    key={tool}
+                                    onClick={() => setActiveToolUrl(`/content/50 Interactive Tools/${tool}`)}
+                                    className="bg-white p-6 rounded-2xl shadow-sm border border-sand-200 text-left hover:border-terracotta-300 transition-all group"
+                                >
+                                    <h3 className="text-xl font-serif font-bold text-sage-800 group-hover:text-terracotta-600 transition-colors">
+                                        {tool.replace('50.', '').replace(/\d+\s/, '').replace('.html', '')}
+                                    </h3>
+                                    <p className="text-sm text-charcoal-light mt-1">Interactive HTML Utility</p>
+                                </button>
+                            ))}
+                            {survivalTools.length === 0 && <p className="text-center text-sand-500 italic">No tools found.</p>}
+                        </div>
+                    </motion.div>
+                )}
+                {activeTab === 'plans' && (
+                    <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}>
+                        <MealPlans />
+                    </motion.div>
+                )}
             </AnimatePresence>
+
+            {/* Tool Modal */}
+            {activeToolUrl && (
+                <div className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4">
+                    <div className="bg-white w-full max-w-4xl h-[90vh] rounded-2xl overflow-hidden flex flex-col relative">
+                        <div className="p-4 bg-sage-50 border-b border-sand-200 flex justify-between items-center">
+                            <h2 className="font-bold text-sage-800">Tool Viewer</h2>
+                            <button onClick={() => setActiveToolUrl(null)} className="p-2 hover:bg-sage-200 rounded-full">✕</button>
+                        </div>
+                        <iframe
+                            src={activeToolUrl}
+                            className="flex-1 w-full border-0"
+                            title="Tool"
+                            sandbox="allow-scripts allow-same-origin allow-forms"
+                        />
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
@@ -50,8 +120,8 @@ const TabButton = ({ active, onClick, icon, label }) => (
     <button
         onClick={onClick}
         className={`flex items-center gap-2 px-4 py-2 rounded-full whitespace-nowrap transition-all ${active
-                ? 'bg-sage-600 text-white shadow-lg'
-                : 'bg-white text-sage-700 border border-sage-200 hover:bg-sage-50'
+            ? 'bg-sage-600 text-white shadow-lg'
+            : 'bg-white text-sage-700 border border-sage-200 hover:bg-sage-50'
             }`}
     >
         {icon}

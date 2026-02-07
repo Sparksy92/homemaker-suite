@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ballistics Calculator</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: #fdfcf6;
+            color: #2c3e50;
+            padding: 20px;
+            max-width: 600px;
+            mx-auto;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e5e7eb;
+        }
+
+        h1 {
+            margin-top: 0;
+            color: #e63946;
+        }
+
+        label {
+            display: block;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        .result {
+            margin-top: 30px;
+            padding: 20px;
+            background: #e0fbfc;
+            border-radius: 8px;
+            color: #293241;
+            display: none;
+        }
+
+        button {
+            background: #1d3557;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        button:hover {
+            background: #457b9d;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th,
+        td {
+            text-align: left;
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <h1>🎯 Ballistics Drop</h1>
+        <p>Estimate bullet drop for long-range hunting.</p>
+
+        <label for="velocity">Muzzle Velocity (fps)</label>
+        <input type="number" id="velocity" value="2800" placeholder="e.g. 2800 (.308 Win)">
+
+        <label for="zero">Zero Distance (yards)</label>
+        <input type="number" id="zero" value="100">
+
+        <button onclick="calculate()">Generate Drop Table</button>
+
+        <div id="result" class="result">
+            <h3>Drop Table (Inches)</h3>
+            <table id="drop-table">
+                <thead>
+                    <tr>
+                        <th>Distance</th>
+                        <th>Drop (Inches)</th>
+                        <th>Time (s)</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        function calculate() {
+            const v0 = parseFloat(document.getElementById('velocity').value);
+            const zero = parseFloat(document.getElementById('zero').value);
+
+            if (isNaN(v0) || isNaN(zero)) return;
+
+            // Simplified Physics (Vacuum approximation with BC drag factor)
+            // t = d / v
+            // d = 0.5 * g * t^2
+            const g = 32.174 * 12; // Gravity inches/s^2
+            const tbody = document.querySelector('#drop-table tbody');
+            tbody.innerHTML = '';
+
+            // Calculate drop at zero first to offset
+            const tZero = (zero * 3) / v0; // yards to feet
+            const dropAtZero = 0.5 * g * (tZero * tZero);
+
+            for (let yard = 100; yard <= 1000; yard += 100) {
+                const distFeet = yard * 3;
+
+                // Drag Model (Hack for .308 G1 approx)
+                // Velocity loses ~20% per 300 yards approx
+                // This is a rough estimation for survival, NOT match grade
+                let velocityAtDist = v0 * Math.pow(0.9, yard / 300);
+                let avgVelocity = (v0 + velocityAtDist) / 2;
+
+                const t = distFeet / avgVelocity;
+                const totalDrop = 0.5 * g * (t * t);
+                const relativeDrop = totalDrop - (dropAtZero * (yard / zero)); // Linear sight offset approximation
+
+                const row = `<tr>
+                    <td>${yard} yds</td>
+                    <td>${relativePath(relativeDrop)}</td>
+                    <td>${t.toFixed(2)}s</td>
+                </tr>`;
+                tbody.innerHTML += row;
+            }
+
+            document.getElementById('result').style.display = 'block';
+        }
+
+        function relativePath(inches) {
+            // If we are zeroed at 100, bullet matches sight line.
+            // Further out, gravity pulls it down.
+            // Simplified: Just showing raw gravity drop minus zero compensation
+            // A negative number means "Bullet is BELOW aim point"
+            return inches > 0 ? `-${inches.toFixed(1)}"` : "0";
+        }
+    </script>
+</body>
+
+</html>

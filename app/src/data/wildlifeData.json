@@ -1,0 +1,80 @@
+{
+    "flora": [
+        {
+            "name": "Dandelion",
+            "scientific_name": "Taraxacum officinale",
+            "type": "Edible",
+            "season": "Spring/Summer",
+            "identification": "Yellow flower head, lobed leaves form a rosette at base, hollow milky stem.",
+            "uses": "Leaves in salad, roots roasted for tea, flowers for jelly.",
+            "caution": "Ensure area hasn't been sprayed with pesticides.",
+            "image_placeholder": "dandelion.jpg"
+        },
+        {
+            "name": "Stinging Nettle",
+            "scientific_name": "Urtica dioica",
+            "type": "Edible (Cooked)",
+            "season": "Spring",
+            "identification": "Serrated leaves, tiny stinging hairs on stems and leaves.",
+            "uses": "Cooked like spinach, tea, soup.",
+            "caution": "Must be cooked or dried to disarm stinging hairs. Wear gloves when harvesting.",
+            "image_placeholder": "nettle.jpg"
+        },
+        {
+            "name": "Hemlock",
+            "scientific_name": "Conium maculatum",
+            "type": "Poisonous",
+            "season": "Spring/Summer",
+            "identification": "Purple blotches on smooth stems, fern-like leaves, white umbrella flowers.",
+            "uses": "NONE - DEADLY.",
+            "caution": "Easily confused with Queen Anne's Lace or Wild Carrot. Do not touch.",
+            "image_placeholder": "hemlock.jpg"
+        }
+    ],
+    "fauna": [
+        {
+            "name": "Honey Bee",
+            "role": "Beneficial Pollinator",
+            "notes": "Essential for garden health. Attracted to purple and blue flowers.",
+            "status": "Protect"
+        },
+        {
+            "name": "Ladybug",
+            "role": "Beneficial Predator",
+            "notes": "Eats aphids and other garden pests.",
+            "status": "Encourage"
+        },
+        {
+            "name": "Tomato Hornworm",
+            "role": "Pest",
+            "notes": "Large green caterpillar with horn on tail. Strips tomato plants quickly.",
+            "status": "Remove/Control"
+        }
+    ],
+    "foraging_calendar": {
+        "Spring": [
+            "Dandelion",
+            "Nettle",
+            "Chickweed",
+            "Morel Mushrooms",
+            "Fiddleheads"
+        ],
+        "Summer": [
+            "Mulberries",
+            "Blackberries",
+            "Elderflowers",
+            "Purslane"
+        ],
+        "Autumn": [
+            "Rose Hips",
+            "Hazelnuts",
+            "Walnuts",
+            "Crabapples"
+        ],
+        "Winter": [
+            "Birch Bark",
+            "Pine Needles (Tea)",
+            "Rose Hips (Late)"
+        ]
+    }
+}

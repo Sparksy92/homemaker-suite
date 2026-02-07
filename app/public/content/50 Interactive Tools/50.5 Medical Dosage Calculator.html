@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical Math</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: #fdfcf6;
+            color: #2c3e50;
+            padding: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e5e7eb;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            margin-top: 0;
+            color: #c0392b;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        h2 {
+            color: #7f8c8d;
+            font-size: 1.1em;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #2c3e50;
+            font-size: 0.9em;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        .result {
+            background: #fee2e2;
+            color: #c0392b;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.2em;
+            display: none;
+            border: 1px solid #fca5a5;
+        }
+
+        .warning {
+            font-size: 0.8em;
+            color: #e67e22;
+            background: #fff3cd;
+            padding: 10px;
+            border-radius: 6px;
+            margin-top: 20px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #c0392b;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            background: #a93226;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>⚕️ Dosage Calc</h1>
+
+    <div class="card">
+        <h2>Pediatric/Adult Liquid Dose</h2>
+
+        <label>Patient Weight</label>
+        <div style="display: flex; gap: 10px;">
+            <input type="number" id="weight" placeholder="Weight">
+            <select id="unit" style="width: 80px;">
+                <option value="kg">kg</option>
+                <option value="lb">lbs</option>
+            </select>
+        </div>
+
+        <label>Medication Dose (mg per kg)</label>
+        <input type="number" id="dose" placeholder="e.g. 20 (Amoxicillin usually 20-40)">
+
+        <label>Suspension Concentration</label>
+        <div style="display: flex; gap: 10px; align-items: center;">
+            <input type="number" id="conc-mg" placeholder="mg">
+            <span>per</span>
+            <input type="number" id="conc-ml" placeholder="ml" value="5">
+            <span>ml</span>
+        </div>
+
+        <button onclick="calculate()">Calculate Volume</button>
+
+        <div id="result" class="result" style="margin-top: 20px;"></div>
+
+        <div class="warning">
+            ⚠️ <strong>Reference Only.</strong> dosages vary by drug type. Always check the bottle or manual (Guide 30).
+            Common assumption: Amoxicillin (20-40mg/kg/day), Ibuprofen (10mg/kg).
+        </div>
+    </div>
+
+    <script>
+        function calculate() {
+            let weight = parseFloat(document.getElementById('weight').value);
+            const unit = document.getElementById('unit').value;
+            const dosePerKg = parseFloat(document.getElementById('dose').value);
+            const concMg = parseFloat(document.getElementById('conc-mg').value);
+            const concMl = parseFloat(document.getElementById('conc-ml').value);
+
+            if (!weight || !dosePerKg || !concMg || !concMl) {
+                alert("Please fill all fields");
+                return;
+            }
+
+            // Convert lbs to kg
+            if (unit === 'lb') weight = weight / 2.20462;
+
+            // Total mg needed
+            const totalMg = weight * dosePerKg;
+
+            // Volume needed: (Total Mg / Conc Mg) * Conc Ml
+            const totalMl = (totalMg / concMg) * concMl;
+
+            const res = document.getElementById('result');
+            res.style.display = 'block';
+            res.innerHTML = `
+                Give: ${totalMl.toFixed(1)} ml<br>
+                <span style="font-size:0.7em; color: #7f8c8d">(${totalMg.toFixed(0)} mg total)</span>
+            `;
+        }
+    </script>
+</body>
+
+</html>
