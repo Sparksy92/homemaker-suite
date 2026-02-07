@@ -23,7 +23,8 @@
     "2.6 One Pot Cooking.md",
     "2.7 Cast Iron Restoration.md",
     "2.8 Knife Sharpening.md",
-    "2.9 Mise en Place.md"
+    "2.9 Mise en Place.md",
+    "2.10 The Miller's Craft.md"
   ],
   "3 Recipes": [
     "3.1 Breakfasts.md",
@@ -41,7 +42,9 @@
     "3.13 Pizza Dough.md",
     "3.14 Pie Crust.md",
     "3.15 Pasta.md",
-    "3.16 Tortillas.md"
+    "3.16 Tortillas.md",
+    "3.17 The Primitive Baker.md",
+    "3.18 The Survival Pantry.md"
   ],
   "4 Preservation": [
     "4.1 Water Bath Canning.md",
@@ -131,41 +134,37 @@
     "14.6 Quilting.md",
     "14.7 Visible Mending.md"
   ],
-  "15 Emergency & Health": [
-    "15.1 72 Hour Kits.md",
-    "15.2 Home Pharmacy.md",
-    "15.3 Water Purification.md"
+  "15 Infrastructure": [
+    "15.1 Water Procurement.md",
+    "15.2 Waste Management.md",
+    "15.3 Security.md",
+    "15.4 Advanced Security.md",
+    "15.5 Communication.md"
   ],
-  "16 Bushcraft": [
-    "16.1 Survival Priorities.md",
-    "16.2 Fire Starting.md",
-    "16.3 River Fishing.md",
-    "16.4 Small Game Trapping.md",
-    "16.5 Primitive Water Filtration.md",
-    "16.6 Navigation.md",
-    "16.7 Essential Knots.md",
-    "16.8 Foraging 101.md",
-    "16.9 Wild Medicine.md",
-    "16.10 Emergency Shelter.md",
-    "16.11 Tracking Basics.md"
+  "16 Tools & Workshop": [
+    "16.1 Tool Maintenance.md",
+    "16.2 Improvised Tools.md",
+    "16.3 The Essential Toolkit.md"
   ],
-  "17 Blacksmithing": [
-    "17.1 The Primitive Forge.md",
-    "17.2 Scrap Metal Scavenging.md",
-    "17.3 Basic Tools.md"
+  "17 Shelter & Weatherproofing": [
+    "17.1 Emergency Shelters.md",
+    "17.2 Weatherproofing.md",
+    "17.3 Long Term Shelter.md"
   ],
-  "18 Leatherworking": [
-    "18.1 Brain Tanning.md",
-    "18.2 Making Moccasins.md",
-    "18.3 Sewing Leather.md"
+  "18 Energy & Lighting": [
+    "18.1 Off-Grid Lighting.md",
+    "18.2 Solar & Passive Energy.md",
+    "18.3 Off-Grid Heating.md"
   ],
-  "19 Off-Grid Water & Power": [
-    "19.1 Ram Pumps.md",
-    "19.2 Micro Hydro.md",
-    "19.3 Solar Battery Bank Sizing.md"
+  "19 Navigation & Awareness": [
+    "19.1 Natural Navigation.md",
+    "19.2 Situational Awareness.md",
+    "19.3 Map and Compass.md"
   ],
-  "20 Advanced Hygiene": [
-    "20.1 Ash Soap.md"
+  "20 Textiles & Clothing": [
+    "20.1 Clothing Repair.md",
+    "20.2 Insulation & Layering.md",
+    "20.3 Clothing Production.md"
   ],
   "21 Field Crops": [
     "21.1 Growing Grain Corn.md",
@@ -194,7 +193,8 @@
     "26.1 Cisterns and Wells.md"
   ],
   "27 Mechanics": [
-    "27.1 Stick Welding.md"
+    "27.1 Stick Welding.md",
+    "27.2 Wood Gasification.md"
   ],
   "28 Communications": [
     "28.1 HAM Radio Basics.md"
@@ -206,10 +206,12 @@
     "30.1 Stop the Bleed.md",
     "30.2 Wound Closure.md",
     "30.3 Field Suturing.md",
-    "30.4 Field Antibiotics.md"
+    "30.4 Field Antibiotics.md",
+    "30.5 Primitive Antibiotics.md"
   ],
   "31 Advanced Botany": [
-    "31.1 Apothecary.md"
+    "31.1 Apothecary.md",
+    "31.2 Black Powder Manufacture.md"
   ],
   "32 Sanitation": [
     "32.1 Disease Prevention.md"
@@ -237,7 +239,8 @@
     "38.1 Mortise and Tenon.md"
   ],
   "39 Masonry": [
-    "39.1 Mortar Chemistry.md"
+    "39.1 Mortar Chemistry.md",
+    "39.2 Roman Concrete.md"
   ],
   "40 Technical Manuals": [
     "40.1 Test Manual.pdf"

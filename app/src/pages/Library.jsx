@@ -187,7 +187,7 @@ const Library = ({ type = 'all' }) => {
             });
         });
         return files;
-    }, []);
+    }, [fileSystem]);
 
     // Filtered results
     const searchResults = allFiles.filter(item =>

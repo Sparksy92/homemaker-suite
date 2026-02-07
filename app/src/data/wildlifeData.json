@@ -6,75 +6,226 @@
             "type": "Edible",
             "season": "Spring/Summer",
             "identification": "Yellow flower head, lobed leaves form a rosette at base, hollow milky stem.",
-            "uses": "Leaves in salad, roots roasted for tea, flowers for jelly.",
+            "uses": "Leaves in salad, roots roasted for 'coffee', flowers for jelly.",
             "caution": "Ensure area hasn't been sprayed with pesticides.",
             "image_placeholder": "dandelion.jpg"
         },
         {
             "name": "Stinging Nettle",
             "scientific_name": "Urtica dioica",
-            "type": "Edible (Cooked)",
+            "type": "Edible / Medicinal",
             "season": "Spring",
             "identification": "Serrated leaves, tiny stinging hairs on stems and leaves.",
-            "uses": "Cooked like spinach, tea, soup.",
-            "caution": "Must be cooked or dried to disarm stinging hairs. Wear gloves when harvesting.",
+            "uses": "Cooked like spinach (destroys sting), high iron tea, cordage from stems.",
+            "caution": "Must be cooked/dried. Wear gloves. 'Dock leaf' often grows nearby to soothe stings.",
             "image_placeholder": "nettle.jpg"
         },
         {
-            "name": "Hemlock",
+            "name": "Cattail",
+            "scientific_name": "Typha latifolia",
+            "type": "Edible / Utility",
+            "season": "All Year",
+            "identification": "Tall reed in water, brown 'cigar' seed head.",
+            "uses": "Spring shoots (raw), Pollen (flour), Roots (starch), Fluff (insulation).",
+            "caution": "Ensure water source is not polluted (bio-accumulator). Lookalikes: Iris (toxic).",
+            "image_placeholder": "cattail.jpg"
+        },
+        {
+            "name": "White Willow",
+            "scientific_name": "Salix alba",
+            "type": "Medicinal",
+            "season": "Year Round",
+            "identification": "Tree near water, lance-shaped leaves with white underside.",
+            "uses": "Bark contains Salicin (Aspirin). Chew twig for pain/fever relief.",
+            "caution": "Blood thinner. Do not use if allergic to aspirin.",
+            "image_placeholder": "willow.jpg"
+        },
+        {
+            "name": "Broadleaf Plantain",
+            "scientific_name": "Plantago major",
+            "type": "Medicinal",
+            "season": "Spring/Summer",
+            "identification": "Low rosette, oval leaves with distinct parallel ribs.",
+            "uses": "'Green Band-Aid'. Chew leaf into poultice for bee stings, bites, and cuts.",
+            "caution": "None.",
+            "image_placeholder": "plantain.jpg"
+        },
+        {
+            "name": "Yarrow",
+            "scientific_name": "Achillea millefolium",
+            "type": "Medicinal",
+            "season": "Summer",
+            "identification": "Feathery fern-like leaves, flat cluster of white flowers.",
+            "uses": "Styptic (stops bleeding). Pack into deep wounds. Fever reducer tea.",
+            "caution": "Lookalikes: Hemlock (deadly). Yarrow has feathery leaves, Hemlock has carrot-like leaves.",
+            "image_placeholder": "yarrow.jpg"
+        },
+        {
+            "name": "Mullein",
+            "scientific_name": "Verbascum thapsus",
+            "type": "Medicinal / Utility",
+            "season": "Biennial",
+            "identification": "Tall stalk (year 2), fuzzy soft 'lamb's ear' leaves.",
+            "uses": "Leaves for respiratory tea (filter hairs). Flower stalk dip in fat for torch. 'Cowboy Toilet Paper'.",
+            "caution": "Tiny hairs can irritate throat - ensure tea is filtered well.",
+            "image_placeholder": "mullein.jpg"
+        },
+        {
+            "name": "White Pine",
+            "scientific_name": "Pinus strobus",
+            "type": "Edible / Utility",
+            "season": "Year Round",
+            "identification": "Needles in bundles of 5. Long cones.",
+            "uses": "Needle tea (Vitamin C). Resin for glue/fire starter. Inner bark (famine food).",
+            "caution": "Lookalike: Yew (flat needles, red berries) is DEADLY.",
+            "image_placeholder": "pine.jpg"
+        },
+        {
+            "name": "Jewelweed",
+            "scientific_name": "Impatiens capensis",
+            "type": "Medicinal",
+            "season": "Summer",
+            "identification": "Tall, translucent stem, orange trumpet flowers. Grows near Poison Ivy.",
+            "uses": "The Antidote. Crush stem juice onto Poison Ivy rash immediately.",
+            "caution": "None.",
+            "image_placeholder": "jewelweed.jpg"
+        },
+        {
+            "name": "Poison Hemlock",
             "scientific_name": "Conium maculatum",
             "type": "Poisonous",
             "season": "Spring/Summer",
-            "identification": "Purple blotches on smooth stems, fern-like leaves, white umbrella flowers.",
-            "uses": "NONE - DEADLY.",
-            "caution": "Easily confused with Queen Anne's Lace or Wild Carrot. Do not touch.",
+            "identification": "Purple splotches on smooth hairless stem. Fern-like leaves. White umbrella flowers.",
+            "uses": "NONE - DEADLY neurotoxin.",
+            "caution": "Do not touch. Can be fatal if eaten (mistaken for wild carrot).",
             "image_placeholder": "hemlock.jpg"
+        },
+        {
+            "name": "Poison Ivy",
+            "scientific_name": "Toxicodendron radicans",
+            "type": "Poisonous",
+            "season": "Spring/Summer",
+            "identification": "Leaves of three, shiny. vine or shrub. 'Hairy' vine on trees.",
+            "uses": "NONE.",
+            "caution": "Oil (Urushiol) causes blistering rash. Wash with cold water and soap within 15 mins.",
+            "image_placeholder": "poison_ivy.jpg"
         }
     ],
     "fauna": [
         {
-            "name": "Honey Bee",
-            "role": "Beneficial Pollinator",
-            "notes": "Essential for garden health. Attracted to purple and blue flowers.",
-            "status": "Protect"
+            "name": "White-Tailed Deer",
+            "role": "Game",
+            "notes": "Primary large game. Crepuscular (active dawn/dusk).",
+            "status": "Track"
         },
         {
-            "name": "Ladybug",
-            "role": "Beneficial Predator",
-            "notes": "Eats aphids and other garden pests.",
-            "status": "Encourage"
+            "name": "Cottontail Rabbit",
+            "role": "Game",
+            "notes": "Plentiful but low fat ('Rabbit Starvation' risk if eaten exclusively).",
+            "status": "Trap/Snare"
         },
         {
-            "name": "Tomato Hornworm",
+            "name": "Black Bear",
+            "role": "Predator",
+            "notes": "Generally shy but dangerous around cubs or food. Hang food bags 10ft high.",
+            "status": "Avoid"
+        },
+        {
+            "name": "Coyote",
+            "role": "Predator",
+            "notes": "Pack hunter. Scavenger. Keep pets close.",
+            "status": "Deter"
+        },
+        {
+            "name": "Deer Tick",
             "role": "Pest",
-            "notes": "Large green caterpillar with horn on tail. Strips tomato plants quickly.",
-            "status": "Remove/Control"
+            "notes": "Current carrier of Lyme Disease. Size of poppy seed.",
+            "status": "Check Daily"
+        },
+        {
+            "name": "Mosquito",
+            "role": "Pest",
+            "notes": "Vector for disease. Repel with smoke or mud if necessary.",
+            "status": "Repel"
+        },
+        {
+            "name": "Honey Bee",
+            "role": "Beneficial",
+            "notes": "Critical pollinator.",
+            "status": "Protect"
+        }
+    ],
+    "tracking": [
+        {
+            "name": "Deer Track",
+            "category": "Hoof",
+            "description": "Heart-shaped. Two toes. 2-3 inches long. Sharp edges indicate freshness.",
+            "gait": "Diagonal Walker (Rear foot lands on front track)"
+        },
+        {
+            "name": "Rabbit Track",
+            "category": "Paw",
+            "description": "The 'Y' shape. Two long rear feet land *in front* of two small front feet.",
+            "gait": "Galloper"
+        },
+        {
+            "name": "Canine (Coyote/Dog)",
+            "category": "Paw",
+            "description": "Oval shape. 4 toes. Claws visible (X shape between toes).",
+            "gait": "Diagonal Walker"
+        },
+        {
+            "name": "Feline (Bobcat)",
+            "category": "Paw",
+            "description": "Round shape. 4 toes. NO claws visible (retractable). Asymmetric leading toe.",
+            "gait": "Direct Walker"
+        },
+        {
+            "name": "Raccoon",
+            "category": "Paw",
+            "description": "Looks like a small human hand (5 long fingers).",
+            "gait": "Pacer"
+        },
+        {
+            "name": "Scat: Herbivore",
+            "category": "Sign",
+            "description": "Pellets (Deer/Rabbit) or amorphous piles (Cow). Fibrous plant matter visible.",
+            "gait": "N/A"
+        },
+        {
+            "name": "Scat: Carnivore",
+            "category": "Sign",
+            "description": "Tubular, tapered ends. Contains fur/bones. White color indicates high bone content.",
+            "gait": "N/A"
         }
     ],
     "foraging_calendar": {
         "Spring": [
-            "Dandelion",
-            "Nettle",
-            "Chickweed",
-            "Morel Mushrooms",
+            "Dandelion Greens",
+            "Nettle (Shoots)",
+            "Cattail (Shoots)",
+            "Morels",
+            "Maple Sap",
             "Fiddleheads"
         ],
         "Summer": [
-            "Mulberries",
-            "Blackberries",
-            "Elderflowers",
-            "Purslane"
+            "Berries (Mulberry/Blackberry)",
+            "Cattail (Pollen)",
+            "Plantain",
+            "Jewelweed"
         ],
         "Autumn": [
-            "Rose Hips",
-            "Hazelnuts",
+            "Acorns (Oak)",
             "Walnuts",
-            "Crabapples"
+            "Rose Hips",
+            "Cattail (Roots)",
+            "Jerusalem Artichoke"
         ],
         "Winter": [
+            "Pine Needles",
             "Birch Bark",
-            "Pine Needles (Tea)",
-            "Rose Hips (Late)"
+            "Cattail (Roots - Ice Method)",
+            "Rose Hips (Frozen)"
         ]
     }
 }

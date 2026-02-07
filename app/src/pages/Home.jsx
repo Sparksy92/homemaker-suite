@@ -3,6 +3,13 @@ import { motion } from 'framer-motion';
 import { Sun, Droplets, Leaf } from 'lucide-react';
 
 const Dashboard = () => {
+    const today = new Date();
+    const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    const dateString = today.toLocaleDateString('en-US', dateOptions);
+
+    const hour = today.getHours();
+    const greeting = hour < 12 ? 'Good Morning' : hour < 18 ? 'Good Afternoon' : 'Good Evening';
+
     return (
         <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -13,9 +20,9 @@ const Dashboard = () => {
 
             {/* Welcome Section */}
             <section>
-                <span className="text-terracotta-600 font-bold text-xs uppercase tracking-widest">January 28, 2026</span>
+                <span className="text-terracotta-600 font-bold text-xs uppercase tracking-widest">{dateString}</span>
                 <h2 className="text-3xl mt-1 text-sage-900 leading-tight">
-                    Good Afternoon,<br /><span className="italic text-terracotta-500">Homemaker.</span>
+                    {greeting},<br /><span className="italic text-terracotta-500">Homemaker.</span>
                 </h2>
             </section>
 
@@ -55,7 +62,7 @@ const Dashboard = () => {
                     </div>
                     <div className="p-5">
                         <p className="text-sm text-charcoal-light mb-1">Garden Task</p>
-                        <p className="font-serif text-xl text-sage-800">Order Seeds for Spring</p>
+                        <p className="font-serif text-xl text-sage-800">Inventory Seed Stock</p>
                     </div>
                 </div>
             </section>

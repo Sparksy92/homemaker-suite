@@ -1,6 +1,5 @@
-
-$indexFile = "c:\Users\Blair\Downloads\Homemaker Suite\app\public\library_index.json"
-$contentBase = "c:\Users\Blair\Downloads\Homemaker Suite\app\public\content"
+$indexFile = Join-Path $PSScriptRoot "app\public\library_index.json"
+$contentBase = Join-Path $PSScriptRoot "app\public\content"
 
 if (-not (Test-Path $indexFile)) {
     Write-Error "Index file not found!"
@@ -23,6 +22,7 @@ foreach ($folder in $json.PSObject.Properties.Name) {
 
 if ($missingFiles.Count -eq 0) {
     echo "All files in index found on disk."
-} else {
+}
+else {
     echo "Found $($missingFiles.Count) missing files."
 }
