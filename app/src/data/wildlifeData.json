@@ -1,6 +1,7 @@
 {
     "flora": [
         {
+            "id": "dandelion",
             "name": "Dandelion",
             "scientific_name": "Taraxacum officinale",
             "type": "Edible",
@@ -8,9 +9,12 @@
             "identification": "Yellow flower head, lobed leaves form a rosette at base, hollow milky stem.",
             "uses": "Leaves in salad, roots roasted for 'coffee', flowers for jelly.",
             "caution": "Ensure area hasn't been sprayed with pesticides.",
-            "image_placeholder": "dandelion.jpg"
+            "images": [
+                "dandelion.jpg"
+            ]
         },
         {
+            "id": "stinging_nettle",
             "name": "Stinging Nettle",
             "scientific_name": "Urtica dioica",
             "type": "Edible / Medicinal",
@@ -18,9 +22,12 @@
             "identification": "Serrated leaves, tiny stinging hairs on stems and leaves.",
             "uses": "Cooked like spinach (destroys sting), high iron tea, cordage from stems.",
             "caution": "Must be cooked/dried. Wear gloves. 'Dock leaf' often grows nearby to soothe stings.",
-            "image_placeholder": "nettle.jpg"
+            "images": [
+                "nettle.jpg"
+            ]
         },
         {
+            "id": "cattail",
             "name": "Cattail",
             "scientific_name": "Typha latifolia",
             "type": "Edible / Utility",
@@ -28,9 +35,12 @@
             "identification": "Tall reed in water, brown 'cigar' seed head.",
             "uses": "Spring shoots (raw), Pollen (flour), Roots (starch), Fluff (insulation).",
             "caution": "Ensure water source is not polluted (bio-accumulator). Lookalikes: Iris (toxic).",
-            "image_placeholder": "cattail.jpg"
+            "images": [
+                "cattail.jpg"
+            ]
         },
         {
+            "id": "white_willow",
             "name": "White Willow",
             "scientific_name": "Salix alba",
             "type": "Medicinal",
@@ -38,9 +48,12 @@
             "identification": "Tree near water, lance-shaped leaves with white underside.",
             "uses": "Bark contains Salicin (Aspirin). Chew twig for pain/fever relief.",
             "caution": "Blood thinner. Do not use if allergic to aspirin.",
-            "image_placeholder": "willow.jpg"
+            "images": [
+                "willow.jpg"
+            ]
         },
         {
+            "id": "broadleaf_plantain",
             "name": "Broadleaf Plantain",
             "scientific_name": "Plantago major",
             "type": "Medicinal",
@@ -48,9 +61,12 @@
             "identification": "Low rosette, oval leaves with distinct parallel ribs.",
             "uses": "'Green Band-Aid'. Chew leaf into poultice for bee stings, bites, and cuts.",
             "caution": "None.",
-            "image_placeholder": "plantain.jpg"
+            "images": [
+                "plantain.jpg"
+            ]
         },
         {
+            "id": "yarrow",
             "name": "Yarrow",
             "scientific_name": "Achillea millefolium",
             "type": "Medicinal",
@@ -58,9 +74,12 @@
             "identification": "Feathery fern-like leaves, flat cluster of white flowers.",
             "uses": "Styptic (stops bleeding). Pack into deep wounds. Fever reducer tea.",
             "caution": "Lookalikes: Hemlock (deadly). Yarrow has feathery leaves, Hemlock has carrot-like leaves.",
-            "image_placeholder": "yarrow.jpg"
+            "images": [
+                "yarrow.jpg"
+            ]
         },
         {
+            "id": "mullein",
             "name": "Mullein",
             "scientific_name": "Verbascum thapsus",
             "type": "Medicinal / Utility",
@@ -68,9 +87,12 @@
             "identification": "Tall stalk (year 2), fuzzy soft 'lamb's ear' leaves.",
             "uses": "Leaves for respiratory tea (filter hairs). Flower stalk dip in fat for torch. 'Cowboy Toilet Paper'.",
             "caution": "Tiny hairs can irritate throat - ensure tea is filtered well.",
-            "image_placeholder": "mullein.jpg"
+            "images": [
+                "mullein.jpg"
+            ]
         },
         {
+            "id": "white_pine",
             "name": "White Pine",
             "scientific_name": "Pinus strobus",
             "type": "Edible / Utility",
@@ -78,9 +100,12 @@
             "identification": "Needles in bundles of 5. Long cones.",
             "uses": "Needle tea (Vitamin C). Resin for glue/fire starter. Inner bark (famine food).",
             "caution": "Lookalike: Yew (flat needles, red berries) is DEADLY.",
-            "image_placeholder": "pine.jpg"
+            "images": [
+                "pine.jpg"
+            ]
         },
         {
+            "id": "jewelweed",
             "name": "Jewelweed",
             "scientific_name": "Impatiens capensis",
             "type": "Medicinal",
@@ -88,9 +113,12 @@
             "identification": "Tall, translucent stem, orange trumpet flowers. Grows near Poison Ivy.",
             "uses": "The Antidote. Crush stem juice onto Poison Ivy rash immediately.",
             "caution": "None.",
-            "image_placeholder": "jewelweed.jpg"
+            "images": [
+                "jewelweed.jpg"
+            ]
         },
         {
+            "id": "poison_hemlock",
             "name": "Poison Hemlock",
             "scientific_name": "Conium maculatum",
             "type": "Poisonous",
@@ -98,9 +126,12 @@
             "identification": "Purple splotches on smooth hairless stem. Fern-like leaves. White umbrella flowers.",
             "uses": "NONE - DEADLY neurotoxin.",
             "caution": "Do not touch. Can be fatal if eaten (mistaken for wild carrot).",
-            "image_placeholder": "hemlock.jpg"
+            "images": [
+                "hemlock.jpg"
+            ]
         },
         {
+            "id": "poison_ivy",
             "name": "Poison Ivy",
             "scientific_name": "Toxicodendron radicans",
             "type": "Poisonous",
@@ -108,95 +139,194 @@
             "identification": "Leaves of three, shiny. vine or shrub. 'Hairy' vine on trees.",
             "uses": "NONE.",
             "caution": "Oil (Urushiol) causes blistering rash. Wash with cold water and soap within 15 mins.",
-            "image_placeholder": "poison_ivy.jpg"
+            "images": [
+                "poison_ivy.jpg"
+            ]
         }
     ],
     "fauna": [
         {
+            "id": "white_tailed_deer",
             "name": "White-Tailed Deer",
+            "scientific_name": "Odocoileus virginianus",
             "role": "Game",
             "notes": "Primary large game. Crepuscular (active dawn/dusk).",
-            "status": "Track"
+            "status": "Track",
+            "images": [
+                "deer.jpg"
+            ]
         },
         {
+            "id": "cottontail_rabbit",
             "name": "Cottontail Rabbit",
+            "scientific_name": "Sylvilagus",
             "role": "Game",
             "notes": "Plentiful but low fat ('Rabbit Starvation' risk if eaten exclusively).",
-            "status": "Trap/Snare"
+            "status": "Trap/Snare",
+            "images": [
+                "rabbit.jpg"
+            ]
         },
         {
+            "id": "black_bear",
             "name": "Black Bear",
+            "scientific_name": "Ursus americanus",
             "role": "Predator",
             "notes": "Generally shy but dangerous around cubs or food. Hang food bags 10ft high.",
-            "status": "Avoid"
+            "status": "Avoid",
+            "images": [
+                "bear.jpg"
+            ]
         },
         {
+            "id": "coyote",
             "name": "Coyote",
+            "scientific_name": "Canis latrans",
             "role": "Predator",
             "notes": "Pack hunter. Scavenger. Keep pets close.",
-            "status": "Deter"
-        },
+            "status": "Deter",
+            "images": [
+                "coyote.jpg"
+            ]
+        }
+    ],
+    "insects": [
         {
-            "name": "Deer Tick",
-            "role": "Pest",
-            "notes": "Current carrier of Lyme Disease. Size of poppy seed.",
-            "status": "Check Daily"
-        },
-        {
-            "name": "Mosquito",
-            "role": "Pest",
-            "notes": "Vector for disease. Repel with smoke or mud if necessary.",
-            "status": "Repel"
-        },
-        {
+            "id": "honey_bee",
             "name": "Honey Bee",
+            "scientific_name": "Apis mellifera",
             "role": "Beneficial",
-            "notes": "Critical pollinator.",
-            "status": "Protect"
+            "season": "Spring-Fall",
+            "identification": "Golden-brown/black stripes. Fuzzy body.",
+            "notes": "Critical pollinator. Produces honey/wax.",
+            "status": "Protect",
+            "images": [
+                "honey_bee.jpg"
+            ]
+        },
+        {
+            "id": "monarch_butterfly",
+            "name": "Monarch Butterfly",
+            "scientific_name": "Danaus plexippus",
+            "role": "Beneficial",
+            "season": "Summer/Fall",
+            "identification": "Large orange wings with black veins and white spots.",
+            "notes": "Pollinator. Larvae eat milkweed.",
+            "status": "Protect",
+            "images": [
+                "monarch.jpg"
+            ]
+        },
+        {
+            "id": "deer_tick",
+            "name": "Deer Tick",
+            "scientific_name": "Ixodes scapularis",
+            "role": "Pest",
+            "season": "Year Round",
+            "identification": "Size of poppy seed. Reddish-brown back.",
+            "notes": "Carrier of Lyme Disease. Check creases of body.",
+            "status": "Destroy",
+            "images": [
+                "tick.jpg"
+            ]
+        },
+        {
+            "id": "mosquito",
+            "name": "Mosquito",
+            "scientific_name": "Culicidae",
+            "role": "Pest",
+            "season": "Summer",
+            "identification": "Small midge-like fly. High pitched whine.",
+            "notes": "Vector for disease. Breed in standing water.",
+            "status": "Repel",
+            "images": [
+                "mosquito.jpg"
+            ]
+        },
+        {
+            "id": "praying_mantis",
+            "name": "Praying Mantis",
+            "scientific_name": "Mantodea",
+            "role": "Beneficial",
+            "season": "Summer",
+            "identification": "Green/Brown, triangular head, folded forelegs.",
+            "notes": "Generalist predator. Eats other insects.",
+            "status": "Protect",
+            "images": [
+                "mantis.jpg"
+            ]
         }
     ],
     "tracking": [
         {
+            "id": "track_deer",
             "name": "Deer Track",
             "category": "Hoof",
             "description": "Heart-shaped. Two toes. 2-3 inches long. Sharp edges indicate freshness.",
-            "gait": "Diagonal Walker (Rear foot lands on front track)"
+            "gait": "Diagonal Walker (Rear foot lands on front track)",
+            "images": [
+                "track_deer.jpg"
+            ]
         },
         {
+            "id": "track_rabbit",
             "name": "Rabbit Track",
             "category": "Paw",
             "description": "The 'Y' shape. Two long rear feet land *in front* of two small front feet.",
-            "gait": "Galloper"
+            "gait": "Galloper",
+            "images": [
+                "track_rabbit.jpg"
+            ]
         },
         {
+            "id": "track_canine",
             "name": "Canine (Coyote/Dog)",
             "category": "Paw",
             "description": "Oval shape. 4 toes. Claws visible (X shape between toes).",
-            "gait": "Diagonal Walker"
+            "gait": "Diagonal Walker",
+            "images": [
+                "track_canine.jpg"
+            ]
         },
         {
+            "id": "track_feline",
             "name": "Feline (Bobcat)",
             "category": "Paw",
             "description": "Round shape. 4 toes. NO claws visible (retractable). Asymmetric leading toe.",
-            "gait": "Direct Walker"
+            "gait": "Direct Walker",
+            "images": [
+                "track_feline.jpg"
+            ]
         },
         {
+            "id": "track_raccoon",
             "name": "Raccoon",
             "category": "Paw",
             "description": "Looks like a small human hand (5 long fingers).",
-            "gait": "Pacer"
+            "gait": "Pacer",
+            "images": [
+                "track_raccoon.jpg"
+            ]
         },
         {
+            "id": "scat_herbivore",
             "name": "Scat: Herbivore",
             "category": "Sign",
             "description": "Pellets (Deer/Rabbit) or amorphous piles (Cow). Fibrous plant matter visible.",
-            "gait": "N/A"
+            "gait": "N/A",
+            "images": [
+                "scat_herbivore.jpg"
+            ]
         },
         {
+            "id": "scat_carnivore",
             "name": "Scat: Carnivore",
             "category": "Sign",
             "description": "Tubular, tapered ends. Contains fur/bones. White color indicates high bone content.",
-            "gait": "N/A"
+            "gait": "N/A",
+            "images": [
+                "scat_carnivore.jpg"
+            ]
         }
     ],
     "foraging_calendar": {

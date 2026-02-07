@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Leaf, Bug, Calendar, AlertTriangle, CheckCircle, Search, Footprints, Filter } from 'lucide-react';
+import { Leaf, Bug, Calendar, AlertTriangle, CheckCircle, Search, Footprints, Filter, Camera } from 'lucide-react';
 import wildlifeData from '../data/wildlifeData.json';
 
 const Wildlife = () => {
@@ -10,15 +10,42 @@ const Wildlife = () => {
 
     // Search Logic
     const filterData = (data) => {
+        if (!data) return [];
         return data.filter(item => {
             const matchesSearch = item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                (item.uses && item.uses.toLowerCase().includes(searchQuery.toLowerCase()));
+                (item.uses && item.uses.toLowerCase().includes(searchQuery.toLowerCase())) ||
+                (item.notes && item.notes.toLowerCase().includes(searchQuery.toLowerCase()));
 
             if (activeTab === 'flora' && filterType !== 'All') {
                 return matchesSearch && item.type.includes(filterType);
             }
             return matchesSearch;
         });
+    };
+
+    const ImagePreview = ({ images, alt }) => {
+        const [imgError, setImgError] = useState(false);
+        const imageSrc = images && images.length > 0 ? `/images/wildlife/${images[0]}` : null;
+
+        if (!imageSrc || imgError) {
+            return (
+                <div className="h-40 w-full bg-sage-100 flex flex-col items-center justify-center text-sage-300">
+                    <Camera size={32} />
+                    <span className="text-xs mt-2 font-medium">No Image Available</span>
+                </div>
+            );
+        }
+
+        return (
+            <div className="h-40 w-full bg-sand-200 relative overflow-hidden group">
+                <img
+                    src={imageSrc}
+                    alt={alt}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    onError={() => setImgError(true)}
+                />
+            </div>
+        );
     };
 
     return (
@@ -33,7 +60,7 @@ const Wildlife = () => {
                     <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-sage-400" size={20} />
                     <input
                         type="text"
-                        placeholder="Search plants, animals, tracks..."
+                        placeholder="Search plants, insects, animals..."
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
                         className="w-full pl-12 pr-4 py-3 rounded-xl bg-sage-900/50 border border-sage-700 text-sand-50 placeholder-sage-400 focus:outline-none focus:ring-2 focus:ring-terracotta-500 transition-all font-serif"
@@ -50,15 +77,21 @@ const Wildlife = () => {
                     label="Flora"
                 />
                 <TabButton
+                    active={activeTab === 'insects'}
+                    onClick={() => setActiveTab('insects')}
+                    icon={<Bug size={18} />}
+                    label="Insects"
+                />
+                <TabButton
                     active={activeTab === 'fauna'}
                     onClick={() => setActiveTab('fauna')}
-                    icon={<Bug size={18} />}
+                    icon={<Footprints size={18} />} // Swapped icon for variety, using specific for Fauna
                     label="Fauna"
                 />
                 <TabButton
                     active={activeTab === 'tracking'}
                     onClick={() => setActiveTab('tracking')}
-                    icon={<Footprints size={18} />}
+                    icon={<Search size={18} />}
                     label="Tracking"
                 />
                 <TabButton
@@ -77,8 +110,8 @@ const Wildlife = () => {
                             key={type}
                             onClick={() => setFilterType(type)}
                             className={`px-3 py-1 rounded-full text-xs font-bold whitespace-nowrap transition-colors ${filterType === type
-                                    ? 'bg-sage-600 text-white'
-                                    : 'bg-sand-200 text-sage-700 hover:bg-sand-300'
+                                ? 'bg-sage-600 text-white'
+                                : 'bg-sand-200 text-sage-700 hover:bg-sand-300'
                                 }`}
                         >
                             {type}
@@ -98,6 +131,7 @@ const Wildlife = () => {
                         >
                             {filterData(wildlifeData.flora).map((plant, index) => (
                                 <div key={index} className="bg-white rounded-2xl shadow-sm border border-sand-200 overflow-hidden">
+                                    <ImagePreview images={plant.images} alt={plant.name} />
                                     <div className={`h-2 ${plant.type.includes('Poisonous') ? 'bg-red-500' : plant.type.includes('Medicinal') ? 'bg-blue-500' : 'bg-green-500'}`} />
                                     <div className="p-5">
                                         <div className="flex justify-between items-start mb-2">
@@ -136,6 +170,49 @@ const Wildlife = () => {
                         </motion.div>
                     )}
 
+                    {activeTab === 'insects' && (
+                        <motion.div
+                            key="insects"
+                            initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}
+                            className="space-y-4"
+                        >
+                            {filterData(wildlifeData.insects).map((insect, index) => (
+                                <div key={index} className="bg-white rounded-2xl shadow-sm border border-sand-200 overflow-hidden">
+                                    <ImagePreview images={insect.images} alt={insect.name} />
+                                    <div className="p-5">
+                                        <div className="flex justify-between items-start mb-2">
+                                            <div>
+                                                <h3 className="text-xl font-bold text-sage-900">{insect.name}</h3>
+                                                <p className="text-xs text-sage-500 italic">{insect.scientific_name}</p>
+                                            </div>
+                                            <span className={`px-2 py-1 rounded-full text-xs font-bold ${insect.role === 'Pest' ? 'bg-red-100 text-red-700' :
+                                                    insect.role === 'Beneficial' ? 'bg-green-100 text-green-700' : 'bg-amber-100 text-amber-800'
+                                                }`}>
+                                                {insect.role}
+                                            </span>
+                                        </div>
+
+                                        <div className="space-y-3 mt-4">
+                                            <div>
+                                                <p className="text-xs font-bold text-sage-400 uppercase tracking-wider mb-1">ID</p>
+                                                <p className="text-sm text-charcoal-600">{insect.identification}</p>
+                                            </div>
+                                            <div>
+                                                <p className="text-xs font-bold text-sage-400 uppercase tracking-wider mb-1">Notes</p>
+                                                <p className="text-sm text-charcoal-600">{insect.notes}</p>
+                                            </div>
+                                            <div className="flex items-center gap-2 text-xs font-medium text-sage-600 bg-sage-50 p-2 rounded-lg inline-flex">
+                                                <CheckCircle size={14} />
+                                                <span>Status: {insect.status}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                            {filterData(wildlifeData.insects).length === 0 && <EmptyState />}
+                        </motion.div>
+                    )}
+
                     {activeTab === 'fauna' && (
                         <motion.div
                             key="fauna"
@@ -143,18 +220,21 @@ const Wildlife = () => {
                             className="space-y-4"
                         >
                             {filterData(wildlifeData.fauna).map((animal, index) => (
-                                <div key={index} className="bg-white p-5 rounded-2xl shadow-sm border border-sand-200">
-                                    <div className="flex items-center justify-between mb-3">
-                                        <h3 className="text-lg font-bold text-sage-900">{animal.name}</h3>
-                                        <span className={`text-xs px-2 py-1 rounded-full font-bold ${animal.role === 'Pest' ? 'bg-red-100 text-red-700' :
+                                <div key={index} className="bg-white rounded-2xl shadow-sm border border-sand-200 overflow-hidden">
+                                    <ImagePreview images={animal.images} alt={animal.name} />
+                                    <div className="p-5">
+                                        <div className="flex items-center justify-between mb-3">
+                                            <h3 className="text-lg font-bold text-sage-900">{animal.name}</h3>
+                                            <span className={`text-xs px-2 py-1 rounded-full font-bold ${animal.role === 'Pest' ? 'bg-red-100 text-red-700' :
                                                 animal.role === 'Predator' ? 'bg-amber-100 text-amber-800' :
                                                     'bg-blue-100 text-blue-700'
-                                            }`}>{animal.role}</span>
-                                    </div>
-                                    <p className="text-sm text-charcoal-600 mb-3">{animal.notes}</p>
-                                    <div className="flex items-center gap-2 text-xs font-medium text-sage-600">
-                                        <CheckCircle size={14} />
-                                        <span>Status: {animal.status}</span>
+                                                }`}>{animal.role}</span>
+                                        </div>
+                                        <p className="text-sm text-charcoal-600 mb-3">{animal.notes}</p>
+                                        <div className="flex items-center gap-2 text-xs font-medium text-sage-600">
+                                            <CheckCircle size={14} />
+                                            <span>Status: {animal.status}</span>
+                                        </div>
                                     </div>
                                 </div>
                             ))}
@@ -194,8 +274,8 @@ const Wildlife = () => {
                                 <div key={season} className="bg-white p-5 rounded-2xl shadow-sm border border-sand-200">
                                     <h3 className="text-lg font-serif font-bold text-sage-800 mb-3 flex items-center gap-2">
                                         <span className={`w-3 h-3 rounded-full ${season === 'Spring' ? 'bg-green-400' :
-                                                season === 'Summer' ? 'bg-yellow-400' :
-                                                    season === 'Autumn' ? 'bg-orange-400' : 'bg-blue-300'
+                                            season === 'Summer' ? 'bg-yellow-400' :
+                                                season === 'Autumn' ? 'bg-orange-400' : 'bg-blue-300'
                                             }`}></span>
                                         {season}
                                     </h3>
