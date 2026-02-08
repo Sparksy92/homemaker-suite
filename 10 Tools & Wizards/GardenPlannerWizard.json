@@ -1,0 +1,94 @@
+{
+    "id": "GardenPlannerWizard",
+    "title": "Survival Garden Calculator",
+    "description": "Calculate what to plant and when, based on your zone and space.",
+    "steps": [
+        {
+            "id": "zone_input",
+            "prompt": "What is your USDA Hardiness Zone?",
+            "type": "single-select",
+            "options": [
+                {
+                    "label": "Zone 3-4 (Cold / Short Season)",
+                    "value": "cold"
+                },
+                {
+                    "label": "Zone 5-6 (Moderate / Midwest)",
+                    "value": "moderate"
+                },
+                {
+                    "label": "Zone 7-8 (Warm / South)",
+                    "value": "warm"
+                },
+                {
+                    "label": "Zone 9-10 (Hot / No Freeze)",
+                    "value": "hot"
+                }
+            ]
+        },
+        {
+            "id": "current_season",
+            "prompt": "What season are you planning for?",
+            "type": "single-select",
+            "options": [
+                {
+                    "label": "Spring (Planting)",
+                    "value": "spring"
+                },
+                {
+                    "label": "Summer (Maintenance/Late Crops)",
+                    "value": "summer"
+                },
+                {
+                    "label": "Fall (Harvest/Cover Crops)",
+                    "value": "fall"
+                }
+            ]
+        },
+        {
+            "id": "space_available",
+            "prompt": "How much growing space do you have?",
+            "type": "single-select",
+            "options": [
+                {
+                    "label": "Windowsill / Balcony (Pots only)",
+                    "value": "tiny"
+                },
+                {
+                    "label": "Small Yard / Raised Beds (100 sq ft)",
+                    "value": "small"
+                },
+                {
+                    "label": "Large Plot / Acreage (>1000 sq ft)",
+                    "value": "large"
+                }
+            ]
+        },
+        {
+            "id": "calorie_goal",
+            "prompt": "What is the primary goal?",
+            "type": "single-select",
+            "options": [
+                {
+                    "label": "Calories (Survival)",
+                    "value": "calories"
+                },
+                {
+                    "label": "Vitamins (Salads/Greens)",
+                    "value": "nutrition"
+                },
+                {
+                    "label": "Flavor (Herbs/Peppers)",
+                    "value": "flavor"
+                }
+            ]
+        }
+    ],
+    "outputs": [
+        {
+            "type": "markdown_plan",
+            "template": "# Garden Plan: {{current_season}} ({{zone_input}})\n\n## 1. Crop Selection\n{{#if (eq space_available 'tiny')}}\n- **Focus:** Vertical crops and herbs.\n- **Recommended:** Lettuce, Basil, Pole Beans (in pots), Cherry Tomatoes.\n{{else if (eq calorie_goal 'calories')}}\n- **Focus:** Calorie Dense Staples.\n- **Recommended:** Potatoes (Grow bag or ground), Sweet Potatoes, Sunflowers (Seeds/Oil).\n{{else}}\n- **Focus:** Mixed Nutrition.\n- **Recommended:** Kale, Carrots, Zucchini, Peppers, Tomatoes.\n{{/if}}\n\n## 2. Timing\n{{#if (eq zone_input 'cold')}}\n- **Frost Date:** Approx May 15th. Start seeds indoors 6 weeks prior.\n{{else if (eq zone_input 'warm')}}\n- **Frost Date:** Approx March 15th. Direct sow early.\n{{/if}}\n\n## 3. Action Items\n- [ ] Buy Seeds for selected crops.\n- [ ] Prep soil (Compost/Till) 2 weeks before planting.\n- [ ] Reference `Module 5: Gardening` for specific depth guides.",
+            "includes_checklists": true
+        }
+    ]
+}

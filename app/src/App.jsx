@@ -9,6 +9,7 @@ import MealPlans from './pages/MealPlans';
 import Wildlife from './pages/Wildlife';
 import Settings from './pages/Settings';
 import ManualReader from './pages/ManualReader';
+import WizardPage from './pages/WizardPage'; // New Import
 import { UserProvider } from './context/UserContext';
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
                         <Route path="profile" element={<Profile />} />
                         <Route path="settings" element={<Settings />} />
                         <Route path="manual/:id" element={<ManualReader />} />
+                        <Route path="wizard/:id" element={<WizardPage />} /> {/* New Route */}
                     </Route>
                 </Routes>
             </BrowserRouter>

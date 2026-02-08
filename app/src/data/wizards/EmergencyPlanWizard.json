@@ -1,0 +1,144 @@
+{
+    "id": "EmergencyPlanWizard",
+    "title": "Household Emergency Plan Builder",
+    "description": "Guide the user through building a written emergency plan for their household.",
+    "steps": [
+        {
+            "id": "household_profile",
+            "prompt": "Tell me about your household composition.",
+            "type": "form",
+            "fields": [
+                {
+                    "name": "adults",
+                    "label": "Number of Adults",
+                    "type": "number",
+                    "default": 2
+                },
+                {
+                    "name": "children",
+                    "label": "Number of Children",
+                    "type": "number",
+                    "default": 0
+                },
+                {
+                    "name": "elderly",
+                    "label": "Number of Elderly/Mobility Limited",
+                    "type": "number",
+                    "default": 0
+                },
+                {
+                    "name": "pets",
+                    "label": "Number of Pets",
+                    "type": "number",
+                    "default": 0
+                }
+            ]
+        },
+        {
+            "id": "special_needs",
+            "prompt": "Are there specific needs we should plan for?",
+            "type": "multi-select",
+            "options": [
+                {
+                    "label": "Inuslin/Refrigerated Meds",
+                    "value": "meds_cold"
+                },
+                {
+                    "label": "Mobility Issues (Stairs difficult)",
+                    "value": "mobility"
+                },
+                {
+                    "label": "Infants (Formula/Diapers)",
+                    "value": "infant"
+                },
+                {
+                    "label": "Sensory/Autism Spectrum",
+                    "value": "sensory"
+                }
+            ]
+        },
+        {
+            "id": "hazards",
+            "prompt": "What are the primary threats in your region?",
+            "type": "multi-select",
+            "options": [
+                {
+                    "label": "Winter Storm / Extreme Cold",
+                    "value": "winter"
+                },
+                {
+                    "label": "Summer Heat / Grid Failure",
+                    "value": "summer"
+                },
+                {
+                    "label": "Hurricane / Flooding",
+                    "value": "flood"
+                },
+                {
+                    "label": "Wildfire",
+                    "value": "fire"
+                },
+                {
+                    "label": "Civil Unrest / Supply Chain",
+                    "value": "civil"
+                }
+            ]
+        },
+        {
+            "id": "comms_plan",
+            "prompt": "Let's establish a Communications Plan.",
+            "type": "form",
+            "fields": [
+                {
+                    "name": "out_of_area_contact",
+                    "label": "Out-of-Area Contact Name",
+                    "type": "text",
+                    "placeholder": "Aunt Jane in Ohio"
+                },
+                {
+                    "name": "out_of_area_phone",
+                    "label": "Phone Number",
+                    "type": "tel"
+                },
+                {
+                    "name": "meeting_place_near",
+                    "label": "Meeting Place (Neighborhood)",
+                    "type": "text",
+                    "placeholder": "The Big Oak Tree"
+                },
+                {
+                    "name": "meeting_place_far",
+                    "label": "Meeting Place (Out of Town)",
+                    "type": "text",
+                    "placeholder": "Library in Next Town"
+                }
+            ]
+        },
+        {
+            "id": "utility_shutoff",
+            "prompt": "Can you locate and operate your utility shutoffs?",
+            "type": "checklist",
+            "options": [
+                {
+                    "label": "I know where the Main Water Value is.",
+                    "value": "know_water"
+                },
+                {
+                    "label": "I have a tool to shut off Gas (Wrench).",
+                    "value": "know_gas"
+                },
+                {
+                    "label": "I know which breaker controls the furnace.",
+                    "value": "know_electric"
+                }
+            ]
+        }
+    ],
+    "outputs": [
+        {
+            "type": "markdown_plan",
+            "template": "# Emergency Plan for {{household_profile.adults}} Adults, {{household_profile.children}} Kids\n\n## 1. Household Profile\n- **Special Considerations:** {{special_needs}}\n- **Primary Threats:** {{hazards}}\n\n## 2. Communications\n- **Out-of-Area Contact:** {{comms_plan.out_of_area_contact}} ({{comms_plan.out_of_area_phone}})\n- **Rally Point (Near):** {{comms_plan.meeting_place_near}}\n- **Rally Point (Far):** {{comms_plan.meeting_place_far}}\n\n## 3. Action Items\n{{#if utility_shutoff.know_gas}}\n- [x] Gas Shutoff Tool Acquired\n{{else}}\n- [ ] **URGENT:** Buy a non-sparking wrench for gas shutoff.\n{{/if}}\n\n## 4. Next Steps\n- Review `Module 15.6` for Mobility Plans if applicable.\n- Review `Module 14.3` for Child/Elderly specifics.",
+            "includes_checklists": true
+        }
+    ]
+}

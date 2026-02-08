@@ -1,4 +1,12 @@
-# Printable: Garden Planner & Log
+---
+id: print-garden
+tags: [printable, garden, planning]
+timeframe: seasonal
+difficulty: n/a
+module: 11 Printables
+section: GardenPlanner
+---
+# Garden Planner & Log
 
 **Year:** _________  **Zone:** _________
 

@@ -1,0 +1,88 @@
+{
+    "id": "EnergyPlannerWizard",
+    "title": "Off-Grid Energy Auditor",
+    "description": "Calculate daily power consumption vs. battery capacity.",
+    "steps": [
+        {
+            "id": "battery_capacity",
+            "prompt": "What is your battery capacity?",
+            "type": "form",
+            "fields": [
+                {
+                    "name": "amp_hours",
+                    "label": "Amp Hours (Ah)",
+                    "type": "number",
+                    "default": 100
+                },
+                {
+                    "name": "voltage",
+                    "label": "Voltage (12V, 24V)",
+                    "type": "number",
+                    "default": 12
+                },
+                {
+                    "name": "chemistry",
+                    "label": "Type (Lead Acid / Lithium)",
+                    "type": "select",
+                    "options": [
+                        "Lead Acid (50% usable)",
+                        "Lithium (80% usable)"
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "generation",
+            "prompt": "How are you recharging?",
+            "type": "form",
+            "fields": [
+                {
+                    "name": "solar_watts",
+                    "label": "Total Solar Panel Watts",
+                    "type": "number",
+                    "default": 100
+                },
+                {
+                    "name": "sun_hours",
+                    "label": "Peak Sun Hours (Winter=3, Summer=6)",
+                    "type": "number",
+                    "default": 4
+                }
+            ]
+        },
+        {
+            "id": "load_profile",
+            "prompt": "What are you powering daily?",
+            "type": "multi-select",
+            "options": [
+                {
+                    "label": "Smartphones (x2) [30Wh]",
+                    "value": "phones"
+                },
+                {
+                    "label": "LED Lights (3 hours) [40Wh]",
+                    "value": "lights"
+                },
+                {
+                    "label": "Laptop (1 charge) [60Wh]",
+                    "value": "laptop"
+                },
+                {
+                    "label": "12V Fridge/Freezer [400Wh]",
+                    "value": "fridge"
+                },
+                {
+                    "label": "CPAP Machine [300Wh]",
+                    "value": "cpap"
+                }
+            ]
+        }
+    ],
+    "outputs": [
+        {
+            "type": "markdown_plan",
+            "template": "# Energy Audit Report\n\n## 1. Storage Capacity\n- **Total Capacity:** {{math battery_capacity.amp_hours '*' battery_capacity.voltage}} Watt-Hours (Wh)\n- **Usable Capacity:** \n{{#if (eq battery_capacity.chemistry 'Lead Acid (50% usable)')}}\n   {{math (math battery_capacity.amp_hours '*' battery_capacity.voltage) '*' 0.5}} Wh\n{{else}}\n   {{math (math battery_capacity.amp_hours '*' battery_capacity.voltage) '*' 0.8}} Wh\n{{/if}}\n\n## 2. Generation (Input)\n- **Daily Solar Yield:** {{math generation.solar_watts '*' generation.sun_hours}} Wh\n\n## 3. Consumption (Estimated)\n- **Phones:** {{#if (contains load_profile 'phones')}}30 Wh{{else}}0 Wh{{/if}}\n- **Lights:** {{#if (contains load_profile 'lights')}}40 Wh{{else}}0 Wh{{/if}}\n- **Fridge:** {{#if (contains load_profile 'fridge')}}400 Wh{{else}}0 Wh{{/if}}\n\n## 4. Verdict\n**Check:** Is input > output? If not, reduce load or add panels.\nSee `Module 18: Energy` for wiring diagrams.",
+            "includes_checklists": false
+        }
+    ]
+}

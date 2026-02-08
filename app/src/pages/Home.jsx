@@ -149,7 +149,35 @@ const Dashboard = () => {
                 </div>
             </section>
 
-            {/* Emergency Trigger */}
+            {/* Tools & Calculators */}
+            <section>
+                <h3 className="text-lg font-bold text-sage-900 mb-4 flex items-center gap-2">
+                    <Hammer size={18} className="text-terracotta-500" />
+                    Interactive Tools
+                </h3>
+                <div className="grid grid-cols-2 gap-4">
+                    <Link to="/wizard/emergency-plan" className="bg-white p-4 rounded-xl border border-stone-200 shadow-sm flex flex-col items-center text-center hover:border-terracotta-300 transition-colors">
+                        <Activity size={24} className="text-terracotta-500 mb-2" />
+                        <span className="font-bold text-stone-800 text-sm">Emergency Plan</span>
+                    </Link>
+                    <Link to="/wizard/water-safety" className="bg-white p-4 rounded-xl border border-stone-200 shadow-sm flex flex-col items-center text-center hover:border-blue-300 transition-colors">
+                        <Droplets size={24} className="text-blue-500 mb-2" />
+                        <span className="font-bold text-stone-800 text-sm">Water Safety</span>
+                    </Link>
+                    <Link to="/wizard/winter-blackout" className="bg-white p-4 rounded-xl border border-stone-200 shadow-sm flex flex-col items-center text-center hover:border-slate-300 transition-colors">
+                        <Thermometer size={24} className="text-slate-500 mb-2" />
+                        <span className="font-bold text-stone-800 text-sm">Winter Blackout</span>
+                    </Link>
+                    <Link to="/wizard/garden-planner" className="bg-white p-4 rounded-xl border border-stone-200 shadow-sm flex flex-col items-center text-center hover:border-green-300 transition-colors">
+                        <Leaf size={24} className="text-green-500 mb-2" />
+                        <span className="font-bold text-stone-800 text-sm">Garden Planner</span>
+                    </Link>
+                    <Link to="/wizard/energy-planner" className="bg-white p-4 rounded-xl border border-stone-200 shadow-sm flex flex-col items-center text-center hover:border-yellow-300 transition-colors">
+                        <Battery size={24} className="text-yellow-500 mb-2" />
+                        <span className="font-bold text-stone-800 text-sm">Energy Audit</span>
+                    </Link>
+                </div>
+            </section>
             <button className="w-full bg-red-50 p-4 rounded-2xl border border-red-100 flex items-center justify-center gap-2 text-red-600 font-bold active:bg-red-600 active:text-white transition-colors">
                 <AlertTriangle size={20} />
                 EMERGENCY MODE

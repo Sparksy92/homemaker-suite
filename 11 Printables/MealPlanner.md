@@ -1,4 +1,12 @@
-# Printable: Weekly Meal Planner
+---
+id: print-meal
+tags: [printable, meal-plan, organization]
+timeframe: weekly
+difficulty: n/a
+module: 11 Printables
+section: MealPlanner
+---
+# Meal Planner
 
 **Week of:** ____________________
 

@@ -1,4 +1,12 @@
-# Printable: Emergency Reference Sheet
+---
+id: print-emergency
+tags: [printable, emergency, reference]
+timeframe: essential
+difficulty: n/a
+module: 11 Printables
+section: EmergencyReference
+---
+# Emergency Quick Reference Sheet
 *KEEP THIS ON YOUR FRIDGE OR IN YOUR PANTRY.*
 
 ## Important Numbers

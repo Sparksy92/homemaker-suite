@@ -1,0 +1,137 @@
+{
+    "id": "WinterBlackoutWizard",
+    "title": "Winter Power Outage Coordinator",
+    "description": "Step-by-step decision tree for immediate actions when power fails in freezing temperatures.",
+    "steps": [
+        {
+            "id": "current_conditions",
+            "prompt": "What is the current status?",
+            "type": "form",
+            "fields": [
+                {
+                    "name": "indoor_temp",
+                    "label": "Indoor Temperature (°F)",
+                    "type": "number",
+                    "default": 65
+                },
+                {
+                    "name": "outdoor_temp",
+                    "label": "Outdoor Temperature (°F)",
+                    "type": "number",
+                    "default": 32
+                },
+                {
+                    "name": "so_far",
+                    "label": "Hours Power Has Been Out",
+                    "type": "number",
+                    "default": 1
+                }
+            ]
+        },
+        {
+            "id": "heat_zone",
+            "prompt": "Select your 'Warm Room' (The smallest, most insulated room).",
+            "type": "single-select",
+            "options": [
+                {
+                    "label": "Living Room (Central, Fireplace)",
+                    "value": "living"
+                },
+                {
+                    "label": "Bedroom (Small, South Facing)",
+                    "value": "bedroom"
+                },
+                {
+                    "label": "Basement (Insulated, No Windows)",
+                    "value": "basement"
+                }
+            ]
+        },
+        {
+            "id": "people_count",
+            "prompt": "Who is present? (Body heat math)",
+            "type": "number",
+            "label": "Total People + Pets",
+            "default": 2
+        },
+        {
+            "id": "pipe_risk",
+            "prompt": "Are you worried about pipes freezing?",
+            "type": "single-select",
+            "options": [
+                {
+                    "label": "Yes, it is < 32°F outside.",
+                    "value": "risk_high",
+                    "next": "pipe_action"
+                },
+                {
+                    "label": "No, it is > 40°F.",
+                    "value": "risk_low",
+                    "next": "food_check"
+                }
+            ]
+        },
+        {
+            "id": "pipe_action",
+            "prompt": "Pipe Protection Protocol:",
+            "type": "checklist",
+            "options": [
+                {
+                    "label": "Turn OFF Main Water Valve.",
+                    "value": "main_off"
+                },
+                {
+                    "label": "Open lowest faucet to drain system.",
+                    "value": "drain_low"
+                },
+                {
+                    "label": "Open all upper faucets.",
+                    "value": "open_high"
+                }
+            ]
+        },
+        {
+            "id": "food_check",
+            "prompt": "Food Preservation Strategy",
+            "type": "instruction",
+            "text": "If Outage > 4 hours, move Perishables (Milk/Meat) to: Outside (if freezing) or Unheated Garage (if < 40°F)."
+        },
+        {
+            "id": "safe_heat_sources",
+            "prompt": "What Safe Heat sources do you have?",
+            "type": "multi-select",
+            "options": [
+                {
+                    "label": "Wood Stove / Fireplace (Vented)",
+                    "value": "chem_wood"
+                },
+                {
+                    "label": "Propane Heater (Mr. Buddy - Indoor Safe)",
+                    "value": "chem_propane"
+                },
+                {
+                    "label": "Gas Stove (Oven)",
+                    "value": "unsafe_oven"
+                },
+                {
+                    "label": "Just Blankets / Body Heat",
+                    "value": "passive"
+                }
+            ]
+        },
+        {
+            "id": "oven_warning",
+            "condition": "contains safe_heat_sources 'unsafe_oven'",
+            "prompt": "DANGER WARNING",
+            "type": "alert",
+            "text": "NEVER use a gas oven for heat. Carbon Monoxide poisoning is odorless and fatal. Use blankets instead."
+        }
+    ],
+    "outputs": [
+        {
+            "type": "markdown_plan",
+            "template": "# Winter Survival Action Plan\n\n## 1. The Strategy\n- **Warm Room:** {{heat_zone}}\n- **Target Temp:** Maintain > 50°F using {{people_count}} people's body heat.\n- **Instruction:** Seal this room. Hang blankets over doors/windows. Pitch a tent inside if possible.\n\n## 2. Infrastructure\n{{#if (eq pipe_risk 'risk_high')}}\n- [x] **Water Main:** OFF\n- [x] **Pipes:** Drained\n{{else}}\n- **Pipes:** Monitor temp. If indoor drops < 45°F, drain pipes immediately.\n{{/if}}\n\n## 3. Safety Check\n- **CO Monitor:** Ensure batteries are working if using {{safe_heat_sources}}.\n- **Sleep:** Wear a hat. Sleep elevated off the floor.",
+            "includes_checklists": true
+        }
+    ]
+}
