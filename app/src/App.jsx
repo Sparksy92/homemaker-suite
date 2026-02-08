@@ -8,6 +8,7 @@ import Profile from './pages/Profile';
 import MealPlans from './pages/MealPlans';
 import Wildlife from './pages/Wildlife';
 import Settings from './pages/Settings';
+import ManualReader from './pages/ManualReader';
 import { UserProvider } from './context/UserContext';
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
                         <Route path="wildlife" element={<Wildlife />} />
                         <Route path="profile" element={<Profile />} />
                         <Route path="settings" element={<Settings />} />
+                        <Route path="manual/:id" element={<ManualReader />} />
                     </Route>
                 </Routes>
             </BrowserRouter>
