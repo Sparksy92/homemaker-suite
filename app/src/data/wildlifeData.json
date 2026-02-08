@@ -11,7 +11,17 @@
             "caution": "Ensure area hasn't been sprayed with pesticides.",
             "images": [
                 "dandelion.jpg"
-            ]
+            ],
+            "details": {
+                "habitat": "Lawns, disturbed soil, meadows. ubiquitous.",
+                "harvesting": "Harvest leaves in early spring (pre-flower) for less bitterness. Dig roots in late fall for highest medicinal potency/starch.",
+                "processing": [
+                    "**Coffee Substitute:** Scrub roots, chop into small pieces, roast at 400°F until dark brown and brittle. Grind and brew like coffee.",
+                    "**Greens:** Blanch for 2 mins to remove bitterness, then sauté with garlic or add to stews.",
+                    "**Salve:** Infuse wilted flowers in oil for 2 weeks. Strain. Melt beeswax (1 part wax to 4 parts oil) into it. Good for sore muscles and dry skin.",
+                    "**Fritters:** Dip fresh flower heads in batter and fry. Tastes like mushrooms."
+                ]
+            }
         },
         {
             "id": "stinging_nettle",
@@ -19,12 +29,21 @@
             "scientific_name": "Urtica dioica",
             "type": "Edible / Medicinal",
             "season": "Spring",
-            "identification": "Serrated leaves, tiny stinging hairs on stems and leaves.",
+            "identification": "Serrated leaves, tiny stinging hairs on stems and leaves. Square stem.",
             "uses": "Cooked like spinach (destroys sting), high iron tea, cordage from stems.",
             "caution": "Must be cooked/dried. Wear gloves. 'Dock leaf' often grows nearby to soothe stings.",
             "images": [
                 "nettle.jpg"
-            ]
+            ],
+            "details": {
+                "habitat": "Nitrogen-rich soil, near old homesteads, compost piles, riverbanks.",
+                "harvesting": "Wear gloves! Harvest top 4-6 leaves in spring before flowering. For cordage, harvest tall stalks in autumn.",
+                "processing": [
+                    "**Eating:** Steam or boil for 2 minutes to destroy stinging hairs (formic acid). Use essentially like spinach. Very high in Iron and Vitamin C.",
+                    "**Tea:** Dry leaves for winter tea. Good for allergies (antihistamine).",
+                    "**Cordage (Rope):** Harvest tall mature stalks. Strip leaves. Crush stem to split it. Peel outer fibers from the woody core. Twist fibers together (reverse wrap) to make strong string."
+                ]
+            }
         },
         {
             "id": "cattail",
@@ -37,7 +56,16 @@
             "caution": "Ensure water source is not polluted (bio-accumulator). Lookalikes: Iris (toxic).",
             "images": [
                 "cattail.jpg"
-            ]
+            ],
+            "details": {
+                "habitat": "Freshwater marshes, ponds, ditches.",
+                "processing": [
+                    "**Early Spring (Shoots):** Peel outer leaves of young shoots to find the tender white 'Cossack Asparagus' core. Eat raw or cooked.",
+                    "**Summer (Pollen):** Shake yellow pollen from top flower spike into a bag. Mix 50/50 with flour for pancakes/bread.",
+                    "**Fall/Winter (Roots/Rhizomes):** Dig up mud. Wash roots. Mash in water to settle out the starch. Dry the white starch to make flour.",
+                    "**Winter (Fluff):** The brown cigar explodes into fluff. Excellent tinder or insulation for jackets/bedding (warning: extremely flammable)."
+                ]
+            }
         },
         {
             "id": "white_willow",
@@ -50,7 +78,15 @@
             "caution": "Blood thinner. Do not use if allergic to aspirin.",
             "images": [
                 "willow.jpg"
-            ]
+            ],
+            "details": {
+                "habitat": "Riverbanks, wetlands.",
+                "processing": [
+                    "**Pain Relief:** Peel small strips of inner bark from young twigs. Chew directly for toothache/headache.",
+                    "**Tea:** Simmer (decoction) bark for 10-15 minutes. Bitter but effective for fevers.",
+                    "**Rooting Hormone:** Soak chopped willow tips in water for 24 hours. Water cuttings with this 'willow water' to help them root."
+                ]
+            }
         },
         {
             "id": "broadleaf_plantain",
@@ -63,7 +99,14 @@
             "caution": "None.",
             "images": [
                 "plantain.jpg"
-            ]
+            ],
+            "details": {
+                "habitat": "Compacted soil, driveways, paths.",
+                "processing": [
+                    "**Poultice (Spit Poultice):** Chew a clean leaf until it's a green mush. Place directly on bee sting, splinter, or infected cut. Bandage in place. Draws out toxins and infection.",
+                    "**Seeds:** When seed stalks turn brown, strip seeds. High in fiber (psyllium husk precursor)."
+                ]
+            }
         },
         {
             "id": "yarrow",
@@ -73,10 +116,18 @@
             "season": "Summer",
             "identification": "Feathery fern-like leaves, flat cluster of white flowers.",
             "uses": "Styptic (stops bleeding). Pack into deep wounds. Fever reducer tea.",
-            "caution": "Lookalikes: Hemlock (deadly). Yarrow has feathery leaves, Hemlock has carrot-like leaves.",
+            "caution": "Lookalikes: Hemlock (deadly). Yarrow has feathery leaves, Hemlock has carrot-like leaves. Smell test: Yarrow smells herbal/aromatic.",
             "images": [
                 "yarrow.jpg"
-            ]
+            ],
+            "details": {
+                "habitat": "Fields, roadsides, dry soil.",
+                "processing": [
+                    "**Stop Bleeding:** Crush fresh leaves and flowers. Pack tightly into a deep wound to clot blood instantly.",
+                    "**Fever Tea:** Steep flowers/leaves in hot water. Induces sweating to break a fever.",
+                    "**Repellent:** Rub crushed plant on skin/clothes to repel mosquitoes."
+                ]
+            }
         },
         {
             "id": "mullein",
@@ -89,7 +140,15 @@
             "caution": "Tiny hairs can irritate throat - ensure tea is filtered well.",
             "images": [
                 "mullein.jpg"
-            ]
+            ],
+            "details": {
+                "habitat": "Dry, sunny, disturbed soil.",
+                "processing": [
+                    "**Tea:** Good for coughs/lungs. Must strain through coffee filter/cloth to remove irritating hairs.",
+                    "**Ear Oil:** Infuse yellow flowers in olive oil / bear grease. Use drops for ear infections.",
+                    "**Torch:** Dip the dried 2nd-year stalk in melted pine resin or animal fat. Burns for a long time."
+                ]
+            }
         },
         {
             "id": "white_pine",
@@ -102,7 +161,15 @@
             "caution": "Lookalike: Yew (flat needles, red berries) is DEADLY.",
             "images": [
                 "pine.jpg"
-            ]
+            ],
+            "details": {
+                "habitat": "Forests, well-drained soil.",
+                "processing": [
+                    "**Tea:** Steep (don't boil) green needles in hot water. 5x more Vitamin C than lemons. Good for scurvy prevention.",
+                    "**Resin Glue (Pitch Sticks):** Melt hardened resin + charcoal dust + rabbit scat/dried grass (binder). roll onto a stick. Heating it makes it sticky glue.",
+                    "**Fire:** Resin is highly flammable even when wet."
+                ]
+            }
         },
         {
             "id": "jewelweed",
@@ -115,7 +182,14 @@
             "caution": "None.",
             "images": [
                 "jewelweed.jpg"
-            ]
+            ],
+            "details": {
+                "habitat": "Shady, wet areas. Often right next to Poison Ivy.",
+                "processing": [
+                    "**Poison Ivy Cure:** Crush the hollow stems to release the orange/clear juice. Rub vigorously on skin that touched Poison Ivy. It creates a soapy lather that binds to the oil and washes it off.",
+                    "**Ice Cubes:** Blend entire plant with water, strain, and freeze into cubes. Rub on rashes/bug bites later in the year."
+                ]
+            }
         },
         {
             "id": "poison_hemlock",
@@ -123,12 +197,16 @@
             "scientific_name": "Conium maculatum",
             "type": "Poisonous",
             "season": "Spring/Summer",
-            "identification": "Purple splotches on smooth hairless stem. Fern-like leaves. White umbrella flowers.",
+            "identification": "Purple splotches on smooth hairless stem. Fern-like leaves. White umbrella flowers. Musty smell.",
             "uses": "NONE - DEADLY neurotoxin.",
             "caution": "Do not touch. Can be fatal if eaten (mistaken for wild carrot).",
             "images": [
                 "hemlock.jpg"
-            ]
+            ],
+            "details": {
+                "habitat": "Wet ditches, field edges.",
+                "processing": "STAY AWAY. Even dead stalks can remain toxic for years. If you touch it, wash hands immediately. Do not burn (smoke is toxic)."
+            }
         },
         {
             "id": "poison_ivy",
@@ -141,7 +219,11 @@
             "caution": "Oil (Urushiol) causes blistering rash. Wash with cold water and soap within 15 mins.",
             "images": [
                 "poison_ivy.jpg"
-            ]
+            ],
+            "details": {
+                "habitat": "Edge spaces, climbing trees, ground cover.",
+                "processing": "If exposed: Wash with COLD water (hot opens pores) and lots of soap (dish soap is best) within 15 minutes. Scrub with a washcloth to physically remove the oil."
+            }
         }
     ],
     "fauna": [
@@ -154,7 +236,19 @@
             "status": "Track",
             "images": [
                 "deer.jpg"
-            ]
+            ],
+            "details": {
+                "behavior": "Crepuscular (active dawn/dusk). Follows food sources (acorns, corn, clover). Alerts: tail flag, snort.",
+                "shot_placement": "Broadside: Aim just behind the shoulder, 1/3 up from the brisket (heart/lung). Quartering away: Aim for off-side shoulder.",
+                "processing": [
+                    "**1. Field Dressing (Gutting):** Do this immediately to cool meat. Cut from pelvic bone to brisket (careful not to punture stomach). Spill guts.",
+                    "**2. Skinning:** Hang by rear legs. Cut around hocks and peel hide down like a sock. Use knife sparingly.",
+                    "**3. Quartering:** Remove front shoulders (floating bone), rear hams (ball joint), backstraps (run knife along spine), and tenderloins (inside cavity).",
+                    "**4. Butchering:** Remove silver skin. Separate muscle groups. Cut against grain for steaks, grind scraps for burger.",
+                    "**5. Tanning Hide:** Scrape all flesh/fat. Salt heavily for 2 days. Rehydrate, pickle in acid solution, break fibers while drying."
+                ],
+                "utilization": "Meat (Food), Hide (Leather/Buckskin), Antlers (Tools/Buttons), Sinew (Cordage/Thread), Bones (Broth/Tools)."
+            }
         },
         {
             "id": "cottontail_rabbit",
@@ -165,18 +259,38 @@
             "status": "Trap/Snare",
             "images": [
                 "rabbit.jpg"
-            ]
+            ],
+            "details": {
+                "behavior": "Freezes when threatened. Zig-zag run. Lives in brush piles. Active early morning/late evening.",
+                "processing": [
+                    "**1. 'Jacket' Skinning:** No knife needed. Pinch hide on back, pull apart until it tears. Pull skin opposite ways (like taking off a jacket). Pull off legs.",
+                    "**2. Gutting:** Pinch belly, slice up to ribs, down to pelvis. Swing rabbit downward firmly to eject guts (centrifugal force).",
+                    "**3. Disease Check:** ALWAYS inspect the liver. If it has white spots/cysts, discard the entire animal (Tularemia). Do not feed to dogs.",
+                    "**4. Cooking:** Low fat meat. Best stewed or braised with added fat (bacon/oil) to prevent dryness."
+                ],
+                "utilization": "Meat, Fur (very warm, but thin skin - best for lining gloves/hats)."
+            }
         },
         {
             "id": "black_bear",
             "name": "Black Bear",
             "scientific_name": "Ursus americanus",
-            "role": "Predator",
+            "role": "Predator / Game",
             "notes": "Generally shy but dangerous around cubs or food. Hang food bags 10ft high.",
             "status": "Avoid",
             "images": [
                 "bear.jpg"
-            ]
+            ],
+            "details": {
+                "behavior": "Omnivore. Excellent smell. Climb trees well.",
+                "processing": [
+                    "**1. Safety:** Wear gloves. Bears carry Trichinosis (parasite).",
+                    "**2. Rendering Fat:** Bear grease is liquid gold. Skin carefully to keep fat on carcass or hide. Cube fat, render on low heat. shelf stable, waterproof, cooking oil.",
+                    "**3. Meat:** Dark, sweet meat. MUST be cooked to 165°F (well done) to kill parasites. Never eat rare.",
+                    "**4. Hide:** Very heavy/greasy. Requires extensive fleshing/degreasing before tanning."
+                ],
+                "utilization": "Fat (Oil/Grease/Fuel), Meat, Fur (Rugs/Blankets)."
+            }
         },
         {
             "id": "coyote",
@@ -187,7 +301,15 @@
             "status": "Deter",
             "images": [
                 "coyote.jpg"
-            ]
+            ],
+            "details": {
+                "behavior": "Opportunistic. Lures dogs away to pack. Vocalizations (yips/howls) indicate numbers.",
+                "processing": [
+                    "**Fur:** Prime in winter. 'Case skin' (tube) for market.",
+                    "**Meat:** Generally not eaten (scavenger), but edible in survival. Boil thoroughly.",
+                    "**Bones:** Can be used for tools/needles."
+                ]
+            }
         }
     ],
     "insects": [
@@ -202,7 +324,15 @@
             "status": "Protect",
             "images": [
                 "honey_bee.jpg"
-            ]
+            ],
+            "details": {
+                "behavior": "Defensive only near hive. Dies after stinging.",
+                "processing": [
+                    "**Stings:** Scrape stinger out with credit card (don't pinch it, that injects more venom). Apply Plantain poultice.",
+                    "**Honey:** Antiseptic, energy, never spoils. Apply to wounds to prevent infection.",
+                    "**Wax:** Melt comb to make candles, waterproofing for leather/canvas, or salve base."
+                ]
+            }
         },
         {
             "id": "monarch_butterfly",
@@ -215,7 +345,11 @@
             "status": "Protect",
             "images": [
                 "monarch.jpg"
-            ]
+            ],
+            "details": {
+                "behavior": "Migratory. Toxic to birds due to milkweed diet.",
+                "details": "Indicator species for environmental health. Plant milkweed to support them."
+            }
         },
         {
             "id": "deer_tick",
@@ -228,7 +362,15 @@
             "status": "Destroy",
             "images": [
                 "tick.jpg"
-            ]
+            ],
+            "details": {
+                "habitat": "Tall grass, leaf litter. Questing (holding legs up waiting for host).",
+                "processing": [
+                    "**Removal:** Do NOT burn, smother (vaseline/oil), or twist. This makes them vomit into your blood.",
+                    "**Technique:** Use pointy tweezers. Grasp head as close to skin as possible. Pull straight up. Cleaning bite area.",
+                    "**Lyme Signs:** Watch for 'Bullseye' rash (Erythema migrans) expanding from bite. Fever, aches. Seek meds immediately."
+                ]
+            }
         },
         {
             "id": "mosquito",
@@ -241,7 +383,15 @@
             "status": "Repel",
             "images": [
                 "mosquito.jpg"
-            ]
+            ],
+            "details": {
+                "habitat": "Standing water (even bottle caps).",
+                "processing": [
+                    "**Prevention:** Eliminate standing water. Wear light colors.",
+                    "**Natural Repellents:** Smoke (smudge fires), Yarrow, Beautyberry, Cedar oil.",
+                    "**Itch Relief:** Jewelweed juice, Plantain poultice, Mud, cool water."
+                ]
+            }
         },
         {
             "id": "praying_mantis",
@@ -254,7 +404,11 @@
             "status": "Protect",
             "images": [
                 "mantis.jpg"
-            ]
+            ],
+            "details": {
+                "behavior": "Ambush predator. Harmless to humans.",
+                "details": "Garden guardian. Eats pests. Egg cases (Ootheca) overwinter on twigs - do not destroy."
+            }
         }
     ],
     "tracking": [
