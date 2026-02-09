@@ -429,7 +429,7 @@
             "description": "The 'Y' shape. Two long rear feet land *in front* of two small front feet.",
             "gait": "Galloper",
             "images": [
-                "track_rabbit.jpg"
+                "track_rabbit.svg"
             ]
         },
         {
