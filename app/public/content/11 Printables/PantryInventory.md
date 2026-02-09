@@ -1,3 +1,11 @@
+---
+id: print-pantry
+tags: [printable, pantry, inventory]
+timeframe: monthly
+difficulty: n/a
+module: 11 Printables
+section: PantryInventory
+---
 # Printable: Pantry Inventory Checklist
 *Instructions: Print this. Laminate it or put it in a plastic sleeve. Use a Dry Erase marker to track counts.*
 

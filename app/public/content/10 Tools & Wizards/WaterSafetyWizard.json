@@ -1,0 +1,106 @@
+{
+    "id": "WaterSafetyWizard",
+    "title": "Water Safety & Treatment Wizard",
+    "description": "Determine if a water source is safe to drink and how to treat it.",
+    "steps": [
+        {
+            "id": "source_type",
+            "prompt": "Where did this water come from?",
+            "type": "single-select",
+            "options": [
+                {
+                    "label": "Tap Water (During Boil Order)",
+                    "value": "tap",
+                    "next": "clarity_check"
+                },
+                {
+                    "label": "Rain Barrel / Catchment",
+                    "value": "rain",
+                    "next": "clarity_check"
+                },
+                {
+                    "label": "Clear Moving Stream",
+                    "value": "stream",
+                    "next": "clarity_check"
+                },
+                {
+                    "label": "Stagnant Pond / Puddle",
+                    "value": "pond",
+                    "next": "clarity_check"
+                },
+                {
+                    "label": "Flood Water (Urban)",
+                    "value": "flood",
+                    "next": "flood_warning"
+                }
+            ]
+        },
+        {
+            "id": "flood_warning",
+            "prompt": "CRITICAL WARNING: Flood water often contains sewage and chemicals.",
+            "type": "info-warning",
+            "text": "Do NOT drink flood water unless absolutely dying. Standard filters do NOT remove chemicals. Distillation is the only safe method.",
+            "next": "treatment_selection"
+        },
+        {
+            "id": "clarity_check",
+            "prompt": "Look at the water in a clear glass. Describe it.",
+            "type": "single-select",
+            "options": [
+                {
+                    "label": "Crystal Clear",
+                    "value": "clear"
+                },
+                {
+                    "label": "Cloudy / Milky",
+                    "value": "cloudy"
+                },
+                {
+                    "label": "Visible Floating Debris",
+                    "value": "debris"
+                }
+            ]
+        },
+        {
+            "id": "pre_filter_logic",
+            "condition": "clarity_check != 'clear'",
+            "prompt": "Action Required: Pre-Filtration",
+            "type": "instruction",
+            "text": "Before treating, you MUST filter this water through a t-shirt, coffee filter, or bandana to remove solids. Disinfection works poorly on cloudy water."
+        },
+        {
+            "id": "treatment_selection",
+            "prompt": "What treatment tools do you have available?",
+            "type": "multi-select",
+            "options": [
+                {
+                    "label": "Stove / Fire + Pot",
+                    "value": "heat"
+                },
+                {
+                    "label": "Household Bleach (Unscented)",
+                    "value": "bleach"
+                },
+                {
+                    "label": "Water Filter (Sawyer/Lifestraw)",
+                    "value": "filter"
+                },
+                {
+                    "label": "Iodine Tablets",
+                    "value": "iodine"
+                },
+                {
+                    "label": "None (Sunlight only)",
+                    "value": "sodis"
+                }
+            ]
+        }
+    ],
+    "outputs": [
+        {
+            "type": "markdown_plan",
+            "template": "# Water Treatment Plan\n\n## 1. Source Assessment\n- **Source:** {{source_type}}\n- **Condition:** {{clarity_check}}\n{{#if (eq clarity_check 'cloudy')}}\n> **STEP 1:** Filter through cloth before proceeding.\n{{/if}}\n\n## 2. Treatment Method\n{{#if (contains treatment_selection 'heat')}}\n### Recommended: Boiling\n1. Bring water to a rolling boil.\n2. Boil for **1 Minute** (3 mins if >6000ft elevation).\n3. Let cool.\n{{else if (contains treatment_selection 'bleach')}}\n### Method: Bleach Disinfection\n1. Add **8 Drops** (1/8 tsp) or bleach per Gallon.\n2. Stir and wait **30 Minutes**.\n3. Smell Check: If it doesn't smell like chlorine, add 8 more drops and wait 15 mins.\n{{else}}\n### Emergency Method\n- Refer to `Module 15.1` for SODIS (Solar Disinfection) if sun is available.\n{{/if}}\n\n**Status:** Once treated, store in a clean, covered container.",
+            "includes_checklists": false
+        }
+    ]
+}

@@ -1,0 +1,64 @@
+{
+    "meta": {
+        "toolName": "Substitution Engine",
+        "version": "1.0",
+        "description": "Database of ingredient replacements with ratios."
+    },
+    "substitutions": {
+        "baking": {
+            "buttermilk_1_cup": {
+                "sub1": "1 cup milk + 1 tbsp lemon juice (wait 5 mins)",
+                "sub2": "1 cup plain yogurt (thinned)",
+                "sub3": "1 cup kefir"
+            },
+            "egg_1_large": {
+                "sub1": "1/4 cup applesauce (baking)",
+                "sub2": "1 tbsp flax meal + 3 tbsp warm water (binding)",
+                "sub3": "1/4 cup mashed banana"
+            },
+            "baking_powder_1_tsp": {
+                "sub1": "1/4 tsp baking soda + 1/2 tsp cream of tartar"
+            },
+            "brown_sugar_1_cup": {
+                "sub1": "1 cup white sugar + 1 tbsp molasses"
+            },
+            "butter_1_cup": {
+                "sub1": "1 cup coconut oil (solid)",
+                "sub2": "1 cup lard/shortening",
+                "sub3": "1/2 cup applesauce + 1/2 cup fat (healthier)"
+            }
+        },
+        "cooking": {
+            "lemon_juice": {
+                "sub1": "White vinegar (1/2 amount)",
+                "sub2": "Apple cider vinegar",
+                "sub3": "White wine"
+            },
+            "fresh_herbs_1_tbsp": {
+                "sub1": "1 tsp dried herbs (3:1 ratio)"
+            },
+            "onion_1_medium": {
+                "sub1": "1 tbsp onion powder",
+                "sub2": "1 cup chopped leeks",
+                "sub3": "1 cup chopped shallots"
+            },
+            "garlic_1_clove": {
+                "sub1": "1/8 tsp garlic powder",
+                "sub2": "1/2 tsp jarred minced garlic"
+            },
+            "wine_red": {
+                "sub1": "Beef broth + splash of vinegar",
+                "sub2": "Grape juice (unsweetened)"
+            },
+            "wine_white": {
+                "sub1": "Chicken broth + splash of vinegar",
+                "sub2": "Apple juice (dry)"
+            },
+            "cream_heavy": {
+                "sub1": "Milk + Butter (melted)",
+                "sub2": "Coconut milk (full fat)",
+                "sub3": "Evaporated milk"
+            }
+        }
+    }
+}

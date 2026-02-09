@@ -1,0 +1,54 @@
+{
+    "meta": {
+        "toolName": "Meal Planner Wizard",
+        "version": "1.0",
+        "description": "Generates a structured meal plan based on inventory and goals."
+    },
+    "structure": {
+        "theme_nights": [
+            "Meatless Monday",
+            "Taco/TexMex Tuesday",
+            "Pasta/Italian Wednesday",
+            "Soup/Sandwich Thursday",
+            "Pizza/Fun Friday",
+            "Leftovers/Clean-out Saturday",
+            "Roast/Slow Cooker Sunday"
+        ]
+    },
+    "template_week": {
+        "Monday": {
+            "type": "Vegetarian",
+            "effort": "Medium"
+        },
+        "Tuesday": {
+            "type": "Mexican",
+            "effort": "Medium"
+        },
+        "Wednesday": {
+            "type": "Italian",
+            "effort": "Fast"
+        },
+        "Thursday": {
+            "type": "Soup/Salad",
+            "effort": "Fast"
+        },
+        "Friday": {
+            "type": "Comfort",
+            "effort": "Medium"
+        },
+        "Saturday": {
+            "type": "Leftovers",
+            "effort": "Zero"
+        },
+        "Sunday": {
+            "type": "Roast",
+            "effort": "High (Passive)"
+        }
+    },
+    "logic": {
+        "step1": "Select theme for each day.",
+        "step2": "Check pantry for proteins matching theme.",
+        "step3": "Check produce requiring immediate use.",
+        "step4": "Assign meals."
+    }
+}

@@ -1,3 +1,9 @@
+id: print-checklist
+tags: [printable, cleaning, checklist]
+timeframe: weekly
+difficulty: n/a
+module: 11 Printables
+section: CleaningChecklists
 # Printable: Cleaning Checklists
 *The "Clean as you Go" Philosophy*
 
