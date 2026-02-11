@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, ArrowRight, Check, AlertTriangle, RefreshCw, Calculator } from 'lucide-react';
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
+import MarkdownRenderer from './MarkdownRenderer';
 
 const WizardRunner = ({ wizard, onComplete, onExit }) => {
     const [currentStepId, setCurrentStepId] = useState(wizard.steps[0].id);
@@ -229,8 +228,8 @@ const WizardRunner = ({ wizard, onComplete, onExit }) => {
                                 key={opt.value}
                                 onClick={() => handleInput(null, opt.value)}
                                 className={`w-full p-4 text-left rounded-xl border flex items-center justify-between transition-all ${formData[currentStepId] === opt.value
-                                        ? 'bg-terracotta-50 border-terracotta-500 ring-1 ring-terracotta-500'
-                                        : 'bg-white border-stone-200 hover:bg-stone-50'
+                                    ? 'bg-terracotta-50 border-terracotta-500 ring-1 ring-terracotta-500'
+                                    : 'bg-white border-stone-200 hover:bg-stone-50'
                                     }`}
                             >
                                 <span className="font-medium text-charcoal-800">{opt.label}</span>
@@ -249,8 +248,8 @@ const WizardRunner = ({ wizard, onComplete, onExit }) => {
                                     key={opt.value}
                                     onClick={() => handleMultiSelect(opt.value)}
                                     className={`w-full p-4 text-left rounded-xl border flex items-center justify-between transition-all ${isSelected
-                                            ? 'bg-sage-50 border-sage-500 ring-1 ring-sage-500'
-                                            : 'bg-white border-stone-200 hover:bg-stone-50'
+                                        ? 'bg-sage-50 border-sage-500 ring-1 ring-sage-500'
+                                        : 'bg-white border-stone-200 hover:bg-stone-50'
                                         }`}
                                 >
                                     <span className="font-medium text-charcoal-800">{opt.label}</span>
@@ -270,8 +269,8 @@ const WizardRunner = ({ wizard, onComplete, onExit }) => {
                                     key={opt.value}
                                     onClick={() => handleChecklist(opt.value)}
                                     className={`w-full p-4 text-left rounded-xl border flex items-center gap-3 transition-all ${isChecked
-                                            ? 'bg-blue-50 border-blue-500'
-                                            : 'bg-white border-stone-200 hover:bg-stone-50'
+                                        ? 'bg-blue-50 border-blue-500'
+                                        : 'bg-white border-stone-200 hover:bg-stone-50'
                                         }`}
                                 >
                                     <div className={`w-5 h-5 rounded border flex items-center justify-center ${isChecked ? 'bg-blue-500 border-blue-500 text-white' : 'border-stone-400 bg-white'}`}>
@@ -313,9 +312,7 @@ const WizardRunner = ({ wizard, onComplete, onExit }) => {
                     <p className="text-emerald-700 text-sm">Based on your inputs, here is your plan.</p>
                 </div>
                 <div className="p-6 prose prose-stone max-w-none">
-                    <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                        {resultContent}
-                    </ReactMarkdown>
+                    <MarkdownRenderer content={resultContent} />
                 </div>
                 <div className="p-4 bg-stone-50 border-t border-stone-200 flex justify-end gap-3">
                     <button onClick={handleBack} className="px-4 py-2 text-stone-600 font-medium hover:bg-stone-200 rounded-lg">

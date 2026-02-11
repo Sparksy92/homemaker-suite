@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Folder, FileText, ChevronRight, ArrowLeft, Heart, AlertCircle, Info, CheckCircle, AlertTriangle } from 'lucide-react';
 import { useUser } from '../context/UserContext';
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
+import MarkdownRenderer from '../components/MarkdownRenderer';
 
 // Helper to clean display names
 const getDisplayName = (name) => {
@@ -130,50 +129,7 @@ const Library = ({ type = 'all' }) => {
 
 
 
-    // Custom Components for Markdown
-    const MarkdownComponents = {
-        h1: ({ children }) => (
-            <h1 className="text-4xl font-serif text-sage-900 border-b-2 border-sage-200 pb-4 mb-8 mt-2">{children}</h1>
-        ),
-        h2: ({ children }) => (
-            <h2 className="text-2xl font-serif text-sage-800 mt-8 mb-4 flex items-center gap-2">
-                <span className="w-2 h-8 bg-terracotta-400 rounded-full inline-block"></span>
-                {children}
-            </h2>
-        ),
-        h3: ({ children }) => (
-            <h3 className="text-xl font-serif text-sage-700 mt-6 mb-3 border-l-4 border-sage-300 pl-3">{children}</h3>
-        ),
-        p: ({ children }) => (
-            <p className="mb-4 text-charcoal leading-relaxed text-lg">{children}</p>
-        ),
-        ul: ({ children }) => (
-            <ul className="space-y-2 mb-6 ml-4">{children}</ul>
-        ),
-        ol: ({ children }) => (
-            <ol className="list-decimal space-y-2 mb-6 ml-6 text-charcoal-dark font-medium">{children}</ol>
-        ),
-        li: ({ children }) => (
-            <li className="pl-2 border-l-2 border-sand-300 hover:border-terracotta-400 transition-colors pl-4">{children}</li>
-        ),
-        blockquote: ({ children }) => {
-            // Check if this is a GitHub style alert
-            const content = React.Children.toArray(children);
-            // This is a naive check, for robust parsing we might need rehypse plugins, but this works for standard blockquotes
-            // Since we can't easily parse the [!TIP] syntax inside the child without plugins in this simple setup,
-            // we will stick to styling standard blockquotes nicely for now, BUT we can try a simple text check if the first child is a paragraph.
 
-            // Actually, let's just make ALL blockquotes look like "Sage Advice"
-            return (
-                <div className="bg-sand-100 border-l-4 border-sage-500 p-6 rounded-r-xl my-6 italic text-sage-800 shadow-sm relative">
-                    <div className="absolute -left-3 -top-3 bg-sage-500 text-white p-1 rounded-full">
-                        <Info size={16} />
-                    </div>
-                    {children}
-                </div>
-            )
-        }
-    };
 
     // Search State
     const [searchQuery, setSearchQuery] = useState('');
@@ -406,12 +362,7 @@ const Library = ({ type = 'all' }) => {
                                     // Default Markdown View
                                     <div className="px-6 py-12 pb-32">
                                         <article className="bg-white p-8 md:p-12 rounded-3xl shadow-sm border border-sand-100 max-w-3xl mx-auto">
-                                            <ReactMarkdown
-                                                remarkPlugins={[remarkGfm]}
-                                                components={MarkdownComponents}
-                                            >
-                                                {fileContent.text}
-                                            </ReactMarkdown>
+                                            <MarkdownRenderer content={fileContent.text} />
                                         </article>
                                     </div>
                                 )}

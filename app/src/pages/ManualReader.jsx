@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
+import MarkdownRenderer from '../components/MarkdownRenderer';
 import { ArrowLeft, BookOpen, AlertTriangle } from 'lucide-react';
 import { motion } from 'framer-motion';
 
@@ -60,25 +59,28 @@ const ManualReader = () => {
         <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="pb-20 bg-white min-h-screen"
+            className="pb-20 bg-sand-50 min-h-screen"
         >
-            {/* Header */}
-            <div className={`sticky top-0 z-10 p-4 border-b border-gray-200 shadow-sm bg-white/95 backdrop-blur-sm flex items-center justify-between`}>
-                <Link to="/" className="p-2 rounded-full hover:bg-gray-100">
-                    <ArrowLeft className="w-6 h-6 text-gray-700" />
-                </Link>
-                <h1 className="text-lg font-bold text-gray-900 truncate">{manual.title}</h1>
-                <div className="w-10" /> {/* Spacer */}
+            {/* Header / Hero */}
+            <div className={`relative bg-sage-900 text-white overflow-hidden shadow-md`}>
+                <div className="absolute inset-0 opacity-10 bg-[url('/patterns/topography.svg')]"></div> {/* Texture placeholder/concept */}
+                <div className="relative z-10 max-w-4xl mx-auto px-6 py-12 md:py-16">
+                    <Link to="/" className="inline-flex items-center gap-2 text-sage-200 hover:text-white mb-6 transition-colors">
+                        <ArrowLeft className="w-5 h-5" />
+                        <span className="font-bold tracking-wide text-sm uppercase">Back to Library</span>
+                    </Link>
+                    <div className={`inline-block px-3 py-1 rounded-full text-xs font-bold tracking-widest uppercase mb-4 bg-white/10 text-sage-50 backdrop-blur-sm border border-white/20`}>
+                        Survival Manual v1.0
+                    </div>
+                    <h1 className="text-4xl md:text-6xl font-serif font-bold leading-tight">{manual.title}</h1>
+                </div>
             </div>
 
             {/* Content */}
-            <div className="max-w-3xl mx-auto p-6 prose prose-slate prose-lg md:prose-xl lg:prose-2xl">
-                <div className={`inline-block px-3 py-1 rounded-full text-sm font-bold mb-6 ${manual.color}`}>
-                    SURVIVAL MANUAL v1.0
+            <div className="max-w-4xl mx-auto px-6 -mt-8 relative z-20">
+                <div className="bg-white rounded-t-3xl shadow-xl p-8 md:p-12 min-h-[500px] border border-stone-100">
+                    <MarkdownRenderer content={manual.content} />
                 </div>
-                <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                    {manual.content}
-                </ReactMarkdown>
             </div>
         </motion.div>
     );

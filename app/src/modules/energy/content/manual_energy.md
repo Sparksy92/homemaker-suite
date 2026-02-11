@@ -131,10 +131,78 @@ Energy isn't just electricity. It's keeping warm.
 
 ---
 
-## 8. EMP / Solar Flare Protection
+## 8. Projects & Builds
 
-*   **Faraday Cage:** Protecting electronics from Pulse.
-*   **Build:** Metal trash can. Line inside with cardboard (insulation). Put electronics inside. Lid tight. Metal tape over seams.
-*   **Items to Protect:** Spare Charge Controller, Spare Inverter, Radios, LED lights, Multimeter.
-*   **Note:** Solar panels are usually robust. The wires act as antennas collecting the surge. Unplug array during event.
+### 8.1 Project: The "Ammo Can" Solar Generator
+**Goal:** A portable, waterproof power station for charging comms, lights, and phones.
+**Components:**
+1.  **.50 Cal Ammo Can:** (Steel provides robust protection).
+2.  **Battery:** 12V 12Ah-20Ah LiFePO4 (Fits perfectly inside).
+3.  **Charge Controller:** PWM 10A or 20A (Flush mount recommended).
+4.  **Outputs:** Dual USB Sockets, 12V Cigarette Socket, Binding Posts (for radio).
+5.  **Protection:** In-line Fuse holder (20A) or 6-way Fuse Block.
+6.  **Master Switch:** Marine Toggle Switch.
+7.  **Input:** Anderson Powerpole connectors (Panel mount).
+
+**Step-by-Step Build:**
+1.  **Layout:** Apply masking tape to the side of the can. Trace outlines of the Controller, Sockets, and Switch.
+2.  **Cut & Drill:**
+    *   Use a Step Bit for round holes (switches, sockets).
+    *   Use a Dremel/Jigsaw for the rectangular Controller hole.
+    *   *Safety:* Wear eye protection. De-burr edges with a file.
+3.  **Mounting:** Install components. Use rubber gaskets/silicone to maintain water resistance.
+4.  **Wiring (The Safety Loop):**
+    *   **Battery (+)** -> **Fuse** -> **Master Switch** -> **Fuse Block (+)**.
+    *   **Battery (-)** -> **Bus Bar / Common Ground**.
+    *   *Note:* Do not connect the battery yet.
+5.  **Connecting Components:**
+    *   Run wires from Fuse Block to each component (USB, Controller, Sockets).
+    *   **Solar Input:** Wire Anderson Powerpoles to the "PV" terminals on the Controller.
+6.  **Final Hookup:**
+    *   Connect Battery (+) and (-) to the system.
+    *   Turn Master Switch ON. The Charge Controller should light up.
+    *   Test Solar Input with a panel.
+
+### 8.2 Skill: Crimping MC4 Connectors
+**Context:** MC4s are the universal waterproof connectors for solar panels. You must know how to replace them.
+**Tools:** MC4 Crimping Tool, Wire Strippers.
+**The Wiring Standard:**
+*   **Male Pin:** Goes on the **Negative (-)** Cable. Inserts into the **Female Housing**.
+*   **Female Pin:** Goes on the **Positive (+)** Cable. Inserts into the **Male Housing**.
+*   *Yes, it's confusing. The "Gender" refers to the metal pin, not the plastic housing.*
+
+**Process:**
+1.  **Strip:** Expose 1/2 inch (12mm) of bare wire.
+2.  **Crimp:** Place the pin in the crimper. Insert wire. Squeeze until ratchet releases. Pull test (it should not come off).
+3.  **Insert:** Push the crimped pin into the plastic housing until you hear a distinct **"CLICK"**.
+4.  **Seal:** Screw on the compression nut. Hand tight + 1/2 turn with a wrench.
+
+### 8.3 Project: The Faraday Cage
+**Goal:** Protect backup electronics (Spare Inverter, Charge Controller, Radios) from EMP/CME.
+**Principle:** A continuous conductive shield blocks electromagnetic fields.
+**Materials:** Galvanized Steel Trash Can (with tight lid), Cardboard, Aluminum HVAC Tape.
+
+**Build:**
+1.  **Insulation Layer:** Line the *entire* interior (bottom and sides) with cardboard.
+    *   *Critical:* The electronics MUST NOT touch the metal can directly.
+2.  **Lid Prep:** Scrub the inside rim of the lid and the top lip of the can with steel wool to remove zinc/oxidation. We need raw metal-to-metal contact.
+3.  **Loading:**
+    *   Wrap each device in bubble wrap (Shock protection).
+    *   Wrap that bundle in Aluminum Foil (First shield layer).
+    *   Place inside the can.
+4.  **Sealing:**
+    *   Place lid on tight.
+    *   Tape over the seam with Aluminum Tape to seal any gaps.
+5.  **The Radio Test:**
+    *   Turn on a portable FM radio to a strong station.
+    *   Place it in the can.
+    *   Put the lid on.
+    *   If the signal cuts to static immediately, your shield is effective.
+
+---
+
+## 9. Troubleshooting
+*   **System Dead?** Check the Fuse first. Then check Battery Voltage (>11V).
+*   **Not Charging?** Check Panel polarity (Did you wire +/- backwards?). Check Sun angle.
+*   **Inverter Beeping?** Low Voltage (Battery empty) or Overload (Too many appliances).
 

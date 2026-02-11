@@ -127,6 +127,57 @@ Where to find it when the taps run dry.
 
 ### 6.2 Conservation
 *   **Cooking Water:** Drink the pasta water. It keeps the nutrients and the water.
-*   **Body Cooling:** Wet cloth on neck > Drinking cold water.
-*   **Work:** Work at night. Sleep during day to reduce sweat loss.
 
+---
+
+## 7. Projects & Builds
+
+### 7.1 Project: The Bio-Sand Filter (Bucket Version)
+**Goal:** Filter turbidity and pathogens from pond/river water using biology, not just physics.
+**Principle:** A "Schmutzdecke" (biolayer) forms on top of the sand, eating pathogens.
+**Materials:**
+1.  **Container:** 5 Gallon food-grade bucket (or 55 gal drum for home).
+2.  **Piping:** 1/2" PVC pipe, end cap, bulkhead fitting (or simple hole + silicone).
+3.  **Filtration Media:**
+    *   **Gravel:** 2 inches (Bottom layer).
+    *   **Coarse Sand:** 2 inches (Middle).
+    *   **Fine Sand:** 10+ inches (Top layer - The worker).
+    *   **Diffuser Plate:** A plastic lid with holes drilled in it.
+
+**Step-by-Step Build:**
+1.  **Prep the Bucket:** Drill a hole near the bottom for the outlet tube. The outlet tube must rise up the side of the bucket and exit *above* the sand level (this ensures the sand never dries out).
+2.  **Wash the Sand:** **CRITICAL.** Wash your sand in a bucket with water until the run-off is CLEAR. If you don't, your filter will clog or taste like mud.
+3.  **Layering:**
+    *   Install bottom drainage pipe (drilled with many small holes, wrapped in cloth).
+    *   Add **Gravel** (covers pipe).
+    *   Add **Coarse Sand**.
+    *   Add **Fine Sand** (Fill to 2 inches below the outlet level).
+4.  **The Diffuser:** Place the drilled plastic lid on top of the sand. This prevents pouring water from disturbing the sand bed.
+5.  **Acclimation (The Wait):** Pour dirty water through. Do NOT drink it yet. It takes **2-3 weeks** for the biolayer (good bacteria) to form on top.
+6.  **Usage:** Pour water in. Collect clear water out. **Purify** (Boil/Bleach) this water until you are 100% sure the biolayer is mature.
+
+### 7.2 Project: First-Flush Rainwater Diverter
+**Goal:** Automatically reject the first 5 gallons of rain (containing bird poop/roof dust) so only clean water enters your tank.
+**Materials:** 3" or 4" PVC Pipe, T-Junction, Screw cap, Tennis Ball (or floating ball), Reducer.
+
+**Build Logic:**
+1.  **The Drop:** Install a T-Junction on your downspout. The "Main" path goes down into a capped vertical pipe (The Chamber). The "Branch" path goes to your barrel.
+2.  **The Mechanism:**
+    *   Insert a floating ball (Tennis ball) inside the vertical chamber.
+    *   Ensure there is a restriction (reducer) at the top of the chamber so the ball seals the hole but doesn't pass through.
+3.  **Operation:**
+    *   Rain starts. Dirty water fills the vertical chamber.
+    *   Ball floats up.
+    *   Chamber gets full -> Ball seals the top.
+    *   Clean water is forced sideways into the branch (to your barrel).
+4.  **Reset:** Drill a tiny "weep hole" in the bottom screw cap. This allows the dirty water to slowly stickle out between rains, resetting the system.
+
+### 7.3 Skill: Making Activated Charcoal
+**Goal:** Create a chemical filter to remove toxins, pesticides, and bad tastes.
+**Process:**
+1.  **Carbonize:** Burn loose hardwood (Willow/Oak) in a metal tin with a small hole (to vent gas but limit oxygen). You want *Charcoal*, not *Ash*.
+    *   *Alternative:* Take coals from a very hot fire and quench them instantly in water.
+2.  **Crush:** Pulverize the charcoal into small granules (rice size). Dust is okay but clogs filters.
+3.  **Activate (Chemical):** Soak in a solution of Calcium Chloride (Road salt alternative) or Lemon Juice for 24 hours. This eats away internal structure, increasing surface area.
+4.  **Wash & Dry:** Rinse thoroughly with clean water. Bake in an oven/fire (250°F) to dry.
+5.  **Usage:** Place in a cloth sock. Water passes through *after* the sand filter.

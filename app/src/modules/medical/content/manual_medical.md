@@ -118,6 +118,52 @@ Infection kills more than bullets.
     *   *Redundancy:* Stockpile 1 year supply. Learn herbal alternatives.
 *   **Doctor Death:**
     *   *Redundancy:* 3 people in group cross-trained in TCCC (Tactical Combat Casualty Care).
-*   **Epidemic:**
-    *   *Redundancy:* Quarantine protocols. Isolation room. N95 masks.
 
+---
+
+## 9. Projects & Skills
+
+### 9.1 Project: Willow Bark Tincture (Nature's Aspirin)
+**Goal:** Extract Salicin (precursor to Aspirin) for pain/fever management when pills run out.
+**Identification:** Willow trees (*Salix* species) love water. Look near streams.
+**Materials:** Fresh Willow Bark (inner bark is best), High Proof Alcohol (Vodka/Everclear - at least 40%), Jar.
+
+**Process:**
+1.  **Harvest:** Strip small branches (pencil size). Peel the bark. The green/white inner layer is the medicine. Discard the outer grey wood.
+2.  **Prep:** Chop the bark into small pieces to increase surface area.
+3.  **Fill:** Fill a jar 3/4 full with bark.
+4.  **Extract:** Cover completely with alcohol. Seal tight.
+5.  **Wait:** Shake daily for **4-6 weeks**. (In emergency, boil bark in water for 20 mins for weak tea, but tincture lasts years).
+6.  **Strain:** Filter out bark. Label bottle.
+**Dosage:** *Warning:* Acts like Aspirin (blood thinner). Start with 1 dropper full (approx 30 drops). Wait 30 mins.
+
+### 9.2 Recipe: Oral Rehydration Salts (ORS) - The Life Saver
+**Context:** Diarrhea kills by dehydration (electrolyte loss). Water alone is not enough.
+**The "WHO" Formula:**
+*   **1 Liter** (approx 1 Quart) Clean Water.
+*   **6 Teaspoons** Sugar (Energy for absorption).
+*   **1/2 Teaspoon** Salt (Sodium).
+*   *(Optional)* Mashed banana (Potassium).
+**Usage:** Sip slowly after every loose stool. Do not chug.
+
+### 9.3 Skill: Plantain Poultice (The Green Bandage)
+**Identification:** *Plantago major* (Broadleaf) or *Plantago lanceolata* (Narrowleaf). Common weed in lawns/paths. Parallel veins in leaves.
+**Uses:** Bee stings, drawing out splinters, infected cuts.
+**Process:**
+1.  **Harvest:** Pick fresh clean leaves.
+2.  **Masticate:** Chew them up (saliva enzymes help) or mash with a rock until it's a green gloop.
+3.  **Apply:** Place the green goo directly on the wound.
+4.  **Cover:** Wrap with a cloth or large whole leaf. Leave for 4-6 hours. It will dry out as it "draws" fluids/toxins.
+
+### 9.4 Project: Suture Practice Kit
+**Goal:** Learn the *mechanics* of sewing skin. **DO NOT** practice on yourself.
+**Materials:**
+*   **The Medium:** Banana Peel (for delicate tearing practice), Orange Peel (tougher), or Pig Trotter (realistic skin/fat layers).
+*   **Tools:** Sewing Needle (curved is best), Dental Floss (strong, glides well), Pliers/Hemostats.
+**Drill:**
+1.  **Simple Interrupted Stitch:**
+    *   Drive needle in at 90 degrees, 5mm from edge.
+    *   Cross wound. Exit 5mm from other edge.
+    *   Tie a Surgeon's Knot (Double loop, then single loop).
+    *   Cut tails.
+2.  **Verify:** Pull the skin. The wound should kiss closed, not pucker (too tight) or gape (too loose).
