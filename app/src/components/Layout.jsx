@@ -65,7 +65,7 @@ const Layout = () => {
             </AnimatePresence>
 
             {/* Header */}
-            <header className="px-6 py-4 bg-sage-700 text-white flex justify-between items-center z-10 sticky top-0 shadow-md">
+            <header className="px-6 py-2 bg-sage-700 text-white flex justify-between items-center z-10 sticky top-0 shadow-md">
                 <div className="flex items-center gap-2">
                     {/* Simple Logo Placeholder */}
                     <div className="w-8 h-8 bg-terracotta-500 rounded-full flex items-center justify-center font-serif font-bold text-white border-2 border-sand-200">

@@ -11,6 +11,7 @@ import Settings from './pages/Settings';
 import ManualReader from './pages/ManualReader';
 import WizardPage from './pages/WizardPage'; // New Import
 import Cookbook from './pages/Cookbook';
+import Feedback from './pages/Feedback';
 import { UserProvider } from './context/UserContext';
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
                         <Route index element={<Home />} />
                         <Route path="library" element={<Library type="combined" />} />
                         <Route path="tools" element={<Tools />} />
+                        <Route path="feedback" element={<Feedback />} />
                         <Route path="meal-plans" element={<MealPlans />} />
                         <Route path="wildlife" element={<Wildlife />} />
                         <Route path="profile" element={<Profile />} />

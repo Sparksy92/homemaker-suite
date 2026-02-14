@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Sun, Droplets, Leaf, Thermometer, Battery, Shield, Flame, Activity, Hammer, Tent, Map, AlertTriangle } from 'lucide-react';
+import { Sun, Droplets, Leaf, Thermometer, Battery, Shield, Flame, Activity, Hammer, Tent, Map, AlertTriangle, MessageSquare } from 'lucide-react';
 import WeatherWidget from '../components/WeatherWidget';
 
 const Dashboard = () => {
@@ -177,6 +177,19 @@ const Dashboard = () => {
                     </Link>
                 </div>
             </section>
+            <Link to="/feedback" className="w-full bg-sage-50 p-4 rounded-2xl border border-sage-100 flex items-center justify-between hover:bg-sage-100 transition-colors group">
+                <div className="flex items-center gap-3">
+                    <div className="bg-white p-2 rounded-full text-sage-600 shadow-sm group-hover:scale-110 transition-transform">
+                        <MessageSquare size={20} />
+                    </div>
+                    <div>
+                        <span className="font-bold text-sage-900 block">Suggestion Box</span>
+                        <span className="text-xs text-sage-600">Help build the library</span>
+                    </div>
+                </div>
+                <span className="text-sage-400">→</span>
+            </Link>
+
             <button className="w-full bg-red-50 p-4 rounded-2xl border border-red-100 flex items-center justify-center gap-2 text-red-600 font-bold active:bg-red-600 active:text-white transition-colors">
                 <AlertTriangle size={20} />
                 EMERGENCY MODE

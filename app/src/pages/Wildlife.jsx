@@ -53,12 +53,12 @@ const Wildlife = () => {
     return (
         <div className="min-h-screen bg-sand-50 pb-24 relative">
             {/* Header */}
-            <div className="bg-sage-800 text-sand-50 p-6 pt-12 pb-8 rounded-b-3xl shadow-lg">
-                <h1 className="text-3xl font-serif font-bold mb-2">Wildlife & Nature</h1>
-                <p className="text-sage-200 opacity-90">Field guide to the living world.</p>
+            <div className="bg-sage-800 text-sand-50 p-6 pt-4 pb-6 rounded-b-3xl shadow-lg">
+                <h1 className="text-3xl font-serif font-bold mb-1">Wildlife & Nature</h1>
+                <p className="text-sage-200 opacity-90 text-sm">Field guide to the living world.</p>
 
                 {/* Search Bar */}
-                <div className="mt-6 relative">
+                <div className="mt-4 relative">
                     <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-sage-400" size={20} />
                     <input
                         type="text"
@@ -71,7 +71,7 @@ const Wildlife = () => {
             </div>
 
             {/* Navigation Tabs */}
-            <div className="flex gap-2 p-4 overflow-x-auto no-scrollbar border-b border-sand-200 mb-4 bg-white sticky top-0 z-10 shadow-sm">
+            <div className="flex flex-wrap justify-center gap-2 p-4 border-b border-sand-200 mb-4 bg-white sticky top-0 z-10 shadow-sm">
                 <TabButton
                     active={activeTab === 'flora'}
                     onClick={() => setActiveTab('flora')}
@@ -106,7 +106,7 @@ const Wildlife = () => {
 
             {/* Sub-Filters for Flora */}
             {activeTab === 'flora' && (
-                <div className="px-6 mb-4 flex gap-2 overflow-x-auto no-scrollbar">
+                <div className="px-6 mb-4 flex flex-wrap gap-2">
                     {['All', 'Edible', 'Medicinal', 'Poisonous', 'Utility'].map(type => (
                         <button
                             key={type}
@@ -481,7 +481,7 @@ const Wildlife = () => {
 const TabButton = ({ active, onClick, icon, label }) => (
     <button
         onClick={onClick}
-        className={`flex items-center gap-2 px-4 py-2 rounded-full whitespace-nowrap transition-all flex-shrink-0 ${active
+        className={`flex items-center gap-2 px-4 py-2 rounded-full whitespace-nowrap transition-all ${active
             ? 'bg-sage-600 text-white shadow-md'
             : 'bg-white text-sage-700 border border-sand-200 hover:bg-sand-50'
             }`}
