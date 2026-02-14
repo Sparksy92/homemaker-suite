@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Sun, Droplets, Leaf, Thermometer, Battery, Shield, Flame, Activity, Hammer, Tent, Map, AlertTriangle } from 'lucide-react';
+import WeatherWidget from '../components/WeatherWidget';
 
 const Dashboard = () => {
     const today = new Date();
@@ -37,11 +38,8 @@ const Dashboard = () => {
                         {greeting},<br /><span className="italic text-terracotta-500">Homemaker.</span>
                     </h2>
                 </div>
-                <div className="bg-white p-3 rounded-2xl shadow-sm border border-sand-200 flex flex-col items-center">
-                    <Sun className="text-amber-500 mb-1" size={24} />
-                    <span className="text-xl font-bold text-charcoal">72°</span>
-                    <span className="text-xs text-sage-500">Clear</span>
-                </div>
+                {/* Weather Widget */}
+                <WeatherWidget />
             </div>
 
             {/* System Status */}

@@ -20,8 +20,7 @@ function App() {
                 <Routes>
                     <Route path="/" element={<Layout />}>
                         <Route index element={<Home />} />
-                        <Route path="library" element={<Library type="guides" />} />
-                        <Route path="reference" element={<Library type="reference" />} />
+                        <Route path="library" element={<Library type="combined" />} />
                         <Route path="tools" element={<Tools />} />
                         <Route path="meal-plans" element={<MealPlans />} />
                         <Route path="wildlife" element={<Wildlife />} />

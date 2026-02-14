@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Calculator, Soup, Repeat, Calendar, Wrench } from 'lucide-react';
+import { Calculator, Soup, Repeat, Calendar, Wrench, Flame, Clock, ChefHat, X } from 'lucide-react';
 
 // Import JSON data directly
-import ingredientWizardData from '../data/IngredientWizard.json';
 import subEngineData from '../data/SubstitutionEngine.json';
 import pantryCalcData from '../data/PantryCalculator.json';
+import recipeData from '../data/RecipeDatabase.json';
 
 import MealPlans from './MealPlans';
 
@@ -31,7 +31,7 @@ const Tools = () => {
             <h1 className="text-3xl mb-6 font-serif text-sage-900">Toolkit</h1>
 
             {/* Tabs */}
-            <div className="flex gap-2 mb-6 overflow-x-auto pb-2 no-scrollbar">
+            <div className="flex flex-wrap gap-2 mb-6">
                 <TabButton
                     active={activeTab === 'wizard'}
                     onClick={() => setActiveTab('wizard')}
@@ -66,74 +66,10 @@ const Tools = () => {
 
             {/* Content Area */}
             <AnimatePresence mode="wait">
-                {activeTab === 'wizard' && <IngredientWizard key="wizard" data={ingredientWizardData} />}
+                {activeTab === 'wizard' && <IngredientWizard key="wizard" recipeData={recipeData} />}
                 {activeTab === 'pantry' && <PantryCalculator key="pantry" data={pantryCalcData} />}
                 {activeTab === 'sub' && <SubstitutionEngine key="sub" data={subEngineData} />}
-                {activeTab === 'survival' && (
-                    <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}>
-                        <div className="grid gap-6">
-                            {/* New: Survival Guides Section */}
-                            <div>
-                                <h3 className="text-sm font-bold text-sage-600 uppercase tracking-widest mb-3">Interactive Guides</h3>
-                                <div className="grid gap-3 md:grid-cols-2">
-                                    <WizardCard
-                                        title="Evacuation Decision"
-                                        desc="Should I Stay or Should I Go?"
-                                        onClick={() => window.location.href = '/#/wizard/evacuation'}
-                                    />
-                                    <WizardCard
-                                        title="First Aid Triage"
-                                        desc="Protocols for Bleeding, Burns, & Cold."
-                                        onClick={() => window.location.href = '/#/wizard/first-aid'}
-                                    />
-                                    <WizardCard
-                                        title="Water Safety Guide"
-                                        desc="Identify & treat dubious water sources."
-                                        onClick={() => window.location.href = '/#/wizard/water-safety'}
-                                    />
-                                    <WizardCard
-                                        title="Winter Blackout Protocol"
-                                        desc="Immediate actions for freezing power outages."
-                                        onClick={() => window.location.href = '/#/wizard/winter-blackout'}
-                                    />
-                                    <WizardCard
-                                        title="Garden Planner"
-                                        desc="Crop scheduling based on your frost date."
-                                        onClick={() => window.location.href = '/#/wizard/garden-planner'}
-                                    />
-                                    <WizardCard
-                                        title="Home Energy Audit"
-                                        desc="Calculate off-grid power requirements."
-                                        onClick={() => window.location.href = '/#/wizard/energy-planner'}
-                                    />
-                                </div>
-                            </div>
-
-                            {/* Existing: Reference Tools Section */}
-                            <div>
-                                <h3 className="text-sm font-bold text-sage-600 uppercase tracking-widest mb-3">Reference Calculators</h3>
-                                <div className="grid gap-3">
-                                    {survivalTools.map(tool => (
-                                        <button
-                                            key={tool}
-                                            onClick={() => setActiveToolUrl(`/content/50 Interactive Tools/${tool}`)}
-                                            className="bg-white p-4 rounded-xl shadow-sm border border-sand-200 text-left hover:border-terracotta-300 transition-all group flex items-center justify-between"
-                                        >
-                                            <div>
-                                                <h3 className="font-serif font-bold text-sage-800 group-hover:text-terracotta-600 transition-colors">
-                                                    {tool.replace('50.', '').replace(/\d+\s/, '').replace('.html', '')}
-                                                </h3>
-                                                <p className="text-xs text-charcoal-light mt-0.5">Offline HTML Utility</p>
-                                            </div>
-                                            <span className="text-sand-400 group-hover:text-terracotta-500">→</span>
-                                        </button>
-                                    ))}
-                                    {survivalTools.length === 0 && <p className="text-center text-sand-500 italic">No tools found.</p>}
-                                </div>
-                            </div>
-                        </div>
-                    </motion.div>
-                )}
+                {activeTab === 'survival' && <SurvivalToolsList tools={survivalTools} setActiveToolUrl={setActiveToolUrl} />}
                 {activeTab === 'plans' && (
                     <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}>
                         <MealPlans />
@@ -165,7 +101,7 @@ const Tools = () => {
 const TabButton = ({ active, onClick, icon, label }) => (
     <button
         onClick={onClick}
-        className={`flex items-center gap-2 px-4 py-2 rounded-full whitespace-nowrap transition-all ${active
+        className={`flex-grow flex items-center justify-center gap-2 px-4 py-2 rounded-full whitespace-nowrap transition-all ${active
             ? 'bg-sage-600 text-white shadow-lg'
             : 'bg-white text-sage-700 border border-sage-200 hover:bg-sage-50'
             }`}
@@ -177,18 +113,20 @@ const TabButton = ({ active, onClick, icon, label }) => (
 
 /* ---------------- Sub-Components ---------------- */
 
-const IngredientWizard = ({ data }) => {
+const IngredientWizard = ({ recipeData }) => {
     const [searchTerm, setSearchTerm] = useState('');
+    const [selectedRecipe, setSelectedRecipe] = useState(null);
+    const [isCookMode, setIsCookMode] = useState(false);
 
-    // Simple filter logic
-    const results = data.database.filter(r =>
-        r.base.some(i => i.toLowerCase().includes(searchTerm.toLowerCase())) ||
-        r.recipe.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    // Filter Cookbook Data
+    const cookbookResults = recipeData ? recipeData.recipes.filter(r =>
+        r.ingredients.some(i => i.toLowerCase().includes(searchTerm.toLowerCase())) ||
+        r.title.toLowerCase().includes(searchTerm.toLowerCase())
+    ) : [];
 
     return (
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}>
-            <div className="bg-white p-4 rounded-3xl shadow-sm border border-sand-200 mb-4">
+            <div className="bg-white p-4 rounded-3xl shadow-sm border border-sand-200 mb-6">
                 <label className="text-xs font-bold text-sage-600 uppercase tracking-widest mb-2 block">I have...</label>
                 <input
                     type="text"
@@ -199,19 +137,204 @@ const IngredientWizard = ({ data }) => {
                 />
             </div>
 
-            <div className="space-y-4">
-                {searchTerm && results.length === 0 && (
+            <div className="space-y-6">
+                {searchTerm && cookbookResults.length === 0 && (
                     <div className="text-center p-8 text-charcoal-light">No recipes found. Try a different ingredient.</div>
                 )}
-                {results.map((r, i) => (
-                    <div key={i} className="bg-white p-5 rounded-3xl shadow-sm border border-sand-100">
-                        <h3 className="text-xl font-bold text-sage-800 mb-2">{r.recipe}</h3>
-                        <p className="text-sm text-charcoal-light italic mb-3">{r.method}</p>
-                        <div className="flex flex-wrap gap-2">
-                            {r.base.map(b => <span key={b} className="bg-sage-50 text-sage-700 px-2 py-1 rounded-md text-xs">{b}</span>)}
+
+                {/* Cookbook Matches */}
+                {cookbookResults.length > 0 && (
+                    <div>
+                        <h3 className="text-sm font-bold text-sage-600 uppercase tracking-widest mb-3 flex items-center gap-2">
+                            <Flame size={16} /> Recipe Ideas ({cookbookResults.length})
+                        </h3>
+                        <div className="grid gap-4 md:grid-cols-2">
+                            {cookbookResults.slice(0, 8).map((r) => (
+                                <button
+                                    key={r.id}
+                                    onClick={() => setSelectedRecipe(r)}
+                                    className="bg-white p-5 rounded-3xl shadow-sm border border-sand-100 hover:border-terracotta-200 transition-colors text-left group"
+                                >
+                                    <div className="flex justify-between items-start mb-2">
+                                        <span className="text-xs font-bold text-terracotta-600 uppercase tracking-wide">{r.category}</span>
+                                        <span className="text-xs text-sand-500">{r.prep_time}</span>
+                                    </div>
+                                    <h3 className="text-xl font-bold text-sage-800 mb-2 leading-tight group-hover:text-terracotta-700">{r.title}</h3>
+                                    <p className="text-sm text-charcoal-light italic mb-3 line-clamp-2">
+                                        {r.ingredients.join(', ')}
+                                    </p>
+                                    <div className="text-sm font-bold text-sage-600 group-hover:text-sage-800 flex items-center gap-1 mt-auto">
+                                        View Recipe →
+                                    </div>
+                                </button>
+                            ))}
+                            {cookbookResults.length > 8 && (
+                                <div className="col-span-full text-center py-2 text-sm text-sand-500">
+                                    + {cookbookResults.length - 8} more matches hidden
+                                </div>
+                            )}
                         </div>
                     </div>
-                ))}
+                )}
+            </div>
+
+            {/* Detail Modal (Copied from Cookbook) */}
+            <AnimatePresence>
+                {selectedRecipe && (
+                    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center pointer-events-none">
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            className="absolute inset-0 bg-black/60 backdrop-blur-sm pointer-events-auto"
+                            onClick={() => { setSelectedRecipe(null); setIsCookMode(false); }}
+                        />
+                        <motion.div
+                            layoutId={`card-${selectedRecipe.id}`}
+                            className={`bg-white w-full max-w-lg max-h-[90vh] overflow-y-auto rounded-t-3xl sm:rounded-2xl shadow-2xl pointer-events-auto relative flex flex-col ${isCookMode ? 'h-[90vh]' : ''}`}
+                        >
+                            {/* Modal Header */}
+                            <div className="p-6 border-b border-sand-100 flex justify-between items-start bg-white sticky top-0 z-10">
+                                <div>
+                                    <h2 className="text-2xl font-serif font-bold text-sage-900 leading-tight">
+                                        {selectedRecipe.title}
+                                    </h2>
+                                    <div className="flex items-center gap-4 mt-2 text-sm text-sage-600">
+                                        <span className="flex items-center gap-1"><Clock size={14} /> Prep: {selectedRecipe.prep_time}</span>
+                                        <span className="flex items-center gap-1"><Flame size={14} /> Cook: {selectedRecipe.cook_time}</span>
+                                    </div>
+                                </div>
+                                <button
+                                    onClick={() => { setSelectedRecipe(null); setIsCookMode(false); }}
+                                    className="p-2 bg-sand-100 rounded-full text-sage-600 hover:bg-sand-200"
+                                >
+                                    <X size={20} />
+                                </button>
+                            </div>
+
+                            {/* Modal Content */}
+                            <div className={`p-6 space-y-8 ${isCookMode ? 'text-lg' : ''}`}>
+                                {/* Toggle Cook Mode */}
+                                <div className="flex justify-end sticky top-20 z-0">
+                                    <button
+                                        onClick={() => setIsCookMode(!isCookMode)}
+                                        className={`flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold transition-colors ${isCookMode ? 'bg-terracotta-600 text-white' : 'bg-sand-100 text-charcoal-600'
+                                            }`}
+                                    >
+                                        <ChefHat size={14} />
+                                        {isCookMode ? 'Cook Mode ON' : 'Cook Mode'}
+                                    </button>
+                                </div>
+
+                                <div>
+                                    <h3 className="font-bold text-terracotta-600 uppercase tracking-widest text-sm mb-3 border-b border-sand-200 pb-1">
+                                        Ingredients
+                                    </h3>
+                                    <ul className="space-y-2">
+                                        {selectedRecipe.ingredients.map((ing, i) => (
+                                            <li key={i} className="flex items-start gap-3">
+                                                <div className="w-1.5 h-1.5 rounded-full bg-sand-300 mt-2 shrink-0" />
+                                                <span className={`${isCookMode ? 'text-charcoal-900 font-medium' : 'text-charcoal-700'}`}>
+                                                    {ing}
+                                                </span>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+
+                                <div>
+                                    <h3 className="font-bold text-terracotta-600 uppercase tracking-widest text-sm mb-3 border-b border-sand-200 pb-1">
+                                        Instructions
+                                    </h3>
+                                    <ol className="space-y-4">
+                                        {selectedRecipe.steps.map((step, i) => (
+                                            <li key={i} className={`p-4 rounded-xl ${isCookMode ? 'bg-sand-50 border border-sand-200' : ''}`}>
+                                                <span className={`${isCookMode ? 'text-charcoal-900 leading-relaxed' : 'text-charcoal-700'}`}>
+                                                    {step}
+                                                </span>
+                                            </li>
+                                        ))}
+                                    </ol>
+                                </div>
+                            </div>
+                        </motion.div>
+                    </div>
+                )}
+            </AnimatePresence>
+        </motion.div>
+    );
+};
+
+import { useNavigate } from 'react-router-dom';
+
+const SurvivalToolsList = ({ tools, setActiveToolUrl }) => {
+    const navigate = useNavigate();
+
+    return (
+        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}>
+            <div className="grid gap-6">
+                <div>
+                    <h3 className="text-sm font-bold text-sage-600 uppercase tracking-widest mb-3">Interactive Guides</h3>
+                    <div className="grid gap-3 md:grid-cols-2">
+                        <WizardCard
+                            title="Emergency Plan Base"
+                            desc="Create a comprehensive family plan."
+                            onClick={() => navigate('/wizard/emergency-plan')}
+                        />
+                        <WizardCard
+                            title="Evacuation Decision"
+                            desc="Should I Stay or Should I Go?"
+                            onClick={() => navigate('/wizard/evacuation')}
+                        />
+                        <WizardCard
+                            title="First Aid Triage"
+                            desc="Protocols for Bleeding, Burns, & Cold."
+                            onClick={() => navigate('/wizard/first-aid')}
+                        />
+                        <WizardCard
+                            title="Water Safety Guide"
+                            desc="Identify & treat dubious water sources."
+                            onClick={() => navigate('/wizard/water-safety')}
+                        />
+                        <WizardCard
+                            title="Winter Blackout Protocol"
+                            desc="Immediate actions for freezing power outages."
+                            onClick={() => navigate('/wizard/winter-blackout')}
+                        />
+                        <WizardCard
+                            title="Garden Planner"
+                            desc="Crop scheduling based on your frost date."
+                            onClick={() => navigate('/wizard/garden-planner')}
+                        />
+                        <WizardCard
+                            title="Home Energy Audit"
+                            desc="Calculate off-grid power requirements."
+                            onClick={() => navigate('/wizard/energy-planner')}
+                        />
+                    </div>
+                </div>
+
+                <div>
+                    <h3 className="text-sm font-bold text-sage-600 uppercase tracking-widest mb-3">Reference Calculators</h3>
+                    <div className="grid gap-3">
+                        {tools.map(tool => (
+                            <button
+                                key={tool}
+                                onClick={() => setActiveToolUrl(`/content/50 Interactive Tools/${tool}`)}
+                                className="bg-white p-4 rounded-xl shadow-sm border border-sand-200 text-left hover:border-terracotta-300 transition-all group flex items-center justify-between"
+                            >
+                                <div>
+                                    <h3 className="font-serif font-bold text-sage-800 group-hover:text-terracotta-600 transition-colors">
+                                        {tool.replace('50.', '').replace(/\d+\s/, '').replace('.html', '')}
+                                    </h3>
+                                    <p className="text-xs text-charcoal-light mt-0.5">Offline HTML Utility</p>
+                                </div>
+                                <span className="text-sand-400 group-hover:text-terracotta-500">→</span>
+                            </button>
+                        ))}
+                        {tools.length === 0 && <p className="text-center text-sand-500 italic">No tools found.</p>}
+                    </div>
+                </div>
             </div>
         </motion.div>
     );

@@ -96,7 +96,6 @@ const Layout = () => {
                     <NavItem to="/library" icon={<BookOpen size={22} />} label="Guides" />
                     <NavItem to="/wildlife" icon={<Leaf size={22} />} label="Nature" />
                     <NavItem to="/tools" icon={<Wrench size={22} />} label="Tools" />
-                    <NavItem to="/reference" icon={<Archive size={22} />} label="Ref" />
                 </ul>
             </nav>
         </div>

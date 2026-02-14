@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Long Term Food Storage Calculator</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            padding: 20px;
+            background-color: #fff7ed;
+            color: #431407;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            border: 1px solid #fed7aa;
+        }
+
+        h1 {
+            color: #c2410c;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            color: #9a3412;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #fdba74;
+            border-radius: 8px;
+            font-size: 1rem;
+            box-sizing: border-box;
+            background-color: #fffaf5;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background-color: #ea580c;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            background-color: #c2410c;
+        }
+
+        .result {
+            margin-top: 25px;
+            padding: 20px;
+            background-color: #ffedd5;
+            border-radius: 8px;
+            border: 1px solid #fed7aa;
+            display: none;
+        }
+
+        .result h3 {
+            margin-top: 0;
+            color: #7c2d12;
+        }
+
+        .stat {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            border-bottom: 1px dashed #fdba74;
+            padding-bottom: 8px;
+        }
+
+        .stat:last-child {
+            border-bottom: none;
+        }
+
+        .info-card {
+            background-color: #f3f4f6;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: #4b5563;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>🥫 Shelf Life Estimator</h1>
+
+        <div class="input-group">
+            <label>Food Item (Mylar Sealed + O2 Absorbers)</label>
+            <select id="foodType">
+                <option value="wheat">White Rice / Hard Wheat</option>
+                <option value="beans">Dried Beans / Corn</option>
+                <option value="flour">White Flour / Rolled Oats</option>
+                <option value="pasta">Pasta</option>
+                <option value="sugar">White Sugar / Salt / Honey</option>
+                <option value="milk">Powdered Milk (Non-Fat)</option>
+                <option value="brownrice">Brown Rice / Oily Grains</option>
+            </select>
+        </div>
+
+        <div class="input-group">
+            <label>Average Storage Temperature (°F)</label>
+            <input type="range" id="tempRange" min="40" max="90" value="70"
+                oninput="document.getElementById('tempDisplay').innerText = this.value + '°F'" />
+            <div style="text-align: center; font-weight: bold; color: #c2410c; margin-top: 5px;" id="tempDisplay">70°F
+            </div>
+        </div>
+
+        <button onclick="calculate()">Estimate Life</button>
+
+        <div id="result" class="result">
+            <h3>Estimated Shelf Life</h3>
+            <div class="stat">
+                <span>Duration:</span>
+                <strong id="yearsDisplay">- Years</strong>
+            </div>
+
+            <div id="spoilageNote" style="font-size: 0.9rem; margin-top: 10px; font-style: italic;"></div>
+        </div>
+
+        <div class="info-card">
+            <strong>Assumption:</strong> Food is stored in Mylar bags with appropriate oxygen absorbers, protecting it
+            from light, moisture, and pests.
+        </div>
+    </div>
+
+    <script>
+        function calculate() {
+            const food = document.getElementById('foodType').value;
+            const temp = parseInt(document.getElementById('tempRange').value);
+
+            // Base life at 70F (Years)
+            let baseLife = 0;
+            let indefinite = false;
+
+            switch (food) {
+                case 'wheat': baseLife = 30; break;
+                case 'beans': baseLife = 30; break;
+                case 'pasta': baseLife = 30; break;
+                case 'flour': baseLife = 10; break; // Flour degrades faster than berries
+                case 'milk': baseLife = 20; break;
+                case 'brownrice': baseLife = 1; break; // Oils go rancid
+                case 'sugar': indefinite = true; break;
+            }
+
+            if (indefinite) {
+                document.getElementById('yearsDisplay').innerText = "Indefinite";
+                document.getElementById('spoilageNote').innerText = "Sugar, Salt, and Honey do not spoil if kept dry.";
+                document.getElementById('result').style.display = 'block';
+                return;
+            }
+
+            // Calculation Rule of Thumb:
+            // For every 10°F drop (down to 40), life doubles? (Optimistic)
+            // USU study: Life cuts in half for every 18°F (10°C) rise above optimum?
+            // Let's use a simplified decay curve based on Arrhenius equation approximation for preppers.
+
+            // Factor: 1.0 at 70F.
+            // 80F -> 0.5x life
+            // 90F -> 0.25x life
+            // 60F -> 2x life
+            // 50F -> 3x life (diminishing returns)
+
+            let factor = 1;
+            const diff = 70 - temp;
+
+            // Approx logic
+            if (diff > 0) {
+                // Cooler
+                factor = 1 + (diff / 10); // Linear boost for cooler temps (conservative)
+            } else {
+                // Warmer
+                // Cuts in half every 10 degrees roughly
+                const drops = Math.abs(diff) / 10;
+                factor = Math.pow(0.5, drops);
+            }
+
+            let finalLife = (baseLife * factor).toFixed(1);
+
+            // Cap extremely long times for realism
+            if (finalLife > 40) finalLife = "30+";
+
+            document.getElementById('yearsDisplay').innerText = finalLife + " Years";
+
+            if (food === 'brownrice' && temp > 70) {
+                document.getElementById('spoilageNote').innerText = "Warning: Oily grains go rancid very quickly in heat.";
+            } else {
+                document.getElementById('spoilageNote').innerText = "";
+            }
+
+            document.getElementById('result').style.display = 'block';
+        }
+    </script>
+</body>
+
+</html>

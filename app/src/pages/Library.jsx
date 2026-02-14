@@ -13,6 +13,7 @@ const getDisplayName = (name) => {
 
 const Library = ({ type = 'all' }) => {
     const [currentPath, setCurrentPath] = useState([]);
+    const [viewMode, setViewMode] = useState('modules'); // 'modules' or 'reference'
     const [fileContent, setFileContent] = useState(null);
     const [fileSystem, setFileSystem] = useState({});
     const [loading, setLoading] = useState(true);

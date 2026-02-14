@@ -48,7 +48,10 @@
   "16 Tools & Workshop": [
     "16.1 Tool Maintenance.md",
     "16.2 Improvised Tools.md",
-    "16.3 The Essential Toolkit.md"
+    "16.3 The Essential Toolkit.md",
+    "16.4 Advanced Workshop Projects.md",
+    "16.5 Metalworking & Forging.md",
+    "16.6 Textile & Fiber Arts Tools.md"
   ],
   "17 Shelter & Weatherproofing": [
     "17.1 Emergency Shelters.md",
@@ -118,7 +121,10 @@
     "5.7 Wild Plant Cultivation.md"
   ],
   "50 Interactive Tools": [
-    "50.1 Solar Calculator.html"
+    "50.1 Solar Calculator.html",
+    "50.2 Water Purification.html",
+    "50.3 Food Storage.html",
+    "50.4 Firewood Estimator.html"
   ],
   "6 Home Maintenance": [
     "6.1 Cleaning Chemistry.md",

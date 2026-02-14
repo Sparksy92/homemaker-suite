@@ -1169,6 +1169,86 @@
                 "4. Stick lend to 'Trace' (pudding consistency).",
                 "5. Pour into mold. Insulate. Cut after 24 hours. Cure 4 weeks."
             ]
+        },
+        {
+            "id": "pantry-pb-noodles",
+            "title": "Peanut Butter Noodles",
+            "category": "Pantry Staples",
+            "prep_time": "5m",
+            "cook_time": "10m",
+            "ingredients": [
+                "Spaghetti / Ramen",
+                "1/3 cup Peanut Butter",
+                "2 tbsp Soy Sauce",
+                "1 tbsp Sugar/Honey",
+                "Vinegar / Hot Sauce"
+            ],
+            "steps": [
+                "1. Boil noodles.",
+                "2. Whisk peanut butter, soy, sugar, and splash of hot water.",
+                "3. Drain noodles.",
+                "4. Toss hot noodles with sauce. Top with crushed peanuts/onions."
+            ]
+        },
+        {
+            "id": "pantry-baked-potato",
+            "title": "Loaded Baked Potato",
+            "category": "Pantry Staples",
+            "prep_time": "5m",
+            "cook_time": "1h",
+            "ingredients": [
+                "Large Potatoes",
+                "Canned Chili",
+                "Cheese (or powdered cheese sauce)",
+                "Bacon Bits",
+                "Broccoli"
+            ],
+            "steps": [
+                "1. Poke holes in potato. Bake 400F for 1 hour (or microwave 10m).",
+                "2. Slice open.",
+                "3. Top efficiently with heated chili and cheese."
+            ]
+        },
+        {
+            "id": "pantry-fried-rice",
+            "title": "Leftover Fried Rice",
+            "category": "Pantry Staples",
+            "prep_time": "10m",
+            "cook_time": "10m",
+            "ingredients": [
+                "Cold Leftover Rice",
+                "Eggs / Canned Meat",
+                "Frozen Peas / Corn",
+                "Soy Sauce / Oil"
+            ],
+            "steps": [
+                "1. Heat oil in skillet until smoking.",
+                "2. Fry veggies.",
+                "3. Add rice (break up clumps). Fry until hot.",
+                "4. Push aside, scramble egg in empty spot.",
+                "5. Mix everything with soy sauce."
+            ]
+        },
+        {
+            "id": "pantry-bean-salad",
+            "title": "Three Bean Salad",
+            "category": "Pantry Staples",
+            "prep_time": "10m",
+            "cook_time": "0m",
+            "ingredients": [
+                "1 can Green Beans",
+                "1 can Wax Beans",
+                "1 can Kidney Beans",
+                "Sugar",
+                "Vinegar",
+                "Oil"
+            ],
+            "steps": [
+                "1. Drain and rinse kidney beans. Drain others.",
+                "2. Mix beans.",
+                "3. Mix 1/2 cup vinegar, 1/4 cup oil, 1/4 cup sugar.",
+                "4. Toss beans with dressing. Marinade overnight for best taste."
+            ]
         }
     ]
 }

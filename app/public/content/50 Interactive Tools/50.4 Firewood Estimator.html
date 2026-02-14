@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firewood Heating Estimator</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            padding: 20px;
+            background-color: #fef2f2;
+            color: #450a0a;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            border: 1px solid #fecaca;
+        }
+
+        h1 {
+            color: #dc2626;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            color: #991b1b;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #f87171;
+            border-radius: 8px;
+            font-size: 1rem;
+            box-sizing: border-box;
+            background-color: #fef2f2;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background-color: #ef4444;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            background-color: #dc2626;
+        }
+
+        .result {
+            margin-top: 25px;
+            padding: 20px;
+            background-color: #fee2e2;
+            border-radius: 8px;
+            border: 1px solid #fecaca;
+            display: none;
+        }
+
+        .result h3 {
+            margin-top: 0;
+            color: #7f1d1d;
+        }
+
+        .stat {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            border-bottom: 1px dashed #fca5a5;
+            padding-bottom: 8px;
+        }
+
+        .stat:last-child {
+            border-bottom: none;
+        }
+
+        .note {
+            font-size: 0.8rem;
+            color: #7f1d1d;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>🔥 Firewood Needed</h1>
+
+        <div class="input-group">
+            <label>Area to Heat (Sq Ft)</label>
+            <input type="number" id="sqft" placeholder="e.g. 1500" />
+        </div>
+
+        <div class="input-group">
+            <label>Winter Severity</label>
+            <select id="climate">
+                <option value="mild">Mild (South US / ~2000 HDD)</option>
+                <option value="moderate">Moderate (Mid-Atlantic / ~4500 HDD)</option>
+                <option value="cold">Cold (New England / ~6500 HDD)</option>
+                <option value="severe">Severe (Alaska/Canada / ~9000 HDD)</option>
+            </select>
+        </div>
+
+        <div class="input-group">
+            <label>Home Insulation</label>
+            <select id="insulation">
+                <option value="poor">Poor (Drafty / Old Windows)</option>
+                <option value="average" selected>Average</option>
+                <option value="good">Good (New Build / Tight)</option>
+            </select>
+        </div>
+
+        <button onclick="calculate()">Estimate Cords</button>
+
+        <div id="result" class="result">
+            <h3>Winter Requirement</h3>
+            <div class="stat">
+                <span>Full Cords (4'x4'x8'):</span>
+                <strong id="cords">-</strong>
+            </div>
+            <div class="stat">
+                <span>Total Face Cords (4'x8'x16"):</span>
+                <strong id="faceCords">-</strong>
+            </div>
+            <div class="stat">
+                <span>Space Needed (Stacked):</span>
+                <strong id="stackSpace">-</strong>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function calculate() {
+            const sqft = parseFloat(document.getElementById('sqft').value);
+            const climate = document.getElementById('climate').value;
+            const insulation = document.getElementById('insulation').value;
+
+            if (!sqft) {
+                alert("Please enter square footage");
+                return;
+            }
+
+            // Estimate BTUs needed per season
+            // Rule of Thumb: BTUs per sqft per HDD? 
+            // Simpler: 
+            // Mild: 1-2 cords
+            // Moderate: 3-4 cords
+            // Cold: 4-6 cords
+            // Severe: 7-9 cords
+            // Based on an average 2000sqft home.
+
+            // Base Cords for 2000sqft
+            let baseCords = 0;
+            switch (climate) {
+                case 'mild': baseCords = 1.5; break;
+                case 'moderate': baseCords = 3.5; break;
+                case 'cold': baseCords = 5.5; break;
+                case 'severe': baseCords = 8.0; break;
+            }
+
+            // Adjust for size
+            // 2000 sqft is baseline.
+            let sizeFactor = sqft / 2000;
+            let cords = baseCords * sizeFactor;
+
+            // Adjust for insulation
+            if (insulation === 'poor') cords *= 1.3;
+            if (insulation === 'good') cords *= 0.75;
+
+            // Round to nearest half cord
+            cords = Math.ceil(cords * 2) / 2;
+
+            const faceCords = cords * 3; // 1 Full Cord = 3 Face Cords (16" log length)
+
+            // 1 cord = 128 cu ft. Stack dimensions approx.
+            const stackLength = cords * 8; // If stacked 4ft high, 4ft deep.
+
+            document.getElementById('cords').innerText = cords;
+            document.getElementById('faceCords').innerText = faceCords;
+            document.getElementById('stackSpace').innerText = `4' High x 4' Deep x ${stackLength}' Long`;
+
+            document.getElementById('result').style.display = 'block';
+        }
+    </script>
+</body>
+
+</html>
