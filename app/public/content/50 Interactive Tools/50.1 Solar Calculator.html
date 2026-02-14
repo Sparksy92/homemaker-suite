@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solar Sizing Calculator</title>
+    <style>
+        body { font-family: system-ui, -apple-system, sans-serif; padding: 20px; background-color: #f8fafc; color: #334155; }
+        .container { max-width: 600px; margin: 0 auto; background: white; padding: 30px; border-radius: 16px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); }
+        h1 { color: #0f172a; margin-bottom: 20px; font-size: 1.5rem; }
+        .input-group { margin-bottom: 20px; }
+        label { display: block; font-weight: 600; margin-bottom: 8px; font-size: 0.9rem; }
+        input { width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 1rem; box-sizing: border-box; }
+        button { width: 100%; padding: 14px; background-color: #f59e0b; color: white; border: none; border-radius: 8px; font-weight: bold; font-size: 1rem; cursor: pointer; transition: background 0.2s; }
+        button:hover { background-color: #d97706; }
+        .result { margin-top: 25px; padding: 20px; background-color: #ecfccb; border-radius: 8px; border: 1px solid #d9f99d; display: none; }
+        .result h3 { margin-top: 0; color: #3f6212; }
+        .stat { display: flex; justify-content: space-between; margin-bottom: 8px; border-bottom: 1px dashed #bef264; padding-bottom: 8px; }
+        .stat:last-child { border-bottom: none; }
+        .note { font-size: 0.8rem; color: #64748b; margin-top: 15px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>☀️ Solar Array Sizer</h1>
+        
+        <div class="input-group">
+            <label>Daily Consumption (Watt-Hours)</label>
+            <input type="number" id="dailyWh" placeholder="e.g. 2000 (Fridge + Lights)" />
+            <div class="note">Sum of all device watages × hours used.</div>
+        </div>
+
+        <div class="input-group">
+            <label>Peak Sun Hours</label>
+            <input type="number" id="sunHours" value="4.5" />
+            <div class="note">USA Avg: 4.5. Southwest: 5.5+. North: 3.5.</div>
+        </div>
+
+        <button onclick="calculate()">Calculate System</button>
+
+        <div id="result" class="result">
+            <h3>System Requirements</h3>
+            <div class="stat">
+                <span>Solar Array Size:</span>
+                <strong id="arraySize">-</strong>
+            </div>
+            <div class="stat">
+                <span>Battery Bank (12V):</span>
+                <strong id="batterySize">-</strong>
+            </div>
+            <div class="stat">
+                <span>Battery Bank (24V):</span>
+                <strong id="batterySize24">-</strong>
+            </div>
+            <div class="note">
+                *Includes 20% system loss buffer and 50% battery depth-of-discharge limit (Lead Acid/AGM).
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function calculate() {
+            const dailyWh = parseFloat(document.getElementById('dailyWh').value);
+            const sunHours = parseFloat(document.getElementById('sunHours').value);
+
+            if (!dailyWh || !sunHours) {
+                alert("Please enter valid numbers");
+                return;
+            }
+
+            // Calculations
+            // 1. Array: (Daily Usage * 1.2 Efficiency Loss) / Sun Hours
+            const arrayWatts = Math.ceil((dailyWh * 1.2) / sunHours);
+
+            // 2. Battery: (Daily Usage * 2 for 50% DOD) / Voltage
+            const batteryAmpHours12 = Math.ceil((dailyWh * 2) / 12);
+            const batteryAmpHours24 = Math.ceil((dailyWh * 2) / 24);
+
+            // Display
+            document.getElementById('arraySize').innerText = arrayWatts + " Watts";
+            document.getElementById('batterySize').innerText = batteryAmpHours12 + " Ah";
+            document.getElementById('batterySize24').innerText = batteryAmpHours24 + " Ah";
+            document.getElementById('result').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

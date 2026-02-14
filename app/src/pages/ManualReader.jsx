@@ -12,6 +12,7 @@ import medicalMd from '../modules/medical/content/manual_medical.md?raw';
 import energyMd from '../modules/energy/content/manual_energy.md?raw';
 import shelterMd from '../modules/shelter/content/manual_shelter.md?raw';
 import wildernessMd from '../modules/wilderness/content/manual_wilderness.md?raw';
+import gardeningMd from '../modules/gardening/content/manual_gardening.md?raw';
 
 // Scenario Playbooks
 import winterOutageMd from '../public/content/21 Scenario Playbooks/21.1 72-Hour Winter Outage.md?raw';
@@ -30,6 +31,7 @@ const manuals = {
     'energy': { title: 'Off-Grid Energy', content: energyMd, color: 'bg-yellow-100 text-yellow-800' },
     'shelter': { title: 'Shelter & Home', content: shelterMd, color: 'bg-stone-100 text-stone-800' },
     'wilderness': { title: 'Wilderness Survival', content: wildernessMd, color: 'bg-emerald-100 text-emerald-800' },
+    'gardening': { title: 'Gardening & Soil', content: gardeningMd, color: 'bg-lime-100 text-lime-800' },
 
     // Scenarios
     'scenario-winter': { title: '72-Hour Winter Outage', content: winterOutageMd, color: 'bg-blue-50 text-blue-900 border-blue-200' },

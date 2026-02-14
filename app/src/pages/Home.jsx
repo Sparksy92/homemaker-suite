@@ -14,6 +14,7 @@ const Dashboard = () => {
     const quickActions = [
         { id: 'water', label: 'Water', icon: Droplets, color: 'bg-blue-100 text-blue-600', link: '/manual/water' },
         { id: 'food', label: 'Food', icon: Leaf, color: 'bg-green-100 text-green-600', link: '/manual/food' },
+        { id: 'gardening', label: 'Garden', icon: Leaf, color: 'bg-lime-100 text-lime-600', link: '/manual/gardening' },
         { id: 'medical', label: 'First Aid', icon: Activity, color: 'bg-red-100 text-red-600', link: '/manual/medical' },
         { id: 'energy', label: 'Energy', icon: Battery, color: 'bg-yellow-100 text-yellow-600', link: '/manual/energy' },
         { id: 'shelter', label: 'Shelter', icon: Tent, color: 'bg-stone-100 text-stone-600', link: '/manual/shelter' },

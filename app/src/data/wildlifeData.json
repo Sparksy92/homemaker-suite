@@ -224,6 +224,125 @@
                 "habitat": "Edge spaces, climbing trees, ground cover.",
                 "processing": "If exposed: Wash with COLD water (hot opens pores) and lots of soap (dish soap is best) within 15 minutes. Scrub with a washcloth to physically remove the oil."
             }
+        },
+        {
+            "id": "chicory",
+            "name": "Chicory",
+            "scientific_name": "Cichorium intybus",
+            "type": "Edible / Medicinal",
+            "season": "Summer/Fall",
+            "identification": "Bright blue daisy-like flowers on stiff stalks. jagged leaves like dandelion.",
+            "uses": "Root roasted for coffee substitute. Young leaves for salad.",
+            "caution": "None.",
+            "images": [
+                "chicory.svg"
+            ],
+            "details": {
+                "habitat": "Roadsides, fields, waste areas.",
+                "processing": [
+                    "**Coffee:** Dig taproot. Scrub clean. Chop. Roast until brittle/dark. Grind. Brews a dark, rich, caffeine-free coffee.",
+                    "**Greens:** Harvest young leaves in spring. Bitter but nutritious. Boil to mellow flavor."
+                ]
+            }
+        },
+        {
+            "id": "wild_garlic",
+            "name": "Wild Garlic / Onion",
+            "scientific_name": "Allium vineale",
+            "type": "Edible / Medicinal",
+            "season": "Spring/Fall",
+            "identification": "Hollow, round leaves (chives). Smells strongly of onion/garlic when crushed.",
+            "uses": "Flavoring, immune booster, antibiotic.",
+            "caution": "Lookalike: Death Camas (looks similar but has NO garlic smell). If it doesn't smell like garlic, DO NOT EAT IT.",
+            "images": [
+                "wild_garlic.svg"
+            ],
+            "details": {
+                "habitat": "Lawns, sunny fields.",
+                "processing": [
+                    "**Bulbs:** Dig up clumps. Wash. Use like green onions.",
+                    "**Medicine:** Raw garlic is purely antibiotic/antiviral. Eat a clove daily if sick."
+                ]
+            }
+        },
+        {
+            "id": "burdock",
+            "name": "Burdock",
+            "scientific_name": "Arctium lappa",
+            "type": "Edible / Medicinal",
+            "season": "Biennial",
+            "identification": "Huge rhubarb-like leaves. Purple thistle flowers (burrs that stick to clothes).",
+            "uses": "Root is a substantial calorie source. Blood purifier.",
+            "caution": "None.",
+            "images": [
+                "burdock.svg"
+            ],
+            "details": {
+                "habitat": "Disturbed soil, fence lines.",
+                "processing": [
+                    "**Root:** Dig deep taproot (can be 2ft long) in 1st year (no flower stalk). Peel thick skin. Boil or roast. Tastes earthy/nutty (Gobo root).",
+                    "**Leaves:** Poultice for burns/rashes."
+                ]
+            }
+        },
+        {
+            "id": "elderberry",
+            "name": "Elderberry",
+            "scientific_name": "Sambucus nigra",
+            "type": "Medicinal",
+            "season": "Late Summer",
+            "identification": "Shrub with clusters of tiny dark purple berries. Flat white flower clusters.",
+            "uses": "Flu/Cold remedy (Syrup). Immune support.",
+            "caution": "WARNING: Raw berries, leaves, and bark contain cyanide precursors. MUST COOK berries before eating.",
+            "images": [
+                "elderberry.svg"
+            ],
+            "details": {
+                "habitat": "Wet areas, forest edges.",
+                "processing": [
+                    "**Syrup:** Simmer ripe berries with water for 45 mins. Mash and strain. Add honey (preservative). Take 1 tsp daily for flu prevention.",
+                    "**Identification Check:** Stems have white pith. (Lookalike Water Hemlock has hollow stems and is deadly)."
+                ]
+            }
+        },
+        {
+            "id": "lambs_quarters",
+            "name": "Lamb's Quarters",
+            "scientific_name": "Chenopodium album",
+            "type": "Edible",
+            "season": "Summer",
+            "identification": "Diamond shaped leaves with white mealy/dusty coating underneath.",
+            "uses": "Wild Spinach. Seeds are like Quinoa.",
+            "caution": "Absorbs nitrates from soil (don't harvest near fertilized farm fields).",
+            "images": [
+                "lambs_quarters.svg"
+            ],
+            "details": {
+                "habitat": "Gardens, disturbed soil.",
+                "processing": [
+                    "**Greens:** Steam leaves. Richer in Calcium/Protein than spinach.",
+                    "**Seeds:** Harvest in fall. Rub chaff off. Boil like quinoa/porridge."
+                ]
+            }
+        },
+        {
+            "id": "amadou",
+            "name": "Amadou (Horse Hoof Fungus)",
+            "scientific_name": "Fomes fomentarius",
+            "type": "Utility",
+            "season": "Year Round",
+            "identification": "Grey, hoof-shaped fungus growing on dead/dying Birch or Beech trees.",
+            "uses": "Fire starter (takes a spark instantly). Hat making (felt).",
+            "caution": "None.",
+            "images": [
+                "amadou.svg"
+            ],
+            "details": {
+                "habitat": "Deciduous forests (Birch/Beech).",
+                "processing": [
+                    "**Tinder:** Cut hard outer shell off. The soft, suede-like brown layer inside is the 'Amadou'. Slice thin. Fluff it up. One spark will catch it and it smolders for hours (coal extender)."
+                ]
+            }
         }
     ],
     "fauna": [
@@ -309,6 +428,83 @@
                     "**Meat:** Generally not eaten (scavenger), but edible in survival. Boil thoroughly.",
                     "**Bones:** Can be used for tools/needles."
                 ]
+            }
+        },
+        {
+            "id": "gray_squirrel",
+            "name": "Eastern Gray Squirrel",
+            "scientific_name": "Sciurus carolinensis",
+            "role": "Game",
+            "notes": "Abundant, calorie-dense small game. Easy to hunt/trap.",
+            "status": "Trap/Hunt",
+            "images": [
+                "squirrel.svg"
+            ],
+            "details": {
+                "behavior": "Diurnal. Mast eater (nuts). Noisy.",
+                "processing": [
+                    "**Skinning (Tail Method):** Cut through tail bone and skin around rear legs. Step on tail. Pull rear legs up. Hide strips off like a shirt. Quick and clean.",
+                    "**Cooking:** Tough meat. Slow cook/stew is best. 'Squirrel Pot Pie'."
+                ],
+                "utilization": "Meat, Tail (Fly fishing lure/Decoration)."
+            }
+        },
+        {
+            "id": "wild_turkey",
+            "name": "Wild Turkey",
+            "scientific_name": "Meleagris gallopavo",
+            "role": "Game",
+            "notes": "Large bird. Wary eyesight. Roosts in trees at night.",
+            "status": "Hunt",
+            "images": [
+                "turkey.svg"
+            ],
+            "details": {
+                "behavior": "Flocks. Ground feeder. Extremely sharp vision (wear camo).",
+                "processing": [
+                    "**Plucking:** Dipping in hot water (140°F) makes feathers release easier. Or just skin it for faster processing.",
+                    "**Meat:** Breast meat is substantial. Legs/Thighs are tough/tendon-heavy (slow cook for soup)."
+                ],
+                "utilization": "Meat, Feathers (Fletching arrows), Bones (Calls)."
+            }
+        },
+        {
+            "id": "beaver",
+            "name": "Beaver",
+            "scientific_name": "Castor canadensis",
+            "role": "Game",
+            "notes": "Aquatic engineer. High fat content (critical in winter).",
+            "status": "Trap",
+            "images": [
+                "beaver.svg"
+            ],
+            "details": {
+                "behavior": "Nocturnal. Dams/Lodges. Slaps tail on water to warn.",
+                "processing": [
+                    "**Castor Glands:** Save the scent glands near tail (bait for other traps).",
+                    "**Tail:** Roast over fire. Skin bubbles off. Inside is fatty gristle (energy boost).",
+                    "**Fur:** Prime winter warmth."
+                ],
+                "utilization": "Meat (Rich/Dark), Fur, Castor, Tail."
+            }
+        },
+        {
+            "id": "mallard_duck",
+            "name": "Mallard Duck",
+            "scientific_name": "Anas platyrhynchos",
+            "role": "Game",
+            "notes": "Common waterfowl. Male has green head.",
+            "status": "Hunt",
+            "images": [
+                "mallard.svg"
+            ],
+            "details": {
+                "behavior": "Ponds/Rivers. Dips head to feed (dabbler).",
+                "processing": [
+                    "**Plucking:** Keep the down feathers! Excellent insulation for pillows/jackets.",
+                    "**Fat:** Render the fat. Great cooking oil."
+                ],
+                "utilization": "Meat, Down (Insulation), Fat."
             }
         }
     ],
@@ -409,6 +605,40 @@
                 "behavior": "Ambush predator. Harmless to humans.",
                 "details": "Garden guardian. Eats pests. Egg cases (Ootheca) overwinter on twigs - do not destroy."
             }
+        },
+        {
+            "id": "black_ant",
+            "name": "Black Ant",
+            "scientific_name": "Formicidae",
+            "role": "Edible",
+            "season": "Spring-Fall",
+            "identification": "Segmented body. No wings.",
+            "notes": "Emergency snack. Tangy citrus taste (Formic Acid).",
+            "status": "Harvest",
+            "images": [
+                "black_ant.svg"
+            ],
+            "details": {
+                "behavior": "Social. Colonies.",
+                "details": "Edible raw or roasted. Don't eat red fire ants (sting)."
+            }
+        },
+        {
+            "id": "termite",
+            "name": "Termite",
+            "scientific_name": "Isoptera",
+            "role": "Edible",
+            "season": "Spring-Fall",
+            "identification": "White/cream soft body. Lives in rotting wood.",
+            "notes": "Highest protein density of insects.",
+            "status": "Harvest",
+            "images": [
+                "termite.svg"
+            ],
+            "details": {
+                "behavior": "Colonies in dead wood.",
+                "details": "Roast them. Avoid eating the wood grit. High fat/protein."
+            }
         }
     ],
     "tracking": [
@@ -480,6 +710,26 @@
             "gait": "N/A",
             "images": [
                 "scat_carnivore.jpg"
+            ]
+        },
+        {
+            "id": "track_turkey",
+            "name": "Turkey Track",
+            "category": "Bird",
+            "description": "Large 'Arrow' shape. 3 distinct toes pointing forward. 4 inches long.",
+            "gait": "Walker",
+            "images": [
+                "track_turkey.svg"
+            ]
+        },
+        {
+            "id": "track_bear",
+            "name": "Black Bear Track",
+            "category": "Paw",
+            "description": "Hind foot looks like a barefoot human (5 toes, large heel pad). Front foot smaller.",
+            "gait": "Pacer",
+            "images": [
+                "track_bear.svg"
             ]
         }
     ],
