@@ -111,17 +111,31 @@
         <h1>🔥 Firewood Needed</h1>
 
         <div class="input-group">
-            <label>Area to Heat (Sq Ft)</label>
+            <label>Measurement Unit</label>
+            <div style="display: flex; gap: 10px;">
+                <label style="display: flex; align-items: center; gap: 5px; cursor: pointer;">
+                    <input type="radio" name="areaUnit" value="imperial" checked onclick="toggleAreaUnit('imperial')"
+                        style="width: auto;"> Imperial (Sq Ft)
+                </label>
+                <label style="display: flex; align-items: center; gap: 5px; cursor: pointer;">
+                    <input type="radio" name="areaUnit" value="metric" onclick="toggleAreaUnit('metric')"
+                        style="width: auto;"> Metric (Sq M)
+                </label>
+            </div>
+        </div>
+
+        <div class="input-group">
+            <label id="areaLabel">Area to Heat (Sq Ft)</label>
             <input type="number" id="sqft" placeholder="e.g. 1500" />
         </div>
 
         <div class="input-group">
             <label>Winter Severity</label>
             <select id="climate">
-                <option value="mild">Mild (South US / ~2000 HDD)</option>
-                <option value="moderate">Moderate (Mid-Atlantic / ~4500 HDD)</option>
-                <option value="cold">Cold (New England / ~6500 HDD)</option>
-                <option value="severe">Severe (Alaska/Canada / ~9000 HDD)</option>
+                <option value="mild">Mild (~10°C / ~2000 HDD)</option>
+                <option value="moderate">Moderate (~0°C / ~4500 HDD)</option>
+                <option value="cold">Cold (~ -10°C / ~6500 HDD)</option>
+                <option value="severe">Severe (Alaska/Canada / ~ -20°C+)</option>
             </select>
         </div>
 
@@ -154,24 +168,29 @@
     </div>
 
     <script>
+        let currentAreaUnit = 'imperial';
+
+        function toggleAreaUnit(unit) {
+            currentAreaUnit = unit;
+            document.getElementById('areaLabel').innerText = (unit === 'imperial') ? 'Area to Heat (Sq Ft)' : 'Area to Heat (Sq M)';
+            document.getElementById('sqft').placeholder = (unit === 'imperial') ? 'e.g. 1500' : 'e.g. 140';
+        }
+
         function calculate() {
-            const sqft = parseFloat(document.getElementById('sqft').value);
+            let areaInput = parseFloat(document.getElementById('sqft').value);
             const climate = document.getElementById('climate').value;
             const insulation = document.getElementById('insulation').value;
 
-            if (!sqft) {
-                alert("Please enter square footage");
+            if (!areaInput) {
+                alert("Please enter area");
                 return;
             }
 
-            // Estimate BTUs needed per season
-            // Rule of Thumb: BTUs per sqft per HDD? 
-            // Simpler: 
-            // Mild: 1-2 cords
-            // Moderate: 3-4 cords
-            // Cold: 4-6 cords
-            // Severe: 7-9 cords
-            // Based on an average 2000sqft home.
+            // Convert Sq M to Sq Ft for baseline logic
+            let sqft = areaInput;
+            if (currentAreaUnit === 'metric') {
+                sqft = areaInput * 10.7639;
+            }
 
             // Base Cords for 2000sqft
             let baseCords = 0;
@@ -183,7 +202,6 @@
             }
 
             // Adjust for size
-            // 2000 sqft is baseline.
             let sizeFactor = sqft / 2000;
             let cords = baseCords * sizeFactor;
 
@@ -194,14 +212,18 @@
             // Round to nearest half cord
             cords = Math.ceil(cords * 2) / 2;
 
-            const faceCords = cords * 3; // 1 Full Cord = 3 Face Cords (16" log length)
+            const faceCords = cords * 3;
+            const cubicMeters = (cords * 3.624).toFixed(1); // 1 cord = 3.624 cubic meters
 
-            // 1 cord = 128 cu ft. Stack dimensions approx.
-            const stackLength = cords * 8; // If stacked 4ft high, 4ft deep.
+            // Stack dimensions
+            const stackLengthFeet = cords * 8;
+            const stackLengthMeters = (stackLengthFeet * 0.3048).toFixed(1);
 
-            document.getElementById('cords').innerText = cords;
-            document.getElementById('faceCords').innerText = faceCords;
-            document.getElementById('stackSpace').innerText = `4' High x 4' Deep x ${stackLength}' Long`;
+            document.getElementById('cords').innerText = cords + " Full Cords";
+            document.getElementById('faceCords').innerText = `${faceCords} Face Cords | ${cubicMeters} m³`;
+            document.getElementById('stackSpace').innerText = (currentAreaUnit === 'imperial')
+                ? `4' High x 4' Deep x ${stackLengthFeet}' Long`
+                : `1.2m High x 1.2m Deep x ${stackLengthMeters}m Long`;
 
             document.getElementById('result').style.display = 'block';
         }

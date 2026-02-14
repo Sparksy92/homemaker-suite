@@ -128,14 +128,17 @@
 
         <div class="input-group">
             <label>Purification Method</label>
-            <select id="method">
+            <select id="method" onchange="toggleInputs()">
                 <option value="bleach_6">Bleach (Regular 6%)</option>
                 <option value="bleach_8">Bleach (Concentrated 8.25%)</option>
                 <option value="iodine">Iodine (2% Tincture)</option>
+                <option value="boiling">Boiling (Traditional)</option>
+                <option value="sodis">SODIS (Solar Disinfection)</option>
             </select>
         </div>
 
-        <div class="input-group">
+        <!-- Dynamic Inputs -->
+        <div id="chemical-inputs" class="input-group">
             <label>Water Clarity</label>
             <select id="clarity">
                 <option value="clear">Clear / Filtered</option>
@@ -143,84 +146,112 @@
             </select>
         </div>
 
-        <button onclick="calculate()">Calculate Dosage</button>
+        <div id="boiling-inputs" class="input-group" style="display: none;">
+            <label>Location Altitude</label>
+            <select id="altitude">
+                <option value="low">Low Altitude (< 6,500 ft)</option>
+                <option value="high">High Altitude (> 6,500 ft)</option>
+            </select>
+        </div>
+
+        <div id="sodis-inputs" class="input-group" style="display: none;">
+            <label>Sunlight Conditions</label>
+            <select id="sunlight">
+                <option value="full">Direct Full Sun</option>
+                <option value="cloudy">Partially Cloudy</option>
+            </select>
+            <div class="note">Requires clear PET plastic bottles (under 2L).</div>
+        </div>
+
+        <button onclick="calculate()">Calculate Treatment</button>
 
         <div id="result" class="result">
             <h3>Treatment Required</h3>
             <div class="stat">
-                <span>Add:</span>
-                <strong id="dropsAmount">-</strong>
+                <span>Action:</span>
+                <strong id="actionText">-</strong>
             </div>
             <div class="stat">
-                <span>Wait Time:</span>
-                <strong id="waitTime">30 Minutes</strong>
+                <span id="waitLabel">Wait Time:</span>
+                <strong id="waitTime">-</strong>
             </div>
 
-            <div class="warning">
-                <strong>Safety Check:</strong> After waiting, water should smell slightly of chlorine/iodine. If not,
-                repeat dosage and wait another 15 minutes.
+            <div id="safetyNote" class="warning">
+                <strong>Safety Check:</strong> After treatment, ensure water is handled with clean hands and stored in
+                sanitized containers.
             </div>
         </div>
     </div>
 
     <script>
+        function toggleInputs() {
+            const method = document.getElementById('method').value;
+            document.getElementById('chemical-inputs').style.display = (method.includes('bleach') || method === 'iodine') ? 'block' : 'none';
+            document.getElementById('boiling-inputs').style.display = (method === 'boiling') ? 'block' : 'none';
+            document.getElementById('sodis-inputs').style.display = (method === 'sodis') ? 'block' : 'none';
+            document.getElementById('result').style.display = 'none';
+        }
+
         function calculate() {
             const volumeInput = parseFloat(document.getElementById('volume').value);
             const unit = document.getElementById('unit').value;
             const method = document.getElementById('method').value;
-            const clarity = document.getElementById('clarity').value;
 
             if (!volumeInput || volumeInput <= 0) {
                 alert("Please enter a valid volume");
                 return;
             }
 
-            // Convert everything to Gallons first
+            // Convert everything to Gallons first for consistency
             let gallons = 0;
             if (unit === 'gallons') gallons = volumeInput;
             if (unit === 'liters') gallons = volumeInput * 0.264172;
             if (unit === 'quarts') gallons = volumeInput * 0.25;
 
-            let dropsPerGallon = 0;
-            let waitTime = "30 Minutes";
+            let actionText = "";
+            let waitTime = "";
+            let waitLabel = "Wait Time:";
 
-            // Base Ratios (Standard survival/EPA data)
-            // 8 drops (1/8 tsp) per gallon for clear water using 6% bleach
-            // 6 drops per gallon for 8.25% bleach
-            // Iodine: 5-10 drops per quart (20-40 per gallon)
+            if (method.includes('bleach') || method === 'iodine') {
+                const clarity = document.getElementById('clarity').value;
+                let dropsPerGallon = 0;
+                waitTime = "30 Minutes";
 
-            if (method === 'bleach_6') {
-                dropsPerGallon = 8;
-            } else if (method === 'bleach_8') {
-                dropsPerGallon = 6;
-            } else if (method === 'iodine') {
-                dropsPerGallon = 20; // 5 drops per quart * 4
+                if (method === 'bleach_6') dropsPerGallon = 8;
+                else if (method === 'bleach_8') dropsPerGallon = 6;
+                else if (method === 'iodine') dropsPerGallon = 20;
+
+                if (clarity === 'cloudy') {
+                    dropsPerGallon *= 2;
+                    if (method === 'iodine') waitTime = "60 Minutes";
+                }
+
+                let totalDrops = Math.ceil(dropsPerGallon * gallons);
+                actionText = `Add ${totalDrops} Drops`;
+                if (totalDrops >= 64) {
+                    const teaspoons = (totalDrops / 64).toFixed(1);
+                    actionText = `Add ${teaspoons} Teaspoons (${totalDrops} drops)`;
+                }
+                document.getElementById('safetyNote').innerHTML = "<strong>Safety Check:</strong> After waiting, water should smell slightly of chlorine/iodine. If not, repeat dosage and wait another 15 minutes.";
+            }
+            else if (method === 'boiling') {
+                const altitude = document.getElementById('altitude').value;
+                waitLabel = "Boil Time:";
+                actionText = "Bring water to a rolling boil";
+                waitTime = (altitude === 'high') ? "3 Minutes" : "1 Minute";
+                document.getElementById('safetyNote').innerHTML = "<strong>Safety Check:</strong> Time starts once the water reaches a continuous rolling boil. Let cool naturally before drinking.";
+            }
+            else if (method === 'sodis') {
+                const sunlight = document.getElementById('sunlight').value;
+                waitLabel = "Exposure Time:";
+                actionText = "Place bottles on a reflective surface in sun";
+                waitTime = (sunlight === 'cloudy') ? "2 Days" : "6 Hours";
+                document.getElementById('safetyNote').innerHTML = "<strong>Safety Check:</strong> Only use PET bottles (Recycle #1), not glass or PVC. If very cloudy, SODIS is not recommended; use boiling.";
             }
 
-            // Double dosage for cloudy/cold water
-            if (clarity === 'cloudy') {
-                dropsPerGallon *= 2;
-                if (method === 'iodine') waitTime = "60 Minutes"; // Iodine needs more time in cold/cloudy
-            }
-
-            // Calculate total drops
-            let totalDrops = Math.ceil(dropsPerGallon * gallons);
-
-            // Format result (Convert to Teaspoons if large amount)
-            let resultText = `${totalDrops} Drops`;
-
-            // ~98 drops in a teaspoon (approx survival rule of thumb, varies by dropper)
-            // EPA says ~8 drops is 1/8 teaspoon. So 64 drops = 1 tsp. Let's use 75 roughly.
-            // Actually, standard medical drop is 20 drops/ml. 5ml/tsp. = 100 drops/tsp.
-            // EPA: "8 drops (about 1/8 teaspoon)". 8 * 8 = 64 drops/tsp. Let's stick to EPA math.
-
-            if (totalDrops >= 64) {
-                const teaspoons = (totalDrops / 64).toFixed(1);
-                resultText = `${teaspoons} Teaspoons (${totalDrops} drops)`;
-            }
-
-            document.getElementById('dropsAmount').innerText = resultText;
+            document.getElementById('actionText').innerText = actionText;
             document.getElementById('waitTime').innerText = waitTime;
+            document.getElementById('waitLabel').innerText = waitLabel;
             document.getElementById('result').style.display = 'block';
         }
     </script>

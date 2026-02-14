@@ -19,6 +19,12 @@
                 "3. Whisk eggs, milk, salt. Pour over fillings.",
                 "4. Cook on stovetop quiet until edges set (5-7m).",
                 "5. Broil 3-5m until golden and puffed."
+            ],
+            "tags": [
+                "breakfast",
+                "eggs",
+                "fast",
+                "no-flour"
             ]
         },
         {
@@ -39,6 +45,12 @@
                 "2. Shake well.",
                 "3. Refrigerate overnight.",
                 "4. Eat cold or warm up next morning."
+            ],
+            "tags": [
+                "breakfast",
+                "pantry-only",
+                "no-cook",
+                "vegetarian"
             ]
         },
         {
@@ -61,6 +73,11 @@
                 "2. Mix wet ingredients.",
                 "3. Combine gently. Lumps are good.",
                 "4. Fry on hot greased griddle."
+            ],
+            "tags": [
+                "breakfast",
+                "pantry-only",
+                "staple"
             ]
         },
         {
@@ -81,6 +98,11 @@
                 "2. Cover with water.",
                 "3. Simmer 4-12 hours (stove) or 24h (slow cooker).",
                 "4. Strain and freeze."
+            ],
+            "tags": [
+                "staple",
+                "pantry-longer",
+                "no-waste"
             ]
         },
         {
@@ -103,6 +125,12 @@
                 "3. Add hard veg (potatoes), simmer 15m.",
                 "4. Add soft veg (corn/beans), simmer 5m.",
                 "5. Finish with vinegar and herbs."
+            ],
+            "tags": [
+                "soup",
+                "vegetable",
+                "fast",
+                "no-waste"
             ]
         },
         {
@@ -125,6 +153,11 @@
                 "3. Deglaze with wine.",
                 "4. Return beef. Add stock and barley.",
                 "5. Simmer covered low for 2 hours."
+            ],
+            "tags": [
+                "stew",
+                "meat",
+                "high-calorie"
             ]
         },
         {
@@ -145,6 +178,12 @@
                 "2. Add potatoes and broth.",
                 "3. Simmer 20 mins until tender.",
                 "4. Blend until smooth. Season heavily."
+            ],
+            "tags": [
+                "soup",
+                "vegetable",
+                "classic",
+                "vegetarian"
             ]
         },
         {
@@ -165,6 +204,12 @@
                 "3. Place in cast iron skillet (on veg bed if using).",
                 "4. Roast at 425°F for 60-80 mins (165°F thigh).",
                 "5. Rest 15 mins before carving."
+            ],
+            "tags": [
+                "dinner",
+                "meat",
+                "classic",
+                "high-protein"
             ]
         },
         {
@@ -185,6 +230,12 @@
                 "2. Put in Dutch Oven with onion/orange/water.",
                 "3. Bake covered 300°F for 3 hours.",
                 "4. Uncover. Crank to 400°F to crisp fat (20m)."
+            ],
+            "tags": [
+                "dinner",
+                "meat",
+                "high-calorie",
+                "slow-cook"
             ]
         },
         {
@@ -1248,6 +1299,1532 @@
                 "2. Mix beans.",
                 "3. Mix 1/2 cup vinegar, 1/4 cup oil, 1/4 cup sugar.",
                 "4. Toss beans with dressing. Marinade overnight for best taste."
+            ]
+        },
+        {
+            "id": "wild-dandelion-salad",
+            "title": "Dandelion Green Salad",
+            "category": "Wild Edibles",
+            "prep_time": "15m",
+            "cook_time": "0m",
+            "ingredients": [
+                "2 cups Fresh Dandelion Greens (Young)",
+                "1/2 cup Wild Onions",
+                "Vinaigrette"
+            ],
+            "steps": [
+                "1. Harvest young greens before they flower (less bitter).",
+                "2. Wash thoroughly in cold water.",
+                "3. Toss with wild onion and dressing."
+            ],
+            "tags": [
+                "foraged",
+                "raw",
+                "vegetarian",
+                "no-cook"
+            ]
+        },
+        {
+            "id": "wild-pine-tea",
+            "title": "White Pine Needle Tea",
+            "category": "Wild Edibles",
+            "prep_time": "5m",
+            "cook_time": "10m",
+            "ingredients": [
+                "Handful White Pine Needles (flexible needles in clusters of 5)",
+                "2 cups Water",
+                "Honey (optional)"
+            ],
+            "steps": [
+                "1. Roughly chop needles to release oils.",
+                "2. Bring water to a boil, then remove from heat.",
+                "3. Steep needles for 5-10 mins (do not boil needles, it destroys Vitamin C).",
+                "4. Strain and drink."
+            ],
+            "tags": [
+                "foraged",
+                "medicinal",
+                "vitamin-c",
+                "no-electricity"
+            ]
+        },
+        {
+            "id": "wild-acorns",
+            "title": "Leached Roasted Acorns",
+            "category": "Wild Edibles",
+            "prep_time": "2d",
+            "cook_time": "45m",
+            "ingredients": [
+                "White Oak Acorns",
+                "Water",
+                "Salt"
+            ],
+            "steps": [
+                "1. Shell acorns and crush into large chunks.",
+                "2. Leach tannins by soaking in repeated changes of water until no longer bitter (takes 1-3 days).",
+                "3. Drain and pat dry.",
+                "4. Roast at 350F for 45 mins until fragrant and crunchy.",
+                "5. Grind into flour or eat as nuts."
+            ],
+            "tags": [
+                "foraged",
+                "high-calorie",
+                "pantry-longer"
+            ]
+        },
+        {
+            "id": "offgrid-rocket-cakes",
+            "title": "Rocket Stove Corncakes",
+            "category": "Off-Grid Cooking",
+            "prep_time": "5m",
+            "cook_time": "10m",
+            "ingredients": [
+                "1 cup Cornmeal",
+                "1/2 cup Water (boiling)",
+                "Pinch of Salt",
+                "Fat for frying"
+            ],
+            "steps": [
+                "1. Mix cornmeal and salt. Pour boiling water over until a thick paste forms.",
+                "2. Let sit 5 mins.",
+                "3. Heat cast iron on rocket stove.",
+                "4. Fry thin patties in fat until crispy on both sides."
+            ],
+            "tags": [
+                "off-grid",
+                "pantry-only",
+                "fast"
+            ]
+        },
+        {
+            "id": "offgrid-haybox-rice",
+            "title": "Haybox (Insulated) Rice",
+            "category": "Off-Grid Cooking",
+            "prep_time": "5m",
+            "cook_time": "1h",
+            "ingredients": [
+                "1 cup Rice",
+                "2 cups Water",
+                "Salt"
+            ],
+            "steps": [
+                "1. Bring rice and water to a rolling boil for 2 mins.",
+                "2. Immediately place tight lid on pot.",
+                "3. Place pot inside a haybox (box filled with straw/wool/blankets).",
+                "4. Seal box and wait 1 hour. Rice will cook using its own thermal mass.",
+                "5. Saves 15 mins of fuel."
+            ],
+            "tags": [
+                "fuel-saver",
+                "off-grid",
+                "passive"
+            ]
+        },
+        {
+            "id": "storage-salted-pork",
+            "title": "Dry Cured Salt Pork",
+            "category": "Long-Term Storage",
+            "prep_time": "1h",
+            "cook_time": "2w",
+            "ingredients": [
+                "5 lb Pork Belly",
+                "2 lbs Coarse Salt",
+                "1/2 cup Sugar"
+            ],
+            "steps": [
+                "1. Rub pork thoroughly with salt/sugar mix.",
+                "2. Pack in a wooden box or crock with layers of salt between meat.",
+                "3. Store in cool, dark place (root cellar).",
+                "4. Over 2 weeks, moisture will be drawn out.",
+                "5. Keeps for 6-12 months. Soak in water to desalt before cooking."
+            ],
+            "tags": [
+                "preservation",
+                "meat",
+                "no-refrigeration"
+            ]
+        },
+        {
+            "id": "alchemy-fire-cider",
+            "title": "Grandma's Fire Cider",
+            "category": "Grandma's Alchemy",
+            "prep_time": "30m",
+            "cook_time": "4w",
+            "ingredients": [
+                "Apple Cider Vinegar",
+                "Horseradish (grated)",
+                "Ginger & Garlic",
+                "Onion & Hot Peppers",
+                "Honey"
+            ],
+            "steps": [
+                "1. Chop all aromatics and pack into a jar.",
+                "2. Cover with ACV.",
+                "3. Shake daily for 4 weeks.",
+                "4. Strain and mix with honey to taste.",
+                "5. Take a tablespoon daily for immunity."
+            ],
+            "tags": [
+                "medicinal",
+                "tonic",
+                "fermented"
+            ]
+        },
+        {
+            "id": "wild-nettle-soup",
+            "title": "Stinging Nettle Soup",
+            "category": "Wild Edibles",
+            "prep_time": "15m",
+            "cook_time": "20m",
+            "ingredients": [
+                "4 cups Young Nettle Tops (Gloved!)",
+                "2 Potatoes, diced",
+                "1 Onion",
+                "4 cups Broth"
+            ],
+            "steps": [
+                "1. Wear gloves to harvest and wash nettles.",
+                "2. Sauté onion and potatoes until soft.",
+                "3. Add broth and simmer 15 mins.",
+                "4. Add nettles. Cook 2-3 mins (cooking removes the sting).",
+                "5. Blend until smooth. Add cream if available."
+            ],
+            "tags": [
+                "foraged",
+                "high-iron",
+                "medicinal"
+            ]
+        },
+        {
+            "id": "storage-pemmican",
+            "title": "Classic Pemmican",
+            "category": "Long-Term Storage",
+            "prep_time": "1h",
+            "cook_time": "24h",
+            "ingredients": [
+                "Lean Meat (Dried to crisp)",
+                "Rendered Tallow",
+                "Dried Berries (Saskatoon/Blueberry)"
+            ],
+            "steps": [
+                "1. Pound dried meat into a coarse powder.",
+                "2. Mix meat and berries.",
+                "3. Pour hot melted tallow over mixture (1:1 ratio by weight).",
+                "4. Form into small bars. Let cool and harden.",
+                "5. Ultimate survival food; stores for years."
+            ],
+            "tags": [
+                "preservation",
+                "high-calorie",
+                "no-cook-ready"
+            ]
+        },
+        {
+            "id": "wild-cattail",
+            "title": "Sautéed Cattail Shoots",
+            "category": "Wild Edibles",
+            "prep_time": "20m",
+            "cook_time": "5m",
+            "ingredients": [
+                "10-15 White Cattail Shoots (inner cores)",
+                "Butter / Oil",
+                "Salt & Pepper"
+            ],
+            "steps": [
+                "1. Harvest shoots from clean water source. Peel away outer green layers to find the white core.",
+                "2. Wash thoroughly.",
+                "3. Sauté in butter for 3-5 mins.",
+                "4. Taste is similar to cucumber or asparagus."
+            ],
+            "tags": [
+                "foraged",
+                "pantry-only",
+                "fast"
+            ],
+            "processing_note": "Ensure cattails are harvested from clean, non-polluted water. See Guide 12.1 for ID and 12.4 for cleaning."
+        },
+        {
+            "id": "wild-chicory",
+            "title": "Roasted Chicory Coffee",
+            "category": "Wild Edibles",
+            "prep_time": "1h",
+            "cook_time": "4h",
+            "ingredients": [
+                "Chicory Roots"
+            ],
+            "steps": [
+                "1. Scrub roots clean. Dice finely.",
+                "2. Roast in oven (or by campfire) at low heat (250F) for 3-4 hours until dark brown and brittle.",
+                "3. Grind into a powder.",
+                "4. Brew like coffee. Naturally caffeine-free but bitter and robust."
+            ],
+            "tags": [
+                "foraged",
+                "beverage",
+                "no-caffeine"
+            ],
+            "processing_note": "Scrub roots thoroughly. See Guide 12.4 for roasting and grinding details."
+        },
+        {
+            "id": "offgrid-ash-potatoes",
+            "title": "Ash-Roasted Potatoes",
+            "category": "Off-Grid Cooking",
+            "prep_time": "5m",
+            "cook_time": "45m",
+            "ingredients": [
+                "Potatoes",
+                "Salt"
+            ],
+            "steps": [
+                "1. Poke holes in potatoes.",
+                "2. Wait for a fire to burn down to deep white hot ashes.",
+                "3. Dig a hole in the ash, bury potatoes, cover with 2 inches of ash.",
+                "4. Bake for 30-45 mins until soft when poked with a stick.",
+                "5. Brush off ash and eat with salt."
+            ],
+            "tags": [
+                "off-grid",
+                "no-utensils",
+                "primitive"
+            ]
+        },
+        {
+            "id": "alchemy-elderberry",
+            "title": "Elderberry Flu Syrup",
+            "category": "Grandma's Alchemy",
+            "prep_time": "15m",
+            "cook_time": "45m",
+            "ingredients": [
+                "1 cup Dried Elderberries",
+                "3 cups Water",
+                "1 cup Raw Honey",
+                "Ginger / Cinnamon"
+            ],
+            "steps": [
+                "1. Simmer berries and spices in water for 45 mins until liquid is reduced by half.",
+                "2. Strain out berries.",
+                "3. Let liquid cool to lukewarm (below 110F).",
+                "4. Stir in raw honey to keep enzymes alive.",
+                "5. Standard survival medicine for colds and flu."
+            ],
+            "tags": [
+                "medicinal",
+                "tonic",
+                "foraged"
+            ],
+            "processing_note": "WARNING: MUST COOK berries to destroy cyanide precursors. Never eat raw. See Guide 12.4."
+        },
+        {
+            "id": "alchemy-golden-milk",
+            "title": "Anti-Inflammatory Golden Milk",
+            "category": "Grandma's Alchemy",
+            "prep_time": "5m",
+            "cook_time": "5m",
+            "ingredients": [
+                "1 cup Milk (or Coconut Milk)",
+                "1 tsp Turmeric",
+                "1/2 tsp Ginger",
+                "Pinch of Black Pepper (unlocks turmeric)",
+                "Honey"
+            ],
+            "steps": [
+                "1. Whisk all ingredients in a small pot.",
+                "2. Heat until steaming but not boiling.",
+                "3. Drink before bed for joint health and recovery."
+            ],
+            "tags": [
+                "medicinal",
+                "tonic",
+                "fast"
+            ]
+        },
+        {
+            "id": "wild-acorn-pancakes",
+            "title": "Leached Acorn Pancakes",
+            "category": "Wild Edibles",
+            "prep_time": "30m",
+            "cook_time": "10m",
+            "ingredients": [
+                "1 cup Acorn Flour (Leached)",
+                "1 cup Wheat Flour",
+                "2 tsp Baking Powder",
+                "1 cup Milk",
+                "1 Egg"
+            ],
+            "steps": [
+                "1. Mix dry ingredients.",
+                "2. Whisk in wet ingredients.",
+                "3. Fry on a hot griddle. Acorn flour adds a nutty, earthy flavor."
+            ],
+            "tags": [
+                "foraged",
+                "high-calorie",
+                "nutty"
+            ],
+            "processing_note": "Acorns MUST be leached to remove bitter/toxic tannins. See Guide 12.4 for leaching steps."
+        },
+        {
+            "id": "wild-garlic-butter",
+            "title": "Wild Garlic Compound Butter",
+            "category": "Wild Edibles",
+            "prep_time": "10m",
+            "cook_time": "0m",
+            "ingredients": [
+                "1 stick Butter (Softened)",
+                "1/4 cup Wild Garlic Leeks (minced)",
+                "Salt"
+            ],
+            "steps": [
+                "1. Mash wild garlic into butter.",
+                "2. Roll into a log using parchment paper.",
+                "3. Freeze or refrigerate. Use for flavoring meat and bread."
+            ],
+            "tags": [
+                "foraged",
+                "raw",
+                "condiment"
+            ]
+        },
+        {
+            "id": "wild-lambs-quarters",
+            "title": "Sautéed Lamb's Quarters",
+            "category": "Wild Edibles",
+            "prep_time": "10m",
+            "cook_time": "5m",
+            "ingredients": [
+                "4 cups Lamb's Quarters (Wild Spinach)",
+                "Garlic",
+                "Oil / Butter"
+            ],
+            "steps": [
+                "1. Wash leaves thoroughly; remove tough stems.",
+                "2. Sauté garlic in oil.",
+                "3. Add greens and wilt for 2-3 mins. Nutrient-dense wild spinach substitute."
+            ],
+            "tags": [
+                "foraged",
+                "high-iron",
+                "fast"
+            ]
+        },
+        {
+            "id": "offgrid-rocket-stew",
+            "title": "Rocket Stove Quick Stew",
+            "category": "Off-Grid Cooking",
+            "prep_time": "10m",
+            "cook_time": "20m",
+            "ingredients": [
+                "Canned Beef",
+                "Dehydrated Veggies",
+                "Potato Flakes (thickener)",
+                "Broth"
+            ],
+            "steps": [
+                "1. Bring broth to boil on rocket stove.",
+                "2. Add veggies and meat.",
+                "3. Simmer until veggies rehydrate.",
+                "4. Stir in potato flakes until desired thickness reached."
+            ],
+            "tags": [
+                "off-grid",
+                "pantry-only",
+                "fast"
+            ]
+        },
+        {
+            "id": "offgrid-solar-bread",
+            "title": "Solar Oven Sun-Bread",
+            "category": "Off-Grid Cooking",
+            "prep_time": "10m",
+            "cook_time": "3h",
+            "ingredients": [
+                "No-Knead Dough (Standard recipe)"
+            ],
+            "steps": [
+                "1. Place dough in a dark-colored pot with a lid.",
+                "2. Set solar oven in direct sun, adjusting every 30 mins.",
+                "3. Bake until internal temp reaches 190F (takes 2-4 hours depending on sun).",
+                "4. Very low fuel cost but requires clear skies."
+            ],
+            "tags": [
+                "off-grid",
+                "passive",
+                "no-fuel"
+            ]
+        },
+        {
+            "id": "storage-pickled-beets",
+            "title": "Canned Spiced Beets",
+            "category": "Long-Term Storage",
+            "prep_time": "1h",
+            "cook_time": "30m",
+            "ingredients": [
+                "Beets",
+                "Vinegar",
+                "Sugar",
+                "Cloves / Cinnamon"
+            ],
+            "steps": [
+                "1. Boil beets until skins slip off.",
+                "2. Slice or leave whole (if small).",
+                "3. Pack into jars. Cover with hot brine (vinegar/sugar/spices).",
+                "4. Water bath process 30 mins."
+            ],
+            "tags": [
+                "preservation",
+                "root-cellar",
+                "vegetarian"
+            ]
+        },
+        {
+            "id": "storage-potted-beef",
+            "title": "Potted Beef (Confit)",
+            "category": "Long-Term Storage",
+            "prep_time": "30m",
+            "cook_time": "4h",
+            "ingredients": [
+                "2 lbs Beef Roast",
+                "1 lb Lard / Tallow",
+                "Salt / Thyme"
+            ],
+            "steps": [
+                "1. Slow roast beef until falling apart.",
+                "2. Shred beef finely. Mix with juices and some melted fat.",
+                "3. Pack tightly into jars. Cover top with 1 inch of pure melted fat.",
+                "4. Once fat hardens, it seals out air. Store in cold root cellar."
+            ],
+            "tags": [
+                "preservation",
+                "meat",
+                "no-refrigeration"
+            ]
+        },
+        {
+            "id": "wild-burdock-stew",
+            "title": "Burdock Root & Beef Stew",
+            "category": "Wild Edibles",
+            "prep_time": "20m",
+            "cook_time": "1h",
+            "ingredients": [
+                "2 cups Burdock Root (peeled/sliced)",
+                "1 lb Beef/Game meat",
+                "1 Onion",
+                "4 cups Broth"
+            ],
+            "steps": [
+                "1. Sauté meat and onion.",
+                "2. Add burdock root. Burdock is very fibrous; needs long simmering.",
+                "3. Cover with broth. Simmer 1 hour until root is tender. Nutty, artichoke-like flavor."
+            ],
+            "tags": [
+                "foraged",
+                "high-iron",
+                "root-cellar"
+            ],
+            "processing_note": "Peel thick skin before cooking. See Guide 12.4 for digging and prep."
+        },
+        {
+            "id": "wild-cat-tail-flour",
+            "title": "Primitive Cattail Flour",
+            "category": "Wild Edibles",
+            "prep_time": "2h",
+            "cook_time": "1h",
+            "ingredients": [
+                "Cattail Rhizomes (Roots)"
+            ],
+            "steps": [
+                "1. Dig roots from clean mud. Scrub clean.",
+                "2. Peel bark to reveal starchy core.",
+                "3. Mash cores in a bucket of water. Starch will settle at bottom.",
+                "4. Pour off water. Dry the white sludge into flour.",
+                "5. Use 1:1 with wheat flour for survival bread."
+            ],
+            "tags": [
+                "foraged",
+                "high-starch",
+                "primitive"
+            ],
+            "processing_note": "Harvest from clean water. Refer to Guide 12.4 for the starch settling method."
+        },
+        {
+            "id": "wild-rose-jam",
+            "title": "Rose Hip Jam (Vitamin C)",
+            "category": "Wild Edibles",
+            "prep_time": "30m",
+            "cook_time": "20m",
+            "ingredients": [
+                "2 cups Rose Hips (seeded)",
+                "1 cup Water",
+                "1 cup Sugar",
+                "Lemon Juice"
+            ],
+            "steps": [
+                "1. REMOVE ALL SEEDS from hips (they have irritating hairs).",
+                "2. Simmer hips in water until soft.",
+                "3. Mash and add sugar.",
+                "4. Boil until thick. Extremely high in Vitamin C."
+            ],
+            "tags": [
+                "foraged",
+                "medicinal",
+                "vitamin-c"
+            ],
+            "processing_note": "MANDATORY: Remove all seeds and irritating hairs. See Guide 12.4 for removal technique."
+        },
+        {
+            "id": "offgrid-ash-corn",
+            "title": "Ash-Roasted Corn in Husk",
+            "category": "Off-Grid Cooking",
+            "prep_time": "5m",
+            "cook_time": "15m",
+            "ingredients": [
+                "Fresh Ears of Corn (in husk)"
+            ],
+            "steps": [
+                "1. Soak whole ears in water for 10 mins (prevents burning).",
+                "2. Place directly on hot coals. Cover with ash.",
+                "3. Rotate every 5 mins.",
+                "4. Peel back charred husks; corn will be perfectly steamed."
+            ],
+            "tags": [
+                "off-grid",
+                "no-cookware",
+                "vegetarian"
+            ]
+        },
+        {
+            "id": "offgrid-stone-broth",
+            "title": "Hot Stone Broth",
+            "category": "Off-Grid Cooking",
+            "prep_time": "10m",
+            "cook_time": "20m",
+            "ingredients": [
+                "Water",
+                "Meat / Veggies",
+                "Clean River Stones"
+            ],
+            "steps": [
+                "1. Heat clean stones (NOT sandstone/wet rocks) in fire until glowing.",
+                "2. Place water and ingredients in a wooden bowl or skin bag.",
+                "3. Drop hot stones into water one by one Using tongs/sticks.",
+                "4. Water will boil instantly. Replace stones as they cool until food is cooked."
+            ],
+            "tags": [
+                "primitive",
+                "off-grid",
+                "no-metal"
+            ]
+        },
+        {
+            "id": "storage-pickled-garlic",
+            "title": "Pickled Garlic Cloves",
+            "category": "Long-Term Storage",
+            "prep_time": "20m",
+            "cook_time": "5m",
+            "ingredients": [
+                "Garlic Cloves (peeled)",
+                "Vinegar",
+                "Salt / Red Pepper flakes"
+            ],
+            "steps": [
+                "1. Pack garlic into small jars.",
+                "2. Boil vinegar/salt brine.",
+                "3. Pour over garlic. Water bath process 5 mins or keep in fridge.",
+                "4. Mellows the garlic; prevents botulism in oil storage."
+            ],
+            "tags": [
+                "preservation",
+                "medicinal",
+                "condiment"
+            ]
+        },
+        {
+            "id": "storage-salted-yolks",
+            "title": "Salt-Cured Egg Yolks",
+            "category": "Long-Term Storage",
+            "prep_time": "15m",
+            "cook_time": "4d",
+            "ingredients": [
+                "4 Egg Yolks",
+                "1 lb Salt",
+                "1/2 lb Sugar"
+            ],
+            "steps": [
+                "1. Bury yolks in salt/sugar mix in a container.",
+                "2. Refrigerate (or root cellar) for 4 days.",
+                "3. Remove and rinse. Dry in low oven or dehydrator until firm like parmigiano cheese.",
+                "4. Grating over pasta/rice adds intense savory flavor."
+            ],
+            "tags": [
+                "preservation",
+                "savory",
+                "gourmet-umami"
+            ]
+        },
+        {
+            "id": "wild-elderflower-fritters",
+            "title": "Elderflower Fritters",
+            "category": "Wild Edibles",
+            "prep_time": "15m",
+            "cook_time": "5m",
+            "ingredients": [
+                "10-12 Elderflower clusters",
+                "1 cup Flour",
+                "1 cup Milk/Water",
+                "1 Egg",
+                "Oil for frying"
+            ],
+            "steps": [
+                "1. Whisk flour, egg, and liquid into a thin batter.",
+                "2. Dip flower clusters into batter, holding the stem.",
+                "3. Fry in hot oil until golden (about 1 min).",
+                "4. Snip off the stems and serve with honey."
+            ],
+            "tags": [
+                "foraged",
+                "floral",
+                "savory-sweet"
+            ]
+        },
+        {
+            "id": "wild-purlane-stirfry",
+            "title": "Purslane & Egg Stir-fry",
+            "category": "Wild Edibles",
+            "prep_time": "10m",
+            "cook_time": "5m",
+            "ingredients": [
+                "2 cups Purslane (Wild Portulaca)",
+                "2 Eggs",
+                "Soy Sauce",
+                "Garlic"
+            ],
+            "steps": [
+                "1. Wash purslane; use stems and leaves.",
+                "2. Sauté garlic.",
+                "3. Add purslane and stir-fry for 1 min.",
+                "4. Add beaten eggs and scramble until set. High in Omega-3 fatty acids."
+            ],
+            "tags": [
+                "foraged",
+                "high-omega3",
+                "fast"
+            ]
+        },
+        {
+            "id": "wild-groundnuts",
+            "title": "Roasted Groundnuts (Apios)",
+            "category": "Wild Edibles",
+            "prep_time": "15m",
+            "cook_time": "30m",
+            "ingredients": [
+                "Groundnuts (Apios americana)",
+                "Salt & Oil"
+            ],
+            "steps": [
+                "1. Harvest tubers from wet areas. Scrub well.",
+                "2. Boil for 10 mins (helps soften the skin).",
+                "3. Toss with oil and salt.",
+                "4. Roast at 400F for 20 mins until crunchy outside and potato-like inside."
+            ],
+            "tags": [
+                "foraged",
+                "high-protein",
+                "high-starch"
+            ]
+        },
+        {
+            "id": "offgrid-spit-rabbit",
+            "title": "Spit-Roasted Rabbit",
+            "category": "Off-Grid Cooking",
+            "prep_time": "20m",
+            "cook_time": "1h",
+            "ingredients": [
+                "1 Whole Rabbit (skinned/cleaned)",
+                "Salt & Pepper",
+                "Wild Garlic"
+            ],
+            "steps": [
+                "1. Rub rabbit with salt and wild garlic.",
+                "2. Skewer on a green (unseasoned) hardwood branch.",
+                "3. Suspend over hot coals (not flames).",
+                "4. Rotate slowly for 45-60 mins until juices run clear. Baste with fat if available."
+            ],
+            "tags": [
+                "off-grid",
+                "no-cookware",
+                "primitive"
+            ]
+        },
+        {
+            "id": "offgrid-soda-bread",
+            "title": "Skillet Soda Bread",
+            "category": "Off-Grid Cooking",
+            "prep_time": "5m",
+            "cook_time": "25m",
+            "ingredients": [
+                "2 cups Flour",
+                "1 tsp Baking Soda",
+                "1/2 tsp Salt",
+                "1 cup Buttermilk (or water + vinegar)"
+            ],
+            "steps": [
+                "1. Mix dry. Add liquid until it forms a shaggy dough.",
+                "2. Form into a flat disc.",
+                "3. Place in a preheated cast iron skillet with a lid.",
+                "4. Bake over medium heat (or in coals) for 12 mins per side."
+            ],
+            "tags": [
+                "off-grid",
+                "pantry-only",
+                "fast"
+            ]
+        },
+        {
+            "id": "storage-pickled-fish",
+            "title": "Canned Pickled Pike/Bass",
+            "category": "Long-Term Storage",
+            "prep_time": "1d",
+            "cook_time": "15m",
+            "ingredients": [
+                "Fish Fillets (cubed)",
+                "Vinegar",
+                "Sugar",
+                "Pickling Salt",
+                "Onions & Peppercorns"
+            ],
+            "steps": [
+                "1. Soak fish in salt brine for 24 hours. Rinse.",
+                "2. Pack into jars with onion slices.",
+                "3. Cover with boiling vinegar/sugar/spice brine.",
+                "4. Water bath process 15 mins. Wait 1 week for flavors to develop and bones to soften."
+            ],
+            "tags": [
+                "preservation",
+                "wild-game",
+                "long-term"
+            ]
+        },
+        {
+            "id": "storage-dried-mushrooms",
+            "title": "Survival Mushroom Powder",
+            "category": "Long-Term Storage",
+            "prep_time": "20m",
+            "cook_time": "8h",
+            "ingredients": [
+                "Edible Foraged Mushrooms (Boletes, Chanterelles, etc.)"
+            ],
+            "steps": [
+                "1. Slice mushrooms paper thin.",
+                "2. Dehydrate at 125F until brittle.",
+                "3. Grind in a mortar and pestle into a fine powder.",
+                "4. Store in airtight jars. Adds incredible umami/protein to any soup or stew."
+            ],
+            "tags": [
+                "preservation",
+                "umami",
+                "condiment"
+            ]
+        },
+        {
+            "id": "wild-birch-syrup",
+            "title": "Traditional Birch Syrup",
+            "category": "Wild Edibles",
+            "prep_time": "1d",
+            "cook_time": "6h",
+            "ingredients": [
+                "Birch Sap (approx 100 gallons)"
+            ],
+            "steps": [
+                "1. Tap birch trees in late spring. Sap is lower sugar than maple (100:1 ratio).",
+                "2. Boil sap in a large flat pan over high fire.",
+                "3. As it thickens, lower heat significantly. Birch syrup burns easier than maple.",
+                "4. Bottle when it reaches 66% sugar content. Dark, spicy, and mineral-rich."
+            ],
+            "tags": [
+                "foraged",
+                "seasonal",
+                "pantry-longer"
+            ],
+            "processing_note": "Birch sap spoils quickly. Process immediately. See Guide 12.4 for tapping safety."
+        },
+        {
+            "id": "alchemy-quick-mead",
+            "title": "Survival 'Joe's' Mead (Quick)",
+            "category": "Grandma's Alchemy",
+            "prep_time": "30m",
+            "cook_time": "2m",
+            "ingredients": [
+                "3 lbs Honey",
+                "1 gallon Water",
+                "1 Orange (quartered)",
+                "Handful Raisins",
+                "1 packet Bread Yeast"
+            ],
+            "steps": [
+                "1. Shake honey and warm water in a jug until dissolved.",
+                "2. Add orange, raisins, and yeast.",
+                "3. CAP LOOSELY or use a balloon with a pinhole (to let CO2 escape).",
+                "4. Ferment in dark place for 2 months.",
+                "5. Syphon off the clear liquid. Potent and easy."
+            ],
+            "tags": [
+                "fermented",
+                "beverage",
+                "pantry-only"
+            ]
+        },
+        {
+            "id": "wild-sumac-lemonade",
+            "title": "Wild Sumac 'Lemonade'",
+            "category": "Wild Edibles",
+            "prep_time": "15m",
+            "cook_time": "1h",
+            "ingredients": [
+                "4-6 Staghorn Sumac red berry clusters",
+                "1 gallon Cold Water",
+                "Sugar / Honey to taste"
+            ],
+            "steps": [
+                "1. Rub sumac clusters in cold water to release tart malic acid. Do not use hot water (it releases bitter tannins).",
+                "2. Strain through cheesecloth to remove fine hairs.",
+                "3. Sweeten to taste. High in Vitamin C and very refreshing."
+            ],
+            "tags": [
+                "foraged",
+                "beverage",
+                "vitamin-c"
+            ],
+            "processing_note": "Use ONLY cold water to avoid bitter tannins. See Guide 12.4 for ID vs Poison Sumac."
+        },
+        {
+            "id": "wild-pine-bark-bread",
+            "title": "Viking Pine Bark Bread",
+            "category": "Wild Edibles",
+            "prep_time": "1h",
+            "cook_time": "20m",
+            "ingredients": [
+                "Pine Inner Bark (Cambium layer)",
+                "Wheat Flour",
+                "Salt & Water"
+            ],
+            "steps": [
+                "1. Harvest the white, soft inner bark from a fallen or thinned pine tree. Do not girdle live trees.",
+                "2. Dry the bark and grind into a fine flour.",
+                "3. Mix 1 part bark flour to 2 parts wheat flour.",
+                "4. Add water/salt to form dough. Bake as flatbreads. Rescued many through winter famines."
+            ],
+            "tags": [
+                "foraged",
+                "survival-staple",
+                "pantry-longer"
+            ],
+            "processing_note": "Ethical harvesting is critical. Harvest Cambium layer only. See Guide 12.4 for prep."
+        },
+        {
+            "id": "offgrid-campfire-pizza",
+            "title": "Cast Iron Campfire Pizza",
+            "category": "Off-Grid Cooking",
+            "prep_time": "15m",
+            "cook_time": "15m",
+            "ingredients": [
+                "Pizza Dough",
+                "Tomato Sauce",
+                "Cheese / Toppings",
+                "Oil"
+            ],
+            "steps": [
+                "1. Heat oil in a heavy cast iron skillet over coals.",
+                "2. Lay dough in skillet. Fry for 3-5 mins until bottom is brown.",
+                "3. Flip dough. Quickly add toppings.",
+                "4. Cover skillet with a lid or foil. Place hot coals on top of lid to melt cheese from above."
+            ],
+            "tags": [
+                "off-grid",
+                "pantry-only",
+                "fast"
+            ]
+        },
+        {
+            "id": "offgrid-clay-fish",
+            "title": "Clay-Baked River Fish",
+            "category": "Off-Grid Cooking",
+            "prep_time": "15m",
+            "cook_time": "30m",
+            "ingredients": [
+                "Whole Fish (internal organs removed)",
+                "Wild Onions",
+                "Wet Clay (from riverbank)"
+            ],
+            "steps": [
+                "1. Stuff fish with onions. Leave scales on.",
+                "2. Coat the entire fish in a 1-inch layer of wet clay.",
+                "3. Place the clay 'brick' directly into hot coals.",
+                "4. Bake for 30 mins. Crack open the clay; the scales and skin will peel off with the clay, leaving perfectly steamed flesh."
+            ],
+            "tags": [
+                "primitive",
+                "no-cookware",
+                "off-grid"
+            ]
+        },
+        {
+            "id": "storage-dried-apples",
+            "title": "Simple Dried Apple Rings",
+            "category": "Long-Term Storage",
+            "prep_time": "30m",
+            "cook_time": "12h",
+            "ingredients": [
+                "Apples",
+                "Lemon Water (prevents browning)",
+                "Cinnamon"
+            ],
+            "steps": [
+                "1. Slice apples into thin rings. Dip in lemon water.",
+                "2. String onto a line or layout on racks.",
+                "3. Dry near a woodstove or in the sun until leathery and no moisture remains.",
+                "4. Keeps for months in jars."
+            ],
+            "tags": [
+                "preservation",
+                "pantry-longer",
+                "fruit"
+            ]
+        },
+        {
+            "id": "alchemy-onion-syrup",
+            "title": "Honey & Onion Cough Syrup",
+            "category": "Grandma's Alchemy",
+            "prep_time": "10m",
+            "cook_time": "12h",
+            "ingredients": [
+                "1 Red Onion",
+                "1/2 cup Honey"
+            ],
+            "steps": [
+                "1. Slice onion thinly. Layer in a jar with honey.",
+                "2. Let sit overnight at room temp. The honey will draw out the onion juice.",
+                "3. Strain. Take a spoonful for coughs and sore throats. Very effective antibacterial properties."
+            ],
+            "tags": [
+                "medicinal",
+                "tonic",
+                "no-cook"
+            ]
+        },
+        {
+            "id": "alchemy-willow-tea",
+            "title": "Willow Bark Tea (Natural Aspirin)",
+            "category": "Grandma's Alchemy",
+            "prep_time": "10m",
+            "cook_time": "15m",
+            "ingredients": [
+                "1 tsp Dried White Willow Bark (inner bark)",
+                "1 cup Water"
+            ],
+            "steps": [
+                "1. Harvest inner bark from willow twigs. Dry and crush.",
+                "2. Simmer 1 tsp bark in water for 10-15 mins.",
+                "3. Contains salicin, the precursor to aspirin. Drink for pain relief and fever reduction."
+            ],
+            "tags": [
+                "medicinal",
+                "primitive",
+                "tonic"
+            ]
+        },
+        {
+            "id": "wild-chickweed-pesto",
+            "title": "Chickweed & Walnut Pesto",
+            "category": "Wild Edibles",
+            "prep_time": "15m",
+            "cook_time": "0m",
+            "ingredients": [
+                "2 cups Fresh Chickweed",
+                "1/2 cup Walnuts / Hickory Nuts",
+                "1/2 cup Oil",
+                "Garlic / Salt"
+            ],
+            "steps": [
+                "1. Wash chickweed thoroughly. It is a mild, corn-like flavored green.",
+                "2. Blend or crush nuts and garlic.",
+                "3. Add chickweed and oil. Blend until smooth.",
+                "4. Use over pasta or as a bread spread. High in vitamins."
+            ],
+            "tags": [
+                "foraged",
+                "raw",
+                "vegetarian",
+                "no-cook"
+            ]
+        },
+        {
+            "id": "wild-daylily-fritters",
+            "title": "Daylily Bud Fritters",
+            "category": "Wild Edibles",
+            "prep_time": "10m",
+            "cook_time": "5m",
+            "ingredients": [
+                "12 Daylily Buds (unopened)",
+                "Pancake Batter (homestead recipe)"
+            ],
+            "steps": [
+                "1. Harvest buds when firm and green/orange but not open.",
+                "2. Dip in batter.",
+                "3. Fry in shallow oil until golden.",
+                "4. Taste is similar to green beans or okra."
+            ],
+            "tags": [
+                "foraged",
+                "fast",
+                "vegetarian"
+            ]
+        },
+        {
+            "id": "offgrid-ash-onions",
+            "title": "Sweet Ash-Roasted Onions",
+            "category": "Off-Grid Cooking",
+            "prep_time": "5m",
+            "cook_time": "20m",
+            "ingredients": [
+                "Whole Onions (skins on)"
+            ],
+            "steps": [
+                "1. Place whole onions directly into hot ashes/coals.",
+                "2. Roast for 20 mins until the outer skins are black and charred.",
+                "3. Pull from fire. Peel away the burnt layers.",
+                "4. The inner heart will be sweet, steamed, and perfectly cooked."
+            ],
+            "tags": [
+                "off-grid",
+                "no-cookware",
+                "primitive"
+            ]
+        },
+        {
+            "id": "offgrid-solar-brownies",
+            "title": "Solar Oven Brownies",
+            "category": "Off-Grid Cooking",
+            "prep_time": "10m",
+            "cook_time": "2h",
+            "ingredients": [
+                "Standard Brownie Mix (or flour/sugar/cocoa/oil/egg)"
+            ],
+            "steps": [
+                "1. Mix batter and pour into a thin dark metal pan.",
+                "2. Place in solar oven. Align with sun.",
+                "3. Bake 1.5 - 3 hours depending on solar intensity.",
+                "4. Passive cooking that keeps the 'kitchen' cool in summer."
+            ],
+            "tags": [
+                "off-grid",
+                "passive",
+                "no-fuel"
+            ]
+        },
+        {
+            "id": "storage-pickled-scapes",
+            "title": "Pickled Garlic Scapes",
+            "category": "Long-Term Storage",
+            "prep_time": "20m",
+            "cook_time": "10m",
+            "ingredients": [
+                "Garlic Scapes (chopped)",
+                "Vinegar",
+                "Salt / Sugar / Mustard Seed"
+            ],
+            "steps": [
+                "1. Chop scapes into 2-inch lengths.",
+                "2. Pack into jars.",
+                "3. Pour hot pickling brine over scapes.",
+                "4. Water bath process 10 mins. Crunchy, mild garlic flavor."
+            ],
+            "tags": [
+                "preservation",
+                "pantry-longer",
+                "condiment"
+            ]
+        },
+        {
+            "id": "storage-mincemeat",
+            "title": "Traditional Survival Mincemeat",
+            "category": "Long-Term Storage",
+            "prep_time": "1h",
+            "cook_time": "2h",
+            "ingredients": [
+                "2 lbs Cooked Beef / Venison (minced)",
+                "1 lb Suet (rendered fat)",
+                "2 lbs Dried Fruit (Raisins/Currants)",
+                "Vinegar / Alcohol (Preservative)"
+            ],
+            "steps": [
+                "1. Combine all ingredients in a large pot.",
+                "2. Simmer for 1 hour to integrate flavors.",
+                "3. Pack into jars. The high sugar/acid/fat content preserves the meat for winter.",
+                "4. Traditionally used for pies but can be eaten as a high-calorie energy food."
+            ],
+            "tags": [
+                "preservation",
+                "high-calorie",
+                "long-term"
+            ]
+        },
+        {
+            "id": "alchemy-dandelion-wine",
+            "title": "Quick Dandelion Wine",
+            "category": "Grandma's Alchemy",
+            "prep_time": "2h",
+            "cook_time": "6mo",
+            "ingredients": [
+                "1 quart Dandelion Petals (Green parts removed!)",
+                "1 lb Sugar",
+                "1 gallon Water",
+                "Yeast"
+            ],
+            "steps": [
+                "1. Steep petals in hot water for 2 days.",
+                "2. Strain. Add sugar and yeast.",
+                "3. Ferment in a jug with an airlock.",
+                "4. Bottle after 2 months. Best after 6-12 months. Sunny and floral."
+            ],
+            "tags": [
+                "fermented",
+                "beverage",
+                "foraged"
+            ]
+        },
+        {
+            "id": "alchemy-charcoal-biscuits",
+            "title": "Charcoal Tummy Biscuits",
+            "category": "Grandma's Alchemy",
+            "prep_time": "10m",
+            "cook_time": "15m",
+            "ingredients": [
+                "1 cup Flour",
+                "2 tbsp Activated Charcoal Powder",
+                "Water / Honey"
+            ],
+            "steps": [
+                "1. Mix ingredients into a stiff dough.",
+                "2. Roll thin and cut into crackers.",
+                "3. Bake until dry and hard.",
+                "4. Eat 1-2 when experiencing stomach upset or bloating. Home-made charcoal must be made from clean hardwood."
+            ],
+            "tags": [
+                "medicinal",
+                "survival-medicine",
+                "digestive"
+            ]
+        },
+        {
+            "id": "wild-mustard-pesto",
+            "title": "Wild Garlic Mustard Pesto",
+            "category": "Wild Edibles",
+            "prep_time": "15m",
+            "cook_time": "0m",
+            "ingredients": [
+                "2 cups Garlic Mustard leaves",
+                "1/2 cup Toasted Sunflower Seeds",
+                "1/2 cup Oil",
+                "Lemon juice"
+            ],
+            "steps": [
+                "1. Garlic mustard is an invasive species; harvest as much as you want.",
+                "2. Blanch leaves for 30s to reduce bitterness (optional).",
+                "3. Pulse all ingredients in a blender.",
+                "4. Sharp, garlicky, and peppery. Great for foraged pizza."
+            ],
+            "tags": [
+                "foraged",
+                "raw",
+                "vegetarian",
+                "invasive"
+            ]
+        },
+        {
+            "id": "wild-cat-pollen",
+            "title": "Cattail Pollen Gold Cakes",
+            "category": "Wild Edibles",
+            "prep_time": "30m",
+            "cook_time": "10m",
+            "ingredients": [
+                "1/2 cup Cattail Pollen (bright yellow)",
+                "1/2 cup Flour",
+                "1 Egg",
+                "1/2 cup Milk"
+            ],
+            "steps": [
+                "1. Shake yellow pollen from cattail heads in early summer.",
+                "2. Sift out any bugs/fluff.",
+                "3. Mix with flour and standard pancake wet ingredients.",
+                "4. The pollen adds a beautiful gold color and a sweet, floral nutty taste."
+            ],
+            "tags": [
+                "foraged",
+                "floral",
+                "seasonal"
+            ]
+        },
+        {
+            "id": "offgrid-stone-tea",
+            "title": "Hot Stone Tea",
+            "category": "Off-Grid Cooking",
+            "prep_time": "5m",
+            "cook_time": "10m",
+            "ingredients": [
+                "Water",
+                "Dried Pine Needles or Mint",
+                "Clean Stones"
+            ],
+            "steps": [
+                "1. Heat clean stones in fire.",
+                "2. Place water and herbs in a wooden or wax-coated container.",
+                "3. Add hot stones until steaming. Effectively brews tea without needing a metal pot."
+            ],
+            "tags": [
+                "primitive",
+                "beverage",
+                "off-grid"
+            ]
+        },
+        {
+            "id": "offgrid-dutch-bread",
+            "title": "Dutch Oven Coal-Bread",
+            "category": "Off-Grid Cooking",
+            "prep_time": "15m",
+            "cook_time": "45m",
+            "ingredients": [
+                "Yeast Dough (Basic)",
+                "Cornmeal (to prevent sticking)"
+            ],
+            "steps": [
+                "1. Pre-heat Dutch oven in coals.",
+                "2. Dust bottom with cornmeal. Add dough.",
+                "3. Place lid on. Cover lid with 2 inches of hot coals.",
+                "4. Place 3-4 small coals underneath the oven.",
+                "5. Bake for 30-45 mins. The 'coals-on-top' method mimics a kitchen oven perfectly."
+            ],
+            "tags": [
+                "off-grid",
+                "staple",
+                "primitive"
+            ]
+        },
+        {
+            "id": "storage-salted-herring",
+            "title": "Old World Salted Herring",
+            "category": "Long-Term Storage",
+            "prep_time": "1h",
+            "cook_time": "2w",
+            "ingredients": [
+                "Whole Herring / Small Fish",
+                "Coarse Sea Salt",
+                "Peppercorns"
+            ],
+            "steps": [
+                "1. Clean fish but leave bones in (they soften).",
+                "2. Layer fish and salt 1:1 in a wooden barrel or ceramic crock.",
+                "3. Press down with a weight.",
+                "4. Brine will form. Leave for 2 weeks. Keeps for 1 year in cool storage. Soak in water for 24h before eating."
+            ],
+            "tags": [
+                "preservation",
+                "fish",
+                "no-refrigeration"
+            ]
+        },
+        {
+            "id": "storage-canned-chicken",
+            "title": "Pressure Canned Chicken",
+            "category": "Long-Term Storage",
+            "prep_time": "1h",
+            "cook_time": "90m",
+            "ingredients": [
+                "Raw Chicken pieces (boneless or bone-in)",
+                "Salt"
+            ],
+            "steps": [
+                "1. Pack raw chicken tightly into clean jars. Leave 1 inch headspace.",
+                "2. Add 1/2 tsp salt per pint. Do not add liquid (it makes its own broth).",
+                "3. Process at 11 lbs pressure (adjust for altitude): 75 mins for pints, 90 mins for quarts.",
+                "4. Safe, shelf-stable meat for years."
+            ],
+            "tags": [
+                "preservation",
+                "meat",
+                "staple"
+            ]
+        },
+        {
+            "id": "alchemy-onion-syrup-2",
+            "title": "Fire & Onion Tonic",
+            "category": "Grandma's Alchemy",
+            "prep_time": "10m",
+            "cook_time": "0m",
+            "ingredients": [
+                "1 Onion",
+                "1 can Cayenne Pepper",
+                "Honey"
+            ],
+            "steps": [
+                "1. Grate onion into honey.",
+                "2. Add a heavy pinch of cayenne.",
+                "3. Take by the spoonful for severe congestion and sore throats."
+            ],
+            "tags": [
+                "medicinal",
+                "tonic",
+                "no-cook"
+            ]
+        },
+        {
+            "id": "wild-sumac-spice",
+            "title": "Staghorn Sumac Spice (Za'atar style)",
+            "category": "Wild Edibles",
+            "prep_time": "1h",
+            "cook_time": "4h",
+            "ingredients": [
+                "Dried Sumac Berries"
+            ],
+            "steps": [
+                "1. Harvest red sumac heads in late summer.",
+                "2. Dry thoroughly in a solar dehydrator.",
+                "3. Pound in a mortar and pestle to remove the fuzzy red coating from the hard seeds.",
+                "4. Sift to keep only the red powder.",
+                "5. Tangy, lemony spice that keeps for years. Great on meat or in hummus."
+            ],
+            "tags": [
+                "foraged",
+                "pantry-longer",
+                "condiment"
+            ]
+        },
+        {
+            "id": "wild-cedar-tea",
+            "title": "Eastern White Cedar Tea",
+            "category": "Wild Edibles",
+            "prep_time": "5m",
+            "cook_time": "10m",
+            "ingredients": [
+                "Fresh Cedar Leaves (small handful)",
+                "Water"
+            ],
+            "steps": [
+                "1. Steep a small amount of cedar leaves in hot water (do not boil).",
+                "2. Very high in Vitamin C. Use sparingly; do not drink daily as it can be hard on kidneys in large amounts.",
+                "3. Survival classic for preventing scurvy in winter."
+            ],
+            "tags": [
+                "foraged",
+                "medicinal",
+                "vitamin-c"
+            ]
+        },
+        {
+            "id": "offgrid-flatbread-rock",
+            "title": "Flatbread on a Hot Rock",
+            "category": "Off-Grid Cooking",
+            "prep_time": "5m",
+            "cook_time": "10m",
+            "ingredients": [
+                "Flour / Acorn Flour mix",
+                "Water & Salt"
+            ],
+            "steps": [
+                "1. Find a large, flat, clean stone (granite is best; avoid river rocks).",
+                "2. Heat the stone in the fire until it sizzles when touched with water.",
+                "3. Scrape off ash. Lay thin dough discs directly on the rock.",
+                "4. Flip when the edges curl. Perfectly charred primitive bread."
+            ],
+            "tags": [
+                "primitive",
+                "no-cookware",
+                "off-grid"
+            ]
+        },
+        {
+            "id": "offgrid-solar-muffins",
+            "title": "Solar Oven Berry Muffins",
+            "category": "Off-Grid Cooking",
+            "prep_time": "10m",
+            "cook_time": "2h",
+            "ingredients": [
+                "Muffin Batter (wild berry mix)"
+            ],
+            "steps": [
+                "1. Pour batter into a dark muffin tin.",
+                "2. Place in solar oven for 1.5 - 2 hours.",
+                "3. Muffins stay incredibly moist due to the low-temp steam environment of the solar cooker."
+            ],
+            "tags": [
+                "off-grid",
+                "passive",
+                "no-fuel"
+            ]
+        },
+        {
+            "id": "storage-salted-eggs",
+            "title": "Salt-Cured Quail Eggs",
+            "category": "Long-Term Storage",
+            "prep_time": "20m",
+            "cook_time": "3d",
+            "ingredients": [
+                "Quail Eggs (or small chicken eggs)",
+                "Large amount of Sea Salt"
+            ],
+            "steps": [
+                "1. Bury raw eggs (in shell) in a container of salt.",
+                "2. Wait 3-4 days. The salt draws moisture through the shell, curing the egg inside.",
+                "3. To eat, boil briefly or bake. The texture is firm and the flavor intensified. Keeps for weeks without refrigeration."
+            ],
+            "tags": [
+                "preservation",
+                "eggs",
+                "no-refrigeration"
+            ]
+        },
+        {
+            "id": "storage-mushroom-pickles",
+            "title": "Pickled Wild Mushrooms",
+            "category": "Long-Term Storage",
+            "prep_time": "30m",
+            "cook_time": "10m",
+            "ingredients": [
+                "Wild Mushrooms (boiled 5 mins)",
+                "Vinegar / Oil Brine",
+                "Garlic / Bay leaf"
+            ],
+            "steps": [
+                "1. Pre-boil mushrooms to ensure safety and remove excess moisture.",
+                "2. Pack into jars with aromatics.",
+                "3. Cover with boiling vinegar/oil/salt mixture.",
+                "4. Water bath process 10 mins. Gourmet survival staple."
+            ],
+            "tags": [
+                "preservation",
+                "umami",
+                "foraged"
+            ]
+        },
+        {
+            "id": "alchemy-honey-garlic",
+            "title": "Fermented Honey Garlic",
+            "category": "Grandma's Alchemy",
+            "prep_time": "15m",
+            "cook_time": "2w",
+            "ingredients": [
+                "Raw Honey",
+                "Garlic Cloves (peeled)"
+            ],
+            "steps": [
+                "1. Fill a jar with garlic cloves. Cover with raw honey.",
+                "2. Flip jar daily. It will bubble as it ferments.",
+                "3. After 2 weeks, garlic is soft and honey is thin/infused.",
+                "4. Nature's strongest antibiotic. Eat a clove at the first sign of illness."
+            ],
+            "tags": [
+                "medicinal",
+                "tonic",
+                "no-cook"
             ]
         }
     ]

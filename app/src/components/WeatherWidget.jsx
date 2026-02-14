@@ -7,6 +7,8 @@ const WeatherWidget = () => {
     const [error, setError] = useState(null);
     const [locationName, setLocationName] = useState('Local Weather');
 
+    const [unit, setUnit] = useState('fahrenheit');
+
     useEffect(() => {
         if (!navigator.geolocation) {
             setError('Geolocation not supported');
@@ -16,7 +18,7 @@ const WeatherWidget = () => {
 
         navigator.geolocation.getCurrentPosition(
             (position) => {
-                fetchWeather(position.coords.latitude, position.coords.longitude);
+                fetchWeather(position.coords.latitude, position.coords.longitude, unit);
             },
             (err) => {
                 console.error("Weather location error:", err);
@@ -24,18 +26,16 @@ const WeatherWidget = () => {
                 setLoading(false);
             }
         );
-    }, []);
+    }, [unit]);
 
-    const fetchWeather = async (lat, lon) => {
+    const fetchWeather = async (lat, lon, tempUnit) => {
         try {
+            setLoading(true);
             // Fetch Weather Data
             const response = await fetch(
-                `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code&temperature_unit=fahrenheit`
+                `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code&temperature_unit=${tempUnit}`
             );
             const data = await response.json();
-
-            // Attempt to get a rough location name (Optional reverse geocoding could go here, 
-            // but for now we'll just stick to "Local" to avoid complex API keys)
 
             setWeather(data.current);
             setLoading(false);
@@ -74,7 +74,14 @@ const WeatherWidget = () => {
     const { icon: Icon, label, color } = getWeatherIcon(weather.weather_code);
 
     return (
-        <div className="bg-white p-3 rounded-2xl shadow-sm border border-sand-200 flex flex-col items-center w-[100px]">
+        <div className="bg-white p-3 rounded-2xl shadow-sm border border-sand-200 flex flex-col items-center w-[100px] relative">
+            <button
+                onClick={() => setUnit(unit === 'fahrenheit' ? 'celsius' : 'fahrenheit')}
+                className="absolute top-1 right-1 text-[8px] font-bold bg-sand-100 text-sage-600 px-1 rounded hover:bg-sand-200 transition-colors"
+                title="Toggle Units"
+            >
+                {unit === 'fahrenheit' ? '°F' : '°C'}
+            </button>
             <Icon className={`${color} mb-1`} size={24} />
             <span className="text-xl font-bold text-charcoal">{Math.round(weather.temperature_2m)}°</span>
             <span className="text-xs text-sage-500 whitespace-nowrap">{label}</span>

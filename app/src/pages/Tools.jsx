@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Calculator, Soup, Repeat, Calendar, Wrench, Flame, Clock, ChefHat, X } from 'lucide-react';
+import { Calculator, Soup, Repeat, Calendar, Wrench, Flame, Clock, ChefHat, X, AlertTriangle } from 'lucide-react';
 
 // Import JSON data directly
 import subEngineData from '../data/SubstitutionEngine.json';
@@ -118,11 +118,31 @@ const IngredientWizard = ({ recipeData }) => {
     const [selectedRecipe, setSelectedRecipe] = useState(null);
     const [isCookMode, setIsCookMode] = useState(false);
 
-    // Filter Cookbook Data
-    const cookbookResults = recipeData ? recipeData.recipes.filter(r =>
-        r.ingredients.some(i => i.toLowerCase().includes(searchTerm.toLowerCase())) ||
-        r.title.toLowerCase().includes(searchTerm.toLowerCase())
-    ) : [];
+    // Smart Filter: Multi-ingredient matching
+    const cookbookResults = useMemo(() => {
+        if (!recipeData || !searchTerm) return [];
+
+        const searchTerms = searchTerm.toLowerCase().split(',').map(t => t.trim()).filter(t => t !== '');
+
+        return recipeData.recipes.map(recipe => {
+            let score = 0;
+            const recipeText = [
+                recipe.title,
+                recipe.category,
+                ...(recipe.ingredients || []),
+                ...(recipe.tags || [])
+            ].join(' ').toLowerCase();
+
+            // Calculate match score
+            searchTerms.forEach(term => {
+                if (recipeText.includes(term)) score += 1;
+            });
+
+            return { ...recipe, score };
+        })
+            .filter(r => r.score > 0)
+            .sort((a, b) => b.score - a.score); // Sort by highest match count first
+    }, [recipeData, searchTerm]);
 
     return (
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}>
@@ -163,8 +183,13 @@ const IngredientWizard = ({ recipeData }) => {
                                     <p className="text-sm text-charcoal-light italic mb-3 line-clamp-2">
                                         {r.ingredients.join(', ')}
                                     </p>
-                                    <div className="text-sm font-bold text-sage-600 group-hover:text-sage-800 flex items-center gap-1 mt-auto">
-                                        View Recipe →
+                                    <div className="text-sm font-bold text-sage-600 group-hover:text-sage-800 flex items-center justify-between mt-auto">
+                                        <span>View Recipe →</span>
+                                        {r.score > 1 && (
+                                            <span className="bg-sage-100 text-sage-700 px-2 py-0.5 rounded-full text-[10px] uppercase">
+                                                {r.score} Matches
+                                            </span>
+                                        )}
                                     </div>
                                 </button>
                             ))}
@@ -214,6 +239,15 @@ const IngredientWizard = ({ recipeData }) => {
 
                             {/* Modal Content */}
                             <div className={`p-6 space-y-8 ${isCookMode ? 'text-lg' : ''}`}>
+                                {selectedRecipe.processing_note && (
+                                    <div className="bg-amber-50 border border-amber-200 p-4 rounded-xl flex items-start gap-3">
+                                        <AlertTriangle className="text-amber-600 shrink-0 mt-0.5" size={18} />
+                                        <div className="text-sm text-amber-900 leading-relaxed font-bold">
+                                            {selectedRecipe.processing_note}
+                                        </div>
+                                    </div>
+                                )}
+
                                 {/* Toggle Cook Mode */}
                                 <div className="flex justify-end sticky top-20 z-0">
                                     <button
