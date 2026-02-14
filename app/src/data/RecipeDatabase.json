@@ -1,6 +1,587 @@
 {
     "recipes": [
         {
+            "id": "3.1-frittata",
+            "title": "Universal Frittata",
+            "category": "Breakfast",
+            "source": "Module 3.1",
+            "prep_time": "10m",
+            "cook_time": "20m",
+            "ingredients": [
+                "8 Eggs",
+                "1/2 cup Milk or Water",
+                "2 cups Fillings (Veg/Meat/Cheese)",
+                "2 tbsp Butter/Fat"
+            ],
+            "steps": [
+                "1. Preheat broiler.",
+                "2. Sauté fillings in cast iron skillet until tender.",
+                "3. Whisk eggs, milk, salt. Pour over fillings.",
+                "4. Cook on stovetop quiet until edges set (5-7m).",
+                "5. Broil 3-5m until golden and puffed."
+            ]
+        },
+        {
+            "id": "3.1-oats",
+            "title": "Master Overnight Oats",
+            "category": "Breakfast",
+            "source": "Module 3.1",
+            "prep_time": "5m",
+            "cook_time": "8h",
+            "ingredients": [
+                "1/2 cup Rolled Oats",
+                "1/2 cup Liquid (Milk/Water)",
+                "1 tsp Chia Seeds (optional)",
+                "Fruit/Honey to taste"
+            ],
+            "steps": [
+                "1. Combine equal parts oats and liquid in a jar.",
+                "2. Shake well.",
+                "3. Refrigerate overnight.",
+                "4. Eat cold or warm up next morning."
+            ]
+        },
+        {
+            "id": "3.1-pancakes",
+            "title": "Homestead Pancakes",
+            "category": "Breakfast",
+            "source": "Module 3.1",
+            "prep_time": "5m",
+            "cook_time": "10m",
+            "ingredients": [
+                "1.5 cups Flour",
+                "3.5 tsp Baking Powder",
+                "1 tbsp Sugar",
+                "1.25 cups Milk",
+                "1 Egg",
+                "3 tbsp Melted Fat"
+            ],
+            "steps": [
+                "1. Mix dry ingredients.",
+                "2. Mix wet ingredients.",
+                "3. Combine gently. Lumps are good.",
+                "4. Fry on hot greased griddle."
+            ]
+        },
+        {
+            "id": "3.2-stock",
+            "title": "Liquid Gold Master Stock",
+            "category": "Pantry Staples",
+            "source": "Module 3.2",
+            "prep_time": "5m",
+            "cook_time": "12h",
+            "ingredients": [
+                "Chicken Carcass / Bones",
+                "Veg Scraps (Onion skins, Carrot ends)",
+                "Water to cover",
+                "Peppercorns / Bay Leaf"
+            ],
+            "steps": [
+                "1. Dump bones and scraps into large pot.",
+                "2. Cover with water.",
+                "3. Simmer 4-12 hours (stove) or 24h (slow cooker).",
+                "4. Strain and freeze."
+            ]
+        },
+        {
+            "id": "3.2-veg-soup",
+            "title": "Fridge Cleanout Soup",
+            "category": "Soups & Stews",
+            "source": "Module 3.2",
+            "prep_time": "15m",
+            "cook_time": "30m",
+            "ingredients": [
+                "The Trinity: Onion, Carrot, Celery",
+                "6 cups Stock",
+                "1 can Diced Tomatoes",
+                "Any Veg (Potatoes, Corn, Beans)",
+                "1 tbsp Vinegar (Secret ingredient)"
+            ],
+            "steps": [
+                "1. Sauté trinity in oil.",
+                "2. Add stock and tomatoes.",
+                "3. Add hard veg (potatoes), simmer 15m.",
+                "4. Add soft veg (corn/beans), simmer 5m.",
+                "5. Finish with vinegar and herbs."
+            ]
+        },
+        {
+            "id": "3.2-beef-stew",
+            "title": "Beef & Barley Stew",
+            "category": "Soups & Stews",
+            "source": "Module 3.2",
+            "prep_time": "20m",
+            "cook_time": "2.5h",
+            "ingredients": [
+                "1 lb Chuck Roast (cubed)",
+                "Onions, Carrots, Potatoes",
+                "4 cups Beef Stock",
+                "1 cup Red Wine/Stout",
+                "1/2 cup Barley"
+            ],
+            "steps": [
+                "1. Coat beef in flour. Sear hard. Remove.",
+                "2. Sauté veg in beef fat.",
+                "3. Deglaze with wine.",
+                "4. Return beef. Add stock and barley.",
+                "5. Simmer covered low for 2 hours."
+            ]
+        },
+        {
+            "id": "3.2-potato-soup",
+            "title": "Creamy Potato Leek Soup",
+            "category": "Soups & Stews",
+            "source": "Module 3.2",
+            "prep_time": "15m",
+            "cook_time": "30m",
+            "ingredients": [
+                "4 Leeks (sliced white parts)",
+                "2 lbs Potatoes (cubed)",
+                "6 cups Chicken Broth",
+                "2 tbsp Butter"
+            ],
+            "steps": [
+                "1. Sweat leeks in butter until soft.",
+                "2. Add potatoes and broth.",
+                "3. Simmer 20 mins until tender.",
+                "4. Blend until smooth. Season heavily."
+            ]
+        },
+        {
+            "id": "3.3-roast-chicken",
+            "title": "Perfect Roast Chicken",
+            "category": "Dinner",
+            "source": "Module 3.3",
+            "prep_time": "10m",
+            "cook_time": "75m",
+            "ingredients": [
+                "1 Whole Chicken",
+                "Salt (Generous)",
+                "Root Veggies for bed (optional)"
+            ],
+            "steps": [
+                "1. Dry bird thoroughly.",
+                "2. Salt inside and out.",
+                "3. Place in cast iron skillet (on veg bed if using).",
+                "4. Roast at 425°F for 60-80 mins (165°F thigh).",
+                "5. Rest 15 mins before carving."
+            ]
+        },
+        {
+            "id": "3.3-carnitas",
+            "title": "Pork Carnitas",
+            "category": "Dinner",
+            "source": "Module 3.3",
+            "prep_time": "15m",
+            "cook_time": "3.5h",
+            "ingredients": [
+                "3-4 lb Pork Shoulder (Butt)",
+                "Salt, Cumin, Oregano",
+                "1 Onion, 1 Orange",
+                "1/2 cup Water"
+            ],
+            "steps": [
+                "1. Cut pork into chunks. Season.",
+                "2. Put in Dutch Oven with onion/orange/water.",
+                "3. Bake covered 300°F for 3 hours.",
+                "4. Uncover. Crank to 400°F to crisp fat (20m)."
+            ]
+        },
+        {
+            "id": "3.3-meatloaf",
+            "title": "Ratio Meatloaf",
+            "category": "Dinner",
+            "source": "Module 3.3",
+            "prep_time": "15m",
+            "cook_time": "1h",
+            "ingredients": [
+                "1 lb Ground Meat",
+                "1 cup Breadcrumbs/Oats",
+                "1 Egg",
+                "1/2 cup Milk",
+                "Flavor: Onion, Garlic, Ketchup"
+            ],
+            "steps": [
+                "1. Soak crumbs in milk.",
+                "2. Mix all ingredients gently.",
+                "3. Form loaf.",
+                "4. Bake 350°F for 60 mins."
+            ]
+        },
+        {
+            "id": "3.3-shepherds",
+            "title": "Shepherd's Pie",
+            "category": "Dinner",
+            "source": "Module 3.3",
+            "prep_time": "20m",
+            "cook_time": "30m",
+            "ingredients": [
+                "Leftover Roast/Stew Meat (minced)",
+                "Gravy / Veggies",
+                "Mashed Potatoes"
+            ],
+            "steps": [
+                "1. Mix meat and veggies with gravy in baking dish.",
+                "2. Spread mashed potatoes on top. Seal edges.",
+                "3. Bale 400°F until gravy bubbles and potatoes brown."
+            ]
+        },
+        {
+            "id": "3.4-noknead",
+            "title": "No-Knead Artisan Bread",
+            "category": "Baking",
+            "source": "Module 3.4",
+            "prep_time": "18h",
+            "cook_time": "45m",
+            "ingredients": [
+                "3 cups Flour",
+                "1.5 tsp Salt",
+                "0.5 tsp Yeast",
+                "1.5 cups Water"
+            ],
+            "steps": [
+                "1. Mix shaggy dough. Cover. Wait 12-18 hours.",
+                "2. Preheat Dutch Oven to 450°F.",
+                "3. Drop dough into hot pot.",
+                "4. Bake covered 30 mins. Uncovered 15 mins."
+            ]
+        },
+        {
+            "id": "3.4-sandwich",
+            "title": "Soft White Sandwich Loaf",
+            "category": "Baking",
+            "source": "Module 3.4",
+            "prep_time": "2h",
+            "cook_time": "35m",
+            "ingredients": [
+                "3.5 cups Flour",
+                "1 cup Warm Milk",
+                "2 tbsp Butter",
+                "2 tbsp Sugar",
+                "2 tsp Yeast",
+                "1 tsp Salt"
+            ],
+            "steps": [
+                "1. Knead all ingredients 10 mins.",
+                "2. Rise 1 hr.",
+                "3. Shape and place in loaf pan. Rise 45m.",
+                "4. Bake 350°F for 30-35 mins."
+            ]
+        },
+        {
+            "id": "3.4-rice",
+            "title": "Perfect Rice (Absorption)",
+            "category": "Pantry Staples",
+            "source": "Module 3.4",
+            "prep_time": "2m",
+            "cook_time": "20m",
+            "ingredients": [
+                "1 cup White Rice",
+                "1.5 cups Water",
+                "Salt"
+            ],
+            "steps": [
+                "1. Rinse rice well.",
+                "2. Boil water/rice. Cover tightly.",
+                "3. Low simmer 18 mins.",
+                "4. Remove from heat. Keep covered 10 mins (Crucial). Fluff."
+            ]
+        },
+        {
+            "id": "3.4-biscuits",
+            "title": "Flaky Biscuits",
+            "category": "Baking",
+            "source": "Module 3.4",
+            "prep_time": "10m",
+            "cook_time": "15m",
+            "ingredients": [
+                "2 cups Flour",
+                "1 tbsp Baking Powder",
+                "1 stick Cold Butter",
+                "3/4 cup Milk"
+            ],
+            "steps": [
+                "1. Cut cold butter into flour/baking powder.",
+                "2. Stir in milk just until combined.",
+                "3. Pat out, fold over 3 times (creates layers).",
+                "4. Cut rounds. Bake 425°F for 12-15 mins."
+            ]
+        },
+        {
+            "id": "3.5-vinaigrette",
+            "title": "3:1 Vinaigrette",
+            "category": "Sauces",
+            "source": "Module 3.5",
+            "prep_time": "2m",
+            "cook_time": "0m",
+            "ingredients": [
+                "3 parts Oil",
+                "1 part Vinegar/Acid",
+                "Salt, Pepper",
+                "Mustard (optional emulsifier)"
+            ],
+            "steps": [
+                "1. Whisk or shake in jar until creamy."
+            ]
+        },
+        {
+            "id": "3.5-bechamel",
+            "title": "Béchamel (White Sauce)",
+            "category": "Sauces",
+            "source": "Module 3.5",
+            "prep_time": "5m",
+            "cook_time": "10m",
+            "ingredients": [
+                "2 tbsp Butter",
+                "2 tbsp Flour",
+                "1.5 cups Milk"
+            ],
+            "steps": [
+                "1. Melt butter. Whisk in flour. Cook 1 min.",
+                "2. Slowly whisk in milk.",
+                "3. Simmer until thickened."
+            ]
+        },
+        {
+            "id": "3.5-marinara",
+            "title": "Pantry Marinara",
+            "category": "Sauces",
+            "source": "Module 3.5",
+            "prep_time": "5m",
+            "cook_time": "25m",
+            "ingredients": [
+                "1 Can Crushed Tomatoes",
+                "Onion / Garlic",
+                "Oregano / Basil"
+            ],
+            "steps": [
+                "1. Sauté aromatics.",
+                "2. Add tomatoes and herbs.",
+                "3. Simmer 20 mins."
+            ]
+        },
+        {
+            "id": "4.1-jam",
+            "title": "Strawberry Jam (Canning)",
+            "category": "Preservation",
+            "source": "Module 4.1",
+            "prep_time": "30m",
+            "cook_time": "15m",
+            "ingredients": [
+                "4 cups Crushed Strawberries",
+                "4 cups Sugar",
+                "1 box Pectin",
+                "1/4 cup Lemon Juice"
+            ],
+            "steps": [
+                "1. Mix berries/pectin. Boil.",
+                "2. Add sugar. Hard boil 1 min.",
+                "3. Fill hot jars. 1/4 inch headspace.",
+                "4. Water bath process 10 mins."
+            ]
+        },
+        {
+            "id": "4.3-jerky",
+            "title": "Beef Jerky",
+            "category": "Preservation",
+            "source": "Module 4.3",
+            "prep_time": "12h",
+            "cook_time": "6h",
+            "ingredients": [
+                "Lean Roast (sliced thin)",
+                "Marinade: Soy, Worchestershire, Smoke, Garlic"
+            ],
+            "steps": [
+                "1. Marinate meat 12-24 hours.",
+                "2. Dehydrate at 160°F for 4-6 hours.",
+                "3. Done when it cracks but doesn't snap."
+            ]
+        },
+        {
+            "id": "4.3-apples",
+            "title": "Dried Apple Rings",
+            "category": "Preservation",
+            "source": "Module 4.3",
+            "prep_time": "20m",
+            "cook_time": "8h",
+            "ingredients": [
+                "Apples",
+                "Lemon Juice (for soak)"
+            ],
+            "steps": [
+                "1. Peel, core, slice.",
+                "2. Dip in lemon water to stop browning.",
+                "3. Dehydrate 135°F for 6-10 hours until leathery."
+            ]
+        },
+        {
+            "id": "4.4-kraut",
+            "title": "Sauerkraut",
+            "category": "Preservation",
+            "source": "Module 4.4",
+            "prep_time": "30m",
+            "cook_time": "3w",
+            "ingredients": [
+                "Cabbage",
+                "Salt (2% by weight)"
+            ],
+            "steps": [
+                "1. Shred cabbage.",
+                "2. Massage with salt until liquid releases.",
+                "3. Pack in jar under liquid weight.",
+                "4. Ferment 1-4 weeks."
+            ]
+        },
+        {
+            "id": "4.4-garlichoney",
+            "title": "Fermented Garlic Honey",
+            "category": "Preservation",
+            "source": "Module 4.4",
+            "prep_time": "10m",
+            "cook_time": "4w",
+            "ingredients": [
+                "Raw Honey",
+                "Fresh Garlic Cloves (peeled)"
+            ],
+            "steps": [
+                "1. Fill jar 3/4 with garlic.",
+                "2. Cover with honey.",
+                "3. Burp daily. Wait 1 month."
+            ]
+        },
+        {
+            "id": "grandma-piecrust",
+            "title": "Lard Pie Crust",
+            "category": "Grandma's Favorites",
+            "source": "New",
+            "prep_time": "15m",
+            "cook_time": "0m",
+            "ingredients": [
+                "3 cups Flour",
+                "1 cup Lard (Cold)",
+                "1 tsp Salt",
+                "1 Egg",
+                "1 tbsp Vinegar",
+                "5 tbsp Ice Water"
+            ],
+            "steps": [
+                "1. Cut lard into flour/salt.",
+                "2. Mix egg, vinegar, water. Pour into flour.",
+                "3. Mix until just combined. Don't overwork.",
+                "4. Chill 1 hour before rolling."
+            ]
+        },
+        {
+            "id": "grandma-cornbread",
+            "title": "Skillet Cornbread",
+            "category": "Grandma's Favorites",
+            "source": "New",
+            "prep_time": "10m",
+            "cook_time": "20m",
+            "ingredients": [
+                "2 cups Cornmeal",
+                "1 tsp Salt",
+                "1 tsp Baking Soda",
+                "1 tsp Baking Powder",
+                "1 Egg",
+                "1.5 cups Buttermilk",
+                " Bacon Drippings"
+            ],
+            "steps": [
+                "1. Melt drippings in cast iron skillet in 425°F oven.",
+                "2. Mix dry. Mix wet.",
+                "3. Combine.",
+                "4. Pour into hot skillet (listen for sizzle).",
+                "5. Bake 20 mins."
+            ]
+        },
+        {
+            "id": "grandma-dumplings",
+            "title": "Chicken & Dumplings",
+            "category": "Grandma's Favorites",
+            "source": "New",
+            "prep_time": "20m",
+            "cook_time": "40m",
+            "ingredients": [
+                "Whole Chicken stewed",
+                "2 cups Flour",
+                "1/2 tsp Baking Soda",
+                "1/2 tsp Salt",
+                "3/4 cup Buttermilk",
+                "2 tbsp Fat"
+            ],
+            "steps": [
+                "1. Remove chicken from bone. Return meat to boiling broth.",
+                "2. Mix dough. Roll flat.",
+                "3. Cut into strips.",
+                "4. Drop into boiling broth.",
+                "5. Cover. Simmer 15 mins. Do not peek."
+            ]
+        },
+        {
+            "id": "grandma-pickles",
+            "title": "Bread & Butter Pickles",
+            "category": "Preservation",
+            "source": "Grandma",
+            "prep_time": "1h",
+            "cook_time": "10m",
+            "ingredients": [
+                "6 lbs Cucumbers (sliced)",
+                "Onions",
+                "3 cups Vinegar",
+                "3 cups Sugar",
+                "Mustard Seed, Turmeric, Celery Seed"
+            ],
+            "steps": [
+                "1. Salt veg and let stand 3 hours. Drain.",
+                "2. Boil brine (vinegar/sugar/spices).",
+                "3. Add veg. Heat to boil.",
+                "4. Pack hot jars. Water bath 10 mins."
+            ]
+        },
+        {
+            "id": "grandma-applesauce",
+            "title": "Canned Applesauce",
+            "category": "Preservation",
+            "source": "Grandma",
+            "prep_time": "1h",
+            "cook_time": "20m",
+            "ingredients": [
+                "Apples (peeled/cored)",
+                "Water",
+                "Sugar (optional)",
+                "Cinnamon"
+            ],
+            "steps": [
+                "1. Cook apples in water until soft.",
+                "2. Mash or run through food mill.",
+                "3. Reheat to boil.",
+                "4. Pack hot jars.",
+                "5. Process 20 mins."
+            ]
+        },
+        {
+            "id": "grandma-relish",
+            "title": "Zucchini Relish",
+            "category": "Preservation",
+            "source": "Grandma",
+            "prep_time": "1h",
+            "cook_time": "15m",
+            "ingredients": [
+                "10 cups shredded Zucchini",
+                "4 Onions",
+                "2 Peppers",
+                "5 cups Sugar",
+                "2.5 cups Vinegar"
+            ],
+            "steps": [
+                "1. Salt veg overnight. Drain and rinse.",
+                "2. Boil syrup of sugar/vinegar/spices.",
+                "3. Add veg. Simmer 30 mins.",
+                "4. Pack jars. Process 10 mins."
+            ]
+        },
+        {
             "id": "pantry-frittata",
             "title": "Survival Frittata",
             "category": "Pantry Staples",
@@ -107,7 +688,7 @@
             "cook_time": "2h",
             "ingredients": [
                 "1 lb Dried Kidney Beans (soaked)",
-                "1 Onion, chopped",
+                "1 Onion",
                 "1 Green Pepper, chopped",
                 "Sausage/Ham hock"
             ],
@@ -265,7 +846,7 @@
             ]
         },
         {
-            "id": "preserve-sauerkraut",
+            "id": "preserve-sauerkraut-2",
             "title": "Basic Sauerkraut",
             "category": "Preservation",
             "prep_time": "30m",

@@ -159,23 +159,23 @@ const Library = ({ type = 'all' }) => {
                     <motion.div
                         key="root"
                         initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}
-                        className="p-6 pb-24 max-w-4xl mx-auto"
+                        className="p-4 md:p-6 pb-24 max-w-4xl mx-auto w-full"
                     >
-                        <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 border-b border-sand-200 pb-6 gap-4">
-                            <h1 className="text-5xl font-serif text-sage-900">
+                        <div className="flex flex-col md:flex-row md:items-center justify-between mb-6 border-b border-sand-200 pb-6 gap-4">
+                            <h1 className="text-4xl md:text-5xl font-serif text-sage-900">
                                 {type === 'guides' ? 'Guides' : type === 'reference' ? 'Reference' : 'Library'}
                             </h1>
-                            <div className="flex items-center gap-4 w-full md:w-auto">
-                                <div className="relative flex-1 md:w-80">
+                            <div className="flex items-center gap-3 w-full md:w-auto">
+                                <div className="relative flex-1 md:w-80 min-w-0">
                                     <input
                                         type="text"
-                                        placeholder="Search guides..."
+                                        placeholder="Search..."
                                         value={searchQuery}
                                         onChange={(e) => setSearchQuery(e.target.value)}
-                                        className="w-full pl-12 pr-4 py-3 rounded-full border border-sand-300 focus:border-sage-500 focus:ring-2 focus:ring-sage-200 bg-white shadow-sm outline-none transition-all font-serif text-lg"
+                                        className="w-full pl-10 pr-4 py-3 rounded-full border border-sand-300 focus:border-sage-500 focus:ring-2 focus:ring-sage-200 bg-white shadow-sm outline-none transition-all font-serif text-base"
                                     />
-                                    <div className="absolute left-4 top-1/2 -translate-y-1/2 text-sand-400">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" /></svg>
+                                    <div className="absolute left-3 top-1/2 -translate-y-1/2 text-sand-400">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" /></svg>
                                     </div>
                                 </div>
                                 <button
@@ -187,9 +187,9 @@ const Library = ({ type = 'all' }) => {
                                     {downloading ? (
                                         <span className="text-xs font-bold text-terracotta-600">{downloadProgress}%</span>
                                     ) : isOfflineReady ? (
-                                        <CheckCircle size={24} />
+                                        <CheckCircle size={20} />
                                     ) : (
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="7 10 12 15 17 10" /><line x1="12" x2="12" y1="15" y2="3" /></svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="7 10 12 15 17 10" /><line x1="12" x2="12" y1="15" y2="3" /></svg>
                                     )}
 
                                     {/* Progress Background */}
@@ -216,14 +216,14 @@ const Library = ({ type = 'all' }) => {
                                                         setCurrentPath([item.folder]);
                                                         handleFileClick(item.file);
                                                     }}
-                                                    className="w-full flex items-center gap-4 p-5 bg-white rounded-xl border border-sand-100 shadow-sm hover:shadow-md hover:border-terracotta-200 text-left transition-all"
+                                                    className="w-full flex items-center gap-3 p-4 bg-white rounded-xl border border-sand-100 shadow-sm hover:shadow-md hover:border-terracotta-200 text-left transition-all"
                                                 >
-                                                    <div className="p-2 bg-sage-50 rounded-lg text-sage-500">
+                                                    <div className="p-2 bg-sage-50 rounded-lg text-sage-500 shrink-0">
                                                         <FileText size={20} />
                                                     </div>
-                                                    <div className="flex-1">
-                                                        <span className="block text-lg font-serif text-charcoal group-hover:text-terracotta-700 transition-colors">{getDisplayName(item.file)}</span>
-                                                        <span className="text-xs text-sand-500 uppercase tracking-wide">{getDisplayName(item.folder)}</span>
+                                                    <div className="flex-1 min-w-0">
+                                                        <span className="block text-base font-serif text-charcoal group-hover:text-terracotta-700 transition-colors truncate">{getDisplayName(item.file)}</span>
+                                                        <span className="text-xs text-sand-500 uppercase tracking-wide truncate block">{getDisplayName(item.folder)}</span>
                                                     </div>
                                                 </button>
                                             </div>
@@ -255,15 +255,15 @@ const Library = ({ type = 'all' }) => {
                                         <button
                                             key={folder}
                                             onClick={() => setCurrentPath([folder])}
-                                            className="group flex flex-row items-center p-6 bg-white rounded-2xl border border-sand-200 shadow-sm hover:shadow-md hover:border-sage-300 transition-all text-left gap-6"
+                                            className="group flex flex-row items-center p-4 bg-white rounded-2xl border border-sand-200 shadow-sm hover:shadow-md hover:border-sage-300 transition-all text-left gap-4"
                                         >
-                                            <div className="bg-sage-50 p-4 rounded-xl text-sage-600 group-hover:bg-sage-600 group-hover:text-white transition-colors shrink-0">
-                                                <Folder size={28} />
+                                            <div className="bg-sage-50 p-3 rounded-xl text-sage-600 group-hover:bg-sage-600 group-hover:text-white transition-colors shrink-0">
+                                                <Folder size={24} />
                                             </div>
                                             <div className="flex-1 min-w-0">
                                                 <div className="flex items-center justify-between">
-                                                    <span className="font-serif text-2xl text-charcoal group-hover:text-sage-900 truncate pr-2">{getDisplayName(folder)}</span>
-                                                    <ChevronRight size={20} className="text-sand-400 group-hover:translate-x-1 transition-transform shrink-0" />
+                                                    <span className="font-serif text-xl text-charcoal group-hover:text-sage-900 truncate pr-2">{getDisplayName(folder)}</span>
+                                                    <ChevronRight size={18} className="text-sand-400 group-hover:translate-x-1 transition-transform shrink-0" />
                                                 </div>
                                                 <span className="text-xs text-sand-500 mt-1 font-medium uppercase tracking-wider block">{fileSystem[folder].length} Items</span>
                                             </div>
@@ -279,7 +279,7 @@ const Library = ({ type = 'all' }) => {
                     <motion.div
                         key="folder"
                         initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }}
-                        className="p-6 pb-24 max-w-5xl mx-auto"
+                        className="p-4 pb-24 max-w-5xl mx-auto w-full"
                     >
                         <button
                             onClick={() => setCurrentPath([])}

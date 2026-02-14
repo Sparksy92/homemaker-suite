@@ -9,7 +9,7 @@ const Cookbook = () => {
     const [selectedRecipe, setSelectedRecipe] = useState(null);
     const [isCookMode, setIsCookMode] = useState(false);
 
-    const categories = ['All', 'Pantry Staples', 'Baking', 'Preservation', 'Wild Game'];
+    const categories = ['All', "Grandma's Favorites", 'Pantry Staples', 'Breakfast', 'Soups & Stews', 'Dinner', 'Baking', 'Preservation', 'Sauces', 'Wild Game'];
 
     const filteredRecipes = useMemo(() => {
         return recipeData.recipes.filter(recipe => {
@@ -26,6 +26,10 @@ const Cookbook = () => {
             case 'Preservation': return <Database size={16} />;
             case 'Wild Game': return <Leaf size={16} />;
             case 'Pantry Staples': return <Utensils size={16} />;
+            case "Grandma's Favorites": return <Flame size={16} />;
+            case 'Breakfast': return <Utensils size={16} />;
+            case 'Soups & Stews': return <ChefHat size={16} />;
+            case 'Dinner': return <Utensils size={16} />;
             default: return <ChefHat size={16} />;
         }
     };
@@ -55,8 +59,8 @@ const Cookbook = () => {
                             key={cat}
                             onClick={() => setActiveCategory(cat)}
                             className={`px-4 py-2 rounded-full text-sm font-bold whitespace-nowrap transition-colors border ${activeCategory === cat
-                                    ? 'bg-sage-600 text-white border-sage-600'
-                                    : 'bg-white text-sage-600 border-sand-200 hover:bg-sand-50'
+                                ? 'bg-sage-600 text-white border-sage-600'
+                                : 'bg-white text-sage-600 border-sand-200 hover:bg-sand-50'
                                 }`}
                         >
                             {cat}
@@ -87,6 +91,7 @@ const Cookbook = () => {
                         <h3 className="text-lg font-bold text-charcoal-900 mb-1 group-hover:text-terracotta-700 transition-colors">
                             {recipe.title}
                         </h3>
+                        {recipe.source && <p className="text-xs text-sage-600 mb-2 italic">From {recipe.source}</p>}
                         <p className="text-sm text-charcoal-500 line-clamp-2">
                             {recipe.ingredients.slice(0, 3).join(', ')}...
                         </p>
