@@ -235,7 +235,7 @@
             "uses": "Root roasted for coffee substitute. Young leaves for salad.",
             "caution": "None.",
             "images": [
-                "chicory.svg"
+                "chicory.jpg"
             ],
             "details": {
                 "habitat": "Roadsides, fields, waste areas.",
@@ -255,7 +255,7 @@
             "uses": "Flavoring, immune booster, antibiotic.",
             "caution": "Lookalike: Death Camas (looks similar but has NO garlic smell). If it doesn't smell like garlic, DO NOT EAT IT.",
             "images": [
-                "wild_garlic.svg"
+                "wild_garlic.jpg"
             ],
             "details": {
                 "habitat": "Lawns, sunny fields.",
@@ -275,7 +275,7 @@
             "uses": "Root is a substantial calorie source. Blood purifier.",
             "caution": "None.",
             "images": [
-                "burdock.svg"
+                "burdock.jpg"
             ],
             "details": {
                 "habitat": "Disturbed soil, fence lines.",
@@ -295,7 +295,7 @@
             "uses": "Flu/Cold remedy (Syrup). Immune support.",
             "caution": "WARNING: Raw berries, leaves, and bark contain cyanide precursors. MUST COOK berries before eating.",
             "images": [
-                "elderberry.svg"
+                "elderberry.jpg"
             ],
             "details": {
                 "habitat": "Wet areas, forest edges.",
@@ -315,7 +315,7 @@
             "uses": "Wild Spinach. Seeds are like Quinoa.",
             "caution": "Absorbs nitrates from soil (don't harvest near fertilized farm fields).",
             "images": [
-                "lambs_quarters.svg"
+                "lambs_quarters.jpg"
             ],
             "details": {
                 "habitat": "Gardens, disturbed soil.",
@@ -335,7 +335,7 @@
             "uses": "Fire starter (takes a spark instantly). Hat making (felt).",
             "caution": "None.",
             "images": [
-                "amadou.svg"
+                "amadou.jpg"
             ],
             "details": {
                 "habitat": "Deciduous forests (Birch/Beech).",
@@ -438,7 +438,7 @@
             "notes": "Abundant, calorie-dense small game. Easy to hunt/trap.",
             "status": "Trap/Hunt",
             "images": [
-                "squirrel.svg"
+                "squirrel.jpg"
             ],
             "details": {
                 "behavior": "Diurnal. Mast eater (nuts). Noisy.",
@@ -457,7 +457,7 @@
             "notes": "Large bird. Wary eyesight. Roosts in trees at night.",
             "status": "Hunt",
             "images": [
-                "turkey.svg"
+                "turkey.jpg"
             ],
             "details": {
                 "behavior": "Flocks. Ground feeder. Extremely sharp vision (wear camo).",
@@ -476,7 +476,7 @@
             "notes": "Aquatic engineer. High fat content (critical in winter).",
             "status": "Trap",
             "images": [
-                "beaver.svg"
+                "beaver.jpg"
             ],
             "details": {
                 "behavior": "Nocturnal. Dams/Lodges. Slaps tail on water to warn.",
@@ -496,7 +496,7 @@
             "notes": "Common waterfowl. Male has green head.",
             "status": "Hunt",
             "images": [
-                "mallard.svg"
+                "mallard.jpg"
             ],
             "details": {
                 "behavior": "Ponds/Rivers. Dips head to feed (dabbler).",
@@ -616,7 +616,7 @@
             "notes": "Emergency snack. Tangy citrus taste (Formic Acid).",
             "status": "Harvest",
             "images": [
-                "black_ant.svg"
+                "black_ant.jpg"
             ],
             "details": {
                 "behavior": "Social. Colonies.",
@@ -633,7 +633,7 @@
             "notes": "Highest protein density of insects.",
             "status": "Harvest",
             "images": [
-                "termite.svg"
+                "termite.jpg"
             ],
             "details": {
                 "behavior": "Colonies in dead wood.",
@@ -719,7 +719,7 @@
             "description": "Large 'Arrow' shape. 3 distinct toes pointing forward. 4 inches long.",
             "gait": "Walker",
             "images": [
-                "track_turkey.svg"
+                "track_turkey.jpg"
             ]
         },
         {
@@ -729,7 +729,7 @@
             "description": "Hind foot looks like a barefoot human (5 toes, large heel pad). Front foot smaller.",
             "gait": "Pacer",
             "images": [
-                "track_bear.svg"
+                "track_bear.jpg"
             ]
         }
     ],

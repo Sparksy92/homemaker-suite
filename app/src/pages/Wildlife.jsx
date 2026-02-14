@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Leaf, Bug, Calendar, AlertTriangle, CheckCircle, Search, Footprints, Filter, Camera, X, ChefHat, Info, Mountain } from 'lucide-react';
+import { Leaf, Bug, Calendar, AlertTriangle, CheckCircle, Search, Footprints, Filter, Camera, X, ChefHat, Info, Mountain, Maximize2 } from 'lucide-react';
 import wildlifeData from '../data/wildlifeData.json';
 
 const Wildlife = () => {
@@ -8,6 +8,7 @@ const Wildlife = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const [filterType, setFilterType] = useState('All'); // All, Edible, Medicinal, Poisonous
     const [selectedItem, setSelectedItem] = useState(null); // Track selected item for modal
+    const [isLightboxOpen, setIsLightboxOpen] = useState(false);
 
     // Search Logic
     const filterData = (data) => {
@@ -311,19 +312,31 @@ const Wildlife = () => {
                             </button>
 
                             {/* Full Header Image */}
-                            <div className="h-64 sm:h-80 w-full bg-sand-200 shrink-0">
+                            <div
+                                className="h-64 sm:h-80 w-full bg-sand-200 shrink-0 relative group cursor-pointer"
+                                onClick={() => selectedItem.images && selectedItem.images.length > 0 && setIsLightboxOpen(true)}
+                            >
                                 {selectedItem.images && selectedItem.images.length > 0 ? (
-                                    <img
-                                        src={`/images/wildlife/${selectedItem.images[0]}`}
-                                        alt={selectedItem.name}
-                                        className="w-full h-full object-cover"
-                                    />
+                                    <>
+                                        <img
+                                            src={`/images/wildlife/${selectedItem.images[0]}`}
+                                            alt={selectedItem.name}
+                                            className="w-full h-full object-cover"
+                                        />
+                                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center pointer-events-none">
+                                            <div className="bg-black/50 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity backdrop-blur-sm">
+                                                <Maximize2 size={24} />
+                                            </div>
+                                        </div>
+                                    </>
                                 ) : (
                                     <div className="w-full h-full flex items-center justify-center bg-sage-100 text-sage-300">
                                         <Camera size={48} />
                                     </div>
                                 )}
                             </div>
+
+
 
                             {/* Scrollable Content */}
                             <div className="overflow-y-auto p-6 space-y-6">
@@ -431,6 +444,33 @@ const Wildlife = () => {
                                 )}
                             </div>
                         </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+            {/* LIGHTBOX OVERLAY (Moved to Root Level) */}
+            <AnimatePresence>
+                {isLightboxOpen && selectedItem && selectedItem.images && selectedItem.images.length > 0 && (
+                    <motion.div
+                        initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                        className="fixed inset-0 z-[100] bg-black/95 flex items-center justify-center p-4 cursor-zoom-out"
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            setIsLightboxOpen(false);
+                        }}
+                    >
+                        <button
+                            className="absolute top-4 right-4 text-white p-2 bg-white/10 rounded-full hover:bg-white/20 transition-colors"
+                            onClick={() => setIsLightboxOpen(false)}
+                        >
+                            <X size={32} />
+                        </button>
+                        <motion.img
+                            initial={{ scale: 0.9 }} animate={{ scale: 1 }} exit={{ scale: 0.9 }}
+                            src={`/images/wildlife/${selectedItem.images[0]}`}
+                            alt={selectedItem.name}
+                            className="max-w-full max-h-full object-contain cursor-default shadow-2xl"
+                            onClick={(e) => e.stopPropagation()}
+                        />
                     </motion.div>
                 )}
             </AnimatePresence>
