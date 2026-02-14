@@ -1,6 +1,6 @@
 import React from 'react';
 import { Outlet, NavLink, useLocation } from 'react-router-dom';
-import { Home, BookOpen, Wrench, Menu, User, Settings, LogOut, Leaf, Archive } from 'lucide-react';
+import { Home, BookOpen, Wrench, Menu, User, Settings, LogOut, Leaf, Archive, Utensils } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -92,6 +92,7 @@ const Layout = () => {
             <nav className="fixed bottom-0 w-full max-w-md bg-white border-t border-sage-200 pb-safe pt-2 px-2 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] z-20">
                 <ul className="flex justify-around items-center">
                     <NavItem to="/" icon={<Home size={22} />} label="Home" />
+                    <NavItem to="/cookbook" icon={<Utensils size={22} />} label="Recipes" />
                     <NavItem to="/library" icon={<BookOpen size={22} />} label="Guides" />
                     <NavItem to="/wildlife" icon={<Leaf size={22} />} label="Nature" />
                     <NavItem to="/tools" icon={<Wrench size={22} />} label="Tools" />

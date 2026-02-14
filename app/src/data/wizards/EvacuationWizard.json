@@ -1,0 +1,116 @@
+{
+    "id": "EvacuationWizard",
+    "title": "Evacuation Decision Assistant",
+    "description": "Critical decision tree: 'Should I Stay or Should I Go?'",
+    "steps": [
+        {
+            "id": "scenario_type",
+            "prompt": "What is the primary threat?",
+            "type": "single-select",
+            "options": [
+                {
+                    "label": "Wildfire / Chemical Spill (Fast Moving)",
+                    "value": "immediate",
+                    "next": "time_to_impact"
+                },
+                {
+                    "label": "Hurricane / Flood (Slow Onset)",
+                    "value": "slow",
+                    "next": "home_safety"
+                },
+                {
+                    "label": "Civil Unrest / Grid Down",
+                    "value": "civil",
+                    "next": "home_safety"
+                }
+            ]
+        },
+        {
+            "id": "time_to_impact",
+            "prompt": "How much time until impact?",
+            "type": "single-select",
+            "options": [
+                {
+                    "label": "< 1 Hour (Visible Threat)",
+                    "value": "now",
+                    "next": "vehicle_status"
+                },
+                {
+                    "label": "12-24 Hours",
+                    "value": "soon",
+                    "next": "vehicle_status"
+                }
+            ]
+        },
+        {
+            "id": "home_safety",
+            "prompt": "Is your home in a direct flood/danger zone?",
+            "type": "single-select",
+            "options": [
+                {
+                    "label": "Yes (Zone A / Mandatory Evac)",
+                    "value": "unsafe_loc",
+                    "next": "vehicle_status"
+                },
+                {
+                    "label": "No (High Ground / Safe Zone)",
+                    "value": "safe_loc",
+                    "next": "supplies_status"
+                }
+            ]
+        },
+        {
+            "id": "vehicle_status",
+            "prompt": "Can you leave safely?",
+            "type": "single-select",
+            "options": [
+                {
+                    "label": "Yes: Car fueled & roads clear",
+                    "value": "mobile",
+                    "next": "destination_check"
+                },
+                {
+                    "label": "No: Trapped / Roads Gridlocked",
+                    "value": "trapped"
+                }
+            ]
+        },
+        {
+            "id": "destination_check",
+            "prompt": "Do you have a specific place to go?",
+            "type": "single-select",
+            "options": [
+                {
+                    "label": "Yes (Relative/Hotel/Camp)",
+                    "value": "has_dest"
+                },
+                {
+                    "label": "No (Just fleeing)",
+                    "value": "no_dest"
+                }
+            ]
+        },
+        {
+            "id": "supplies_status",
+            "prompt": "Do you have supplies for 14 days?",
+            "type": "single-select",
+            "options": [
+                {
+                    "label": "Yes (Food/Water/Power)",
+                    "value": "stocked"
+                },
+                {
+                    "label": "No",
+                    "value": "unstocked"
+                }
+            ]
+        }
+    ],
+    "outputs": [
+        {
+            "type": "markdown_plan",
+            "template": "# Evacuation Recommendation\n\n## Verdict: {{#if (eq vehicle_status 'mobile')}}EVACUATE NOW{{else}}SHELTER IN PLACE{{/if}}\n\n### Why?\n{{#if (eq scenario_type 'immediate')}}\n- **Threat:** Immediate danger. Speed is life.\n{{/if}}\n{{#if (eq vehicle_status 'trapped')}}\n- **CRITICAL:** Roads are unsafe. You are safer inside than stuck in traffic.\n{{/if}}\n\n## Action Plan\n{{#if (eq vehicle_status 'mobile')}}\n1. **Grab List:**\n   - [ ] 72-Hour Kits (BOB)\n   - [ ] Important Documents (ID/Deeds)\n   - [ ] Pets + Pet Food\n2. **House Prep:**\n   - [ ] Shut off Main Gas/Water\n   - [ ] Lock all doors\n   - [ ] Leave a note on the table (Date/Time/Destination)\n{{else}}\n1. **Fortify:**\n   - [ ] Fill bathtub with water immediately.\n   - [ ] Cover windows (if hurricane/civil unrest).\n   - [ ] Blackout Discipline (No lights at night).\n{{/if}}",
+            "includes_checklists": true
+        }
+    ]
+}

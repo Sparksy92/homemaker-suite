@@ -55,6 +55,35 @@
                 "Canned Fruit",
                 "Jams"
             ]
+        },
+        "fuel_cooking": {
+            "recommendation_lbs_per_week": 2,
+            "items": [
+                "Propane (1lb bottles)",
+                "Butane Canisters",
+                "Alcohol Fuel",
+                "Firewood (Bundles)",
+                "Charcoal"
+            ]
+        },
+        "hygiene_sanitation": {
+            "recommendation_lbs_per_week": 1,
+            "items": [
+                "Toilet Paper (Rolls)",
+                "Soap Bars",
+                "Hand Sanitizer",
+                "Trash Bags (Gallons)",
+                "Bleach (Cups)"
+            ]
+        },
+        "water_filtration": {
+            "recommendation_lbs_per_week": 0.1,
+            "items": [
+                "Filters (Capacity)",
+                "Purification Tabs",
+                "Bleach (Drops)",
+                "Coffee Filters (Pre-filter)"
+            ]
         }
     },
     "calculator_logic": {

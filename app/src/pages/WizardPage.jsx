@@ -8,13 +8,17 @@ import waterSafety from '../data/wizards/WaterSafetyWizard.json';
 import winterBlackout from '../data/wizards/WinterBlackoutWizard.json';
 import gardenPlanner from '../data/wizards/GardenPlannerWizard.json';
 import energyPlanner from '../data/wizards/EnergyPlannerWizard.json';
+import evacuation from '../data/wizards/EvacuationWizard.json';
+import firstAid from '../data/wizards/FirstAidWizard.json';
 
 const wizards = {
     'emergency-plan': emergencyPlan,
     'water-safety': waterSafety,
     'winter-blackout': winterBlackout,
     'garden-planner': gardenPlanner,
-    'energy-planner': energyPlanner
+    'energy-planner': energyPlanner,
+    'evacuation': evacuation,
+    'first-aid': firstAid
 };
 
 const WizardPage = () => {

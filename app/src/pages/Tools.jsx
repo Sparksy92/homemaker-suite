@@ -71,20 +71,66 @@ const Tools = () => {
                 {activeTab === 'sub' && <SubstitutionEngine key="sub" data={subEngineData} />}
                 {activeTab === 'survival' && (
                     <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}>
-                        <div className="grid gap-4">
-                            {survivalTools.map(tool => (
-                                <button
-                                    key={tool}
-                                    onClick={() => setActiveToolUrl(`/content/50 Interactive Tools/${tool}`)}
-                                    className="bg-white p-6 rounded-2xl shadow-sm border border-sand-200 text-left hover:border-terracotta-300 transition-all group"
-                                >
-                                    <h3 className="text-xl font-serif font-bold text-sage-800 group-hover:text-terracotta-600 transition-colors">
-                                        {tool.replace('50.', '').replace(/\d+\s/, '').replace('.html', '')}
-                                    </h3>
-                                    <p className="text-sm text-charcoal-light mt-1">Interactive HTML Utility</p>
-                                </button>
-                            ))}
-                            {survivalTools.length === 0 && <p className="text-center text-sand-500 italic">No tools found.</p>}
+                        <div className="grid gap-6">
+                            {/* New: Survival Guides Section */}
+                            <div>
+                                <h3 className="text-sm font-bold text-sage-600 uppercase tracking-widest mb-3">Interactive Guides</h3>
+                                <div className="grid gap-3 md:grid-cols-2">
+                                    <WizardCard
+                                        title="Evacuation Decision"
+                                        desc="Should I Stay or Should I Go?"
+                                        onClick={() => window.location.href = '/#/wizard/evacuation'}
+                                    />
+                                    <WizardCard
+                                        title="First Aid Triage"
+                                        desc="Protocols for Bleeding, Burns, & Cold."
+                                        onClick={() => window.location.href = '/#/wizard/first-aid'}
+                                    />
+                                    <WizardCard
+                                        title="Water Safety Guide"
+                                        desc="Identify & treat dubious water sources."
+                                        onClick={() => window.location.href = '/#/wizard/water-safety'}
+                                    />
+                                    <WizardCard
+                                        title="Winter Blackout Protocol"
+                                        desc="Immediate actions for freezing power outages."
+                                        onClick={() => window.location.href = '/#/wizard/winter-blackout'}
+                                    />
+                                    <WizardCard
+                                        title="Garden Planner"
+                                        desc="Crop scheduling based on your frost date."
+                                        onClick={() => window.location.href = '/#/wizard/garden-planner'}
+                                    />
+                                    <WizardCard
+                                        title="Home Energy Audit"
+                                        desc="Calculate off-grid power requirements."
+                                        onClick={() => window.location.href = '/#/wizard/energy-planner'}
+                                    />
+                                </div>
+                            </div>
+
+                            {/* Existing: Reference Tools Section */}
+                            <div>
+                                <h3 className="text-sm font-bold text-sage-600 uppercase tracking-widest mb-3">Reference Calculators</h3>
+                                <div className="grid gap-3">
+                                    {survivalTools.map(tool => (
+                                        <button
+                                            key={tool}
+                                            onClick={() => setActiveToolUrl(`/content/50 Interactive Tools/${tool}`)}
+                                            className="bg-white p-4 rounded-xl shadow-sm border border-sand-200 text-left hover:border-terracotta-300 transition-all group flex items-center justify-between"
+                                        >
+                                            <div>
+                                                <h3 className="font-serif font-bold text-sage-800 group-hover:text-terracotta-600 transition-colors">
+                                                    {tool.replace('50.', '').replace(/\d+\s/, '').replace('.html', '')}
+                                                </h3>
+                                                <p className="text-xs text-charcoal-light mt-0.5">Offline HTML Utility</p>
+                                            </div>
+                                            <span className="text-sand-400 group-hover:text-terracotta-500">→</span>
+                                        </button>
+                                    ))}
+                                    {survivalTools.length === 0 && <p className="text-center text-sand-500 italic">No tools found.</p>}
+                                </div>
+                            </div>
                         </div>
                     </motion.div>
                 )}
@@ -245,5 +291,18 @@ const SubstitutionEngine = ({ data }) => {
         </motion.div>
     );
 };
+
+const WizardCard = ({ title, desc, onClick }) => (
+    <button
+        onClick={onClick}
+        className="bg-white p-4 rounded-xl shadow-sm border border-sand-200 text-left hover:border-terracotta-300 hover:shadow-md transition-all group"
+    >
+        <div className="flex items-center justify-between mb-1">
+            <h3 className="font-bold text-terracotta-700 group-hover:text-terracotta-600">{title}</h3>
+            <span className="text-xs bg-terracotta-50 text-terracotta-700 px-2 py-0.5 rounded-full">Wizard</span>
+        </div>
+        <p className="text-sm text-charcoal-600">{desc}</p>
+    </button>
+);
 
 export default Tools;

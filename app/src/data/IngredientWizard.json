@@ -6,41 +6,467 @@
   },
   "database": [
     {
-      "recipe": "Frittata",
-      "base": ["eggs"],
-      "liquid": ["milk", "water", "cream"],
-      "mixins": ["cheese", "vegetables", "meats", "potatoes"],
+      "recipe": "Survival Frittata",
+      "base": [
+        "eggs",
+        "powdered eggs"
+      ],
+      "liquid": [
+        "milk",
+        "water",
+        "cream",
+        "powdered milk"
+      ],
+      "mixins": [
+        "cheese",
+        "vegetables",
+        "meats",
+        "potatoes",
+        "foraged greens"
+      ],
       "method": "Whisk eggs and liquid. Pour fast over sautéed mixins in skillet. Cook until set. Broil top."
     },
     {
-      "recipe": "Stir Fry",
-      "base": ["rice", "noodles"],
-      "protein": ["chicken", "tofu", "beef", "shrimp", "eggs"],
-      "vegetables": ["broccoli", "carrots", "peas", "peppers", "onions"],
-      "sauce_components": ["soy sauce", "ginger", "garlic", "sugar", "vinegar"],
+      "recipe": "Pantry Stir Fry",
+      "base": [
+        "rice",
+        "noodles",
+        "spaghetti"
+      ],
+      "protein": [
+        "chicken",
+        "tofu",
+        "beef",
+        "shrimp",
+        "eggs",
+        "canned chicken",
+        "spam"
+      ],
+      "vegetables": [
+        "broccoli",
+        "carrots",
+        "peas",
+        "peppers",
+        "onions",
+        "canned corn",
+        "green beans"
+      ],
+      "sauce_components": [
+        "soy sauce",
+        "ginger",
+        "garlic",
+        "sugar",
+        "vinegar"
+      ],
       "method": "Sauté protein. Remove. Sauté veggies. Return protein. Add sauce. Serve over base."
     },
     {
-      "recipe": "Pantry Pasta",
-      "base": ["pasta"],
-      "sauce": ["tomato sauce", "olive oil & garlic", "butter & parmesan"],
-      "add_ins": ["canned beans", "tuna", "frozen peas", "spinach"],
+      "recipe": "Depression Era Pasta",
+      "base": [
+        "pasta",
+        "spaghetti",
+        "macaroni"
+      ],
+      "sauce": [
+        "tomato sauce",
+        "olive oil & garlic",
+        "butter & parmesan"
+      ],
+      "add_ins": [
+        "canned beans",
+        "tuna",
+        "frozen peas",
+        "spinach"
+      ],
       "method": "Boil pasta. Reserve water. Sauté add-ins with sauce base. Toss pasta with sauce and water."
     },
     {
       "recipe": "Stone Soup",
-      "base": ["broth", "water & bouillon"],
-      "starch": ["potatoes", "rice", "barley", "pasta"],
-      "vegetables": ["carrots", "celery", "onions", "tomatoes", "cabbage"],
-      "protein": ["beans", "lentils", "leftover meat"],
+      "base": [
+        "broth",
+        "water & bouillon"
+      ],
+      "starch": [
+        "potatoes",
+        "rice",
+        "barley",
+        "pasta"
+      ],
+      "vegetables": [
+        "carrots",
+        "celery",
+        "onions",
+        "tomatoes",
+        "cabbage"
+      ],
+      "protein": [
+        "beans",
+        "lentils",
+        "leftover meat",
+        "sausage"
+      ],
       "method": "Sauté aromatics. Add liquid and sturdy ingredients. Simmer until tender. Add soft ingredients at end."
     },
     {
-      "recipe": "Oatmeal Savory Bowl",
-      "base": ["oats"],
-      "liquid": ["broth", "water"],
-      "toppings": ["fried egg", "green onions", "soy sauce", "sautéed spinach", "cheese"],
-      "method": "Cook oats in salted liquid. Top with savory ingredients."
+      "recipe": "Savory Oatmeal Bowl",
+      "base": [
+        "oats"
+      ],
+      "liquid": [
+        "broth",
+        "water"
+      ],
+      "toppings": [
+        "fried egg",
+        "green onions",
+        "soy sauce",
+        "sautéed spinach",
+        "cheese"
+      ],
+      "method": "Cook oats in salted liquid. Top with savory ingredients. Surprisingly good."
+    },
+    {
+      "recipe": "Red Beans & Rice",
+      "base": [
+        "rice"
+      ],
+      "protein": [
+        "kidney beans",
+        "sausage",
+        "ham",
+        "bacon"
+      ],
+      "vegetables": [
+        "onions",
+        "peppers",
+        "celery",
+        "garlic"
+      ],
+      "method": "Sauté 'trinity' (onion/pepper/celery). Add beans and liquid. Simmer until creamy (crush some beans). Serve over rice."
+    },
+    {
+      "recipe": "Tuna Casserole",
+      "base": [
+        "pasta",
+        "noodles"
+      ],
+      "protein": [
+        "canned tuna"
+      ],
+      "binder": [
+        "cream of mushroom soup",
+        "white sauce (flour/milk)",
+        "mayonnaise"
+      ],
+      "crunch": [
+        "peas",
+        "corn",
+        "crackers",
+        "chips"
+      ],
+      "method": "Mix cooked pasta, drained tuna, binder, and veggies. Top with crushed crackers. Bake 350F for 20 mins."
+    },
+    {
+      "recipe": "Bannock (Frying Pan Bread)",
+      "base": [
+        "flour"
+      ],
+      "lift": [
+        "baking powder"
+      ],
+      "fat": [
+        "oil",
+        "butter",
+        "lard"
+      ],
+      "liquid": [
+        "water",
+        "milk"
+      ],
+      "method": "Mix dry. Cut in fat. Add liquid to make dough. Fry in greased skillet until golden."
+    },
+    {
+      "recipe": "Corned Beef Hash",
+      "base": [
+        "potatoes"
+      ],
+      "protein": [
+        "canned corned beef",
+        "leftover roast"
+      ],
+      "vegetables": [
+        "onions"
+      ],
+      "method": "Dice potatoes and boil until tender. Fry onions. Add potatoes and meat to skillet. Fry until crispy crust forms."
+    },
+    {
+      "recipe": "Shakshuka",
+      "base": [
+        "canned tomatoes"
+      ],
+      "protein": [
+        "eggs"
+      ],
+      "spice": [
+        "cumin",
+        "paprika",
+        "chili powder"
+      ],
+      "vegetables": [
+        "onions",
+        "peppers"
+      ],
+      "method": "Simmer veggies and spices in crushed tomatoes. Make wells in sauce. Crack eggs into wells. Cover and steam."
+    },
+    {
+      "recipe": "Lentil Tacos",
+      "base": [
+        "tortillas",
+        "rice"
+      ],
+      "protein": [
+        "lentils"
+      ],
+      "spice": [
+        "taco seasoning",
+        "cumin/chili"
+      ],
+      "toppings": [
+        "salsa",
+        "cheese"
+      ],
+      "method": "Simmer lentils with taco seasoning until dry/taco meat consistency. Mash slightly. Serve in shells."
+    },
+    {
+      "recipe": "Rice Pudding",
+      "base": [
+        "rice",
+        "leftover rice"
+      ],
+      "liquid": [
+        "milk",
+        "canned milk"
+      ],
+      "sweetener": [
+        "sugar",
+        "honey",
+        "raisins"
+      ],
+      "spice": [
+        "cinnamon",
+        "nutmeg"
+      ],
+      "method": "Simmer cooked rice with milk and sugar until thickened. Stir often to prevent scorching."
+    },
+    {
+      "recipe": "Chili Mac",
+      "base": [
+        "macaroni",
+        "pasta"
+      ],
+      "sauce": [
+        "canned chili",
+        "canned tomatoes & beans"
+      ],
+      "mixins": [
+        "cheese",
+        "onions"
+      ],
+      "method": "Cook pasta. Mix with chili. Heat through. Top with cheese."
+    },
+    {
+      "recipe": "Hardtack (Long Term Bread)",
+      "base": [
+        "flour"
+      ],
+      "liquid": [
+        "water"
+      ],
+      "salt": [
+        "salt"
+      ],
+      "method": "Mix 2 cups flour, 1/2 cup water, pinch salt. Roll extremely thin. Poke holes. Bake 375F for 30 mins, flip, 30 mins more. Rock hard."
+    },
+    {
+      "recipe": "Loaded Baked Potato",
+      "base": [
+        "potatoes"
+      ],
+      "toppings": [
+        "canned chili",
+        "cheese",
+        "broccoli",
+        "bacon bits",
+        "sour cream (powdered)"
+      ],
+      "method": "Bake potato (or boil). Slice open. Top efficiently."
+    },
+    {
+      "recipe": "Fried Rice",
+      "base": [
+        "colder leftover rice"
+      ],
+      "vegetables": [
+        "peas",
+        "carrots",
+        "corn",
+        "onions"
+      ],
+      "protein": [
+        "eggs",
+        "spam",
+        "tuna"
+      ],
+      "sauce": [
+        "soy sauce",
+        "oil"
+      ],
+      "method": "High heat. Fry veggies. Add rice (break up clumps). Add sauce. Push aside, scramble egg in pan. Mix."
+    },
+    {
+      "recipe": "Dumplings",
+      "base": [
+        "flour",
+        "baking powder",
+        "salt",
+        "water/milk"
+      ],
+      "context": [
+        "soup",
+        "stew"
+      ],
+      "method": "Mix dough. Drop spoonfuls onto simmering stew. Cover tightly. Steam 15 mins. Do not peek."
+    },
+    {
+      "recipe": "Peanut Butter Noodles",
+      "base": [
+        "spaghetti",
+        "ramen"
+      ],
+      "sauce": [
+        "peanut butter",
+        "soy sauce",
+        "sugar",
+        "vinegar",
+        "hot sauce"
+      ],
+      "method": "Whisk sauce ingredients with splash of hot water. Toss with hot noodles."
+    },
+    {
+      "recipe": "Bean Salad",
+      "base": [
+        "canned beans (mixed)"
+      ],
+      "acid": [
+        "vinegar",
+        "lemon juice"
+      ],
+      "oil": [
+        "oil"
+      ],
+      "vegetables": [
+        "corn",
+        "onion",
+        "peppers"
+      ],
+      "method": "Rinse beans. Chop veggies small. Toss with dressing. Better the next day."
+    },
+    {
+      "recipe": "Spam Musubi Bowl",
+      "base": [
+        "rice"
+      ],
+      "protein": [
+        "spam",
+        "canned meat"
+      ],
+      "flavor": [
+        "soy sauce",
+        "sugar",
+        "seaweed (nori)"
+      ],
+      "method": "Slice and fry spam with soy/sugar glaze. Serve over rice with crumbled seaweed."
+    },
+    {
+      "recipe": "Canned Peach Cobbler",
+      "base": [
+        "canned fruit (peaches/pears)"
+      ],
+      "topping": [
+        "flour",
+        "sugar",
+        "butter/oil",
+        "oats"
+      ],
+      "method": "Put fruit in dish. Rub topping ingredients into crumbs. Sprinkle over fruit. Bake 375F until bubbly."
+    },
+    {
+      "recipe": "Emergency Tortillas",
+      "base": [
+        "flour"
+      ],
+      "fat": [
+        "oil",
+        "lard"
+      ],
+      "liquid": [
+        "water",
+        "salt"
+      ],
+      "method": "Mix 2c flour, 1tsp salt, 1/3c oil, 2/3c warm water. Knead smooth. Rest 20 mins. Roll thin. Cook on hot dry skillet."
+    },
+    {
+      "recipe": "Salmon Patties",
+      "base": [
+        "canned salmon",
+        "canned tuna"
+      ],
+      "binder": [
+        "egg",
+        "cracker crumbs",
+        "flour"
+      ],
+      "flavor": [
+        "onion",
+        "lemon"
+      ],
+      "method": "Drain fish. Mix with binder and flavor. Form patties. Fry in oil until crispy."
+    },
+    {
+      "recipe": "Cowboy Caviar",
+      "base": [
+        "black eyed peas",
+        "black beans",
+        "corn"
+      ],
+      "vegetables": [
+        "tomatoes",
+        "onions",
+        "peppers"
+      ],
+      "dressing": [
+        "italian dressing",
+        "vinegar/oil"
+      ],
+      "method": "Mix all. Eat as salad or dip with chips."
+    },
+    {
+      "recipe": "Potato Soup",
+      "base": [
+        "potatoes"
+      ],
+      "liquid": [
+        "milk",
+        "broth",
+        "water"
+      ],
+      "flavor": [
+        "onion",
+        "bacon",
+        "cheese",
+        "clams"
+      ],
+      "method": "Boil cubed potatoes and onion in broth. Mash half to thicken. Add milk and heat through."
     }
   ],
   "logic": {

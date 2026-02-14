@@ -10,6 +10,7 @@ import Wildlife from './pages/Wildlife';
 import Settings from './pages/Settings';
 import ManualReader from './pages/ManualReader';
 import WizardPage from './pages/WizardPage'; // New Import
+import Cookbook from './pages/Cookbook';
 import { UserProvider } from './context/UserContext';
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
                         <Route path="settings" element={<Settings />} />
                         <Route path="manual/:id" element={<ManualReader />} />
                         <Route path="wizard/:id" element={<WizardPage />} /> {/* New Route */}
+                        <Route path="cookbook" element={<Cookbook />} />
                     </Route>
                 </Routes>
             </HashRouter>

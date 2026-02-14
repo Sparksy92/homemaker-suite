@@ -1,0 +1,593 @@
+{
+    "recipes": [
+        {
+            "id": "pantry-frittata",
+            "title": "Survival Frittata",
+            "category": "Pantry Staples",
+            "prep_time": "10m",
+            "cook_time": "20m",
+            "ingredients": [
+                "6 Eggs (or powdered equivalent)",
+                "1/2 cup Liquid (milk/water)",
+                "1 cup Mix-ins (cheese, veggies, meat)",
+                "Salt & Pepper"
+            ],
+            "steps": [
+                "1. Preheat boiler (if available) or prepare skillet lid.",
+                "2. Whisk eggs and liquid distinctively.",
+                "3. Sauté mix-ins in an oven-safe skillet.",
+                "4. Pour egg mixture over mix-ins. Do not stir.",
+                "5. Cook on low heat until edges are set.",
+                "6. Transfer to oven/broiler to finish top, or cover with lid to steam."
+            ]
+        },
+        {
+            "id": "pantry-stirfry",
+            "title": "Pantry Stir Fry",
+            "category": "Pantry Staples",
+            "prep_time": "15m",
+            "cook_time": "10m",
+            "ingredients": [
+                "2 cups Rice or Noodles (cooked)",
+                "1 cup Protein (canned chicken/spam/eggs)",
+                "2 cups Vegetables (canned/fresh)",
+                "Sauce: Soy sauce, sugar, vinegar, ginger"
+            ],
+            "steps": [
+                "1. Mix sauce ingredients in a small cup.",
+                "2. Heat oil in wok or skillet until smoking.",
+                "3. Sear protein quickly. Remove.",
+                "4. Stir fry vegetables until crisp-tender.",
+                "5. Return protein and add carbs.",
+                "6. Pour sauce over everything and toss to coat."
+            ]
+        },
+        {
+            "id": "depress-pasta",
+            "title": "Depression Era Pasta",
+            "category": "Pantry Staples",
+            "prep_time": "5m",
+            "cook_time": "15m",
+            "ingredients": [
+                "1 lb Pasta",
+                "1 can Tomato Sauce",
+                "Garlic/Onion powder",
+                "Any available protein/veggie"
+            ],
+            "steps": [
+                "1. Boil pasta in salted water. Reserve 1 cup water before draining.",
+                "2. In the same pot, sauté aromatics or mix-ins.",
+                "3. Add tomato sauce and heat through.",
+                "4. Toss pasta with sauce, adding reserved water to thin if needed."
+            ]
+        },
+        {
+            "id": "stone-soup",
+            "title": "Stone Soup",
+            "category": "Pantry Staples",
+            "prep_time": "20m",
+            "cook_time": "1h",
+            "ingredients": [
+                "6 cups Water/Broth",
+                "Sturdy Veg (potatoes/carrots)",
+                "Any Meat/Bones",
+                "Grain/Pasta handfuls"
+            ],
+            "steps": [
+                "1. Brown any meat or bones in the bottom of the pot.",
+                "2. Add liquid and bring to a simmer.",
+                "3. Add sturdy vegetables (potatoes/carrots). Simmer 20m.",
+                "4. Add soft vegetables and grains. Simmer 15m.",
+                "5. Season aggressively."
+            ]
+        },
+        {
+            "id": "savory-oats",
+            "title": "Savory Oatmeal Bowl",
+            "category": "Pantry Staples",
+            "prep_time": "2m",
+            "cook_time": "5m",
+            "ingredients": [
+                "1 cup Oats",
+                "2 cups Water/Broth",
+                "1 Egg / Canned Meat",
+                "Green onions/Soy Sauce"
+            ],
+            "steps": [
+                "1. Boil oats in salted liquid.",
+                "2. While hot, stir in an egg (it will cook in the oats) or top with fried egg.",
+                "3. Add soy sauce, sesame oil, or whatever savory condiments you have."
+            ]
+        },
+        {
+            "id": "red-beans-rice",
+            "title": "Red Beans & Rice",
+            "category": "Pantry Staples",
+            "prep_time": "10m",
+            "cook_time": "2h",
+            "ingredients": [
+                "1 lb Dried Kidney Beans (soaked)",
+                "1 Onion, chopped",
+                "1 Green Pepper, chopped",
+                "Sausage/Ham hock"
+            ],
+            "steps": [
+                "1. Sauté onion and pepper (and meat if using).",
+                "2. Add beans and cover with water by 2 inches.",
+                "3. Simmer until beans are creamy (1.5 - 2 hours).",
+                "4. Mash some beans against the side of the pot to thicken.",
+                "5. Serve over white rice."
+            ]
+        },
+        {
+            "id": "tuna-casserole",
+            "title": "Tuna Casserole",
+            "category": "Pantry Staples",
+            "prep_time": "10m",
+            "cook_time": "25m",
+            "ingredients": [
+                "1 bag Egg Noodles",
+                "2 cans Tuna",
+                "1 can Cream of Mushroom Soup",
+                "1 cup Peas",
+                "Crushed Chips/Crackers"
+            ],
+            "steps": [
+                "1. Boil noodles al dente.",
+                "2. Mix drained tuna, soup, peas, and noodles.",
+                "3. Pout into baking dish.",
+                "4. Top with crushed crackers.",
+                "5. Bake at 350F for 20-25 mins until bubbly."
+            ]
+        },
+        {
+            "id": "baking-sourdough",
+            "title": "Basic Sourdough Loaf",
+            "category": "Baking",
+            "prep_time": "24h",
+            "cook_time": "45m",
+            "ingredients": [
+                "100g Active Starter",
+                "350g Warm Water",
+                "500g Bread Flour",
+                "10g Salt"
+            ],
+            "steps": [
+                "1. Dissolve starter in water.",
+                "2. Mix in flour and salt until shaggy dough forms. Rest 30m.",
+                "3. Perform 4 sets of 'Stretch and Folds' every 30 mins.",
+                "4. Bulk Rise: Let sit at room temp for 4-8 hours until doubled.",
+                "5. Shape into a round. Place in banneton/bowl. Fridge overnight.",
+                "6. Bake in Dutch Oven: 450F (20m lid on, 25m lid off)."
+            ]
+        },
+        {
+            "id": "baking-hardtack",
+            "title": "Survival Hardtack",
+            "category": "Baking",
+            "prep_time": "15m",
+            "cook_time": "1h",
+            "ingredients": [
+                "2 cups Flour",
+                "1/2 cup Water",
+                "1 tsp Salt"
+            ],
+            "steps": [
+                "1. Mix ingredients into a very stiff dough.",
+                "2. Roll out to 1/2 inch thickness.",
+                "3. Cut into 3x3 squares.",
+                "4. Poke holes using a nail/chopstick (prevents puffing).",
+                "5. Bake 375F for 30 mins. Flip. Bake 30 mins more.",
+                "6. Cool completely. Should be hard as a brick."
+            ]
+        },
+        {
+            "id": "baking-bannock",
+            "title": "Campfire Bannock",
+            "category": "Baking",
+            "prep_time": "5m",
+            "cook_time": "15m",
+            "ingredients": [
+                "1 cup Flour",
+                "1 tsp Baking Powder",
+                "1/4 tsp Salt",
+                "1 tbsp Oil/Fat",
+                "Water to mix"
+            ],
+            "steps": [
+                "1. Mix dry ingredients.",
+                "2. Add oil and enough water to make a pliable dough.",
+                "3. Form into a patty (1 inch thick).",
+                "4. Fry in a greased skillet over coals, flip when golden.",
+                "5. PRO TIP: Can also wrap around a stick and roast."
+            ]
+        },
+        {
+            "id": "baking-yeastbread",
+            "title": "Simple Yeast Bread",
+            "category": "Baking",
+            "prep_time": "2h",
+            "cook_time": "35m",
+            "ingredients": [
+                "3 cups Flour",
+                "1 packet Yeast (2 1/4 tsp)",
+                "1 tsp Salt",
+                "1 tsp Sugar",
+                "1 cup Warm Water"
+            ],
+            "steps": [
+                "1. Bloom yeast in warm water with sugar for 5 mins.",
+                "2. Mix flour and salt. Add yeast water.",
+                "3. Knead 10 mins until smooth.",
+                "4. Rise 1 hour (doubled).",
+                "5. Punch down, shape loaf. Rise 30 mins.",
+                "6. Bake 400F for 30-35 mins."
+            ]
+        },
+        {
+            "id": "baking-tortillas",
+            "title": "Flour Tortillas",
+            "category": "Baking",
+            "prep_time": "30m",
+            "cook_time": "10m",
+            "ingredients": [
+                "2 cups Flour",
+                "1/2 tsp Salt",
+                "1 tsp Baking Powder",
+                "1/4 cup Lard/Oil",
+                "3/4 cup Warm Water"
+            ],
+            "steps": [
+                "1. Cut fat into dry ingredients.",
+                "2. Add water, knead until smooth.",
+                "3. Divide into 8 balls. Rest 20 mins (Critical step!).",
+                "4. Roll paper thin.",
+                "5. Cook on HOT dry skillet, 30s per side (until bubbly)."
+            ]
+        },
+        {
+            "id": "preserve-jerky",
+            "title": "Muscle Meat Jerky",
+            "category": "Preservation",
+            "prep_time": "24h",
+            "cook_time": "6h",
+            "ingredients": [
+                "Lean Meat (Beef/Venison), sliced with grain",
+                "Salt (2% of meat weight)",
+                "Pepper / Soy Sauce / Honey"
+            ],
+            "steps": [
+                "1. Slice meat 1/4 inch thick. Remove ALL fat.",
+                "2. Marinate 12-24 hours.",
+                "3. Pat dry.",
+                "4. Dehydrate at 160F (or oven lowest setting door cracked) for 4-6 hours.",
+                "5. Done when it bends and cracks (white fibers visible) but doesn't snap."
+            ]
+        },
+        {
+            "id": "preserve-sauerkraut",
+            "title": "Basic Sauerkraut",
+            "category": "Preservation",
+            "prep_time": "30m",
+            "cook_time": "3w",
+            "ingredients": [
+                "1 Head Cabbage",
+                "1.5 tbsp Salt"
+            ],
+            "steps": [
+                "1. Shred cabbage finely.",
+                "2. Massage salt into cabbage until it releases liquid (brine).",
+                "3. Pack tightly into jar. Ensure cabbage is submerged in liquid.",
+                "4. Weigh down (bag of water or glass weight).",
+                "5. Ferment 3-4 weeks at room temp. Burp jar daily if needed."
+            ]
+        },
+        {
+            "id": "preserve-canning-tomatoes",
+            "title": "Canned Tomatoes (Water Bath)",
+            "category": "Preservation",
+            "prep_time": "1h",
+            "cook_time": "45m",
+            "ingredients": [
+                "Tomatoes",
+                "Lemon Juice (Bottled)",
+                "Salt"
+            ],
+            "steps": [
+                "1. Score tomatoes, boil 1m, peel skins.",
+                "2. Pack into sterilized jars.",
+                "3. Add 1 tbsp lemon juice per pint (Critical for acid safety).",
+                "4. Leave 1/2 inch headspace.",
+                "5. Process in boiling water bath: 40 mins for pints, 45 for quarts."
+            ]
+        },
+        {
+            "id": "game-rabbit",
+            "title": "Rabbit Stew",
+            "category": "Wild Game",
+            "prep_time": "20m",
+            "cook_time": "2h",
+            "ingredients": [
+                "1 Rabbit, quartered",
+                "Flour for dusting",
+                "Root vegetables",
+                "Herbs (Thyme/Rosemary)",
+                "Cider/Broth"
+            ],
+            "steps": [
+                "1. Dust rabbit pieces in flour, salt, pepper.",
+                "2. Brown in hot fat (bacon grease is best). Remove.",
+                "3. Sauté veggies.",
+                "4. Return rabbit, cover with cider/broth.",
+                "5. Simmer gently 1.5 - 2 hours until falling off bone."
+            ]
+        },
+        {
+            "id": "game-fish",
+            "title": "Pan Fried Trout",
+            "category": "Wild Game",
+            "prep_time": "10m",
+            "cook_time": "10m",
+            "ingredients": [
+                "Whole Trout (cleaned)",
+                "Cornmeal / Flour",
+                "Butter / Oil",
+                "Lemon"
+            ],
+            "steps": [
+                "1. Score skin of fish lightly.",
+                "2. Dredge in seasoned cornmeal.",
+                "3. Fry in hot butter/oil over medium heat.",
+                "4. 4-5 mins per side. Flesh flakes easily when done."
+            ]
+        },
+        {
+            "id": "game-venison",
+            "title": "Venison Chili",
+            "category": "Wild Game",
+            "prep_time": "20m",
+            "cook_time": "3h",
+            "ingredients": [
+                "1 lb Ground Venison",
+                "1 Onion",
+                "2 cans Beans",
+                "1 can Tomato Sauce",
+                "Chili Powder / Cumin"
+            ],
+            "steps": [
+                "1. Brown venison with onions.",
+                "2. Add spices and toast for 1 min.",
+                "3. Add remaining ingredients.",
+                "4. Simmer low and slow (venison is lean, don't boil hard)."
+            ]
+        },
+        {
+            "id": "pantry-cornedbeef",
+            "title": "Corned Beef Hash",
+            "category": "Pantry Staples",
+            "prep_time": "10m",
+            "cook_time": "20m",
+            "ingredients": [
+                "1 can Corned Beef",
+                "2 Potatoes, diced",
+                "1 Onion, diced",
+                "Oil"
+            ],
+            "steps": [
+                "1. Boil potato dice for 5 mins to soften. Drain.",
+                "2. Fry onion and potatoes in oil until starting to crisp.",
+                "3. Crumble in corned beef.",
+                "4. Press down with spatula to form crust. Flip and crisp other side."
+            ]
+        },
+        {
+            "id": "pantry-shakshuka",
+            "title": "Pantry Shakshuka",
+            "category": "Pantry Staples",
+            "prep_time": "5m",
+            "cook_time": "15m",
+            "ingredients": [
+                "1 can Diced Tomatoes",
+                "4 Eggs",
+                "Cumin / Paprika / Chili Flakes",
+                "Onion / Garlic"
+            ],
+            "steps": [
+                "1. Sauté onion/garlic.",
+                "2. Add tomatoes and spices. Simmer 5 mins.",
+                "3. Make 4 divots in the sauce.",
+                "4. Crack eggs into divots.",
+                "5. Cover pan. Simmer 5-7 mins until whites set."
+            ]
+        },
+        {
+            "id": "pantry-lentils",
+            "title": "Lentil Tacos",
+            "category": "Pantry Staples",
+            "prep_time": "5m",
+            "cook_time": "20m",
+            "ingredients": [
+                "1 cup Dry Brown Lentils",
+                "2.5 cups Water",
+                "Taco Seasoning",
+                "Tortillas"
+            ],
+            "steps": [
+                "1. Simmer lentils in water until soft (20m). Drain excess liquid.",
+                "2. Mash partially with fork.",
+                "3. Stir in taco seasoning.",
+                "4. Serve in tortillas."
+            ]
+        },
+        {
+            "id": "pantry-rice-pudding",
+            "title": "Stovetop Rice Pudding",
+            "category": "Pantry Staples",
+            "prep_time": "2m",
+            "cook_time": "15m",
+            "ingredients": [
+                "2 cups Cooked Rice",
+                "2 cups Milk (or reconstituted)",
+                "1/3 cup Sugar",
+                "Cinnamon / Raisins"
+            ],
+            "steps": [
+                "1. Combine rice, milk, sugar in pot.",
+                "2. Simmer medium-low, stirring often (scorches easily).",
+                "3. Cook until thickened (15-20m).",
+                "4. Add cinnamon/raisins off heat."
+            ]
+        },
+        {
+            "id": "pantry-chilimac",
+            "title": "One Pot Chili Mac",
+            "category": "Pantry Staples",
+            "prep_time": "5m",
+            "cook_time": "15m",
+            "ingredients": [
+                "1 Box Macaroni",
+                "1 Can Chili",
+                "1 Can Diced Tomatoes (do not drain)"
+            ],
+            "steps": [
+                "1. Combine macaroni, chili, tomatoes, and 1 tomato-can of water in pot.",
+                "2. Bring to boil.",
+                "3. Simmer covered, stirring occasionally, until pasta is tender (10-12m).",
+                "4. Top with cheese if you have it."
+            ]
+        },
+        {
+            "id": "pantry-spam-musubi",
+            "title": "Spam Musubi Bowl",
+            "category": "Pantry Staples",
+            "prep_time": "10m",
+            "cook_time": "10m",
+            "ingredients": [
+                "1 can Spam",
+                "Rice",
+                "Soy Sauce / Sugar",
+                "Nori (Seaweed) - optional"
+            ],
+            "steps": [
+                "1. Cut Spam into slices.",
+                "2. Fry until crispy.",
+                "3. Add splash of soy sauce and sprinkle of sugar to pan to glaze.",
+                "4. Serve glazed Spam over rice with crumbled nori."
+            ]
+        },
+        {
+            "id": "pantry-cobbler",
+            "title": "Canned Fruit Cobbler",
+            "category": "Pantry Staples",
+            "prep_time": "10m",
+            "cook_time": "35m",
+            "ingredients": [
+                "2 cans Fruit (Peaches/Pears) - undrained",
+                "1 box Yellow Cake Mix (or flour/sugar/butter mix)",
+                "1 stick Butter"
+            ],
+            "steps": [
+                "1. Pour fruit into baking dish.",
+                "2. Sprinkle dry cake mix over fruit.",
+                "3. Slice butter thinly and arrange over top.",
+                "4. Bake 375F for 35-40 mins until golden and bubbly."
+            ]
+        },
+        {
+            "id": "pantry-salmon-patties",
+            "title": "Salmon Patties",
+            "category": "Pantry Staples",
+            "prep_time": "10m",
+            "cook_time": "10m",
+            "ingredients": [
+                "1 can Salmon (bones removed/crushed)",
+                "1 Egg",
+                "1/2 cup Breadcrumbs/Cracker meal",
+                "Onion/Lemon pepper"
+            ],
+            "steps": [
+                "1. Drain salmon.",
+                "2. Mix all ingredients. If too wet, add more crumbs.",
+                "3. Form into patties.",
+                "4. Pan fry in oil until golden brown on both sides."
+            ]
+        },
+        {
+            "id": "pantry-cowboy-caviar",
+            "title": "Cowboy Caviar",
+            "category": "Pantry Staples",
+            "prep_time": "15m",
+            "cook_time": "0m",
+            "ingredients": [
+                "1 can Black Beans, rinsed",
+                "1 can Corn, drained",
+                "1 can Black Eyed Peas, rinsed",
+                "Dressing: Vinegar, Oil, Sugar"
+            ],
+            "steps": [
+                "1. Rinse all canned beans well.",
+                "2. Mix in bowl.",
+                "3. Toss with Italian dressing or vinegar/oil mix.",
+                "4. Serve as dip with chips or side salad."
+            ]
+        },
+        {
+            "id": "preserve-pemmican",
+            "title": "Traditional Pemmican",
+            "category": "Preservation",
+            "prep_time": "1h",
+            "cook_time": "24h+",
+            "ingredients": [
+                "Lean Meat (dried to crisp/powder)",
+                "Rendered Fat (Tallow)",
+                "Dried Berries (optional)"
+            ],
+            "steps": [
+                "1. Pound dried meat into a fluff/powder.",
+                "2. Melt tallow.",
+                "3. Mix meat powder and tallow 1:1 by weight.",
+                "4. Press into molds/blocks.",
+                "5. Will last years without refrigeration."
+            ]
+        },
+        {
+            "id": "preserve-pickles",
+            "title": "Refrigerator Pickles",
+            "category": "Preservation",
+            "prep_time": "20m",
+            "cook_time": "5m",
+            "ingredients": [
+                "Cucumbers / Carrots",
+                "1 cup Vinegar",
+                "1 cup Water",
+                "1 tbsp Salt",
+                "Dill / Garlic"
+            ],
+            "steps": [
+                "1. Slice veggies into jars.",
+                "2. Boil vinegar, water, and salt to dissolve.",
+                "3. Pour hot brine over veggies.",
+                "4. Cool. Fridge. Ready in 24 hours."
+            ]
+        },
+        {
+            "id": "soap-lye",
+            "title": "Basic Lye Soap (Hot Process)",
+            "category": "Preservation",
+            "prep_time": "1h",
+            "cook_time": "2h",
+            "ingredients": [
+                "10 oz Water",
+                "4 oz Lye (Sodium Hydroxide)",
+                "30 oz Animal Fat (Lard/Tallow)"
+            ],
+            "steps": [
+                "1. OUTDOORS: Add Lye to Water. (NEVER WATER TO LYE). Mix.",
+                "2. Melt fat. Coll lye and fat to ~100F.",
+                "3. Add Lye Water to Fat.",
+                "4. Stick lend to 'Trace' (pudding consistency).",
+                "5. Pour into mold. Insulate. Cut after 24 hours. Cure 4 weeks."
+            ]
+        }
+    ]
+}

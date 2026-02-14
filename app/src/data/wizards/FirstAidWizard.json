@@ -1,0 +1,89 @@
+{
+    "id": "FirstAidWizard",
+    "title": "Field Triage & First Aid",
+    "description": "Emergency protocols for common injuries when help is delayed.",
+    "steps": [
+        {
+            "id": "issue_type",
+            "prompt": "What is the emergency?",
+            "type": "single-select",
+            "options": [
+                {
+                    "label": "Severe Bleeding",
+                    "value": "bleed",
+                    "next": "bleed_location"
+                },
+                {
+                    "label": "Burns",
+                    "value": "burn",
+                    "next": "burn_degree"
+                },
+                {
+                    "label": "Hypothermia / Freezing",
+                    "value": "cold",
+                    "next": "cold_symptoms"
+                },
+                {
+                    "label": "Dehydration / Heat Stroke",
+                    "value": "heat"
+                }
+            ]
+        },
+        {
+            "id": "bleed_location",
+            "prompt": "Where is the bleeding?",
+            "type": "single-select",
+            "options": [
+                {
+                    "label": "Arm / Leg (Extremity)",
+                    "value": "limb"
+                },
+                {
+                    "label": "Torso / Neck / Groin (Junction)",
+                    "value": "junction"
+                }
+            ]
+        },
+        {
+            "id": "burn_degree",
+            "prompt": "Appearance of the burn?",
+            "type": "single-select",
+            "options": [
+                {
+                    "label": "Red, painful (Sunburn like)",
+                    "value": "1st"
+                },
+                {
+                    "label": "Blistered, weeping, intense pain",
+                    "value": "2nd"
+                },
+                {
+                    "label": "White/Black, Charred, No Pain (Nerves gone)",
+                    "value": "3rd"
+                }
+            ]
+        },
+        {
+            "id": "cold_symptoms",
+            "prompt": "Patient symptoms?",
+            "type": "single-select",
+            "options": [
+                {
+                    "label": "Shivering, Clumsy, Confused",
+                    "value": "mild"
+                },
+                {
+                    "label": "NOT Shivering, Unconscious, Blue skin",
+                    "value": "severe"
+                }
+            ]
+        }
+    ],
+    "outputs": [
+        {
+            "type": "markdown_plan",
+            "template": "# Treatment Protocol\n\n{{#if (eq issue_type 'bleed')}}\n## CONTROLLING HEMORRHAGE\n{{#if (eq bleed_location 'limb')}}\n**Protocol: TOURNIQUET**\n1. Apply Tourniquet **HIGH AND TIGHT** (well above wound).\n2. Crank until bleeding STOPS completely.\n3. Secure windlass. Mark time.\n{{else}}\n**Protocol: WOUND PACKING**\n1. Stuff gauze/cloth DEEP into the wound source.\n2. Keep stuffing until you hit bone.\n3. Hold Direct Pressure for **3 Minutes** (Hemostatic) or **10 Minutes** (Plain gauze).\n{{/if}}\n{{/if}}\n\n{{#if (eq issue_type 'burn')}}\n## BURN TREATMENT\n{{#if (eq burn_degree '3rd')}}\n**CRITICAL: 3rd Degree**\n- Do NOT run water over it (Shock risk).\n- Cover with dry sterile dressing.\n- Treat for Shock (elevate legs, keep warm).\n{{else}}\n**Protocol:**\n1. Cool with tepid water for 10-20 mins.\n2. Do NOT pop blisters.\n3. Apply Honey or Aloe if available.\n4. Wrap loosely with plastic cling wrap (doesn't stick).\n{{/if}}\n{{/if}}\n\n{{#if (eq issue_type 'cold')}}\n## HYPOTHERMIA MANAGEMENT\n{{#if (eq cold_symptoms 'severe')}}\n**WARNING: Handle Gently**\n- Rough handling can stop a cold heart.\n- Active rewarming requires care.\n- **Burrito Wrap:** Tarp > Pad > Sleeping Bag > Patient > Hot Water Bottles in Armpits/Groin.\n{{else}}\n**Mild Cases:**\n- Get out of wet clothes.\n- High calorie food/drink.\n- Exercise to generate heat.\n{{/if}}\n{{/if}}",
+            "includes_checklists": true
+        }
+    ]
+}
