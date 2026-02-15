@@ -49,10 +49,25 @@ export const UserProvider = ({ children }) => {
     const [sustainability, setSustainability] = useState(() => {
         const savedStats = localStorage.getItem('homemaker_sustainability');
         return savedStats ? JSON.parse(savedStats) : {
+            peopleCount: 4,
             water: { current: 15, goal: 100, unit: 'Gallons', consumptionPerDay: 2 },
-            food: { current: 12, goal: 50, unit: 'Jars', consumptionPerDay: 0.25 },
+            food: { current: 12, goal: 200, unit: 'lbs', consumptionPerDay: 0.25 },
             garden: { current: 65, goal: 100, unit: '%' },
-            energy: { current: 80, goal: 100, unit: '%' }
+            energy: { current: 80, goal: 100, unit: '%' },
+            pantry: {
+                grains_starch: 0,
+                proteins_legumes: 0,
+                dairy: 0,
+                fats_oils: 0,
+                sugars_fruits: 0,
+                fuel_cooking: 0,
+                hygiene_sanitation: 0,
+                water_filtration: 0
+            },
+            tasks: [
+                { id: 1, title: 'Winter Fuel Check', desc: 'Audit remaining wood and propane stocks.', time: '20 mins', completed: false, type: 'manual' },
+                { id: 2, title: 'Greenhouse Ventilation', desc: 'Ensure morning temps are stable.', time: '10 mins', completed: false, type: 'manual' }
+            ]
         };
     });
 
@@ -92,10 +107,59 @@ export const UserProvider = ({ children }) => {
         }));
     };
 
+    const updatePantryItem = (category, amount) => {
+        setSustainability(prev => {
+            const newPantry = { ...prev.pantry, [category]: amount };
+            const foodTotal = (newPantry.grains_starch || 0) + (newPantry.proteins_legumes || 0) + (newPantry.sugars_fruits || 0);
+
+            let updatedTasks = [...prev.tasks];
+
+            // Smart Task Integration: Auto-add tasks if critical
+            if (foodTotal < 20 && !updatedTasks.some(t => t.id === 'auto-food')) {
+                updatedTasks.push({ id: 'auto-food', title: 'Emergency Food Audit', desc: 'Pantry levels are critical. Map out rationing.', time: '15 mins', completed: false, type: 'auto' });
+            }
+
+            return {
+                ...prev,
+                pantry: newPantry,
+                food: { ...prev.food, current: foodTotal },
+                tasks: updatedTasks
+            };
+        });
+    };
+
+    const toggleTask = (taskId) => {
+        setSustainability(prev => ({
+            ...prev,
+            tasks: prev.tasks.map(t => t.id === taskId ? { ...t, completed: !t.completed } : t)
+        }));
+    };
+
+    const addCustomTask = (task) => {
+        setSustainability(prev => ({
+            ...prev,
+            tasks: [...prev.tasks, { ...task, id: Date.now(), completed: false, type: 'manual' }]
+        }));
+    };
+
+    const removeTask = (taskId) => {
+        setSustainability(prev => ({
+            ...prev,
+            tasks: prev.tasks.filter(t => t.id !== taskId)
+        }));
+    };
+
     const updateSustainabilityRate = (key, rate) => {
         setSustainability(prev => ({
             ...prev,
             [key]: { ...prev[key], consumptionPerDay: rate }
+        }));
+    };
+
+    const updatePeopleCount = (count) => {
+        setSustainability(prev => ({
+            ...prev,
+            peopleCount: Math.max(1, count)
         }));
     };
 
@@ -106,17 +170,17 @@ export const UserProvider = ({ children }) => {
         };
     };
 
-    // Fixed logic for durations
+    // Fixed logic for durations (People-aware)
     const durations = {
-        water: sustainability.water.consumptionPerDay > 0 ? Math.floor(sustainability.water.current / sustainability.water.consumptionPerDay) : Infinity,
-        food: sustainability.food.consumptionPerDay > 0 ? Math.floor(sustainability.food.current / sustainability.food.consumptionPerDay) : Infinity
+        water: (sustainability.peopleCount || 1) > 0 ? Math.floor(sustainability.water.current / (sustainability.peopleCount * 1)) : Infinity,
+        food: (sustainability.peopleCount || 1) > 0 ? Math.floor(sustainability.food.current / (sustainability.peopleCount * 0.7)) : Infinity // Approx 0.7lbs per person per day for survival
     };
 
     // Calculate Readiness Score (0-100)
-    // Formula: (Current/Goal weighted parity)
     const calculateReadinessScore = () => {
-        const waterScore = Math.min((sustainability.water.current / (sustainability.water.consumptionPerDay * 14)) * 100, 100); // 14 day target
-        const foodScore = Math.min((sustainability.food.current / (sustainability.food.consumptionPerDay * 30)) * 100, 100); // 30 day target
+        const people = sustainability.peopleCount || 4;
+        const waterScore = Math.min((sustainability.water.current / (people * 14)) * 100, 100); // 14 day target
+        const foodScore = Math.min((sustainability.food.current / (people * 0.7 * 14)) * 100, 100); // 14 day target
         return Math.floor((waterScore + foodScore) / 2);
     };
 
@@ -168,6 +232,11 @@ export const UserProvider = ({ children }) => {
         updateProfile,
         updateSustainability,
         updateSustainabilityRate,
+        updatePantryItem,
+        updatePeopleCount,
+        toggleTask,
+        addCustomTask,
+        removeTask,
         recordAccess,
         toggleFavorite,
         isFavorite,

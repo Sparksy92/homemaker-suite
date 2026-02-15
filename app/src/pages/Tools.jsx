@@ -5,6 +5,8 @@ import { Calculator, Soup, Repeat, Calendar, Wrench, Flame, Clock, ChefHat, X, A
 // Import JSON data directly
 import subEngineData from '../data/SubstitutionEngine.json';
 import pantryCalcData from '../data/PantryCalculator.json';
+import mealPlannerData from '../data/MealPlannerWizard.json';
+import { useUser } from '../context/UserContext';
 // import recipeData from '../data/RecipeDatabase.json';
 
 import MealPlans from './MealPlans';
@@ -13,6 +15,22 @@ import MealPlans from './MealPlans';
 const Tools = () => {
     const [activeTab, setActiveTab] = useState('wizard');
     const [recipeData, setRecipeData] = useState({ recipes: [] });
+    const [survivalTools, setSurvivalTools] = useState([]);
+
+    // Handle initial tab from hash and listen for changes
+    useEffect(() => {
+        const handleHashChange = () => {
+            const hash = window.location.hash.replace('#', '');
+            const validTabs = ['wizard', 'survival', 'pantry', 'sub', 'plans'];
+            if (validTabs.includes(hash)) {
+                setActiveTab(hash);
+            }
+        };
+
+        handleHashChange(); // Check on mount
+        window.addEventListener('hashchange', handleHashChange);
+        return () => window.removeEventListener('hashchange', handleHashChange);
+    }, []);
 
     // Fetch recipes and survival tools on mount
     useEffect(() => {
@@ -78,8 +96,19 @@ const Tools = () => {
                 {activeTab === 'sub' && <SubstitutionEngine key="sub" data={subEngineData} />}
                 {activeTab === 'survival' && <SurvivalToolsList tools={survivalTools} setActiveToolUrl={setActiveToolUrl} />}
                 {activeTab === 'plans' && (
-                    <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}>
-                        <MealPlans />
+                    <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="space-y-12">
+                        <section>
+                            <h2 className="text-sm font-bold text-sage-600 uppercase tracking-widest mb-4 flex items-center gap-2">
+                                <Calendar size={16} /> Interactive Planner
+                            </h2>
+                            <MealPlanner data={mealPlannerData} />
+                        </section>
+                        <section>
+                            <h2 className="text-sm font-bold text-sage-600 uppercase tracking-widest mb-4 flex items-center gap-2">
+                                <BookOpen size={16} /> Seasonal Guides
+                            </h2>
+                            <MealPlans />
+                        </section>
                     </motion.div>
                 )}
             </AnimatePresence>
@@ -122,14 +151,26 @@ const TabButton = ({ active, onClick, icon, label }) => (
 
 const IngredientWizard = ({ recipeData }) => {
     const [searchTerm, setSearchTerm] = useState('');
+    const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('');
     const [selectedRecipe, setSelectedRecipe] = useState(null);
     const [isCookMode, setIsCookMode] = useState(false);
+    const [visibleCount, setVisibleCount] = useState(12);
+
+    // Debounce search term to avoid heavy calculations on every keystroke
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setDebouncedSearchTerm(searchTerm);
+            setVisibleCount(12); // Reset pagination on search change
+        }, 500); // 500ms delay
+
+        return () => clearTimeout(timer);
+    }, [searchTerm]);
 
     // Smart Filter: Multi-ingredient matching
     const cookbookResults = useMemo(() => {
-        if (!recipeData || !searchTerm) return [];
+        if (!recipeData || !debouncedSearchTerm) return [];
 
-        const searchTerms = searchTerm.toLowerCase().split(',').map(t => t.trim()).filter(t => t !== '');
+        const searchTerms = debouncedSearchTerm.toLowerCase().split(',').map(t => t.trim()).filter(t => t !== '');
 
         return recipeData.recipes.map(recipe => {
             let score = 0;
@@ -149,7 +190,7 @@ const IngredientWizard = ({ recipeData }) => {
         })
             .filter(r => r.score > 0)
             .sort((a, b) => b.score - a.score); // Sort by highest match count first
-    }, [recipeData, searchTerm]);
+    }, [recipeData, debouncedSearchTerm]);
 
     return (
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}>
@@ -162,10 +203,13 @@ const IngredientWizard = ({ recipeData }) => {
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                 />
+                {searchTerm !== debouncedSearchTerm && (
+                    <p className="text-[10px] text-sage-400 mt-2 italic animate-pulse">Searching archives...</p>
+                )}
             </div>
 
             <div className="space-y-6">
-                {searchTerm && cookbookResults.length === 0 && (
+                {debouncedSearchTerm && cookbookResults.length === 0 && (
                     <div className="text-center p-8 text-charcoal-light">No recipes found. Try a different ingredient.</div>
                 )}
 
@@ -176,7 +220,7 @@ const IngredientWizard = ({ recipeData }) => {
                             <Flame size={16} /> Recipe Ideas ({cookbookResults.length})
                         </h3>
                         <div className="grid gap-4 md:grid-cols-2">
-                            {cookbookResults.slice(0, 8).map((r) => (
+                            {cookbookResults.slice(0, visibleCount).map((r) => (
                                 <button
                                     key={r.id}
                                     onClick={() => setSelectedRecipe(r)}
@@ -200,12 +244,22 @@ const IngredientWizard = ({ recipeData }) => {
                                     </div>
                                 </button>
                             ))}
-                            {cookbookResults.length > 8 && (
-                                <div className="col-span-full text-center py-2 text-sm text-sand-500">
-                                    + {cookbookResults.length - 8} more matches hidden
-                                </div>
-                            )}
                         </div>
+
+                        {/* Pagination */}
+                        {visibleCount < cookbookResults.length && (
+                            <div className="mt-8 flex justify-center">
+                                <button
+                                    onClick={() => setVisibleCount(prev => prev + 12)}
+                                    className="px-8 py-3 bg-white border border-sand-300 rounded-2xl text-sage-700 font-bold hover:bg-sand-50 hover:border-sand-400 transition-all shadow-sm flex items-center gap-2"
+                                >
+                                    Load More Recipes
+                                    <div className="text-[10px] bg-sand-100 px-2 py-0.5 rounded-full text-sand-500">
+                                        {cookbookResults.length - visibleCount} left
+                                    </div>
+                                </button>
+                            </div>
+                        )}
                     </div>
                 )}
             </div>
@@ -389,46 +443,142 @@ const SurvivalToolsList = ({ tools, setActiveToolUrl }) => {
 };
 
 const PantryCalculator = ({ data }) => {
-    const [people, setPeople] = useState(4);
+    const { sustainability, updatePantryItem, updatePeopleCount } = useUser();
     const [weeks, setWeeks] = useState(2);
 
     const categories = Object.entries(data.categories);
+    const pantry = sustainability.pantry || {};
+    const people = sustainability.peopleCount || 4;
 
     return (
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}>
-            <div className="bg-white p-6 rounded-3xl shadow-sm border border-sand-200 mb-6">
-                <div className="grid grid-cols-2 gap-4">
-                    <div>
-                        <label className="text-xs font-bold text-sage-600 uppercase tracking-widest">People</label>
-                        <input type="number" value={people} onChange={e => setPeople(e.target.value)} className="w-full text-3xl font-serif text-sage-900 border-b border-sand-200 focus:outline-none py-2" />
+            {/* Header / Config */}
+            <div className="bg-white p-6 rounded-[2.5rem] shadow-sm border border-sand-200 mb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+                <div className="flex-1">
+                    <h2 className="text-2xl font-serif font-black text-sage-900 mb-1">Pantry Manager</h2>
+                    <p className="text-sm text-sage-500 font-medium">Track your actual supplies vs survival requirements.</p>
+                </div>
+                <div className="flex gap-4 w-full md:w-auto">
+                    <div className="flex-1 md:w-24">
+                        <label className="text-[10px] font-black text-sage-400 uppercase tracking-widest block mb-1">People</label>
+                        <input
+                            type="number"
+                            min="1"
+                            value={people}
+                            onChange={e => updatePeopleCount(Math.max(1, parseInt(e.target.value) || 1))}
+                            className="w-full bg-sand-50 p-3 rounded-xl border border-sand-200 focus:outline-none focus:border-sage-500 font-serif text-lg font-bold text-sage-800"
+                        />
                     </div>
-                    <div>
-                        <label className="text-xs font-bold text-sage-600 uppercase tracking-widest">Weeks</label>
-                        <input type="number" value={weeks} onChange={e => setWeeks(e.target.value)} className="w-full text-3xl font-serif text-sage-900 border-b border-sand-200 focus:outline-none py-2" />
+                    <div className="flex-1 md:w-24">
+                        <label className="text-[10px] font-black text-sage-400 uppercase tracking-widest block mb-1">Weeks Target</label>
+                        <input
+                            type="number"
+                            min="1"
+                            value={weeks}
+                            onChange={e => setWeeks(Math.max(1, parseInt(e.target.value) || 1))}
+                            className="w-full bg-sand-50 p-3 rounded-xl border border-sand-200 focus:outline-none focus:border-sage-500 font-serif text-lg font-bold text-sage-800"
+                        />
                     </div>
                 </div>
             </div>
 
-            <div className="space-y-3">
+            {/* Inventory List */}
+            <div className="space-y-4">
                 {categories.map(([key, cat]) => {
-                    const totalLbs = (cat.recommendation_lbs_per_week * people * weeks).toFixed(1);
+                    const targetLbs = (cat.recommendation_lbs_per_week * people * weeks);
+                    const currentStock = pantry[key] || 0;
+                    const diff = currentStock - targetLbs;
+                    const percent = Math.min(100, Math.max(0, (currentStock / targetLbs) * 100));
+
+                    // Specific logic for water
+                    const isWater = key === 'water_filtration';
+                    // Note: We handle bulk water separately usually, but we'll stick to food items here mainly
+
+                    const statusColor = diff >= 0 ? 'text-sage-600' : 'text-terracotta-600';
+                    const barColor = diff >= 0 ? 'bg-sage-500' : 'bg-terracotta-500';
+
                     return (
-                        <div key={key} className="flex justify-between items-center bg-sand-50 p-4 rounded-2xl">
-                            <div>
-                                <h4 className="font-bold text-sage-800 capitalize">{key.replace('_', ' ')}</h4>
-                                <p className="text-xs text-charcoal-light">{cat.items.slice(0, 3).join(', ')}...</p>
+                        <div key={key} className="bg-white p-6 rounded-[2rem] border border-sand-100 shadow-sm overflow-hidden relative">
+                            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-4">
+                                <div className="flex-1">
+                                    <div className="flex items-center gap-2 mb-1">
+                                        <h4 className="font-bold text-sage-800 capitalize text-lg">{key.replace('_', ' ')}</h4>
+                                        {diff >= 0 && (
+                                            <span className="bg-sage-100 text-sage-700 text-[10px] px-2 py-0.5 rounded-full font-black uppercase">Stocked</span>
+                                        )}
+                                    </div>
+                                    <p className="text-xs text-charcoal-light font-medium">{cat.items.join(', ')}</p>
+                                </div>
+                                <div className="flex items-center gap-4 w-full md:w-auto">
+                                    <div className="text-right flex-1 md:flex-none">
+                                        <label className="text-[10px] font-black text-sage-400 uppercase tracking-widest block mb-0.5">Current Stock (lbs)</label>
+                                        <div className="flex items-center gap-2 justify-end">
+                                            <button
+                                                onClick={() => updatePantryItem(key, Math.max(0, currentStock - 1))}
+                                                className="w-8 h-8 rounded-full bg-sand-100 flex items-center justify-center hover:bg-sand-200 text-sage-600 transition-colors"
+                                            >-</button>
+                                            <input
+                                                type="number"
+                                                value={currentStock}
+                                                onChange={(e) => updatePantryItem(key, Math.max(0, parseFloat(e.target.value) || 0))}
+                                                className="w-16 bg-transparent text-center font-serif font-black text-xl text-sage-800 focus:outline-none"
+                                            />
+                                            <button
+                                                onClick={() => updatePantryItem(key, currentStock + 1)}
+                                                className="w-8 h-8 rounded-full bg-sand-100 flex items-center justify-center hover:bg-sand-200 text-sage-600 transition-colors"
+                                            >+</button>
+                                        </div>
+                                    </div>
+                                    <div className="text-right min-w-[80px]">
+                                        <label className="text-[10px] font-black text-sage-400 uppercase tracking-widest block mb-0.5">Target</label>
+                                        <span className="text-xl font-serif font-bold text-sand-500">{targetLbs.toFixed(1)}</span>
+                                    </div>
+                                </div>
                             </div>
-                            <div className="text-right">
-                                <span className="text-2xl font-serif font-bold text-terracotta-600">{totalLbs}</span>
-                                <span className="text-xs text-terracotta-400 block">lbs total</span>
+
+                            {/* Progress Bar */}
+                            <div className="relative h-2 bg-sand-100 rounded-full overflow-hidden mt-2">
+                                <motion.div
+                                    initial={{ width: 0 }}
+                                    animate={{ width: `${percent}%` }}
+                                    className={`absolute inset-y-0 left-0 ${barColor}`}
+                                />
+                            </div>
+                            <div className="flex justify-between mt-2">
+                                <span className={`text-[10px] font-black uppercase tracking-tighter ${statusColor}`}>
+                                    {diff >= 0 ? `+${diff.toFixed(1)} lbs Surplus` : `${Math.abs(diff).toFixed(1)} lbs Deficit`}
+                                </span>
+                                <span className="text-[10px] font-black text-sand-400 uppercase tracking-tighter">
+                                    {percent.toFixed(0)}% Prepared
+                                </span>
                             </div>
                         </div>
                     );
                 })}
             </div>
 
-            <div className="mt-8 p-4 bg-blue-50 text-blue-800 rounded-xl text-sm text-center">
-                Water Needed: <strong>{people * weeks * 7} Gallons</strong>
+            {/* Total Water Insight */}
+            <div className="mt-8 p-6 bg-blue-600 rounded-[2rem] text-white shadow-xl shadow-blue-200 flex flex-col md:flex-row items-center justify-between gap-6">
+                <div className="flex items-center gap-4">
+                    <div className="w-14 h-14 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center">
+                        <Calculator className="text-white" size={28} />
+                    </div>
+                    <div>
+                        <h4 className="text-xl font-serif font-bold">Total Water Requirement</h4>
+                        <p className="text-blue-100 text-sm">Targeting {weeks} weeks for {people} people</p>
+                    </div>
+                </div>
+                <div className="text-center md:text-right">
+                    <span className="text-4xl font-serif font-black block">{people * weeks * 7}</span>
+                    <span className="text-[10px] font-black uppercase tracking-widest text-blue-200">Gallons Required</span>
+                </div>
+            </div>
+
+            <div className="mt-4 p-4 bg-sage-50 rounded-2xl border border-sage-100 flex items-center gap-3">
+                <AlertTriangle className="text-sage-500 shrink-0" size={18} />
+                <p className="text-xs text-sage-700 leading-tight">
+                    <strong>Smart Tip:</strong> The app automatically syncs your Grains, Proteins, and Sugar stocks to the main "Food Stock" alert on your homepage. Keep your inventory updated for accurate survival predictions.
+                </p>
             </div>
         </motion.div>
     );
@@ -494,6 +644,81 @@ const WizardCard = ({ title, desc, onClick, guideLink }) => {
                         <BookOpen size={12} /> Deep Dive
                     </button>
                 )}
+            </div>
+        </div>
+    );
+};
+
+const MealPlanner = ({ data }) => {
+    const [weeklyPlan, setWeeklyPlan] = useState(data.template_week);
+    const [editingDay, setEditingDay] = useState(null);
+
+    const days = Object.keys(weeklyPlan);
+
+    return (
+        <div className="space-y-4">
+            <div className="bg-white p-6 rounded-3xl shadow-sm border border-sand-200">
+                <div className="flex justify-between items-center mb-6">
+                    <div>
+                        <h3 className="text-xl font-bold text-sage-900 font-serif">{data.meta.toolName}</h3>
+                        <p className="text-sm text-sage-500">{data.meta.description}</p>
+                    </div>
+                    <button
+                        onClick={() => setWeeklyPlan(data.template_week)}
+                        className="text-xs font-bold text-terracotta-600 uppercase tracking-widest hover:text-terracotta-700 transition-colors"
+                    >
+                        Reset Template
+                    </button>
+                </div>
+
+                <div className="grid gap-4">
+                    {days.map(day => (
+                        <div key={day} className="flex flex-col sm:flex-row sm:items-center justify-between p-4 bg-sand-50 rounded-2xl border border-sand-100 gap-4">
+                            <div className="flex items-center gap-4">
+                                <div className="w-12 h-12 bg-white rounded-xl shadow-sm border border-sand-200 flex items-center justify-center flex-col shrink-0">
+                                    <span className="text-[10px] font-black text-sage-400 uppercase leading-none">{day.slice(0, 3)}</span>
+                                    <span className="text-lg font-serif font-black text-sage-800 leading-none">
+                                        {day === 'Monday' ? '1' : day === 'Tuesday' ? '2' : day === 'Wednesday' ? '3' : day === 'Thursday' ? '4' : day === 'Friday' ? '5' : day === 'Saturday' ? '6' : '7'}
+                                    </span>
+                                </div>
+                                <div>
+                                    <h4 className="font-bold text-sage-900 text-sm">{day}</h4>
+                                    <div className="flex items-center gap-2 mt-0.5">
+                                        <span className="text-[10px] font-bold text-terracotta-600 uppercase tracking-widest">{weeklyPlan[day].type}</span>
+                                        <span className="text-[10px] text-sage-400">•</span>
+                                        <span className="text-[10px] font-bold text-sage-500 uppercase tracking-widest">{weeklyPlan[day].effort} Effort</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="flex items-center gap-2 ml-16 sm:ml-0">
+                                <input
+                                    type="text"
+                                    placeholder="Assign meal..."
+                                    className="bg-white px-3 py-1.5 rounded-lg border border-sand-200 text-sm focus:outline-none focus:border-sage-500 flex-1 min-w-[200px]"
+                                    defaultValue={weeklyPlan[day].meal || ''}
+                                    onBlur={(e) => {
+                                        const newPlan = { ...weeklyPlan };
+                                        newPlan[day] = { ...newPlan[day], meal: e.target.value };
+                                        setWeeklyPlan(newPlan);
+                                    }}
+                                />
+                            </div>
+                        </div>
+                    ))}
+                </div>
+
+                <div className="mt-8 p-4 bg-sage-50 rounded-xl border border-sage-100">
+                    <h4 className="text-xs font-black text-sage-600 uppercase tracking-[0.2em] mb-3">Planning Logic</h4>
+                    <div className="grid sm:grid-cols-2 gap-3">
+                        {Object.entries(data.logic).map(([key, val]) => (
+                            <div key={key} className="flex gap-2 items-start text-[11px] text-sage-700 leading-tight">
+                                <span className="text-terracotta-500 font-bold shrink-0">{key.replace('step', '')}.</span>
+                                <span className="font-medium">{val}</span>
+                            </div>
+                        ))}
+                    </div>
+                </div>
             </div>
         </div>
     );
