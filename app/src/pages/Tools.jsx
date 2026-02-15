@@ -5,17 +5,24 @@ import { Calculator, Soup, Repeat, Calendar, Wrench, Flame, Clock, ChefHat, X, A
 // Import JSON data directly
 import subEngineData from '../data/SubstitutionEngine.json';
 import pantryCalcData from '../data/PantryCalculator.json';
-import recipeData from '../data/RecipeDatabase.json';
+// import recipeData from '../data/RecipeDatabase.json';
 
 import MealPlans from './MealPlans';
 
 // Import generic file fetcher (simplified for this view)
 const Tools = () => {
     const [activeTab, setActiveTab] = useState('wizard');
-    const [survivalTools, setSurvivalTools] = useState([]);
+    const [recipeData, setRecipeData] = useState({ recipes: [] });
 
-    // Fetch survival tools on mount
-    React.useEffect(() => {
+    // Fetch recipes and survival tools on mount
+    useEffect(() => {
+        // Fetch recipes
+        fetch('/data/recipes.json')
+            .then(res => res.json())
+            .then(data => setRecipeData(data))
+            .catch(err => console.error('Error fetching recipes:', err));
+
+        // Fetch survival tools
         fetch('/library_index.json')
             .then(res => res.json())
             .then(data => {

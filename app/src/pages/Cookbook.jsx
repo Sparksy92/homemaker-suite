@@ -1,26 +1,37 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { Search, Clock, ChefHat, X, Flame, Leaf, Wheat, Database, Utensils, Star, Filter, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import recipeData from '../data/RecipeDatabase.json';
+// Remove static import
+// import recipeData from '../data/RecipeDatabase.json';
 
 const Cookbook = () => {
+    const [recipeData, setRecipeData] = useState({ recipes: [] });
+    const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
     const [activeCategory, setActiveCategory] = useState('All');
     const [activeSubCategory, setActiveSubCategory] = useState('All');
     const [selectedRecipe, setSelectedRecipe] = useState(null);
     const [isCookMode, setIsCookMode] = useState(false);
     const [visibleCount, setVisibleCount] = useState(12);
+    const [survivalOnly, setSurvivalOnly] = useState(false);
 
-    const categories = ['All', "Grandma's Favorites", "Grandma's Alchemy", 'Pantry Staples', 'Breakfast', 'Soups & Stews', 'Dinner', 'Baking', 'Preservation', 'Sauces', 'Wild Game', 'Wild Edibles'];
+    const categories = ['All', 'Survival Recipes', "Grandma's Favorites", "Grandma's Alchemy", 'Pantry Staples', 'Breakfast', 'Soups & Stews', 'Dinner', 'Baking', 'Preservation', 'Sauces', 'Wild Game', 'Wild Edibles'];
 
-    const subCategoryMap = {
-        'Wild Game': ['All', 'Small Game', 'Upland Birds', 'Waterfowl', 'Big Game'],
-        'Wild Edibles': ['All', 'Foraged', 'Medicinal', 'Beverages'],
-        'Grandma\'s Alchemy': ['All', 'Antimicrobial', 'Immunity', 'Topical'],
-        'Baking': ['All', 'Bread', 'Pastry', 'Survival'],
-        'Preservation': ['All', 'Canning', 'Fermenting', 'Drying'],
-        'Pantry Staples': ['All', 'Staples', 'Quick Meals']
-    };
+    // Fetch recipes from public folder
+    useEffect(() => {
+        const fetchRecipes = async () => {
+            try {
+                const response = await fetch('/data/recipes.json');
+                const data = await response.json();
+                setRecipeData(data);
+            } catch (error) {
+                console.error('Error loading recipes:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchRecipes();
+    }, []);
 
     // Reset sub-category and pagination when main category changes
     useEffect(() => {
@@ -34,12 +45,16 @@ const Cookbook = () => {
     }, [searchTerm]);
 
     const filteredRecipes = useMemo(() => {
+        if (!recipeData.recipes) return [];
         return recipeData.recipes.filter(recipe => {
             const matchesSearch = recipe.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
                 recipe.ingredients.some(i => i.toLowerCase().includes(searchTerm.toLowerCase())) ||
                 recipe.tags?.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
 
-            const matchesCategory = activeCategory === 'All' || recipe.category === activeCategory;
+            const matchesCategory = activeCategory === 'All' ||
+                (activeCategory === 'Survival Recipes' ? (recipe.tags?.includes('survival') || recipe.tags?.includes('grid-down')) : recipe.category === activeCategory);
+
+            const matchesSurvivalToggle = !survivalOnly || (recipe.tags?.includes('survival') || recipe.tags?.includes('grid-down'));
 
             let matchesSub = true;
             if (activeSubCategory !== 'All') {
@@ -48,9 +63,9 @@ const Cookbook = () => {
                     recipe.primary_protein?.toLowerCase() === activeSubCategory.toLowerCase();
             }
 
-            return matchesSearch && matchesCategory && matchesSub;
+            return matchesSearch && matchesCategory && matchesSub && matchesSurvivalToggle;
         });
-    }, [searchTerm, activeCategory, activeSubCategory]);
+    }, [recipeData, searchTerm, activeCategory, activeSubCategory, survivalOnly]);
 
     const visibleRecipes = filteredRecipes.slice(0, visibleCount);
 
@@ -90,8 +105,20 @@ const Cookbook = () => {
             <div className="bg-white p-6 sticky top-0 z-10 shadow-sm border-b border-sand-200">
                 <div className="flex justify-between items-center mb-4">
                     <h1 className="text-3xl font-serif font-bold text-sage-900">The Cookbook</h1>
-                    <div className="text-xs font-bold text-sage-400 uppercase tracking-tighter">
-                        {filteredRecipes.length} Recipes
+                    <div className="flex items-center gap-4">
+                        <button
+                            onClick={() => setSurvivalOnly(!survivalOnly)}
+                            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-[10px] font-black uppercase tracking-tighter transition-all border ${survivalOnly
+                                ? 'bg-terracotta-500 text-white border-terracotta-500 shadow-md ring-4 ring-terracotta-100'
+                                : 'bg-white text-sand-400 border-sand-200 hover:border-sand-300'
+                                }`}
+                        >
+                            <Flame size={12} className={survivalOnly ? 'animate-pulse' : ''} />
+                            Grid-Down Only
+                        </button>
+                        <div className="text-xs font-bold text-sage-400 uppercase tracking-tighter">
+                            {filteredRecipes.length} Recipes
+                        </div>
                     </div>
                 </div>
 
@@ -152,64 +179,83 @@ const Cookbook = () => {
                 </AnimatePresence>
             </div>
 
+            {/* Loading State */}
+            {loading && (
+                <div className="py-20 text-center">
+                    <div className="w-12 h-12 border-4 border-sage-100 border-t-sage-500 rounded-full animate-spin mx-auto mb-4"></div>
+                    <p className="text-sage-500 font-medium">Loading homestead secrets...</p>
+                </div>
+            )}
+
             {/* Grid */}
-            <div className="p-4 grid grid-cols-1 sm:grid-cols-2 gap-6 w-full mx-auto">
-                {visibleRecipes.map(recipe => (
-                    <motion.button
-                        layout
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        layoutId={`card-${recipe.id}`}
-                        key={recipe.id}
-                        onClick={() => setSelectedRecipe(recipe)}
-                        className="bg-white p-5 rounded-3xl shadow-sm border border-sand-100 text-left hover:shadow-xl transition-all group relative overflow-hidden flex flex-col h-full w-full"
-                    >
-                        {/* Decorative background element */}
-                        <div className="absolute top-0 right-0 p-8 opacity-[0.03] group-hover:opacity-[0.08] transition-opacity transform translate-x-4 -translate-y-4">
-                            {getCategoryIcon(recipe.category)}
-                        </div>
-
-                        <div className="flex justify-between items-start mb-3 relative z-10">
-                            <div className="flex flex-col gap-1">
-                                <span className="text-[10px] font-black uppercase tracking-tighter text-sage-500 flex items-center gap-1">
-                                    {getCategoryIcon(recipe.category)}
-                                    {recipe.category}
-                                </span>
-                                {renderDifficulty(recipe.difficulty)}
+            {!loading && (
+                <div className="p-4 grid grid-cols-1 sm:grid-cols-2 gap-6 w-full mx-auto">
+                    {visibleRecipes.map(recipe => (
+                        <motion.button
+                            layout
+                            initial={{ opacity: 0, scale: 0.95 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            layoutId={`card-${recipe.id}`}
+                            key={recipe.id}
+                            onClick={() => setSelectedRecipe(recipe)}
+                            className="bg-white p-5 rounded-3xl shadow-sm border border-sand-100 text-left hover:shadow-xl transition-all group relative overflow-hidden flex flex-col h-full w-full"
+                        >
+                            {/* Decorative background element */}
+                            <div className="absolute top-0 right-0 p-8 opacity-[0.03] group-hover:opacity-[0.08] transition-opacity transform translate-x-4 -translate-y-4">
+                                {getCategoryIcon(recipe.category)}
                             </div>
-                            <span className="text-[10px] font-bold text-sand-500 bg-sand-50 px-2 py-1 rounded-full flex items-center gap-1">
-                                <Clock size={10} />
-                                {recipe.prep_time}
-                            </span>
-                        </div>
 
-                        <div className="flex-grow">
-                            <h3 className="text-xl font-bold text-charcoal-900 mb-1 font-serif group-hover:text-sage-700 transition-colors leading-tight">
-                                {recipe.title}
-                            </h3>
-                            {recipe.primary_protein && (
-                                <span className="text-[10px] bg-terracotta-50 text-terracotta-600 px-2 py-0.5 rounded font-bold mb-2 inline-block capitalize">
-                                    {recipe.primary_protein}
-                                </span>
-                            )}
-                            <p className="text-xs text-charcoal-400 line-clamp-2 mt-2 leading-relaxed italic">
-                                {recipe.ingredients.slice(0, 4).join(', ')}...
-                            </p>
-                        </div>
-
-                        <div className="mt-4 pt-4 border-t border-sand-50 flex justify-between items-center opacity-0 group-hover:opacity-100 transition-opacity">
-                            <span className="text-[10px] font-bold text-sage-600 uppercase tracking-widest flex items-center gap-1">
-                                View Recipe <ArrowRight size={10} />
-                            </span>
-                            <div className="flex gap-1">
-                                {recipe.tags?.slice(0, 2).map(tag => (
-                                    <span key={tag} className="text-[9px] text-sand-400 bg-sand-50 px-1.5 py-0.5 rounded">#{tag}</span>
-                                ))}
+                            <div className="flex justify-between items-start mb-3 relative z-10">
+                                <div className="flex flex-col gap-1">
+                                    <span className="text-[10px] font-black uppercase tracking-tighter text-sage-500 flex items-center gap-1">
+                                        {getCategoryIcon(recipe.category)}
+                                        {recipe.category}
+                                    </span>
+                                    {renderDifficulty(recipe.difficulty)}
+                                </div>
+                                <div className="flex flex-col items-end gap-1">
+                                    <span className="text-[10px] font-bold text-sand-500 bg-sand-50 px-2 py-1 rounded-full flex items-center gap-1">
+                                        <Clock size={10} />
+                                        {recipe.prep_time}
+                                    </span>
+                                    {recipe.survival_rating && (
+                                        <div className="flex gap-0.5 opacity-60">
+                                            {[...Array(recipe.survival_rating)].map((_, i) => (
+                                                <Flame key={i} size={8} className="text-terracotta-500 fill-terracotta-500" />
+                                            ))}
+                                        </div>
+                                    )}
+                                </div>
                             </div>
-                        </div>
-                    </motion.button>
-                ))}
-            </div>
+
+                            <div className="flex-grow">
+                                <h3 className="text-xl font-bold text-charcoal-900 mb-1 font-serif group-hover:text-sage-700 transition-colors leading-tight">
+                                    {recipe.title}
+                                </h3>
+                                {recipe.primary_protein && (
+                                    <span className="text-[10px] bg-terracotta-50 text-terracotta-600 px-2 py-0.5 rounded font-bold mb-2 inline-block capitalize">
+                                        {recipe.primary_protein}
+                                    </span>
+                                )}
+                                <p className="text-xs text-charcoal-400 line-clamp-2 mt-2 leading-relaxed italic">
+                                    {recipe.ingredients.slice(0, 4).join(', ')}...
+                                </p>
+                            </div>
+
+                            <div className="mt-4 pt-4 border-t border-sand-50 flex justify-between items-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                <span className="text-[10px] font-bold text-sage-600 uppercase tracking-widest flex items-center gap-1">
+                                    View Recipe <ArrowRight size={10} />
+                                </span>
+                                <div className="flex gap-1">
+                                    {recipe.tags?.slice(0, 2).map(tag => (
+                                        <span key={tag} className="text-[9px] text-sand-400 bg-sand-50 px-1.5 py-0.5 rounded">#{tag}</span>
+                                    ))}
+                                </div>
+                            </div>
+                        </motion.button>
+                    ))}
+                </div>
+            )}
 
             {/* Empty State */}
             {filteredRecipes.length === 0 && (
