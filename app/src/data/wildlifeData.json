@@ -294,15 +294,16 @@
             "season": "Late Summer",
             "identification": "Shrub with clusters of tiny dark purple berries. Flat white flower clusters.",
             "uses": "Flu/Cold remedy (Syrup). Immune support.",
-            "caution": "WARNING: Raw berries, leaves, and bark contain cyanide precursors. MUST COOK berries before eating.",
+            "caution": "CRITICAL: MUST BE COOKED. Raw berries, seeds, leaves, and bark contain cyanogenic glycosides (cyanide-inducing). Ingestion can cause severe nausea and vomiting. Identify carefully: Elderberry stems have white pith; LOOKALIKE Water Hemlock has hollow stems and is DEADLY.",
             "images": [
                 "elderberry.jpg"
             ],
             "details": {
-                "habitat": "Wet areas, forest edges.",
+                "habitat": "Wet areas, forest edges, ditches.",
                 "processing": [
-                    "**Syrup:** Simmer ripe berries with water for 45 mins. Mash and strain. Add honey (preservative). Take 1 tsp daily for flu prevention.",
-                    "**Identification Check:** Stems have white pith. (Lookalike Water Hemlock has hollow stems and is deadly)."
+                    "**Syrup:** Simmer ripe berries with water for at least 45 mins. This heat destroys the toxins. Mash and strain. Add honey (preservative). Take 1 tsp daily for immune support.",
+                    "**Safety Rule:** Never consume green berries. Only harvest deep purple/black clusters.",
+                    "**Lookalike Check:** Ensure you are NOT looking at Water Hemlock. Elderberry is a woody shrub with opposite leaves and white pith; Water Hemlock is an herbaceous plant with a hollow, often purple-spotted stem and is one of the most poisonous plants in North America."
                 ]
             }
         },
@@ -478,6 +479,315 @@
                 "processing": [
                     "**Identification:** If it doesn't have the 'rubber band' white core when stretched, it isn't Usnea.",
                     "**Medicine:** Contains Usnic acid. Best extracted in alcohol (tincture) or simmered in water for a long time."
+                ]
+            }
+        },
+        {
+            "id": "wild_strawberry",
+            "name": "Wild Strawberry",
+            "scientific_name": "Fragaria virginiana",
+            "type": "Edible",
+            "season": "Late Spring / Early Summer",
+            "identification": "Low-growing, three serrated leaflets, small white flower with 5 petals, tiny intensely flavored red berries.",
+            "uses": "Berries eaten raw or preserved. Leaves used for tea (Vitamin C).",
+            "caution": "None. Ensure ID to avoid 'Mock Strawberry' (edible but tasteless).",
+            "images": [
+                "wild_strawberry_1.jpg"
+            ],
+            "details": {
+                "habitat": "Fields, forest edges, sunny meadows.",
+                "harvesting": "Harvest when deep red. They are tiny but pack 10x the flavor of store-bought berries.",
+                "processing": [
+                    "**Tea:** Air-dry young leaves. Steep 1 tsp in hot water. High in Vitamin C and good for digestion.",
+                    "**Preservation:** Due to small size, they are best as 'top-shelf' jam additions or eaten fresh."
+                ]
+            }
+        },
+        {
+            "id": "mulberry",
+            "name": "Mulberry",
+            "scientific_name": "Morus spp.",
+            "type": "Edible",
+            "season": "Early Summer",
+            "identification": "Tree with varied leaf shapes (unlobed to multi-lobed). Fruit looks like a long blackberry.",
+            "uses": "Berries eaten fresh, dried, or in pies. Wood for smoking meat.",
+            "caution": "Unripe berries and milky sap can cause mild stomach upset or hallucinations.",
+            "images": [
+                "mulberry_1.jpg"
+            ],
+            "details": {
+                "habitat": "Hedgerows, old farmsteads, forest edges.",
+                "harvesting": "Shake tree over a sheet to collect ripe berries safely.",
+                "processing": [
+                    "**Drying:** Sun-dry for a shelf-stable raisin-like snack.",
+                    "**Pies/Jams:** Use like blackberries but expect a milder, sweeter flavor."
+                ]
+            }
+        },
+        {
+            "id": "crabapple",
+            "name": "Crabapple",
+            "scientific_name": "Malus spp.",
+            "type": "Edible",
+            "season": "Fall",
+            "identification": "Small, deciduous tree. Five-petaled white/pink spring blossoms. Fruit is a small apple (under 2\" diameter), often tart or bitter.",
+            "uses": "High-pectin source for jellies. Cider, sauces, pickled fruit.",
+            "caution": "Seeds contain amygdalin (cyanide-precursor). Do not ingest seeds in large quantities.",
+            "images": [
+                "crabapple.jpg"
+            ],
+            "details": {
+                "habitat": "Abandoned orchards, forest edges, suburban landscapes.",
+                "harvesting": "Harvest in late fall after first frost for best sugar content. Smaller fruits are generally higher in pectin.",
+                "processing": [
+                    "**Jelly:** Boil whole fruits with water until soft. Strain. High pectin means no store-bought pectin is usually needed to set.",
+                    "**Sauce:** Use like standard apples but add significantly more sweetener (honey/maple syrup).",
+                    "**Pickled:** Small crabapples can be pickled whole in a spicy vinegar brine."
+                ]
+            }
+        },
+        {
+            "id": "black_walnut",
+            "name": "Black Walnut",
+            "scientific_name": "Juglans nigra",
+            "type": "Edible / Utility",
+            "season": "Fall",
+            "identification": "Large deciduous tree. Bark is dark and furrowed into diamond shapes. Compound leaves with 15-23 leaflets. Nuts are encased in thick, round green husks.",
+            "uses": "Nut meats (rich, oily, earthy). Green husks for dye and medicinal anti-parasitic. Wood is premium lumber.",
+            "caution": "Hulls contain Juglone—stains skin and clothing black. Stains are permanent on many surfaces.",
+            "images": [
+                "black_walnut.jpg"
+            ],
+            "details": {
+                "habitat": "Rich, moist bottomlands, floodplains, and open sunny fields.",
+                "harvesting": "Gather fallen nuts in late September/October. Test for ripeness by pressing with your thumb—it should dent.",
+                "processing": [
+                    "**1. Hulling:** Remove green/black husks immediately. Modern survival trick: Drive over them with a vehicle to break the hulls, or use a manual corn sheller. WEAR GLOVES.",
+                    "**2. Washing:** Place in a bucket of water. 'Floaters' are likely bad; 'sinkers' are good. Rinse until clean.",
+                    "**3. Curing:** Dry in a cool, ventilated place (hanging mesh bags are ideal) for 2-3 weeks. The nut is ready when the meat snaps rather than bends.",
+                    "**4. Cracking:** Requires a heavy-duty nutcracker or hammer. Extract meats with a pick.",
+                    "**5. Storage:** Stored in shells in a cool place, they last up to a year. Once shelled, freeze immediately due to high oil content."
+                ]
+            }
+        },
+        {
+            "id": "maple_tree",
+            "name": "Maple Trees (Sugar/Red/Silver)",
+            "scientific_name": "Acer spp.",
+            "type": "Edible",
+            "season": "Late Winter",
+            "identification": "Opposite branching (v-shapes). Palmately lobed leaves (hand-shaped). 'Helicopter' winged seeds (samaras). Sugar maples have rounded 'U' shapes between lobes; Red maples have sharp 'V' shapes.",
+            "uses": "Sap for syrup and sugar. Inner bark (cambium) is emergency fuel/fodder.",
+            "caution": "None. Ensure you tap only healthy, mature trees (at least 10-12 inches diameter).",
+            "images": [
+                "maple_syrup.jpg"
+            ],
+            "details": {
+                "habitat": "Deciduous forests, northern climates.",
+                "harvesting": "Sap flows when nights are below freezing (32°F) and days are above freezing (40°F+).",
+                "processing": [
+                    "**1. Tapping:** Drill a 5/16\" or 7/16\" hole about 2 inches deep, angled slightly upward. Insert a 'spile' (metal or wood tube).",
+                    "**2. Collecting:** Hang buckets or jugs. A single tree can produce 10-20 gallons of sap in a season.",
+                    "**3. Boiling:** Sap is roughly 98% water. Boil down in a wide, flat pan. Ratio is approx. 40:1 (40 gallons of sap makes 1 gallon of syrup).",
+                    "**4. Finishing:** Once the liquid reaches 7°F above the boiling point of water (approx. 219°F), it is syrup. Filter through felt while hot to remove 'niter' (sand-like calcium deposits).",
+                    "**5. Tree Care:** Remove spiles at the end of the season. The tree will naturally heal the hole in one growing season."
+                ]
+            }
+        },
+        {
+            "id": "wild_mustard",
+            "name": "Wild Mustard",
+            "scientific_name": "Brassica spp.",
+            "type": "Edible",
+            "season": "Spring / Summer",
+            "identification": "Four-petaled yellow flowers in an 'X' or cross shape (Brassicaceae family). Long, thin seed pods (siliques) that stick out from the stem. Leaves are often lobed and spicy/peppery.",
+            "uses": "Young leaves in salads/sautés. Seeds for homemade mustard. Flowers as garnish.",
+            "caution": "Avoid large quantities if you have thyroid issues (contains goitrogens). Ensure identification to avoid similar-looking toxic plants.",
+            "images": [
+                "wild_mustard.jpg"
+            ],
+            "details": {
+                "habitat": "Disturbed soil, roadsides, agricultural edges, and sunny fields.",
+                "harvesting": "Harvest leaves in early spring while tender. Collect mature brown seed pods in mid-to-late summer.",
+                "processing": [
+                    "**Greens:** Steam or sauté to mellow the peppery bite. Excellent high-vitamin side dish.",
+                    "**Mustard Paste:** Grind dry seeds into powder. Mix with cold water and a splash of vinegar/salt. Let sit for a few hours to develop heat.",
+                    "**Oil:** In survival, seeds can be crushed and pressed for a spicy edible oil."
+                ]
+            }
+        },
+        {
+            "id": "wild_peas",
+            "name": "Wild Peas / Beach Peas",
+            "scientific_name": "Lathyrus spp.",
+            "type": "Edible (USE CAUTION)",
+            "season": "Summer",
+            "identification": "Vining plant with tendrils. Compound leaves with pairs of leaflets. Flowers are pea-shaped, often purple, pink, or white. Seed pods look like small garden peas.",
+            "uses": "Cooked peas (after leaching/boiling).",
+            "caution": "CRITICAL: Many species of Lathyrus (like Sweet Pea) are TOXIC and contain neurotoxins that cause Lathyrism (paralysis). *Lathyrus japonicus* is generally considered edible but MUST BE BOILED in multiple changes of water. Never eat large quantities. DO NOT eat if unsure of exact species.",
+            "images": [
+                "wild_peas.jpg"
+            ],
+            "details": {
+                "habitat": "Coastal beaches, meadows, forest edges.",
+                "harvesting": "Harvest pods while green and plump. Avoid dry, brown pods unless saving for seed (not for eating).",
+                "processing": [
+                    "**Boiling:** Shell the peas. Boil in plenty of water for 10 minutes, discard water, and repeat. This helps remove potential toxins. Eat in small quantities only.",
+                    "**Identification Check:** Ensure the plant has THE SAME features as a pea (tendrils, pea flowers). Look out for toxic lupines which have palmately compound leaves (like fingers)."
+                ]
+            }
+        },
+        {
+            "id": "horseweed",
+            "name": "Horseweed / Marestail",
+            "scientific_name": "Conyza canadensis",
+            "type": "Edible / Medicinal",
+            "season": "Summer",
+            "identification": "Tall, erect stem (up to 6ft). Hairy leaf margins. Many narrow, alternating leaves. Tiny, inconspicuous white/yellow flower heads at the top.",
+            "uses": "Seasoning (peppery). Dried leaves for tea (astringent).",
+            "caution": "Some people experience skin irritation from the hairy leaves.",
+            "images": [
+                "horseweed.jpg"
+            ],
+            "details": {
+                "habitat": "Fields, disturbed soil, gardens, and urban waste areas.",
+                "harvesting": "Harvest young leaves and tender tops before the plant flowers (top 6-12 inches).",
+                "processing": [
+                    "**Seasoning:** Dry the young leaves and crumble them into soups or stews as a substitute for black pepper. It has a distinct, spicy resinous flavor.",
+                    "**Tea:** Steep dried leaves for an astringent tea used traditionally to treat digestive upset."
+                ]
+            }
+        },
+        {
+            "id": "wild_violet",
+            "name": "Wild Violet",
+            "scientific_name": "Viola sororia",
+            "type": "Edible / Medicinal",
+            "season": "Spring",
+            "identification": "Heart-shaped leaves with slightly serrated edges. Flowers have 5 petals, typically purple or white with a 'bearded' throat. Low-growing basal rosette.",
+            "uses": "Leaves (extremely high in Vit C and A). Flowers for jellies, syrups, and as edible garnish.",
+            "caution": "Yellow violets can be mildly laxative; focus on purple/white varieties. Do not consume African Violets (houseplants), which are not true violets and are toxic.",
+            "images": [
+                "wild_violet.jpg"
+            ],
+            "details": {
+                "habitat": "Lawns, shady forest edges, and damp meadows.",
+                "harvesting": "Pick leaves and flowers in early spring. Leaves remain edible through summer but become tougher.",
+                "processing": [
+                    "**Salad:** Use fresh leaves as a base—they are mild and highly nutritious.",
+                    "**Violet Syrup:** Steep purple flowers in hot water for 24 hours. Strain. Add sugar/lemon juice. The lemon juice will cause the blue liquid to turn a vibrant pink/purple.",
+                    "**Poultice:** Macerate leaves for a soothing skin treatment for minor abrasions."
+                ]
+            }
+        },
+        {
+            "id": "amaranth",
+            "name": "Amaranth (Pigweed)",
+            "scientific_name": "Amaranthus spp.",
+            "type": "Edible",
+            "season": "Summer / Fall",
+            "identification": "Tall, erect stems (up to 5-8ft). Terminal flower spikes that are often red, green, or purple. Alternate, oval to spear-shaped leaves. Stems often have a reddish tint at the base.",
+            "uses": "Young leaves as spinach-like greens. Mature seeds as a high-protein, gluten-free grain.",
+            "caution": "Nitrate accumulator; avoid harvesting from heavily fertilized fields or industrial areas.",
+            "images": [
+                "amaranth.jpg"
+            ],
+            "details": {
+                "habitat": "Disturbed soil, agricultural fields, and waste areas.",
+                "harvesting": "Harvest leaves in spring/early summer. Collect seeds in late fall by shaking the mature flower heads into a bucket.",
+                "processing": [
+                    "**Greens:** Steam or sauté young leaves. They are richer in protein, iron, and calcium than traditional spinach.",
+                    "**Grain:** Winnow the seeds to remove the chaff. Boil 1 part seed to 2 parts water for 15-20 minutes. It has a slightly nutty, earthy flavor.",
+                    "**Popped Amaranth:** Small seeds can be toasted in a hot, dry skillet until they pop like miniature popcorn."
+                ]
+            }
+        },
+        {
+            "id": "clover",
+            "name": "Clovers (Red / White)",
+            "scientific_name": "Trifolium spp.",
+            "type": "Edible / Medicinal",
+            "season": "Spring-Fall",
+            "identification": "Trifoliate leaves (three leaflets), often with a white 'V' marking. Round, dense flower heads made of many tiny tubular flowers. Red clover has purple-pink heads; White clover has white/pinkish heads.",
+            "uses": "Flower heads for nutritive tea or flour additive. Young leaves in salads or as potherbs.",
+            "caution": "Raw leaves are difficult for humans to digest in large quantities (bloating). Red clover contains isoflavones; use in moderation during pregnancy.",
+            "images": [
+                "clover.jpg"
+            ],
+            "details": {
+                "habitat": "Lawns, pastures, meadows, and roadsides.",
+                "harvesting": "Gather fresh flower heads and young leaves in spring and early summer.",
+                "processing": [
+                    "**Tea:** Steep fresh or dried red clover blossoms for a sweet, nutritious tea traditionally used for blood purification and respiratory support.",
+                    "**Flour:** Dry the flower heads and grind them into a powder to extend standard flour in breadmaking.",
+                    "**Cooking:** Sauté young leaves with other wild greens to improve digestibility."
+                ]
+            }
+        },
+        {
+            "id": "acorn",
+            "name": "Acorns",
+            "scientific_name": "Quercus spp.",
+            "type": "Edible (Requires Processing)",
+            "season": "Fall",
+            "identification": "Nut produced by Oak trees. Oval or round nut encased in a woody 'cap'. White oaks have rounded leaf lobes and less bitter acorns; Red oaks have pointed leaf lobes and higher tannin (more bitter) acorns.",
+            "uses": "Primary survival carbohydrate. Flour for bread, pancakes, and thickening stews.",
+            "caution": "CRITICAL: MUST LEACH. Raw acorns contain high levels of tannins (tannic acid), which are bitter and puckering, and can cause kidney damage in large quantities.",
+            "images": [
+                "acorn.jpg"
+            ],
+            "details": {
+                "habitat": "Forests, parklands, and suburban oak groves.",
+                "harvesting": "Gather fallen nuts in September/October. Discard any with small holes (weevils) or caps still firmly attached (usually immature).",
+                "processing": [
+                    "**1. Shelling:** Crack the outer shell and remove the nut meat.",
+                    "**2. Grinding:** Grind the nut meats into a coarse meal using a mortar and pestle or food processor.",
+                    "**3. Cold Leaching (Best for Flour):** Place meal in a jar of cold water. Shake, let settle, and pour off the dark water. Repeat daily until the meal no longer tastes bitter (usually 3-7 days). This preserves the starch for better binding.",
+                    "**4. Hot Leaching (Fastest):** Boil meal in multiple changes of water. Discard water when it turns dark and add fresh boiling water. Repeat until bitterness is gone. Note: This 'cooks' the starch, making it better for mush/porridge but worse for bread.",
+                    "**5. Drying/Storage:** Once leached, spread meal thin to dry. Once fully dry, grind into a fine flour and store in a cool, dark place."
+                ]
+            }
+        },
+        {
+            "id": "coltsfoot",
+            "name": "Coltsfoot",
+            "scientific_name": "Tussilago farfara",
+            "type": "Medicinal / Utility",
+            "season": "Early Spring",
+            "identification": "Yellow dandelion-like flowers appear ON SCALY STEMS before the leaves emerge. Leaves are heart-shaped or 'colt's foot' shaped, surfacing later with a white, felt-like underside.",
+            "uses": "Traditional salt substitute (leaf ash). Respiratory tea (limited use).",
+            "caution": "Contains pyrrolizidine alkaloids; do not consume in large quantities or over long periods. Do not use during pregnancy.",
+            "images": [
+                "coltsfoot.jpg"
+            ],
+            "details": {
+                "habitat": "Clay banks, road cuts, ditches, and wet disturbed soil.",
+                "harvesting": "Collect leaves in late spring/early summer once they are full-size.",
+                "processing": [
+                    "**Survival Salt (The Ash Method):** Dry the large leaves thoroughly until brittle. Burn the leaves on a clean surface (like a flat rock or metal tray). The remaining white/gray ash is rich in potassium and was traditionally used as a savory salt substitute in many cultures.",
+                    "**Cough Remedy:** Steep a small amount of dried leaf for tea to treat dry coughs. Filter through cloth to remove the fuzzy leaf hairs."
+                ]
+            }
+        },
+        {
+            "id": "wild_sunflower",
+            "name": "Wild Sunflowers",
+            "scientific_name": "Helianthus spp.",
+            "type": "Edible",
+            "season": "Late Summer / Fall",
+            "identification": "Tall, rough/hairy stems. Bright yellow flower heads with a dark or yellow center. Heart-shaped, serrated leaves that feel like sandpaper. Flowers always track the sun across the sky.",
+            "uses": "Seeds (highly nutritious, high fat). Flower buds (eaten like artichokes). Oil extraction.",
+            "caution": "None. Very high calorie-to-effort ratio in survival.",
+            "images": [
+                "wild_sunflower.jpg"
+            ],
+            "details": {
+                "habitat": "Sunny prairies, roadsides, and open fields.",
+                "harvesting": "Harvest seed heads in fall once the back of the head turns yellow/brown and the seeds are plump.",
+                "processing": [
+                    "**Eating:** Roast seeds in their shells. High in Vitamin E and essential fatty acids.",
+                    "**Oil Extraction:** In a survival context, crush the de-shelled seeds and boil them in water. The oil will float to the top and can be skimmed off for cooking or as a high-calorie supplement.",
+                    "**Flower Buds:** Steam young, unopened flower buds for 10-15 minutes. Serve with butter/salt—tastes remarkably like artichoke."
                 ]
             }
         }

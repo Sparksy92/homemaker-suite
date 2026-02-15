@@ -1,0 +1,505 @@
+# Homemaker Suite - Phased Implementation Plan
+
+## Overview
+This plan integrates three major improvement areas:
+1. **Edible Plants Database** - Adding missing wild edibles from Discord feedback
+2. **Friend's UI/UX Suggestions** - Modern layout and navigation improvements
+3. **Internal Notes** - Content gaps, image fixes, and feature enhancements
+
+---
+
+## Phase 1: Critical Fixes & Foundation (Week 1-2)
+**Goal**: Fix broken features and establish data infrastructure for expansion
+
+### 1.1 Image & Asset Fixes (Priority: HIGH)
+- [ ] Fix images not loading issue (investigate CDN/path problems)
+- [ ] Add missing cattail image
+- [ ] Fix rabbit tracks image (replace generated with real photo)
+- [ ] Fix porcupine tracks image
+- [ ] Audit all fish images for loading issues
+
+**Estimated Effort**: 8-12 hours  
+**Dependencies**: None  
+**Success Criteria**: All existing content displays images correctly
+
+### 1.2 Recipe Detail Enhancement (Priority: HIGH)
+- [ ] Add cooking temperatures to recipe instructions
+- [ ] Expand recipe cards with nutritional info, prep time, difficulty
+- [ ] Improve cook mode with:
+  - Ingredient quantities highlighted
+  - Step-by-step timer suggestions
+  - Equipment needed
+  - Serving size adjustments
+- [ ] Add recipe categories/tags for better filtering
+
+**Estimated Effort**: 16-20 hours  
+**Dependencies**: Recipe data structure review  
+**Success Criteria**: Recipes have actionable, detailed instructions with all necessary cooking parameters
+
+### 1.3 Home Dashboard Functionality (Priority: HIGH)
+- [ ] Audit sustainability status widgets
+- [ ] Create data model for sustainability tracking:
+  - Garden health metrics
+  - Food preservation inventory
+  - Seasonal readiness scores
+  - Resource consumption tracking
+- [ ] Make priority tasks clickable with:
+  - Task descriptions
+  - Due dates
+  - Seasonal relevance
+  - How-to guides linked
+- [ ] Add user settings for customizing dashboard
+
+**Estimated Effort**: 20-24 hours  
+**Dependencies**: Define what sustainability means in app context  
+**Success Criteria**: Dashboard widgets are interactive, informative, and user-editable
+
+---
+
+## Phase 2: Content Expansion - Nature Section (Week 3-5)
+**Goal**: Expand flora, fauna, and tracking content
+
+### 2.1 Edible Plants - Missing Species (Priority: HIGH)
+Add the following with complete profiles (habitat, identification, processing, safety):
+
+**Berries & Fruits**:
+- [ ] Wild strawberries (Fragaria virginiana)
+- [ ] Mulberries (Morus spp.)
+- [ ] Crabapples (Malus spp.)
+
+**Dangerous/Requires Processing**:
+- [ ] Elderberries (Sambucus spp.) - emphasize cooking requirement
+  - Add preparation guide for syrup
+  - Warning about raw toxicity
+  - Identification check for Water Hemlock lookalike
+
+**Vegetables & Greens**:
+- [ ] Wild peas (Lathyrus spp.)
+- [ ] Horseweed/Marestail (Conyza canadensis)
+- [ ] Wild mustard (Brassica spp.)
+
+**Flowers & Herbs**:
+- [ ] Wild violet flowers (Viola sororia)
+- [ ] Amaranth (Amaranthus spp.) - grain and greens
+- [ ] Clovers (Trifolium spp.)
+
+**Trees & Nuts**:
+- [ ] Black walnut (Juglans nigra)
+  - Hull removal process
+  - Curing instructions
+  - Storage methods
+- [ ] Maple trees (Acer spp.)
+  - Tapping guide
+  - Syrup making process
+  - Seasonal timing
+
+**Multi-use Plants**:
+- [ ] Coltsfoot (Tussilago farfara) - for salt making
+  - Ash preparation method
+  - Salt extraction process
+- [ ] Wild sunflowers (Helianthus spp.) - for oil
+  - Seed harvesting
+  - Oil extraction methods
+- [ ] Wild bread ingredients guide
+  - Grain alternatives (amaranth, acorns, cattail pollen)
+  - Milling/processing methods
+
+**Estimated Effort**: 40-50 hours  
+**Dependencies**: Research sources, foraging expert review  
+**Success Criteria**: Each plant has complete identification guide, uses, warnings, and processing instructions
+
+### 2.2 Insects Section Expansion (Priority: MEDIUM)
+- [ ] Add edible insects common in North America:
+  - Grasshoppers/crickets
+  - Mealworms
+  - Ants (honeypot ants)
+  - Cicadas
+- [ ] Include preparation methods
+- [ ] Add safety/allergies section
+- [ ] Link to survival situations
+
+**Estimated Effort**: 12-16 hours  
+**Success Criteria**: Comprehensive edible insects guide with safety info
+
+### 2.3 Tracking & Seasons Enhancement (Priority: MEDIUM)
+- [ ] Expand season menu with:
+  - Seasonal foraging calendars
+  - Wildlife activity by season
+  - Weather pattern guides
+  - Preparation checklists
+- [ ] Improve tracking guides with:
+  - More animal species
+  - Scat identification
+  - Sign reading (rubs, scrapes, feeding signs)
+  - Regional variations
+
+**Estimated Effort**: 16-20 hours  
+**Success Criteria**: Complete seasonal guides and expanded tracking reference
+
+---
+
+## Phase 3: Toolkit Expansion (Week 6-7)
+**Goal**: Enhance all toolkit sections with comprehensive resources
+
+### 3.1 Plans Toolkit
+- [ ] Add more homestead project plans:
+  - Root cellars
+  - Smokehouses
+  - Chicken coops (multiple sizes)
+  - Raised bed gardens
+  - Compost systems
+  - Rainwater collection
+  - Solar dehydrators
+- [ ] Include materials lists, diagrams, estimated costs
+
+**Estimated Effort**: 24-30 hours
+
+### 3.2 Subsistence Toolkit
+- [ ] Expand with specific skills:
+  - Food preservation methods (canning, smoking, fermenting)
+  - Water purification techniques
+  - Fire starting methods
+  - Shelter building
+  - Tool maintenance
+- [ ] Add seasonal subsistence guides
+
+**Estimated Effort**: 20-24 hours
+
+### 3.3 Survival Toolkit
+- [ ] Add emergency scenarios:
+  - 72-hour bug-out plans
+  - Winter survival priorities
+  - Water sourcing in different terrains
+  - Signaling and rescue
+  - Navigation without GPS
+- [ ] Create survival decision trees
+
+**Estimated Effort**: 20-24 hours
+
+### 3.4 Chef Toolkit - Recipe Integration
+- [ ] Ensure all recipes work in cook mode
+- [ ] Add recipe substitutions for wild ingredients
+- [ ] Create meal planning feature
+- [ ] Add preservation recipes (jams, pickles, etc.)
+
+**Estimated Effort**: 16-20 hours  
+**Success Criteria**: All toolkits are comprehensive, practical, and cross-linked
+
+---
+
+## Phase 4: Herbal Medicine & Antibiotics (Week 8-9)
+**Goal**: Add medicinal plant database with scientific backing
+
+### 4.1 Herbal Medicine Database (Priority: HIGH)
+- [ ] Create plant medicine profiles with:
+  - Scientific names and common names
+  - Active compounds
+  - Traditional uses
+  - Modern research links (PubMed, clinical studies)
+  - Preparation methods (teas, tinctures, poultices)
+  - Dosage guidelines
+  - Contraindications and interactions
+  - Safety ratings
+- [ ] Link to foraging guides where applicable
+- [ ] Add images of plants in different seasons
+
+**Plants to Include** (minimum):
+- Elderberry (antiviral)
+- Echinacea (immune support)
+- Yarrow (wound healing)
+- Plantain (skin issues)
+- Willow bark (pain relief)
+- Mullein (respiratory)
+- Nettle (nutrition, allergies)
+- Chamomile (digestive, calming)
+- Mint varieties (digestive)
+- Dandelion (liver support)
+
+**Estimated Effort**: 30-40 hours
+
+### 4.2 Natural Antibiotics Section (Priority: MEDIUM)
+**IMPORTANT**: This section needs careful medical disclaimers
+
+- [ ] Add comprehensive disclaimer about:
+  - Not replacing professional medical care
+  - When to seek emergency medical attention
+  - Dangers of self-treating serious infections
+- [ ] Include evidence-based antimicrobial substances:
+  - Honey (medical grade)
+  - Garlic
+  - Oregano oil
+  - Turmeric/Curcumin
+  - Colloidal silver (with safety warnings)
+  - Berberine-containing plants
+- [ ] Fungi with antimicrobial properties:
+  - Reishi
+  - Turkey tail
+  - Chaga
+  - (Note: NOT for making antibiotics, but for immune support)
+- [ ] Bacterial fermentation benefits (probiotics)
+- [ ] Wound care protocols with natural substances
+
+**Estimated Effort**: 20-25 hours  
+**Dependencies**: Medical/legal review recommended  
+**Success Criteria**: Medically responsible content with clear limitations and research citations
+
+---
+
+## Phase 5: UI/UX Overhaul (Week 10-12)
+**Goal**: Modernize interface based on friend's suggestions and internal notes
+
+### 5.1 Navigation Redesign (Priority: HIGH)
+**Problem**: Hard to find specific content (e.g., fishing guides)
+
+- [ ] Implement modern search with:
+  - Auto-complete
+  - Category filters
+  - Seasonal filters
+  - Tags (edible, medicinal, poisonous, etc.)
+- [ ] Add breadcrumb navigation
+- [ ] Create "Quick Access" shortcuts for common tasks
+- [ ] Implement "Recently Viewed" section
+
+**Estimated Effort**: 20-24 hours
+
+### 5.2 Card-Based Layout System (Priority: HIGH)
+**Current Issue**: Too much information density, modern users prefer scannable cards
+
+- [ ] Design new card components:
+  - Small cards for list views (image, title, key facts)
+  - Medium cards for category pages (more details, ratings)
+  - Large cards for detail pages (comprehensive info)
+- [ ] Implement grid layouts that are responsive
+- [ ] Add card hover effects and quick actions
+- [ ] Use modern design patterns (subtle shadows, rounded corners, clean spacing)
+
+**Estimated Effort**: 24-30 hours
+
+### 5.3 Advanced Filtering System (Priority: MEDIUM)
+- [ ] Multi-select filters:
+  - Season
+  - Difficulty level
+  - Time required
+  - Region/habitat
+  - Category/type
+- [ ] Save filter preferences
+- [ ] Filter state in URL for sharing
+- [ ] "Filter by current season" auto-detect
+
+**Estimated Effort**: 16-20 hours
+
+### 5.4 Guides Section Audit & Reorganization (Priority: HIGH)
+- [ ] Inventory all existing guides
+- [ ] Rate each guide for:
+  - Completeness (1-5)
+  - Clarity of instructions (1-5)
+  - Image quality (1-5)
+- [ ] Identify gaps in guide coverage
+- [ ] Rewrite underperforming guides
+- [ ] Add missing essential guides:
+  - Basic fishing (make easier to find)
+  - Trapping and snaring
+  - Water sourcing
+  - Fire starting
+  - Food storage
+- [ ] Reorganize into logical categories:
+  - Getting Started (beginners)
+  - Food Acquisition
+  - Food Preservation
+  - Shelter & Warmth
+  - Tools & Crafts
+  - Medicine & First Aid
+  - Emergency Situations
+
+**Estimated Effort**: 30-40 hours  
+**Success Criteria**: Every guide is comprehensive, well-illustrated, and easy to follow
+
+---
+
+## Phase 6: Polish & Optimization (Week 13-14)
+**Goal**: Final improvements and performance optimization
+
+### 6.1 Performance Optimization
+- [ ] Implement lazy loading for images
+- [ ] Add progressive image loading
+- [ ] Optimize bundle size
+- [ ] Implement service worker for offline access
+- [ ] Add loading states and skeletons
+
+**Estimated Effort**: 12-16 hours
+
+### 6.2 Accessibility Improvements
+- [ ] Add alt text to all images
+- [ ] Ensure keyboard navigation works throughout
+- [ ] Add ARIA labels
+- [ ] Test with screen readers
+- [ ] Improve color contrast for readability
+
+**Estimated Effort**: 10-14 hours
+
+### 6.3 Mobile Optimization
+- [ ] Test all features on mobile devices
+- [ ] Optimize touch targets
+- [ ] Improve mobile navigation
+- [ ] Test offline functionality
+- [ ] Optimize for various screen sizes
+
+**Estimated Effort**: 12-16 hours
+
+### 6.4 User Testing & Feedback
+- [ ] Conduct usability tests with 5-10 users
+- [ ] Create feedback mechanism in app
+- [ ] Analyze usage patterns (if analytics implemented)
+- [ ] Iterate on pain points
+- [ ] Create user onboarding/tutorial
+
+**Estimated Effort**: 16-20 hours
+
+---
+
+## Implementation Priorities Summary
+
+### Must-Have (Do First):
+1. Fix broken images and recipe details (Phase 1)
+2. Make home dashboard functional (Phase 1)
+3. Add missing edible plants, especially elderberries (Phase 2)
+4. Redesign navigation and card layouts (Phase 5)
+5. Audit and improve guides section (Phase 5)
+
+### Should-Have (Do Second):
+1. Expand toolkit sections (Phase 3)
+2. Add herbal medicine database (Phase 4)
+3. Implement advanced filtering (Phase 5)
+4. Mobile optimization (Phase 6)
+
+### Nice-to-Have (Do Later):
+1. Insects section expansion (Phase 2)
+2. Natural antibiotics section (Phase 4 - needs legal review)
+3. Advanced offline features (Phase 6)
+4. Social features (future consideration)
+
+---
+
+## Risk Considerations
+
+### Medical/Legal Risks:
+- **Herbal medicine and natural antibiotics** sections need disclaimers
+- Consider consulting with an attorney about liability
+- Always emphasize when to seek professional medical care
+- Make poisonous plant warnings VERY prominent
+
+### Content Quality Risks:
+- Foraging information must be 100% accurate - errors could be dangerous
+- Consider expert review for plant identification content
+- Multiple source verification for all safety-critical information
+
+### Technical Risks:
+- Large content expansion may impact performance
+- Need robust CMS or data structure for managing 100+ plant species
+- Image storage costs may increase significantly
+
+---
+
+## Resource Requirements
+
+### Development Time: ~400-500 hours total
+- Phase 1: 44-56 hours
+- Phase 2: 68-86 hours
+- Phase 3: 80-98 hours
+- Phase 4: 50-65 hours
+- Phase 5: 110-134 hours
+- Phase 6: 50-66 hours
+
+### Content Creation:
+- Botanical photography/images: Budget for stock photos or field photography
+- Research time: Extensive foraging and medicinal plant research
+- Expert review: Consider hiring foraging expert for accuracy check
+
+### Design:
+- UI/UX design work for card layouts and modern interface
+- Icon design for categories and quick actions
+
+---
+
+## Success Metrics
+
+### Quantitative:
+- [ ] 100% of images loading correctly
+- [ ] Recipe detail completion: 100% with temps, times, equipment
+- [ ] Plant database: 40+ edible species with complete profiles
+- [ ] Guide audit completion: All guides rated and improved
+- [ ] Page load time: < 3 seconds on 3G
+- [ ] Mobile usability score: > 90
+
+### Qualitative:
+- [ ] Users can find fishing guide in < 30 seconds
+- [ ] Dashboard provides actionable information
+- [ ] Modern, professional appearance
+- [ ] Content is authoritative and trustworthy
+- [ ] Positive user feedback on navigation improvements
+
+---
+
+## Next Steps
+
+1. **Week 1 Sprint Planning**:
+   - Set up project management board (Trello, GitHub Projects, etc.)
+   - Break down Phase 1 into daily tasks
+   - Identify blockers and dependencies
+   - Begin image audit
+
+2. **Content Pipeline**:
+   - Create standardized templates for:
+     - Plant profiles
+     - Recipe entries
+     - Guide structures
+   - Establish content review process
+
+3. **Design System**:
+   - Create component library for new card designs
+   - Define color palette and typography updates
+   - Create style guide for consistency
+
+4. **Communication**:
+   - Set up weekly progress updates
+   - Create changelog visible to users
+   - Consider beta testing program for power users
+
+---
+
+## Long-Term Vision (Beyond 14 Weeks)
+
+### Future Enhancements to Consider:
+- User accounts and personalization
+- Community contributions (moderated)
+- Regional adaptations (different climates/regions)
+- Offline-first PWA with data syncing
+- Gardening journal with planting schedules
+- Integration with weather data
+- Barcode scanner for identifying store-bought alternatives
+- Social features (share foraging spots, recipes)
+- Augmented reality plant identification
+
+### Content Expansion:
+- Mushroom foraging (separate major section)
+- Animal husbandry guides
+- Beekeeping
+- Aquaculture/fish farming
+- Renewable energy systems
+- Natural building techniques
+- Traditional crafts (basketry, pottery, textiles)
+
+---
+
+## Notes
+
+- This plan assumes one full-time developer or equivalent effort
+- Phases can be parallelized if multiple developers available
+- Content research is the biggest unknown time-wise
+- User feedback after Phase 5 may require plan adjustments
+- Consider launching phases incrementally rather than waiting for full completion
+- Maintain version control and rollback capability for major changes
+
+**Document Version**: 1.0  
+**Last Updated**: February 15, 2026  
+**Next Review**: After Phase 1 completion

@@ -10,7 +10,7 @@ import { useUser } from '../context/UserContext';
 import WeatherWidget from '../components/WeatherWidget';
 
 const Home = () => {
-    const { user, lastAccessedItem } = useUser();
+    const { user, lastAccessedItem, sustainability, updateSustainability, durations, readinessScore } = useUser();
     const navigate = useNavigate();
     const [emergencyMode, setEmergencyMode] = useState(false);
 
@@ -28,7 +28,12 @@ const Home = () => {
                             Good morning, <br />
                             <span className="text-terracotta-600 font-bold">{user.name.split(' ')[0]}</span>
                         </motion.h2>
-                        <p className="text-sand-600 font-medium">Clear skies over the homestead.</p>
+                        <div className="flex items-center gap-2">
+                            <p className="text-sand-600 font-medium">Clear skies over the homestead.</p>
+                            <span className="text-[10px] bg-sage-100 text-sage-700 px-2 py-0.5 rounded-full font-bold uppercase tracking-wider">
+                                Readiness: {readinessScore}%
+                            </span>
+                        </div>
                     </div>
                     <WeatherWidget />
                 </header>
@@ -64,30 +69,42 @@ const Home = () => {
                         <StatusCard
                             icon={<Droplets className="text-blue-500" size={24} />}
                             label="Water Supply"
-                            value="88%"
-                            sub="42 days remaining"
+                            value={sustainability.water.current}
+                            unit={sustainability.water.unit}
+                            goal={sustainability.water.goal}
+                            onUpdate={(val) => updateSustainability('water', val)}
                             color="blue"
+                            sub={`${durations.water} days remaining`}
                         />
                         <StatusCard
                             icon={<Battery className="text-amber-500" size={24} />}
-                            label="Power Storage"
-                            value="94%"
-                            sub="Optimal Output"
+                            label="Food Stock"
+                            value={sustainability.food.current}
+                            unit={sustainability.food.unit}
+                            goal={sustainability.food.goal}
+                            onUpdate={(val) => updateSustainability('food', val)}
                             color="amber"
+                            sub={`${durations.food} days reserve`}
                         />
                         <StatusCard
                             icon={<Thermometer className="text-terracotta-500" size={24} />}
-                            label="Interior Temp"
-                            value="20°C"
-                            sub="Stable"
+                            label="Garden Health"
+                            value={sustainability.garden.current}
+                            unit={sustainability.garden.unit}
+                            goal={100}
+                            onUpdate={(val) => updateSustainability('garden', val)}
                             color="terracotta"
+                            sub="Active Yield"
                         />
                         <StatusCard
-                            icon={<CloudRain className="text-sage-500" size={24} />}
-                            label="Humidity"
-                            value="42%"
-                            sub="Normal"
+                            icon={<Zap className="text-sage-500" size={24} />}
+                            label="Power Reserve"
+                            value={sustainability.energy.current}
+                            unit={sustainability.energy.unit}
+                            goal={100}
+                            onUpdate={(val) => updateSustainability('energy', val)}
                             color="sage"
+                            sub="Grid Status: Stable"
                         />
                     </div>
                 </section>
@@ -187,24 +204,60 @@ const PriorityItem = ({ title, desc, time, icon }) => (
     </div>
 );
 
-const StatusCard = ({ icon, label, value, sub, color }) => {
+const StatusCard = ({ icon, label, value, unit, goal, sub, color, onUpdate }) => {
     const colorMap = {
-        blue: "bg-blue-50 border-blue-100 text-blue-700",
-        amber: "bg-amber-50 border-amber-100 text-amber-700",
-        terracotta: "bg-terracotta-50 border-terracotta-100 text-terracotta-700",
-        sage: "bg-sage-50 border-sage-100 text-sage-700"
+        blue: { bg: "bg-blue-50", border: "border-blue-100", text: "text-blue-700", bar: "bg-blue-500", light: "bg-blue-100" },
+        amber: { bg: "bg-amber-50", border: "border-amber-100", text: "text-amber-700", bar: "bg-amber-500", light: "bg-amber-100" },
+        terracotta: { bg: "bg-terracotta-50", border: "border-terracotta-100", text: "text-terracotta-700", bar: "bg-terracotta-500", light: "bg-terracotta-100" },
+        sage: { bg: "bg-sage-50", border: "border-sage-100", text: "text-sage-700", bar: "bg-sage-500", light: "bg-sage-100" }
     };
 
+    const scheme = colorMap[color];
+    const percentage = Math.min(100, Math.max(0, (value / goal) * 100));
+
     return (
-        <div className={`p-4 rounded-3xl border ${colorMap[color]} shadow-sm`}>
-            <div className="flex items-center gap-2 mb-2">
-                {icon}
-                <span className="text-[10px] font-bold uppercase tracking-widest opacity-80">{label}</span>
+        <div className={`p-5 rounded-[2rem] border ${scheme.bg} ${scheme.border} ${scheme.text} shadow-sm group hover:shadow-md transition-all`}>
+            <div className="flex justify-between items-start mb-3">
+                <div className="flex items-center gap-2">
+                    <div className={`p-1.5 ${scheme.light} rounded-lg`}>
+                        {React.cloneElement(icon, { size: 18 })}
+                    </div>
+                    <span className="text-[10px] font-black uppercase tracking-[0.1em] opacity-80">{label}</span>
+                </div>
+                <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <button
+                        onClick={(e) => { e.stopPropagation(); onUpdate(Math.max(0, value - 1)); }}
+                        className={`w-6 h-6 flex items-center justify-center rounded-full ${scheme.light} hover:bg-white transition-colors`}
+                    >
+                        -
+                    </button>
+                    <button
+                        onClick={(e) => { e.stopPropagation(); onUpdate(value + 1); }}
+                        className={`w-6 h-6 flex items-center justify-center rounded-full ${scheme.light} hover:bg-white transition-colors`}
+                    >
+                        +
+                    </button>
+                </div>
             </div>
-            <div className="flex items-baseline gap-1">
-                <span className="text-2xl font-serif font-bold">{value}</span>
+
+            <div className="flex items-baseline gap-1 mb-3">
+                <span className="text-3xl font-serif font-black">{value}</span>
+                <span className="text-[10px] font-bold opacity-60 uppercase">{unit}</span>
             </div>
-            <p className="text-[10px] font-bold mt-1 opacity-60 italic">{sub}</p>
+
+            <div className="space-y-2">
+                <div className={`w-full h-1.5 ${scheme.light} rounded-full overflow-hidden`}>
+                    <motion.div
+                        initial={{ width: 0 }}
+                        animate={{ width: `${percentage}%` }}
+                        className={`h-full ${scheme.bar}`}
+                    />
+                </div>
+                <p className="text-[10px] font-black opacity-60 italic flex justify-between">
+                    <span>{sub}</span>
+                    <span>{goal - value > 0 ? `${goal - value} more to goal` : 'Goal reached!'}</span>
+                </p>
+            </div>
         </div>
     );
 };

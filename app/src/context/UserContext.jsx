@@ -46,6 +46,16 @@ export const UserProvider = ({ children }) => {
         };
     });
 
+    const [sustainability, setSustainability] = useState(() => {
+        const savedStats = localStorage.getItem('homemaker_sustainability');
+        return savedStats ? JSON.parse(savedStats) : {
+            water: { current: 15, goal: 100, unit: 'Gallons', consumptionPerDay: 2 },
+            food: { current: 12, goal: 50, unit: 'Jars', consumptionPerDay: 0.25 },
+            garden: { current: 65, goal: 100, unit: '%' },
+            energy: { current: 80, goal: 100, unit: '%' }
+        };
+    });
+
     // Persist changes
     useEffect(() => {
         localStorage.setItem('homemaker_user', JSON.stringify(user));
@@ -67,8 +77,47 @@ export const UserProvider = ({ children }) => {
         localStorage.setItem('homemaker_settings', JSON.stringify(settings));
     }, [settings]);
 
+    useEffect(() => {
+        localStorage.setItem('homemaker_sustainability', JSON.stringify(sustainability));
+    }, [sustainability]);
+
     const updateProfile = (newData) => {
         setUser(prev => ({ ...prev, ...newData }));
+    };
+
+    const updateSustainability = (key, value) => {
+        setSustainability(prev => ({
+            ...prev,
+            [key]: { ...prev[key], current: value }
+        }));
+    };
+
+    const updateSustainabilityRate = (key, rate) => {
+        setSustainability(prev => ({
+            ...prev,
+            [key]: { ...prev[key], consumptionPerDay: rate }
+        }));
+    };
+
+    const getSurvivalDurations = () => {
+        return {
+            water: sustainability.water.consumptionPerDay > 0 ? (sustainability.water.current / sustainability.water.current) : 0, // Placeholder, will fix below
+            food: sustainability.food.consumptionPerDay > 0 ? (sustainability.food.current / sustainability.food.consumptionPerDay) : 0
+        };
+    };
+
+    // Fixed logic for durations
+    const durations = {
+        water: sustainability.water.consumptionPerDay > 0 ? Math.floor(sustainability.water.current / sustainability.water.consumptionPerDay) : Infinity,
+        food: sustainability.food.consumptionPerDay > 0 ? Math.floor(sustainability.food.current / sustainability.food.consumptionPerDay) : Infinity
+    };
+
+    // Calculate Readiness Score (0-100)
+    // Formula: (Current/Goal weighted parity)
+    const calculateReadinessScore = () => {
+        const waterScore = Math.min((sustainability.water.current / (sustainability.water.consumptionPerDay * 14)) * 100, 100); // 14 day target
+        const foodScore = Math.min((sustainability.food.current / (sustainability.food.consumptionPerDay * 30)) * 100, 100); // 30 day target
+        return Math.floor((waterScore + foodScore) / 2);
     };
 
     const recordAccess = (item) => {
@@ -113,7 +162,12 @@ export const UserProvider = ({ children }) => {
         readGuides,
         lastAccessedItem,
         settings,
+        sustainability,
+        durations,
+        readinessScore: calculateReadinessScore(),
         updateProfile,
+        updateSustainability,
+        updateSustainabilityRate,
         recordAccess,
         toggleFavorite,
         isFavorite,
