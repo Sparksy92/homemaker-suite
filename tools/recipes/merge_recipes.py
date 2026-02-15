@@ -6,7 +6,7 @@ import json
 import os
 
 # Paths
-ORIGINAL_DB = r"C:\Users\Blair\Downloads\Homemaker Suite\app\public\data\recipes.json"
+ORIGINAL_DB = r"C:\Users\Blair\Downloads\Homemaker Suite\app\public\data\recipes_CLEAN_BASE.json"
 SURVIVAL_DB = r"C:\Users\Blair\Downloads\temp-feature\processed\RecipeDatabase_Survival.json"
 GENERAL_DB = r"C:\Users\Blair\Downloads\temp-feature\processed\RecipeDatabase_General.json"
 OUTPUT_DB = r"C:\Users\Blair\Downloads\Homemaker Suite\app\public\data\recipes.json"
@@ -55,7 +55,7 @@ print("\n[4/4] Saving merged database...")
 merged_db = {"recipes": all_recipes}
 
 with open(OUTPUT_DB, 'w', encoding='utf-8') as f:
-    json.dump(merged_db, f, indent=2, ensure_ascii=False)
+    json.dump(merged_db, f, ensure_ascii=False)
 
 # Get file size
 file_size = os.path.getsize(OUTPUT_DB) / (1024 * 1024)  # Convert to MB

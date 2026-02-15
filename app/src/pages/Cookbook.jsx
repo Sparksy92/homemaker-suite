@@ -17,6 +17,15 @@ const Cookbook = () => {
 
     const categories = ['All', 'Survival Recipes', "Grandma's Favorites", "Grandma's Alchemy", 'Pantry Staples', 'Breakfast', 'Soups & Stews', 'Dinner', 'Baking', 'Preservation', 'Sauces', 'Wild Game', 'Wild Edibles'];
 
+    const subCategoryMap = {
+        'Wild Game': ['All', 'Small Game', 'Upland Birds', 'Waterfowl', 'Big Game'],
+        'Wild Edibles': ['All', 'Foraged', 'Medicinal', 'Beverages'],
+        'Grandma\'s Alchemy': ['All', 'Antimicrobial', 'Immunity', 'Topical'],
+        'Baking': ['All', 'Bread', 'Pastry', 'Survival'],
+        'Preservation': ['All', 'Canning', 'Fermenting', 'Drying'],
+        'Pantry Staples': ['All', 'Staples', 'Quick Meals']
+    };
+
     // Fetch recipes from public folder
     useEffect(() => {
         const fetchRecipes = async () => {
