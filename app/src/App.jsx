@@ -1,20 +1,30 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { HashRouter, Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
-import Home from './pages/Home';
-import Library from './pages/Library';
-import Tools from './pages/Tools';
-import Profile from './pages/Profile';
-import MealPlans from './pages/MealPlans';
-import Wildlife from './pages/Wildlife';
-import Settings from './pages/Settings';
-import ManualReader from './pages/ManualReader';
-import WizardPage from './pages/WizardPage'; // New Import
-import Cookbook from './pages/Cookbook';
-import Feedback from './pages/Feedback';
 import { UserProvider } from './context/UserContext';
 import { ObservationProvider } from './context/ObservationContext';
 import WelcomePopup from './components/WelcomePopup';
+
+// Lazy load pages for better performance and smaller bundle size
+const Home = lazy(() => import('./pages/Home'));
+const Library = lazy(() => import('./pages/Library'));
+const Tools = lazy(() => import('./pages/Tools'));
+const Profile = lazy(() => import('./pages/Profile'));
+const MealPlans = lazy(() => import('./pages/MealPlans'));
+const Wildlife = lazy(() => import('./pages/Wildlife'));
+const Settings = lazy(() => import('./pages/Settings'));
+const ManualReader = lazy(() => import('./pages/ManualReader'));
+const WizardPage = lazy(() => import('./pages/WizardPage'));
+const Cookbook = lazy(() => import('./pages/Cookbook'));
+const Feedback = lazy(() => import('./pages/Feedback'));
+
+// Loading fallback component
+const PageLoader = () => (
+    <div className="min-h-screen bg-sand-50 flex flex-col items-center justify-center p-4">
+        <div className="w-12 h-12 border-4 border-sage-100 border-t-sage-500 rounded-full animate-spin mb-4"></div>
+        <p className="text-sage-600 font-serif italic text-lg animate-pulse">Consulting the homestead archives...</p>
+    </div>
+);
 
 function App() {
     return (
@@ -22,21 +32,23 @@ function App() {
             <ObservationProvider>
                 <WelcomePopup />
                 <HashRouter>
-                    <Routes>
-                        <Route path="/" element={<Layout />}>
-                            <Route index element={<Home />} />
-                            <Route path="library" element={<Library type="combined" />} />
-                            <Route path="tools" element={<Tools />} />
-                            <Route path="feedback" element={<Feedback />} />
-                            <Route path="meal-plans" element={<MealPlans />} />
-                            <Route path="wildlife" element={<Wildlife />} />
-                            <Route path="profile" element={<Profile />} />
-                            <Route path="settings" element={<Settings />} />
-                            <Route path="manual/:id" element={<ManualReader />} />
-                            <Route path="wizard/:id" element={<WizardPage />} /> {/* New Route */}
-                            <Route path="cookbook" element={<Cookbook />} />
-                        </Route>
-                    </Routes>
+                    <Suspense fallback={<PageLoader />}>
+                        <Routes>
+                            <Route path="/" element={<Layout />}>
+                                <Route index element={<Home />} />
+                                <Route path="library" element={<Library type="combined" />} />
+                                <Route path="tools" element={<Tools />} />
+                                <Route path="feedback" element={<Feedback />} />
+                                <Route path="meal-plans" element={<MealPlans />} />
+                                <Route path="wildlife" element={<Wildlife />} />
+                                <Route path="profile" element={<Profile />} />
+                                <Route path="settings" element={<Settings />} />
+                                <Route path="manual/:id" element={<ManualReader />} />
+                                <Route path="wizard/:id" element={<WizardPage />} />
+                                <Route path="cookbook" element={<Cookbook />} />
+                            </Route>
+                        </Routes>
+                    </Suspense>
                 </HashRouter>
             </ObservationProvider>
         </UserProvider>
