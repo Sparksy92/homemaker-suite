@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Folder, FileText, ChevronRight, ArrowLeft, Heart, AlertCircle, Info, CheckCircle, AlertTriangle } from 'lucide-react';
 import { useUser } from '../context/UserContext';
+import { useNavigate, Link } from 'react-router-dom';
 import MarkdownRenderer from '../components/MarkdownRenderer';
 
 // Helper to clean display names
@@ -17,6 +18,7 @@ const Library = ({ type = 'all' }) => {
     const [fileContent, setFileContent] = useState(null);
     const [fileSystem, setFileSystem] = useState({});
     const [loading, setLoading] = useState(true);
+    const { recordAccess } = useUser();
 
     // Fetch the dynamic index on mount
     React.useEffect(() => {
@@ -111,15 +113,22 @@ const Library = ({ type = 'all' }) => {
             } else {
                 // 2. Fallback to Network
                 if (isBinary) {
-                    // Start fetching to ensure it exists, but we can display the direct URL
-                    // Note: For offline without cache, this fails, but that's expected.
-                    // We just use the 'url' string which points to the server.
+                    // Binary handling
                 } else {
                     const response = await fetch(url);
                     if (!response.ok) throw new Error("Network response was not ok");
                     contentState.text = await response.text();
                 }
             }
+
+            // Record this visit
+            recordAccess({
+                id: fileName,
+                title: getDisplayName(fileName),
+                folder: folder,
+                type: isBinary ? 'tool' : 'guide',
+                url: url
+            });
 
             setFileContent(contentState);
         } catch (e) {
@@ -379,6 +388,41 @@ const Library = ({ type = 'all' }) => {
 // Extracted for pagination
 const FolderContentList = ({ files, folder, handleFileClick }) => {
     const [visibleCount, setVisibleCount] = useState(20);
+    const navigate = useNavigate();
+
+    // Topic-Aware Linkages
+    const relatedContent = React.useMemo(() => {
+        const folderSlug = folder.toLowerCase();
+        const related = {
+            scenarios: [],
+            wizards: []
+        };
+
+        if (folderSlug.includes('water')) {
+            related.scenarios.push({ id: 'scenario-water', title: 'Water Contamination Playbook', link: '/manual/scenario-water' });
+            related.wizards.push({ id: 'water-safety', title: 'Water Safety Wizard', link: '/wizard/water-safety' });
+        }
+        if (folderSlug.includes('food')) {
+            related.scenarios.push({ id: 'scenario-budget', title: '30-Day Budget Survival', link: '/manual/scenario-budget' });
+            related.scenarios.push({ id: 'scenario-supply', title: '3-Month Supply Plan', link: '/manual/scenario-supply' });
+        }
+        if (folderSlug.includes('seasonal') || folderSlug.includes('winter')) {
+            related.scenarios.push({ id: 'scenario-winter', title: '72-Hour Winter Outage', link: '/manual/scenario-winter' });
+            related.scenarios.push({ id: 'scenario-storm', title: 'Severe Winter Storm Playbook', link: '/manual/scenario-storm' });
+            related.wizards.push({ id: 'winter-blackout', title: 'Winter Blackout Protocol', link: '/wizard/winter-blackout' });
+        }
+        if (folderSlug.includes('gardening')) {
+            related.wizards.push({ id: 'garden-planner', title: 'Garden Crop Scheduler', link: '/wizard/garden-planner' });
+        }
+        if (folderSlug.includes('energy')) {
+            related.wizards.push({ id: 'energy-planner', title: 'Home Energy Audit', link: '/wizard/energy-planner' });
+        }
+        if (folderSlug.includes('medical')) {
+            related.wizards.push({ id: 'first-aid', title: 'First Aid Triage', link: '/wizard/first-aid' });
+        }
+
+        return related;
+    }, [folder]);
 
     // Reset when folder changes
     React.useEffect(() => {
@@ -389,35 +433,68 @@ const FolderContentList = ({ files, folder, handleFileClick }) => {
     const hasMore = visibleCount < files.length;
 
     return (
-        <div className="grid gap-3">
-            {visibleFiles.map((file) => (
-                <div key={file} className="relative group">
+        <div className="space-y-8">
+            <div className="grid gap-3">
+                <h3 className="text-xs font-bold text-sand-500 uppercase tracking-widest pl-1">Educational Guides</h3>
+                {visibleFiles.map((file) => (
+                    <div key={file} className="relative group">
+                        <button
+                            onClick={() => handleFileClick(file)}
+                            className="w-full flex items-center gap-4 p-5 bg-white rounded-xl border border-sand-100 shadow-sm hover:shadow-md hover:border-terracotta-200 text-left transition-all"
+                        >
+                            <div className="p-2 bg-terracotta-50 rounded-lg text-terracotta-500">
+                                <FileText size={20} />
+                            </div>
+                            <div className="flex-1">
+                                <span className="block text-lg font-serif text-charcoal group-hover:text-terracotta-700 transition-colors">{getDisplayName(file)}</span>
+                            </div>
+                        </button>
+                        <div className="absolute right-4 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <FavoriteButton
+                                item={{ id: file, title: getDisplayName(file), category: folder }}
+                            />
+                        </div>
+                    </div>
+                ))}
+
+                {hasMore && (
                     <button
-                        onClick={() => handleFileClick(file)}
-                        className="w-full flex items-center gap-4 p-5 bg-white rounded-xl border border-sand-100 shadow-sm hover:shadow-md hover:border-terracotta-200 text-left transition-all"
+                        onClick={() => setVisibleCount(prev => prev + 20)}
+                        className="w-full py-4 bg-sand-100 text-sand-500 font-bold rounded-xl hover:bg-sand-200 transition-colors mt-4"
                     >
-                        <div className="p-2 bg-terracotta-50 rounded-lg text-terracotta-500">
-                            <FileText size={20} />
-                        </div>
-                        <div className="flex-1">
-                            <span className="block text-lg font-serif text-charcoal group-hover:text-terracotta-700 transition-colors">{getDisplayName(file)}</span>
-                        </div>
+                        Load More ({files.length - visibleCount} remaining)
                     </button>
-                    <div className="absolute right-4 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <FavoriteButton
-                            item={{ id: file, title: getDisplayName(file), category: folder }}
-                        />
+                )}
+            </div>
+
+            {/* Related Tools & Scenarios */}
+            {(relatedContent.scenarios.length > 0 || relatedContent.wizards.length > 0) && (
+                <div className="mt-12 space-y-6">
+                    <h3 className="text-sm font-bold text-sage-600 uppercase tracking-widest border-b border-sand-200 pb-2">Topic Integration: Scenarios & Tools</h3>
+
+                    <div className="grid gap-4 sm:grid-cols-2">
+                        {relatedContent.scenarios.map(scenario => (
+                            <Link to={scenario.link} key={scenario.id} className="block group">
+                                <div className="bg-sage-50 p-4 rounded-2xl border border-sage-100 shadow-sm group-hover:bg-sage-100 transition-all flex items-center gap-3">
+                                    <div className="bg-white p-2 rounded-full text-sage-600 shadow-sm">
+                                        <AlertTriangle size={18} />
+                                    </div>
+                                    <span className="font-bold text-sage-900 text-sm leading-tight">{scenario.title}</span>
+                                </div>
+                            </Link>
+                        ))}
+                        {relatedContent.wizards.map(wizard => (
+                            <Link to={wizard.link} key={wizard.id} className="block group">
+                                <div className="bg-terracotta-50 p-4 rounded-2xl border border-terracotta-100 shadow-sm group-hover:bg-terracotta-100 transition-all flex items-center gap-3">
+                                    <div className="bg-white p-2 rounded-full text-terracotta-600 shadow-sm">
+                                        <Info size={18} />
+                                    </div>
+                                    <span className="font-bold text-terracotta-900 text-sm leading-tight">{wizard.title}</span>
+                                </div>
+                            </Link>
+                        ))}
                     </div>
                 </div>
-            ))}
-
-            {hasMore && (
-                <button
-                    onClick={() => setVisibleCount(prev => prev + 20)}
-                    className="w-full py-4 bg-sand-100 text-sand-500 font-bold rounded-xl hover:bg-sand-200 transition-colors mt-4"
-                >
-                    Load More ({files.length - visibleCount} remaining)
-                </button>
             )}
         </div>
     );

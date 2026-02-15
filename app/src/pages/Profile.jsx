@@ -5,7 +5,14 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
 const Profile = () => {
-    const { user, favorites, toggleFavorite } = useUser();
+    const { user, favorites, readGuides, toggleFavorite, updateProfile, clearAppData } = useUser();
+
+    const avatars = [
+        { id: 'av1', url: 'https://api.dicebear.com/7.x/bottts/svg?seed=Felix' },
+        { id: 'av2', url: 'https://api.dicebear.com/7.x/bottts/svg?seed=Willow' },
+        { id: 'av3', url: 'https://api.dicebear.com/7.x/bottts/svg?seed=River' },
+        { id: 'av4', url: 'https://api.dicebear.com/7.x/bottts/svg?seed=Sage' },
+    ];
 
     return (
         <div className="p-6 max-w-2xl mx-auto space-y-8">
@@ -34,7 +41,7 @@ const Profile = () => {
                 <StatCard
                     icon={<Book className="text-blue-500" />}
                     label="Read Guides"
-                    value={favorites.length * 3} // Placeholder logic
+                    value={readGuides.length}
                 />
             </div>
 
@@ -59,15 +66,21 @@ const Profile = () => {
                                 layout
                                 initial={{ opacity: 0, y: 10 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                className="bg-white p-4 rounded-xl shadow-sm border border-sand-100 flex justify-between items-center"
+                                className="bg-white p-4 rounded-2xl shadow-sm border border-sand-100 flex justify-between items-center group relative overflow-hidden"
                             >
-                                <div>
-                                    <h3 className="font-medium text-sage-900">{fav.title}</h3>
-                                    <p className="text-xs text-sage-500 capitalize">{fav.category}</p>
+                                <div className="absolute left-0 top-0 bottom-0 w-1 bg-sage-600 opacity-20 group-hover:opacity-100 transition-opacity" />
+                                <div className="pl-2">
+                                    <h3 className="font-bold text-sage-900">{fav.title}</h3>
+                                    <div className="flex items-center gap-2 mt-1">
+                                        <span className="text-[10px] font-bold uppercase tracking-widest bg-sand-100 text-sage-600 px-2 py-0.5 rounded-md">
+                                            {fav.category}
+                                        </span>
+                                    </div>
                                 </div>
                                 <button
                                     onClick={() => toggleFavorite(fav)}
-                                    className="p-2 text-terracotta-500 hover:bg-terracotta-50 rounded-full transition-colors"
+                                    className="p-3 text-terracotta-500 hover:bg-terracotta-50 rounded-full transition-colors shrink-0"
+                                    title="Remove from favorites"
                                 >
                                     <Heart size={20} fill="currentColor" />
                                 </button>
@@ -77,13 +90,37 @@ const Profile = () => {
                 )}
             </section>
 
+            {/* Avatar Selection */}
+            <section className="bg-white p-6 rounded-3xl border border-sand-100 shadow-sm relative overflow-hidden">
+                <h3 className="text-xs font-bold text-sage-600 uppercase tracking-widest mb-4">Choose Your Avatar</h3>
+                <div className="flex gap-4 overflow-x-auto pb-2 no-scrollbar">
+                    {avatars.map(av => (
+                        <button
+                            key={av.id}
+                            onClick={() => updateProfile({ avatar: av.url })}
+                            className={`w-16 h-16 rounded-full border-2 transition-all shrink-0 p-1 ${user.avatar === av.url ? 'border-terracotta-500 bg-terracotta-50' : 'border-transparent hover:border-sage-300'
+                                }`}
+                        >
+                            <img src={av.url} alt="avatar" className="w-full h-full rounded-full bg-sage-100" />
+                        </button>
+                    ))}
+                </div>
+            </section>
+
             {/* Account Actions */}
             <section className="pt-4 border-t border-sand-200">
                 <Link to="/settings" className="flex items-center gap-3 w-full p-4 hover:bg-white rounded-xl transition-colors text-charcoal-600">
-                    <Settings size={20} />
+                    <Settings icon size={20} />
                     <span>Account Settings</span>
                 </Link>
-                <button className="flex items-center gap-3 w-full p-4 hover:bg-red-50 rounded-xl transition-colors text-red-600">
+                <button
+                    onClick={() => {
+                        if (window.confirm('For this demo, logging out will reset your session. Continue?')) {
+                            clearAppData();
+                        }
+                    }}
+                    className="flex items-center gap-3 w-full p-4 hover:bg-red-50 rounded-xl transition-colors text-red-600"
+                >
                     <LogOut size={20} />
                     <span>Log Out</span>
                 </button>

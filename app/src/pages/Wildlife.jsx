@@ -71,7 +71,7 @@ const Wildlife = () => {
             </div>
 
             {/* Navigation Tabs */}
-            <div className="flex flex-wrap justify-center gap-2 p-4 border-b border-sand-200 mb-4 bg-white sticky top-0 z-10 shadow-sm">
+            <div className="grid grid-cols-3 sm:flex sm:flex-wrap justify-center gap-2 p-4 border-b border-sand-200 mb-4 bg-white sticky top-0 z-10 shadow-sm">
                 <TabButton
                     active={activeTab === 'flora'}
                     onClick={() => setActiveTab('flora')}
@@ -106,7 +106,7 @@ const Wildlife = () => {
 
             {/* Sub-Filters for Flora */}
             {activeTab === 'flora' && (
-                <div className="px-6 mb-4 flex flex-wrap gap-2">
+                <div className="px-6 mb-4 grid grid-cols-3 sm:flex sm:flex-wrap gap-2">
                     {['All', 'Edible', 'Medicinal', 'Poisonous', 'Utility'].map(type => (
                         <button
                             key={type}

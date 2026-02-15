@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { useUser } from '../context/UserContext';
 import MarkdownRenderer from '../components/MarkdownRenderer';
 import { ArrowLeft, BookOpen, AlertTriangle } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -46,6 +47,13 @@ const manuals = {
 const ManualReader = () => {
     const { id } = useParams();
     const manual = manuals[id];
+    const { markAsRead } = useUser();
+
+    useEffect(() => {
+        if (id) {
+            markAsRead(id);
+        }
+    }, [id, markAsRead]);
 
     if (!manual) {
         return (

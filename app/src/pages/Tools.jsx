@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Calculator, Soup, Repeat, Calendar, Wrench, Flame, Clock, ChefHat, X, AlertTriangle } from 'lucide-react';
+import { Calculator, Soup, Repeat, Calendar, Wrench, Flame, Clock, ChefHat, X, AlertTriangle, BookOpen } from 'lucide-react';
 
 // Import JSON data directly
 import subEngineData from '../data/SubstitutionEngine.json';
@@ -31,7 +31,7 @@ const Tools = () => {
             <h1 className="text-3xl mb-6 font-serif text-sage-900">Toolkit</h1>
 
             {/* Tabs */}
-            <div className="flex flex-wrap gap-2 mb-6">
+            <div className="grid grid-cols-3 sm:flex sm:flex-wrap gap-2 mb-6">
                 <TabButton
                     active={activeTab === 'wizard'}
                     onClick={() => setActiveTab('wizard')}
@@ -314,36 +314,43 @@ const SurvivalToolsList = ({ tools, setActiveToolUrl }) => {
                             title="Emergency Plan Base"
                             desc="Create a comprehensive family plan."
                             onClick={() => navigate('/wizard/emergency-plan')}
+                            guideLink="/library"
                         />
                         <WizardCard
                             title="Evacuation Decision"
                             desc="Should I Stay or Should I Go?"
                             onClick={() => navigate('/wizard/evacuation')}
+                            guideLink="/library"
                         />
                         <WizardCard
                             title="First Aid Triage"
                             desc="Protocols for Bleeding, Burns, & Cold."
                             onClick={() => navigate('/wizard/first-aid')}
+                            guideLink="/library"
                         />
                         <WizardCard
                             title="Water Safety Guide"
                             desc="Identify & treat dubious water sources."
                             onClick={() => navigate('/wizard/water-safety')}
+                            guideLink="/library"
                         />
                         <WizardCard
                             title="Winter Blackout Protocol"
                             desc="Immediate actions for freezing power outages."
                             onClick={() => navigate('/wizard/winter-blackout')}
+                            guideLink="/library"
                         />
                         <WizardCard
                             title="Garden Planner"
                             desc="Crop scheduling based on your frost date."
                             onClick={() => navigate('/wizard/garden-planner')}
+                            guideLink="/library"
                         />
                         <WizardCard
                             title="Home Energy Audit"
                             desc="Calculate off-grid power requirements."
                             onClick={() => navigate('/wizard/energy-planner')}
+                            guideLink="/library"
                         />
                     </div>
                 </div>
@@ -449,17 +456,40 @@ const SubstitutionEngine = ({ data }) => {
     );
 };
 
-const WizardCard = ({ title, desc, onClick }) => (
-    <button
-        onClick={onClick}
-        className="bg-white p-4 rounded-xl shadow-sm border border-sand-200 text-left hover:border-terracotta-300 hover:shadow-md transition-all group"
-    >
-        <div className="flex items-center justify-between mb-1">
-            <h3 className="font-bold text-terracotta-700 group-hover:text-terracotta-600">{title}</h3>
-            <span className="text-xs bg-terracotta-50 text-terracotta-700 px-2 py-0.5 rounded-full">Wizard</span>
+const WizardCard = ({ title, desc, onClick, guideLink }) => {
+    const navigate = useNavigate();
+
+    return (
+        <div className="bg-white p-5 rounded-3xl shadow-sm border border-sand-200 hover:border-terracotta-300 transition-all group flex flex-col justify-between h-full">
+            <div onClick={onClick} className="cursor-pointer flex-1">
+                <div className="flex items-center justify-between mb-2">
+                    <h3 className="font-bold text-terracotta-700 group-hover:text-terracotta-600 font-serif text-lg leading-tight">{title}</h3>
+                    <span className="text-[10px] bg-terracotta-50 text-terracotta-700 px-2 py-0.5 rounded-full font-bold uppercase tracking-widest">Wizard</span>
+                </div>
+                <p className="text-sm text-charcoal-600 font-medium mb-4">{desc}</p>
+            </div>
+
+            <div className="flex items-center justify-between pt-4 border-t border-sand-100 mt-2">
+                <button
+                    onClick={onClick}
+                    className="text-xs font-bold text-terracotta-600 hover:text-terracotta-800 transition-colors uppercase tracking-widest"
+                >
+                    Launch Tool →
+                </button>
+                {guideLink && (
+                    <button
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            navigate(guideLink);
+                        }}
+                        className="text-[10px] font-bold text-sage-500 hover:text-sage-700 transition-colors uppercase tracking-widest flex items-center gap-1"
+                    >
+                        <BookOpen size={12} /> Deep Dive
+                    </button>
+                )}
+            </div>
         </div>
-        <p className="text-sm text-charcoal-600">{desc}</p>
-    </button>
-);
+    );
+};
 
 export default Tools;

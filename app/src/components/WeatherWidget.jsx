@@ -7,7 +7,7 @@ const WeatherWidget = () => {
     const [error, setError] = useState(null);
     const [locationName, setLocationName] = useState('Local Weather');
 
-    const [unit, setUnit] = useState('fahrenheit');
+    const [unit, setUnit] = useState('celsius');
 
     useEffect(() => {
         if (!navigator.geolocation) {

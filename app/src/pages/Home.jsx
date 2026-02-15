@@ -1,207 +1,221 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
-import { Sun, Droplets, Leaf, Thermometer, Battery, Shield, Flame, Activity, Hammer, Tent, Map, AlertTriangle, MessageSquare } from 'lucide-react';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
+import {
+    Droplets, Zap, Thermometer, CloudRain,
+    Wind, ShieldAlert, ChevronRight, X,
+    MessageSquare, Battery, Activity, Info
+} from 'lucide-react';
+import { useUser } from '../context/UserContext';
 import WeatherWidget from '../components/WeatherWidget';
 
-const Dashboard = () => {
-    const today = new Date();
-    const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-    const dateString = today.toLocaleDateString('en-US', dateOptions);
-
-    const hour = today.getHours();
-    const greeting = hour < 12 ? 'Good Morning' : hour < 18 ? 'Good Afternoon' : 'Good Evening';
-
-    const quickActions = [
-        { id: 'water', label: 'Water', icon: Droplets, color: 'bg-blue-100 text-blue-600', link: '/manual/water' },
-        { id: 'food', label: 'Food', icon: Leaf, color: 'bg-green-100 text-green-600', link: '/manual/food' },
-        { id: 'gardening', label: 'Garden', icon: Leaf, color: 'bg-lime-100 text-lime-600', link: '/manual/gardening' },
-        { id: 'medical', label: 'First Aid', icon: Activity, color: 'bg-red-100 text-red-600', link: '/manual/medical' },
-        { id: 'energy', label: 'Energy', icon: Battery, color: 'bg-yellow-100 text-yellow-600', link: '/manual/energy' },
-        { id: 'shelter', label: 'Shelter', icon: Tent, color: 'bg-stone-100 text-stone-600', link: '/manual/shelter' },
-        { id: 'wilderness', label: 'Wilderness', icon: Flame, color: 'bg-orange-100 text-orange-600', link: '/manual/wilderness' },
-    ];
+const Home = () => {
+    const { user, lastAccessedItem } = useUser();
+    const navigate = useNavigate();
+    const [emergencyMode, setEmergencyMode] = useState(false);
 
     return (
-        <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="p-6 space-y-6 pb-24"
-        >
+        <div className="relative min-h-[calc(100vh-80px)]">
+            <div className="p-6 pb-32 space-y-12 max-w-2xl mx-auto">
+                {/* 1. Header & Greeting */}
+                <header className="flex justify-between items-start">
+                    <div className="space-y-2">
+                        <motion.h2
+                            initial={{ opacity: 0, y: -10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            className="text-4xl font-serif text-sage-900 leading-tight"
+                        >
+                            Good morning, <br />
+                            <span className="text-terracotta-600 font-bold">{user.name.split(' ')[0]}</span>
+                        </motion.h2>
+                        <p className="text-sand-600 font-medium">Clear skies over the homestead.</p>
+                    </div>
+                    <WeatherWidget />
+                </header>
 
-            {/* Header / Weather */}
-            <div className="flex justify-between items-start">
-                <div>
-                    <span className="text-terracotta-600 font-bold text-xs uppercase tracking-widest">{dateString}</span>
-                    <h2 className="text-3xl mt-1 text-sage-900 leading-tight">
-                        {greeting},<br /><span className="italic text-terracotta-500">Homemaker.</span>
-                    </h2>
-                </div>
-                {/* Weather Widget */}
-                <WeatherWidget />
+                {/* 2. Quick Resumption */}
+                <AnimatePresence>
+                    {lastAccessedItem && (
+                        <motion.section
+                            initial={{ opacity: 0, scale: 0.95 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            className="bg-white p-6 rounded-[2.5rem] shadow-sm border border-sand-200 group cursor-pointer hover:shadow-md transition-all"
+                            onClick={() => {
+                                // If it's a guide, we need to handle the routing to Library with pre-selected path
+                                navigate('/library');
+                            }}
+                        >
+                            <div className="flex justify-between items-center mb-4">
+                                <span className="text-[10px] bg-terracotta-100 text-terracotta-700 px-3 py-1 rounded-full font-bold uppercase tracking-widest">Jump Back In</span>
+                                <span className="text-xs text-sand-400 font-medium capitalize">{lastAccessedItem.folder || 'Library'}</span>
+                            </div>
+                            <h3 className="text-2xl font-serif font-bold text-sage-900 group-hover:text-terracotta-700 transition-colors mb-1">
+                                {lastAccessedItem.title}
+                            </h3>
+                            <p className="text-sm text-sand-500 font-medium italic">Continue where you left off...</p>
+                        </motion.section>
+                    )}
+                </AnimatePresence>
+
+                {/* 3. System Status */}
+                <section className="space-y-4">
+                    <h3 className="text-xs font-bold text-sage-600 uppercase tracking-widest pl-1">Sustainability Status</h3>
+                    <div className="grid grid-cols-2 gap-4">
+                        <StatusCard
+                            icon={<Droplets className="text-blue-500" size={24} />}
+                            label="Water Supply"
+                            value="88%"
+                            sub="42 days remaining"
+                            color="blue"
+                        />
+                        <StatusCard
+                            icon={<Battery className="text-amber-500" size={24} />}
+                            label="Power Storage"
+                            value="94%"
+                            sub="Optimal Output"
+                            color="amber"
+                        />
+                        <StatusCard
+                            icon={<Thermometer className="text-terracotta-500" size={24} />}
+                            label="Interior Temp"
+                            value="20°C"
+                            sub="Stable"
+                            color="terracotta"
+                        />
+                        <StatusCard
+                            icon={<CloudRain className="text-sage-500" size={24} />}
+                            label="Humidity"
+                            value="42%"
+                            sub="Normal"
+                            color="sage"
+                        />
+                    </div>
+                </section>
+
+                {/* 4. Daily Preparation (Priority Tasks) */}
+                <section className="space-y-6">
+                    <h3 className="text-xs font-bold text-sage-600 uppercase tracking-widest pl-1">Priority Tasks</h3>
+                    <div className="space-y-3">
+                        <PriorityItem
+                            title="Winter Fuel Check"
+                            desc="Audit remaining wood and propane stocks for the upcoming cold front."
+                            time="20 mins"
+                            icon={<Wind className="text-sage-400" size={20} />}
+                        />
+                        <PriorityItem
+                            title="Greenhouse Ventilation"
+                            desc="Ensure morning temps aren't causing moisture buildup."
+                            time="10 mins"
+                            icon={<CloudRain className="text-sage-400" size={20} />}
+                        />
+                    </div>
+                </section>
+
+                {/* 5. Suggestion Box */}
+                <section className="bg-sage-700 p-8 rounded-[2.5rem] text-sand-50 relative overflow-hidden shadow-xl">
+                    <div className="relative z-10">
+                        <h3 className="text-2xl font-serif font-bold mb-2 text-white">Missing something?</h3>
+                        <p className="text-sage-200 mb-6 max-w-[240px] leading-relaxed">Let us know what manual or tool you need for your homestead.</p>
+                        <a
+                            href="mailto:contact@homemakersuite.com?subject=Guide%20Request"
+                            className="inline-flex items-center gap-2 bg-terracotta-500 text-white px-6 py-3 rounded-full font-bold hover:bg-terracotta-600 transition-colors shadow-lg"
+                        >
+                            Request a Guide <ChevronRight size={18} />
+                        </a>
+                    </div>
+                    <div className="absolute right-[-20px] bottom-[-20px] opacity-10">
+                        <MessageSquare size={160} />
+                    </div>
+                </section>
             </div>
 
-            {/* System Status */}
-            <section className="grid grid-cols-2 gap-3">
-                <div className="bg-slate-800 text-white p-4 rounded-2xl flex items-center gap-3 shadow-md">
-                    <div className="bg-white/10 p-2 rounded-full">
-                        <Shield size={20} className="text-green-400" />
-                    </div>
-                    <div>
-                        <p className="text-xs text-slate-400 uppercase font-bold">System</p>
-                        <p className="font-bold">Secure</p>
-                    </div>
-                </div>
-                <div className="bg-white p-4 rounded-2xl border border-sand-200 flex items-center gap-3 shadow-sm">
-                    <div className="bg-sand-100 p-2 rounded-full">
-                        <Battery size={20} className="text-sage-600" />
-                    </div>
-                    <div>
-                        <p className="text-xs text-sage-500 uppercase font-bold">Power</p>
-                        <p className="font-bold text-charcoal">100%</p>
-                    </div>
-                </div>
-            </section>
-
-            {/* Survival Modules (Grid) */}
-            <section>
-                <h3 className="text-lg font-bold text-sage-900 mb-4 flex items-center gap-2">
-                    <BookOpenIcon size={18} className="text-terracotta-500" />
-                    Survival Modules
-                </h3>
-                <div className="grid grid-cols-2 gap-4">
-                    {quickActions.map((action) => (
-                        <Link to={action.link} key={action.id} className="block group">
-                            <div className="bg-white p-5 rounded-3xl border border-sand-200 shadow-sm hover:shadow-md transition-all flex flex-col items-center gap-3 group-active:scale-95">
-                                <div className={`p-4 rounded-full ${action.color} group-hover:scale-110 transition-transform`}>
-                                    <action.icon size={28} />
-                                </div>
-                                <span className="font-medium text-charcoal-700">{action.label}</span>
+            {/* Emergency FAB */}
+            <div className="fixed bottom-28 right-6 z-50">
+                <AnimatePresence>
+                    {emergencyMode && (
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.8, y: 20 }}
+                            animate={{ opacity: 1, scale: 1, y: 0 }}
+                            exit={{ opacity: 0, scale: 0.8, y: 20 }}
+                            className="absolute bottom-20 right-0 w-72 bg-white rounded-3xl shadow-2xl border-2 border-red-500 overflow-hidden"
+                        >
+                            <div className="p-5 bg-red-500 text-white flex items-center gap-3">
+                                <ShieldAlert size={24} />
+                                <span className="font-bold text-lg">Crisis Mode Active</span>
                             </div>
-                        </Link>
-                    ))}
-                    {/* Preservation Link as a wide card? Or just add to grid */}
-                    <Link to="/manual/preservation" className="col-span-2 block group">
-                        <div className="bg-amber-50 p-5 rounded-3xl border border-amber-100 shadow-sm hover:shadow-md transition-all flex items-center justify-between group-active:scale-95">
-                            <div className="flex items-center gap-4">
-                                <div className="p-4 rounded-full bg-amber-100 text-amber-700">
-                                    <Hammer size={28} />
-                                </div>
-                                <div>
-                                    <span className="font-bold text-amber-900 block">Food Preservation</span>
-                                    <span className="text-xs text-amber-700">Canning, Smoking, Curing</span>
-                                </div>
+                            <div className="p-4 space-y-3">
+                                <EmergencyAction icon={<Zap size={18} />} label="Immediate Power Cut-Off" />
+                                <EmergencyAction icon={<Droplets size={18} />} label="Water Main Isolation" />
+                                <EmergencyAction icon={<Thermometer size={18} />} label="Seal Thermal Zone 1" />
+                                <button
+                                    onClick={() => navigate('/library')}
+                                    className="w-full mt-2 py-3 bg-red-600 text-white rounded-xl font-bold shadow-md hover:bg-red-700 transition-all flex items-center justify-center gap-2"
+                                >
+                                    Emergency Procedures <ChevronRight size={18} />
+                                </button>
                             </div>
-                        </div>
-                    </Link>
-                </div>
-            </section>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
 
-            {/* Crisis Scenarios */}
-            <section>
-                <div className="flex items-center justify-between mb-4">
-                    <h3 className="text-lg font-bold text-sage-900 flex items-center gap-2">
-                        <Map size={18} className="text-terracotta-500" />
-                        Crisis Scenarios
-                    </h3>
-                </div>
-                <div className="space-y-3">
-                    <Link to="/manual/scenario-winter" className="block bg-blue-50 p-4 rounded-xl border border-blue-100 flex items-center justify-between hover:bg-blue-100 transition-colors">
-                        <div className="flex items-center gap-3">
-                            <div className="bg-white p-2 rounded-full text-blue-600 shadow-sm">
-                                <Thermometer size={20} />
-                            </div>
-                            <span className="font-semibold text-blue-900">72-Hour Winter Outage</span>
-                        </div>
-                    </Link>
-                    <Link to="/manual/scenario-summer" className="block bg-orange-50 p-4 rounded-xl border border-orange-100 flex items-center justify-between hover:bg-orange-100 transition-colors">
-                        <div className="flex items-center gap-3">
-                            <div className="bg-white p-2 rounded-full text-orange-600 shadow-sm">
-                                <Sun size={20} />
-                            </div>
-                            <span className="font-semibold text-orange-900">72-Hour Summer Outage</span>
-                        </div>
-                    </Link>
-                    <Link to="/manual/scenario-kids" className="block bg-purple-50 p-4 rounded-xl border border-purple-100 flex items-center justify-between hover:bg-purple-100 transition-colors">
-                        <div className="flex items-center gap-3">
-                            <div className="bg-white p-2 rounded-full text-purple-600 shadow-sm">
-                                <Shield size={20} />
-                            </div>
-                            <span className="font-semibold text-purple-900">7-Day Grid-Down (Kids)</span>
-                        </div>
-                    </Link>
-                    <div className="grid grid-cols-2 gap-3">
-                        <Link to="/manual/scenario-water" className="block bg-cyan-50 p-3 rounded-xl border border-cyan-100 hover:bg-cyan-100 transition-colors">
-                            <p className="font-semibold text-cyan-900 text-sm">Water Contamination</p>
-                        </Link>
-                        <Link to="/manual/scenario-budget" className="block bg-green-50 p-3 rounded-xl border border-green-100 hover:bg-green-100 transition-colors">
-                            <p className="font-semibold text-green-900 text-sm">30-Day Budget</p>
-                        </Link>
-                        <Link to="/manual/scenario-storm" className="block bg-slate-50 p-3 rounded-xl border border-slate-100 hover:bg-slate-100 transition-colors">
-                            <p className="font-semibold text-slate-900 text-sm">Severe Winter Storm</p>
-                        </Link>
-                        <Link to="/manual/scenario-supply" className="block bg-yellow-50 p-3 rounded-xl border border-yellow-100 hover:bg-yellow-100 transition-colors">
-                            <p className="font-semibold text-yellow-900 text-sm">3-Month Supply</p>
-                        </Link>
-                    </div>
-                </div>
-            </section>
-
-            {/* Tools & Calculators */}
-            <section>
-                <h3 className="text-lg font-bold text-sage-900 mb-4 flex items-center gap-2">
-                    <Hammer size={18} className="text-terracotta-500" />
-                    Interactive Tools
-                </h3>
-                <div className="grid grid-cols-2 gap-4">
-                    <Link to="/wizard/emergency-plan" className="bg-white p-4 rounded-xl border border-stone-200 shadow-sm flex flex-col items-center text-center hover:border-terracotta-300 transition-colors">
-                        <Activity size={24} className="text-terracotta-500 mb-2" />
-                        <span className="font-bold text-stone-800 text-sm">Emergency Plan</span>
-                    </Link>
-                    <Link to="/wizard/water-safety" className="bg-white p-4 rounded-xl border border-stone-200 shadow-sm flex flex-col items-center text-center hover:border-blue-300 transition-colors">
-                        <Droplets size={24} className="text-blue-500 mb-2" />
-                        <span className="font-bold text-stone-800 text-sm">Water Safety</span>
-                    </Link>
-                    <Link to="/wizard/winter-blackout" className="bg-white p-4 rounded-xl border border-stone-200 shadow-sm flex flex-col items-center text-center hover:border-slate-300 transition-colors">
-                        <Thermometer size={24} className="text-slate-500 mb-2" />
-                        <span className="font-bold text-stone-800 text-sm">Winter Blackout</span>
-                    </Link>
-                    <Link to="/wizard/garden-planner" className="bg-white p-4 rounded-xl border border-stone-200 shadow-sm flex flex-col items-center text-center hover:border-green-300 transition-colors">
-                        <Leaf size={24} className="text-green-500 mb-2" />
-                        <span className="font-bold text-stone-800 text-sm">Garden Planner</span>
-                    </Link>
-                    <Link to="/wizard/energy-planner" className="bg-white p-4 rounded-xl border border-stone-200 shadow-sm flex flex-col items-center text-center hover:border-yellow-300 transition-colors">
-                        <Battery size={24} className="text-yellow-500 mb-2" />
-                        <span className="font-bold text-stone-800 text-sm">Energy Audit</span>
-                    </Link>
-                </div>
-            </section>
-            <Link to="/feedback" className="w-full bg-sage-50 p-4 rounded-2xl border border-sage-100 flex items-center justify-between hover:bg-sage-100 transition-colors group">
-                <div className="flex items-center gap-3">
-                    <div className="bg-white p-2 rounded-full text-sage-600 shadow-sm group-hover:scale-110 transition-transform">
-                        <MessageSquare size={20} />
-                    </div>
-                    <div>
-                        <span className="font-bold text-sage-900 block">Suggestion Box</span>
-                        <span className="text-xs text-sage-600">Help build the library</span>
-                    </div>
-                </div>
-                <span className="text-sage-400">→</span>
-            </Link>
-
-            <button className="w-full bg-red-50 p-4 rounded-2xl border border-red-100 flex items-center justify-center gap-2 text-red-600 font-bold active:bg-red-600 active:text-white transition-colors">
-                <AlertTriangle size={20} />
-                EMERGENCY MODE
-            </button>
-
-        </motion.div>
+                <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => setEmergencyMode(!emergencyMode)}
+                    className={`p-5 rounded-full shadow-2xl transition-all duration-300 flex items-center justify-center ${emergencyMode ? 'bg-red-600 rotate-90 scale-90' : 'bg-red-500 hover:bg-red-600'
+                        }`}
+                >
+                    {emergencyMode ? <X size={32} className="text-white" /> : <ShieldAlert size={32} className="text-white" />}
+                </motion.button>
+            </div>
+        </div>
     );
 };
 
-// Helper for the icon in title
-const BookOpenIcon = ({ size, className }) => (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" /><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" /></svg>
-)
+const PriorityItem = ({ title, desc, time, icon }) => (
+    <div className="flex items-start gap-4 p-5 bg-white rounded-3xl border border-sand-100 hover:border-sand-200 transition-all group">
+        <div className="mt-1 p-2 bg-sand-50 rounded-xl text-sage-600">
+            {icon}
+        </div>
+        <div className="flex-1">
+            <div className="flex justify-between items-start mb-1">
+                <h4 className="font-bold text-sage-900 group-hover:text-terracotta-700 transition-colors uppercase tracking-tight text-sm">{title}</h4>
+                <span className="text-[10px] font-bold text-sand-400 uppercase tracking-widest">{time}</span>
+            </div>
+            <p className="text-xs text-sand-500 leading-relaxed font-medium">{desc}</p>
+        </div>
+    </div>
+);
 
-export default Dashboard;
+const StatusCard = ({ icon, label, value, sub, color }) => {
+    const colorMap = {
+        blue: "bg-blue-50 border-blue-100 text-blue-700",
+        amber: "bg-amber-50 border-amber-100 text-amber-700",
+        terracotta: "bg-terracotta-50 border-terracotta-100 text-terracotta-700",
+        sage: "bg-sage-50 border-sage-100 text-sage-700"
+    };
+
+    return (
+        <div className={`p-4 rounded-3xl border ${colorMap[color]} shadow-sm`}>
+            <div className="flex items-center gap-2 mb-2">
+                {icon}
+                <span className="text-[10px] font-bold uppercase tracking-widest opacity-80">{label}</span>
+            </div>
+            <div className="flex items-baseline gap-1">
+                <span className="text-2xl font-serif font-bold">{value}</span>
+            </div>
+            <p className="text-[10px] font-bold mt-1 opacity-60 italic">{sub}</p>
+        </div>
+    );
+};
+
+const EmergencyAction = ({ icon, label }) => (
+    <button className="w-full flex items-center gap-3 p-3 bg-white border border-red-100 rounded-xl text-red-700 hover:bg-red-50 transition-all text-left group">
+        <div className="text-red-400 group-hover:text-red-600 transition-colors">
+            {icon}
+        </div>
+        <span className="text-xs font-bold uppercase tracking-tight">{label}</span>
+    </button>
+);
+
+export default Home;

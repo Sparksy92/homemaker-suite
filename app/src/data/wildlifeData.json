@@ -506,6 +506,300 @@
                 ],
                 "utilization": "Meat, Down (Insulation), Fat."
             }
+        },
+        {
+            "id": "moose",
+            "name": "Moose",
+            "scientific_name": "Alces alces",
+            "role": "Game",
+            "notes": "Largest member of the deer family. Highly dangerous during rut. Found near water/marshes.",
+            "status": "Extreme Caution",
+            "images": [
+                "moose.jpg"
+            ],
+            "details": {
+                "behavior": "Solitary and aquatic-feeding. Aggressive during rut (Sept/Oct). Signs of aggression: ears pinned back, hair on neck standing up, lip licking. 'Bluff charges' are common but can turn into committed charges if the animal feels cornered.",
+                "processing": [
+                    "**1. Field Quartering:** Due to sheer size (800lb-1500lb), moose must often be processed where they fall. Use the 'gutless method' to remove quarters without opening the abdominal cavity.",
+                    "**2. Swing Skinning:** If a tripod or heavy branch is available, skin while hanging to prevent meat from touching the dirt. Moose hide is exceptionally thick and requires a very sharp blade.",
+                    "**3. Cooling:** Meat of this thickness spoils rapidly (bone sour). Quarters must be hung in breathable game bags immediately. Remove the 'brisket' and 'hump' as they contain high-value fat/muscle."
+                ],
+                "utilization": "Meat (substantial calorie source), Nose Leather (traditional delicacy, rich in collagen), Hide (extremely durable heavy-duty leather), Sinew (leg tendons provide the strongest natural cordage for bowstrings/tools)."
+            }
+        },
+        {
+            "id": "elk",
+            "name": "Elk (Wapiti)",
+            "scientific_name": "Cervus canadensis",
+            "role": "Game",
+            "notes": "Large herd animal. Known for the male's distinct 'bugle' during rut.",
+            "status": "Hunt/Track",
+            "images": [
+                "elk.jpg"
+            ],
+            "details": {
+                "behavior": "Highly social herd hierarchy. They move to higher elevations in summer and valleys in winter. Use thermal cover (thick timber) during the day. Bugling is a primary identification marker in autumn.",
+                "processing": [
+                    "**1. Antler Removal:** Cut at the skull plate. Antlers are useful for tool handles and pressure flakers.",
+                    "**2. Hindquarter Breakdown:** Large muscle groups like the 'Top Round' and 'Sirloin' should be separated at the seams to maintain quality.",
+                    "**3. Backstrap Extraction:** Run the knife along the spine from the neck to the pelvis to remove the primary tenderloin."
+                ],
+                "utilization": "Meat (Prized high-protein game), Antlers (Tools/Handles/Calcium source for dogs), Hide (Lighter than moose, superior for clothing)."
+            }
+        },
+        {
+            "id": "grizzly_bear",
+            "name": "Grizzly / Brown Bear",
+            "scientific_name": "Ursus arctos horribilis",
+            "role": "Apex Predator",
+            "notes": "Distinguishable by the shoulder hump and dish-shaped face. Highly territorial.",
+            "status": "DANGER - Avoid",
+            "images": [
+                "grizzly.jpg"
+            ],
+            "details": {
+                "behavior": "Omnivore with significant seasonal caloric needs. Distinguishing from black bears: Grizzlies have a prominent shoulder hump, a concave/dish-shaped face profile, and much longer, straighter claws. Defensive behavior: If attacked, 'Play Dead' (lie on your stomach, protect your neck) to indicate you are not a threat.",
+                "processing": [
+                    "**1. Rendering Fat:** Grizzly fat is high-density energy. Slice into 1-inch cubes and render on low heat to produce shelf-stable 'bear grease'.",
+                    "**2. Meat Safety:** Like all bears, grizzlies carry Trichinella. Meat MUST be cooked to an internal temperature of 165°F. Never eat rare bear meat."
+                ],
+                "utilization": "Fat (Grease for waterproofing/cooking), Fur (Heavy winter insulation), Claws/Teeth (Historical/Decorative utility)."
+            }
+        },
+        {
+            "id": "gray_wolf",
+            "name": "Gray Wolf",
+            "scientific_name": "Canis lupus",
+            "role": "Apex Predator",
+            "notes": "Pack hunter. Larger than coyotes with blockier features.",
+            "status": "Avoid/Defend",
+            "images": [
+                "wolf.jpg"
+            ],
+            "details": {
+                "behavior": "Social pack hunters with complex hierarchy. Highly intelligent. Distinguish from coyotes by the blockier snout, smaller rounded ears (proportionally), and deep, resonant howls vs coyote 'yips'.",
+                "defense": [
+                    "**Pack Deterrents:** If followed, do not run. Face the pack, maintain height, and use loud, aggressive vocalizations. Keep fires bright at night; wolves are naturally wary of the 'red flower'."
+                ],
+                "utilization": "Fur (Extremely warm, ice doesn't stick to wolf fur—ideal for parka ruffs), Teeth (Survival needles/tools)."
+            }
+        },
+        {
+            "id": "mountain_lion",
+            "name": "Mountain Lion (Cougar)",
+            "scientific_name": "Puma concolor",
+            "role": "Apex Predator",
+            "notes": "Ghost of the woods. Ambush predator. Rarely seen but always watching.",
+            "status": "DANGER - High Alert",
+            "images": [
+                "cougar.jpg"
+            ],
+            "details": {
+                "behavior": "Solitary ambush predator. Hunts by stalking and pouncing. Caches kills by covering them with leaf litter/snow—finding a 'drag' or buried carcass is a sign of an active cat in the area.",
+                "safety": [
+                    "**Contact Rules:** NEVER turn your back or run (triggers chase reflex). Maintain eye contact, stand ground, and make yourself look larger. Fighting back with everything available is the only option if attacked."
+                ],
+                "utilization": "Identification of 'cat-scratches' (territorial markings) on trees helps map their range. Meat is edible (tastes like pork) but generally avoided due to their role as apex predators."
+            }
+        },
+        {
+            "id": "bison",
+            "name": "American Bison",
+            "scientific_name": "Bison bison",
+            "role": "Game",
+            "notes": "The massive icon of the plains. Formidable and unpredictable.",
+            "status": "Respect Distance",
+            "images": [
+                "bison.jpg"
+            ],
+            "details": {
+                "behavior": "Grazer. Moves in large family units. Unpredictable temper; a bison's tail standing straight up is a sign of an imminent charge. They can run at 35mph.",
+                "utilization": [
+                    "**1. Meat:** Exceptional nutrient density, high in minerals.",
+                    "**2. Hump:** High-value fat storage used for making Pemmican (long-term survival ration).",
+                    "**3. Hide:** Historically used for tepee covers, winter robes, and industrial belting.",
+                    "**4. Bone/Bladder:** Bladders were used as water containers; bones for dozens of tools (scrapers, needles, hoes)."
+                ]
+            }
+        },
+        {
+            "id": "feral_hog",
+            "name": "Feral Hog (Wild Boar)",
+            "scientific_name": "Sus scrofa",
+            "role": "Game / Invasive",
+            "notes": "Highly intelligent, destructive, and aggressive. Extreme population growth.",
+            "status": "DANGER - Hunt",
+            "images": [
+                "hog.jpg"
+            ],
+            "details": {
+                "danger": "Boars possess 3-inch razorsharp tusks and can weigh 400lb+. Sows with piglets are exceptionally defensive. Carries pseudorabies, brucellosis, and numerous parasites.",
+                "behavior": "Nocturnal or crepuscular. Generally travel in 'sounders' (groups of sows and young). Boars are often solitary.",
+                "processing": [
+                    "**1. Scalding vs Skinning:** Traditional harvest involves scalding in 145°F water to scrape hair, preserving the calorie-rich skin. Otherwise, skinning requires careful navigation of the 'shield' (thick cartilage on a boar's shoulders).",
+                    "**2. Field Dressing:** Must be done immediately to cool the meat. Wear gloves to prevent zoonotic disease transfer.",
+                    "**3. Cooking:** Meat MUST reach an internal temperature of 160°F-165°F to ensure parasite destruction."
+                ],
+                "utilization": "Meat (Wild pork—lean and flavorful), Fat (Lard for baking/preservation), Hide (Tough leather)."
+            }
+        },
+        {
+            "id": "raccoon",
+            "name": "Raccoon",
+            "scientific_name": "Procyon lotor",
+            "role": "Small Game / Scavenger",
+            "notes": "Dexterous and clever scavengers. Primary rabies vector.",
+            "status": "Trap/Avoid",
+            "images": [
+                "raccoon.jpg"
+            ],
+            "details": {
+                "processing": [
+                    "**1. Gland Removal:** Raccoons have axillary (armpit) and inguinal (groin) glands that must be removed immediately after skinning. If left, they impart a strong, unpleasant musk to the meat.",
+                    "**2. Fat Removal:** In autumn, raccoons carry heavy fat layers. Most should be trimmed as the fat flavor can be overwhelming."
+                ],
+                "utilization": "Meat (dark, rich meat), Grease (rendered fat for industrial/leather usage), Fur (classic winter hats/trim)."
+            }
+        },
+        {
+            "id": "bobcat",
+            "name": "Bobcat",
+            "scientific_name": "Lynx rufus",
+            "role": "Predator",
+            "notes": "Secretive feline. Short tail and tufted ears.",
+            "status": "Avoid/Observe",
+            "images": [
+                "bobcat.jpg"
+            ],
+            "details": {
+                "behavior": "Elusive and solitary. Hunts rabbits and rodents. Identification: Direct-register tracks (rear foot lands in the print of the front foot) create a single line of prints through snow/mud.",
+                "utilization": "Pelts (Prized for softness and spots), Identification of range helps map small game availability."
+            }
+        },
+        {
+            "id": "red_fox",
+            "name": "Red Fox",
+            "scientific_name": "Vulpes vulpes",
+            "role": "Predator",
+            "notes": "Highly adaptable. Iconic white-tipped tail.",
+            "status": "Observe",
+            "images": [
+                "red_fox.jpg"
+            ],
+            "details": {
+                "behavior": "Cunning and clever. Mousing behavior involves high-pouncing to break through crusty snow. Vocalizations include 'barks' similar to a small dog and blood-curdling 'screams' during mating season.",
+                "utilization": "Fur (prime winter pelt is extremely warm/soft), Skulls (tools/ornamental usage)."
+            }
+        },
+        {
+            "id": "american_badger",
+            "name": "American Badger",
+            "scientific_name": "Taxidea taxus",
+            "role": "Predator / Excavator",
+            "notes": "Low-slung, powerful digger. Notoriously aggressive.",
+            "status": "Caution - Avoid",
+            "images": [
+                "badger.jpg"
+            ],
+            "details": {
+                "behavior": "Primary burrower. They create massive network dens. Known to hunt mutualistically with coyotes (coyote chases prey above ground, badger blocks burrows).",
+                "defense": "Will hiss, growl, and charge if cornered. Thick hide and loose skin make it difficult for predators to secure a fatal grip."
+            }
+        },
+        {
+            "id": "wolverine",
+            "name": "Wolverine",
+            "scientific_name": "Gulo gulo",
+            "role": "Apex Scavenger / Predator",
+            "notes": "Smallest 'big' predator. Fierce and tireless traveler.",
+            "status": "EXTREME DANGER",
+            "images": [
+                "wolverine.jpg"
+            ],
+            "details": {
+                "behavior": "Solitary and territorial. Can travel 30 miles a day in harsh terrain. Known as the 'Skunk Bear' due to the powerful musk glands used to mark territory and food caches.",
+                "survival": "Total avoidance of active territories is advised. Wolverines have been known to drive bears and cougars off kills."
+            }
+        },
+        {
+            "id": "porcupine",
+            "name": "North American Porcupine",
+            "scientific_name": "Erethizon dorsatum",
+            "role": "Small Game / Resource",
+            "notes": "Slow-moving rodent with specialized defense quills. Major survival resource.",
+            "status": "Harvest/Caution",
+            "images": [
+                "porcupine.jpg"
+            ],
+            "details": {
+                "harvest": "Known as the 'Survivalist's Best Friend' because it is slow and can be harvested with a simple blunt object (stick/club) in an emergency. They do not 'throw' quills, but the quills detach upon contact.",
+                "processing": [
+                    "**1. Quill Collection:** Carefully remove patches of quills. They can be cleaned and used as heavy-duty sewing needles, awls, or for ornamental quillwork.",
+                    "**2. Skinning:** Skin from the belly up to avoid the quill-heavy back. Porcupine meat is edible but can be 'piney' depending on their diet."
+                ],
+                "utilization": "Meat (emergency calories), Quills (Tools/Art)."
+            }
+        },
+        {
+            "id": "striped_skunk",
+            "name": "Striped Skunk",
+            "scientific_name": "Mephitis mephitis",
+            "role": "Small Mammal / Defender",
+            "notes": "Docile but equipped with a powerful chemical deterrent.",
+            "status": "Avoid",
+            "images": [
+                "skunk.jpg"
+            ],
+            "details": {
+                "behavior": "Crepuscular. Defensive behavior includes stomping front feet and raising the tail. Spotted skunks (related) may even perform 'handstands' before spraying.",
+                "processing": "If harvested for meat, the scent glands (located near the anus) MUST be removed with surgical precision. If punctured, the meat and processor will be contaminated for days.",
+                "utilization": "Meat is edible and similar to rabbit if glands are avoided. Scent signs help identify predator density in an area."
+            }
+        },
+        {
+            "id": "opossum",
+            "name": "Virginia Opossum",
+            "scientific_name": "Didelphis virginiana",
+            "role": "Scavenger / Utility",
+            "notes": "North America's only marsupial. 'Plays dead' as a defense mechanism.",
+            "status": "Observe",
+            "images": [
+                "opossum.jpg"
+            ],
+            "details": {
+                "utility": "Exceptional tick control (one opossum can eat 5,000 ticks a season). They have a very high resistance to snake venom and rarely carry rabies due to their low body temperature.",
+                "behavior": "Nocturnal. When threatened, they may enter an involuntary catatonic state ('playing possum') that can last for hours."
+            }
+        },
+        {
+            "id": "pronghorn",
+            "name": "Pronghorn",
+            "scientific_name": "Antilocapra americana",
+            "role": "Game",
+            "notes": "Fasteness land animal in North America. Not a true antelope.",
+            "status": "Hunt/Track",
+            "images": [
+                "pronghorn.jpg"
+            ],
+            "details": {
+                "behavior": "Extremely keen eyesight (equivalent to 8x binoculars). High-speed running (55mph+). Curiosity: Historically lured closer by waving a flag or 'flagging' to trigger their investigative nature.",
+                "utilization": "Meat (distinctive sage-like flavor), Hide (very thin and breathable leather)."
+            }
+        },
+        {
+            "id": "bighorn_sheep",
+            "name": "Bighorn Sheep",
+            "scientific_name": "Ovis canadensis",
+            "role": "Game / Indicator",
+            "notes": "Rugged mountain dwellers. Rams have massive curved horns.",
+            "status": "Observe/Hunt",
+            "images": [
+                "bighorn.jpg"
+            ],
+            "details": {
+                "habitat": "High-altitude rocky terrain. Their presence indicates stable water sources and alpine grazing. Navigation around sheep requires understanding their 'escape terrain' (cliffs where they outclimb predators).",
+                "utilization": "Meat (high-quality wild mutton), Horns (historically used for composite bows and spoons)."
+            }
         }
     ],
     "insects": [
@@ -674,10 +968,10 @@
         },
         {
             "id": "track_feline",
-            "name": "Feline (Bobcat)",
+            "name": "Feline (Bobcat/Cougar)",
             "category": "Paw",
-            "description": "Round shape. 4 toes. NO claws visible (retractable). Asymmetric leading toe.",
-            "gait": "Direct Walker",
+            "description": "Round shape. 4 toes. NO claws visible (retractable). Asymmetric leading toe. Cougars are significantly larger (3-4\") than bobcats (2\").",
+            "gait": "Direct Walker (Rear foot lands in front print)",
             "images": [
                 "track_feline.jpg"
             ]
@@ -696,7 +990,7 @@
             "id": "scat_herbivore",
             "name": "Scat: Herbivore",
             "category": "Sign",
-            "description": "Pellets (Deer/Rabbit) or amorphous piles (Cow). Fibrous plant matter visible.",
+            "description": "Pellets (Deer/Rabbit) indicate browsing. Piles (Moose/Bison) indicate grazing. Fibrous plant matter visible. Freshness indicated by moisture and shine.",
             "gait": "N/A",
             "images": [
                 "scat_herbivore.jpg"
@@ -704,9 +998,9 @@
         },
         {
             "id": "scat_carnivore",
-            "name": "Scat: Carnivore",
+            "name": "Scat: Predator",
             "category": "Sign",
-            "description": "Tubular, tapered ends. Contains fur/bones. White color indicates high bone content.",
+            "description": "Tubular, often segmented (Canine) or tapered (Feline). Contains fur, bones, or seeds. White color (calcification) indicates old kill/bone consumption.",
             "gait": "N/A",
             "images": [
                 "scat_carnivore.jpg"
@@ -730,6 +1024,56 @@
             "gait": "Pacer",
             "images": [
                 "track_bear.jpg"
+            ]
+        },
+        {
+            "id": "track_moose",
+            "name": "Moose Track",
+            "category": "Hoof",
+            "description": "Large, cloven, heart-shaped (6-7 inches). Much larger than deer.",
+            "gait": "Diagonal Walker",
+            "images": [
+                "track_moose.jpg"
+            ]
+        },
+        {
+            "id": "track_wolf",
+            "name": "Gray Wolf Track",
+            "category": "Paw",
+            "description": "4.5-5 inches long. Claw marks converge toward center. Linear trail (unlike meandering dog).",
+            "gait": "Diagonal Walker",
+            "images": [
+                "track_wolf.jpg"
+            ]
+        },
+        {
+            "id": "track_bison",
+            "name": "Bison Track",
+            "category": "Hoof",
+            "description": "Rounded cloven lobes (4-5 inches). Larger and circular compared to cattle.",
+            "gait": "Walker",
+            "images": [
+                "track_bison.jpg"
+            ]
+        },
+        {
+            "id": "track_squirrel",
+            "name": "Squirrel Track",
+            "category": "Paw",
+            "description": "Blocky bounder pattern. Front paws (4 clones) land behind/inside rear paws (5 toes).",
+            "gait": "Bounder",
+            "images": [
+                "track_squirrel.jpg"
+            ]
+        },
+        {
+            "id": "track_porcupine",
+            "name": "Porcupine Track",
+            "category": "Paw",
+            "description": "Pigeon-toed (toes point in). Pebble-like texture on pads. Often shows tail drag.",
+            "gait": "Walker",
+            "images": [
+                "track_porcupine.jpg"
             ]
         }
     ],

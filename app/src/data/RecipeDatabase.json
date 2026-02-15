@@ -2826,6 +2826,563 @@
                 "tonic",
                 "no-cook"
             ]
+        },
+        {
+            "id": "game-partridge-spit",
+            "title": "Spit-Roasted Partridge",
+            "category": "Wild Game",
+            "prep_time": "15m",
+            "cook_time": "20m",
+            "difficulty": 2,
+            "primary_protein": "Partridge",
+            "ingredients": [
+                "1 Whole Partridge (cleaned)",
+                "2 tbsp Butter or Oil",
+                "Salt & Pepper",
+                "Fresh Thyme (optional)"
+            ],
+            "steps": [
+                "1. Season the bird inside and out with salt, pepper, and herbs.",
+                "2. Truss the bird or skewer it onto a spit.",
+                "3. Roast over medium coals, turning frequently.",
+                "4. Baste with butter or oil until skin is crisp and meat is just cooked through (approx 15-20 mins)."
+            ],
+            "tags": [
+                "small-game",
+                "fire-cooking",
+                "bird"
+            ]
+        },
+        {
+            "id": "game-partridge-fingers",
+            "title": "Crispy Partridge Fingers",
+            "category": "Wild Game",
+            "prep_time": "20m",
+            "cook_time": "10m",
+            "difficulty": 1,
+            "primary_protein": "Partridge",
+            "ingredients": [
+                "2 Partridge Breasts (sliced into strips)",
+                "1/2 cup Flour or Breadcrumbs",
+                "1 Egg (beaten)",
+                "Oil for frying",
+                "Wild herbs (Rosemary/Sage)"
+            ],
+            "steps": [
+                "1. Slice partridge breasts into uniform strips.",
+                "2. Dip strips into beaten egg, then coat thoroughly in seasoned flour or breadcrumbs.",
+                "3. Heat oil in a skillet over medium-high heat.",
+                "4. Fry strips for 2-3 minutes per side until golden brown and crispy."
+            ],
+            "tags": [
+                "small-game",
+                "fast",
+                "snack"
+            ]
+        },
+        {
+            "id": "game-partridge-braised",
+            "title": "Braised Partridge with Cabbage",
+            "category": "Wild Game",
+            "prep_time": "30m",
+            "cook_time": "1.5h",
+            "difficulty": 3,
+            "primary_protein": "Partridge",
+            "ingredients": [
+                "2 Whole Partridges",
+                "1 Small Cabbage (shredded)",
+                "2 Carrots (sliced)",
+                "1 Onion (chopped)",
+                "2 cups Game or Chicken Stock",
+                "4 slices Bacon (optional)"
+            ],
+            "steps": [
+                "1. Brown the partridges in a dutch oven with fat or bacon.",
+                "2. Remove birds, add onion and carrots, and sauté until soft.",
+                "3. Add cabbage and stir to coat.",
+                "4. Return birds to the pot, add stock, and cover.",
+                "5. Simmer on low heat for 1 to 1.5 hours until meat is tender."
+            ],
+            "tags": [
+                "small-game",
+                "stew",
+                "hearty"
+            ]
+        },
+        {
+            "id": "game-rabbit-stew",
+            "title": "Homestead Rabbit Stew",
+            "category": "Wild Game",
+            "prep_time": "20m",
+            "cook_time": "2h",
+            "difficulty": 2,
+            "primary_protein": "Rabbit",
+            "ingredients": [
+                "1 Rabbit (jointed)",
+                "4 Potatoes (cubed)",
+                "3 Carrots (sliced)",
+                "2 Onions (chopped)",
+                "3 cups Water or Stock",
+                "Salt, Pepper, Bay Leaf"
+            ],
+            "steps": [
+                "1. Brown rabbit pieces in a heavy pot.",
+                "2. Add onions and carrots, sauté for 5 mins.",
+                "3. Add liquid and bay leaf. Bring to a boil, then reduce to simmer.",
+                "4. Add potatoes after 1 hour.",
+                "5. Simmer till meat falls off the bone (usually 2 hours)."
+            ],
+            "tags": [
+                "small-game",
+                "staple",
+                "meat"
+            ]
+        },
+        {
+            "id": "game-rabbit-fried",
+            "title": "Pan-Fried Wild Rabbit",
+            "category": "Wild Game",
+            "prep_time": "15m",
+            "cook_time": "30m",
+            "difficulty": 2,
+            "primary_protein": "Rabbit",
+            "ingredients": [
+                "1 Rabbit (jointed)",
+                "1 cup Flour",
+                "1/2 cup Milk",
+                "Lard or Oil for frying",
+                "Salt, Pepper, Paprika"
+            ],
+            "steps": [
+                "1. Season flour with salt, pepper, and paprika.",
+                "2. Dip rabbit pieces in milk, then dredge through the seasoned flour.",
+                "3. Heat lard in a large skillet until hot.",
+                "4. Fry rabbit pieces on medium heat, turning to ensure even browning (approx 20-30 mins total)."
+            ],
+            "tags": [
+                "small-game",
+                "classic",
+                "crispy"
+            ]
+        },
+        {
+            "id": "game-rabbit-confit",
+            "title": "Rabbit Confit",
+            "category": "Wild Game",
+            "prep_time": "1h",
+            "cook_time": "4h",
+            "difficulty": 3,
+            "primary_protein": "Rabbit",
+            "ingredients": [
+                "Rabbit Legs and Thighs",
+                "Lard or Duck Fat (enough to cover)",
+                "Garlic, Thyme, Juniper berries",
+                "Kosher Salt"
+            ],
+            "steps": [
+                "1. Salt the rabbit pieces and let sit for 1 hour. Rinse and pat dry.",
+                "2. Place meat in a deep baking dish with herbs and garlic.",
+                "3. Melt fat and pour over meat until completely submerged.",
+                "4. Cook at 225°F for 3-4 hours until meat is incredibly tender.",
+                "5. Store in the fat to preserve, or sear in a pan to serve."
+            ],
+            "tags": [
+                "small-game",
+                "gourmet",
+                "preservation"
+            ]
+        },
+        {
+            "id": "game-squirrel-stew",
+            "title": "Classic Brunswick Stew",
+            "category": "Wild Game",
+            "prep_time": "30m",
+            "cook_time": "3h",
+            "difficulty": 2,
+            "primary_protein": "Squirrel",
+            "ingredients": [
+                "3 Squirrels (jointed)",
+                "1 lb Lima Beans",
+                "3 cups Corn",
+                "1 qt Tomatoes",
+                "4 Potatoes (diced)",
+                "1 Onion"
+            ],
+            "steps": [
+                "1. Simmer squirrels in water until meat is tender enough to de-bone.",
+                "2. Remove meat, discard bones, and return meat to broth.",
+                "3. Add all vegetables and simmer on low for another 2 hours.",
+                "4. Season with salt, pepper, and a dash of hot sauce if desired."
+            ],
+            "tags": [
+                "small-game",
+                "historical",
+                "staple"
+            ]
+        },
+        {
+            "id": "game-squirrel-smoked",
+            "title": "Smoked & Braised Squirrel",
+            "category": "Wild Game",
+            "prep_time": "20m",
+            "cook_time": "4h",
+            "difficulty": 3,
+            "primary_protein": "Squirrel",
+            "ingredients": [
+                "4 Squirrels (whole, cleaned)",
+                "Smoking wood (Apple or Hickory)",
+                "1 cup Apple Cider",
+                "1 Onion",
+                "2 tbsp Honey"
+            ],
+            "steps": [
+                "1. Smoke squirrels at 225°F for 1.5 hours to infuse flavor.",
+                "2. Transfer to a pot with onion, cider, and honey.",
+                "3. Cover and braise on low for another 2 hours until tender.",
+                "4. Shred the meat for tacos or sliders."
+            ],
+            "tags": [
+                "small-game",
+                "advanced",
+                "flavor"
+            ]
+        },
+        {
+            "id": "forage-dandelion-coffee",
+            "title": "Roasted Dandelion Coffee",
+            "category": "Wild Edibles",
+            "prep_time": "1h",
+            "cook_time": "30m",
+            "difficulty": 1,
+            "ingredients": [
+                "Dandelion Roots (large, scrubbed)",
+                "Water"
+            ],
+            "steps": [
+                "1. Scrub roots clean and chop into small uniform pieces.",
+                "2. Roast in a skillet or oven at 350°F until dark brown and aromatic.",
+                "3. Grind the roasted roots into a coarse powder.",
+                "4. Brew like regular coffee (1 tbsp per cup of water)."
+            ],
+            "tags": [
+                "foraged",
+                "beverage",
+                "no-caffeine"
+            ]
+        },
+        {
+            "id": "forage-acorn-flour",
+            "title": "Master Acorn Flour",
+            "category": "Wild Edibles",
+            "prep_time": "2d",
+            "cook_time": "2h",
+            "difficulty": 3,
+            "ingredients": [
+                "Acorns (White oak preferred)",
+                "Lots of Water"
+            ],
+            "steps": [
+                "1. Shell the acorns and grind the nutmeats into a coarse meal.",
+                "2. Place in a cloth bag and submerge in running water or change water multiple times until bitterness (tannins) is gone.",
+                "3. Spread the leached meal on a tray and dry thoroughly in a low oven or sun.",
+                "4. Grind into a fine flour and use 1:1 with wheat flour in recipes."
+            ],
+            "tags": [
+                "foraged",
+                "staple",
+                "long-process"
+            ]
+        },
+        {
+            "id": "forage-pine-tea",
+            "title": "White Pine Needle Tea",
+            "category": "Wild Edibles",
+            "prep_time": "5m",
+            "cook_time": "10m",
+            "difficulty": 1,
+            "ingredients": [
+                "Fresh White Pine Needles (handful)",
+                "Water",
+                "Honey (optional)"
+            ],
+            "steps": [
+                "1. Strip needles from branches. Avoid the brown ones.",
+                "2. Chop needles into small pieces to release oils.",
+                "3. Steep in hot (not boiling) water for 5-10 minutes.",
+                "4. Strain and drink for a massive dose of Vitamin C."
+            ],
+            "tags": [
+                "foraged",
+                "medicinal",
+                "winter"
+            ]
+        },
+        {
+            "id": "forage-rosehip-jelly",
+            "title": "Wild Rose Hip Jelly",
+            "category": "Wild Edibles",
+            "prep_time": "45m",
+            "cook_time": "30m",
+            "difficulty": 2,
+            "ingredients": [
+                "4 cups Rose Hips (after first frost)",
+                "3 cups Sugar",
+                "1 box Pectin",
+                "Lemon juice"
+            ],
+            "steps": [
+                "1. Simmer rose hips in water until soft. Mash and strain through a fine jelly bag.",
+                "2. Measure 3 cups of the rose hip juice into a pot.",
+                "3. Add pectin and lemon juice, bring to a hard boil.",
+                "4. Add sugar and boil for 1 minute. Skim foam.",
+                "5. Process in a water bath for 10 minutes."
+            ],
+            "tags": [
+                "foraged",
+                "preservation",
+                "sweet"
+            ]
+        },
+        {
+            "id": "forage-cattail-shoots",
+            "title": "Wild Cattail 'Asparagus'",
+            "category": "Wild Edibles",
+            "prep_time": "15m",
+            "cook_time": "10m",
+            "difficulty": 1,
+            "ingredients": [
+                "Young Cattail Shoots (inner white parts)",
+                "Butter or Fat",
+                "Salt & Pepper"
+            ],
+            "steps": [
+                "1. Pull young cattails from the marsh. Peel back the outer layers to reach the white core.",
+                "2. Slice into 4-inch pieces.",
+                "3. Sauté in butter with salt and pepper for 5-7 minutes until tender.",
+                "4. Tastes like a cross between cucumber and asparagus."
+            ],
+            "tags": [
+                "foraged",
+                "survival",
+                "spring"
+            ]
+        },
+        {
+            "id": "forage-burdock-stew",
+            "title": "Wild Burdock Root Stew",
+            "category": "Wild Edibles",
+            "prep_time": "20m",
+            "cook_time": "1h",
+            "difficulty": 2,
+            "ingredients": [
+                "1 lb Burdock Root (scrubbed and sliced)",
+                "1 Onion",
+                "2 Carrots",
+                "Beef or Game meat (optional)",
+                "Soy sauce or Salt"
+            ],
+            "steps": [
+                "1. Sauté meat and onions in a pot.",
+                "2. Add burdock root, carrots, and enough water to cover.",
+                "3. Simmer for 45-60 minutes until roots are tender like parsnips.",
+                "4. Season with soy sauce for an earthy, deep flavor."
+            ],
+            "tags": [
+                "foraged",
+                "hearty",
+                "root-veg"
+            ]
+        },
+        {
+            "id": "game-venison-roast",
+            "title": "Slow-Roasted Venison Leg",
+            "category": "Wild Game",
+            "prep_time": "30m",
+            "cook_time": "4h",
+            "difficulty": 2,
+            "primary_protein": "Venison",
+            "ingredients": [
+                "1 Venison Haunch (3-5 lbs)",
+                "Garlic Cloves (slivered)",
+                "Fresh Rosemary & Thyme",
+                "Beef Stock",
+                "Red Wine (optional)"
+            ],
+            "steps": [
+                "1. Make small slits in the meat and insert garlic slivers.",
+                "2. Rub with salt, pepper, and chopped herbs.",
+                "3. Sear in a hot pan, then transfer to a roasting dish with stock and wine.",
+                "4. Roast at 300°F until internal temp reaches 135°F for medium-rare.",
+                "5. Rest for at least 20 minutes before carving."
+            ],
+            "tags": [
+                "big-game",
+                "roast",
+                "staple"
+            ]
+        },
+        {
+            "id": "game-moose-jerky",
+            "title": "Traditional Moose Jerky",
+            "category": "Wild Game",
+            "prep_time": "1h",
+            "cook_time": "8h",
+            "difficulty": 2,
+            "primary_protein": "Moose",
+            "ingredients": [
+                "2 lbs Moose Lean Meat (sliced thin across grain)",
+                "1/2 cup Soy Sauce",
+                "1/4 cup Maple Syrup",
+                "Black Pepper & Garlic Powder",
+                "Liquid Smoke (optional)"
+            ],
+            "steps": [
+                "1. Mix marinade ingredients and coat meat slices thoroughly.",
+                "2. Refrigerate for 12-24 hours.",
+                "3. Arrange slices on dehydrator racks or a low oven (160°F).",
+                "4. Dry for 6-10 hours until meat is leathery but still bendable.",
+                "5. Store in airtight jars for long-term survival protein."
+            ],
+            "tags": [
+                "big-game",
+                "preservation",
+                "survival"
+            ]
+        },
+        {
+            "id": "game-duck-roast",
+            "title": "Wild Duck with Orange & Honey",
+            "category": "Wild Game",
+            "prep_time": "20m",
+            "cook_time": "1.5h",
+            "difficulty": 3,
+            "primary_protein": "Duck",
+            "ingredients": [
+                "2 Wild Ducks (Mallard or Teal)",
+                "1 Orange (zest and juice)",
+                "3 tbsp Honey",
+                "1 tbsp Soy Sauce",
+                "Star Anise (optional)"
+            ],
+            "steps": [
+                "1. Prick the duck skin to help fat render.",
+                "2. Mix orange juice, honey, soy, and zest into a glaze.",
+                "3. Roast ducks at 350°F, brushing with glaze every 15 minutes.",
+                "4. Remove when skin is dark mahogany and crisp.",
+                "5. Let rest. Meat should be slightly pink."
+            ],
+            "tags": [
+                "waterfowl",
+                "gourmet",
+                "bird"
+            ]
+        },
+        {
+            "id": "game-pheasant-roast",
+            "title": "Pheasant Normande",
+            "category": "Wild Game",
+            "prep_time": "30m",
+            "cook_time": "1h",
+            "difficulty": 3,
+            "primary_protein": "Pheasant",
+            "ingredients": [
+                "2 Pheasants (jointed)",
+                "2 Tart Apples (sliced)",
+                "1 cup Heavy Cream or Apple Cider",
+                "Butter",
+                "Calvados (optional)"
+            ],
+            "steps": [
+                "1. Brown pheasant pieces in butter and remove.",
+                "2. Sauté apples in the same pan until golden.",
+                "3. Return pheasant, add cider/cream, and cover.",
+                "4. Simmer until meat is tender (approx 45 mins).",
+                "5. Serve with the creamy apple sauce."
+            ],
+            "tags": [
+                "upland-birds",
+                "classic",
+                "bird"
+            ]
+        },
+        {
+            "id": "alchemy-garlic-honey",
+            "title": "Fermented Garlic Honey",
+            "category": "Grandma's Alchemy",
+            "prep_time": "15m",
+            "cook_time": "2 weeks (Fermenting)",
+            "difficulty": 1,
+            "ingredients": [
+                "1 cup Peeled Garlic Cloves",
+                "Raw, Unfiltered Honey",
+                "Clean Glass Jar"
+            ],
+            "steps": [
+                "1. Fill a clean jar about 2/3 full with peeled garlic cloves.",
+                "2. Pour honey over the garlic until completely covered.",
+                "3. Close the lid and flip the jar to coat everything.",
+                "4. Loosen the lid daily to release built-up gases (burping).",
+                "5. Flip daily for 2 weeks. The honey will become runny and the garlic will darken."
+            ],
+            "tags": [
+                "antimicrobial",
+                "pantry-staple",
+                "medicinal"
+            ]
+        },
+        {
+            "id": "alchemy-pine-salve",
+            "title": "Pine Pitch Drawing Salve",
+            "category": "Grandma's Alchemy",
+            "prep_time": "30m",
+            "cook_time": "45m",
+            "difficulty": 2,
+            "ingredients": [
+                "1/4 cup Pine/Spruce Resin",
+                "1/2 cup Olive Oil or Lard",
+                "1 tbsp Beeswax (optional, for thickness)",
+                "1 tsp Activated Charcoal (optional)"
+            ],
+            "steps": [
+                "1. Melt the oil/lard in a double boiler (or a tin can in hot water).",
+                "2. Add the resin and stir until dissolved. Use a stick you can throw away.",
+                "3. Strain through a fine mesh or cheesecloth to remove bark/bugs.",
+                "4. Add beeswax for a firmer texture and charcoal to aid 'drawing' action.",
+                "5. Pour into a small tin. Apply to splinters, boils, or minor infections."
+            ],
+            "tags": [
+                "antiseptic",
+                "topical",
+                "medicinal"
+            ]
+        },
+        {
+            "id": "alchemy-fire-cider",
+            "title": "Survival Master Tonic (Fire Cider)",
+            "category": "Grandma's Alchemy",
+            "prep_time": "30m",
+            "cook_time": "4 weeks (Steeping)",
+            "difficulty": 1,
+            "ingredients": [
+                "1/2 cup Grated Ginger",
+                "1/2 cup Grated Horseradish",
+                "1 Onion (chopped)",
+                "10 Garlic Cloves (crushed)",
+                "2 Hot Peppers",
+                "Apple Cider Vinegar"
+            ],
+            "steps": [
+                "1. Place all solid ingredients into a quart jar.",
+                "2. Fill with apple cider vinegar until completely covered.",
+                "3. Use parchment paper under the lid to prevent corrosion.",
+                "4. Shake daily for 4 weeks.",
+                "5. Strain through cheesecloth and keep the liquid. Take a shot daily for immunity."
+            ],
+            "tags": [
+                "immunity",
+                "tonic",
+                "medicinal"
+            ]
         }
     ]
 }

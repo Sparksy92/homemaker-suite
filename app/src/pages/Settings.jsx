@@ -3,10 +3,20 @@ import { motion } from 'framer-motion';
 import { ArrowLeft, Bell, Lock, User, Palette, Globe, Moon } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
+import { useUser } from '../context/UserContext';
+
 const Settings = () => {
     const navigate = useNavigate();
-    const [notifications, setNotifications] = useState(true);
-    const [darkMode, setDarkMode] = useState(false);
+    const { user, settings, updateSettings, updateProfile, clearAppData } = useUser();
+
+    const [isEditingProfile, setIsEditingProfile] = useState(false);
+    const [editForm, setEditForm] = useState({ name: user.name, email: user.email });
+
+    const handleSaveProfile = (e) => {
+        e.preventDefault();
+        updateProfile(editForm);
+        setIsEditingProfile(false);
+    };
 
     return (
         <div className="min-h-screen bg-sand-50 pb-24">
@@ -29,13 +39,13 @@ const Settings = () => {
                         icon={<User size={20} />}
                         label="Personal Information"
                         description="Update your name and email"
-                        onClick={() => { }}
+                        onClick={() => setIsEditingProfile(true)}
                     />
                     <SettingItem
                         icon={<Lock size={20} />}
                         label="Security"
-                        description="Change password"
-                        onClick={() => { }}
+                        description="Change password (Local session only)"
+                        onClick={() => alert('Security settings are managed locally in this demo.')}
                     />
                 </Section>
 
@@ -51,7 +61,10 @@ const Settings = () => {
                                 <p className="text-xs text-charcoal-500">Enable push notifications</p>
                             </div>
                         </div>
-                        <Switch checked={notifications} onChange={() => setNotifications(!notifications)} />
+                        <Switch
+                            checked={settings.notifications}
+                            onChange={() => updateSettings({ notifications: !settings.notifications })}
+                        />
                     </div>
 
                     <div className="flex items-center justify-between p-4 bg-white rounded-xl border border-sand-100">
@@ -61,10 +74,13 @@ const Settings = () => {
                             </div>
                             <div>
                                 <h3 className="font-medium text-sage-900">Dark Mode</h3>
-                                <p className="text-xs text-charcoal-500">Switch to dark theme</p>
+                                <p className="text-xs text-charcoal-500">Switch to dark theme (Coming soon)</p>
                             </div>
                         </div>
-                        <Switch checked={darkMode} onChange={() => setDarkMode(!darkMode)} />
+                        <Switch
+                            checked={settings.darkMode}
+                            onChange={() => updateSettings({ darkMode: !settings.darkMode })}
+                        />
                     </div>
                 </Section>
 
@@ -73,14 +89,76 @@ const Settings = () => {
                     <SettingItem
                         icon={<Globe size={20} />}
                         label="Language"
-                        value="English (US)"
+                        value={settings.language}
                         onClick={() => { }}
                     />
-                    <div className="text-center pt-4">
-                        <p className="text-xs text-sage-400">Homemaker Suite v0.1.0</p>
+                    <button
+                        onClick={() => {
+                            if (window.confirm('This will reset all your progress, favorites, and settings. Continue?')) {
+                                clearAppData();
+                            }
+                        }}
+                        className="w-full flex items-center gap-3 p-4 bg-red-50 text-red-600 rounded-xl border border-red-100 font-bold hover:bg-red-100 transition-colors mt-4"
+                    >
+                        Clear App Data
+                    </button>
+                    <div className="text-center pt-8">
+                        <p className="text-xs text-sage-400">Homemaker Suite v0.2.0</p>
                         <p className="text-xs text-sage-300 mt-1">Made with ❤️</p>
                     </div>
                 </Section>
+
+                {/* Edit Profile Modal */}
+                {isEditingProfile && (
+                    <div className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-sage-900/60 backdrop-blur-sm">
+                        <motion.div
+                            initial={{ scale: 0.9, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            className="bg-white w-full max-w-md rounded-3xl shadow-2xl overflow-hidden"
+                        >
+                            <div className="bg-sage-800 p-6 text-white text-center">
+                                <h2 className="text-2xl font-serif font-bold">Edit Profile</h2>
+                            </div>
+                            <form onSubmit={handleSaveProfile} className="p-6 space-y-4">
+                                <div>
+                                    <label className="block text-xs font-bold text-sage-600 uppercase mb-1">Your Name</label>
+                                    <input
+                                        type="text"
+                                        className="w-full p-4 bg-sand-50 rounded-xl border border-sand-200 focus:border-sage-500 outline-none"
+                                        value={editForm.name}
+                                        onChange={e => setEditForm({ ...editForm, name: e.target.value })}
+                                        required
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-xs font-bold text-sage-600 uppercase mb-1">Email Address</label>
+                                    <input
+                                        type="email"
+                                        className="w-full p-4 bg-sand-50 rounded-xl border border-sand-200 focus:border-sage-500 outline-none"
+                                        value={editForm.email}
+                                        onChange={e => setEditForm({ ...editForm, email: e.target.value })}
+                                        required
+                                    />
+                                </div>
+                                <div className="flex gap-3 pt-4">
+                                    <button
+                                        type="button"
+                                        onClick={() => setIsEditingProfile(false)}
+                                        className="flex-1 py-4 text-sage-600 font-bold hover:bg-sand-50 rounded-xl transition-colors"
+                                    >
+                                        Cancel
+                                    </button>
+                                    <button
+                                        type="submit"
+                                        className="flex-1 py-4 bg-terracotta-500 text-white font-bold rounded-xl shadow-lg hover:bg-terracotta-600 transition-colors"
+                                    >
+                                        Save Changes
+                                    </button>
+                                </div>
+                            </form>
+                        </motion.div>
+                    </div>
+                )}
             </div>
         </div>
     );
