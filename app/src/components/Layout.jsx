@@ -8,7 +8,7 @@ const Layout = () => {
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
     return (
-        <div className="min-h-[100dvh] flex flex-col max-w-md mx-auto bg-sand-50 shadow-2xl overflow-hidden relative border-x border-sand-300">
+        <div className="min-h-[100dvh] flex flex-col max-w-2xl mx-auto bg-sand-50 shadow-2xl overflow-hidden relative border-x border-sand-300">
 
             {/* Mobile Menu Overlay */}
             <AnimatePresence>
@@ -89,7 +89,7 @@ const Layout = () => {
             </main>
 
             {/* Bottom Navigation */}
-            <nav className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-md bg-white border-t border-sage-200 pb-6 pt-2 px-2 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] z-20">
+            <nav className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-2xl bg-white border-t border-sage-200 pb-6 pt-2 px-2 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] z-20">
                 <ul className="flex justify-around items-center">
                     <NavItem to="/" icon={<Home size={22} />} label="Home" />
                     <NavItem to="/cookbook" icon={<Utensils size={22} />} label="Recipes" />

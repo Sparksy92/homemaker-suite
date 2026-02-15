@@ -3383,6 +3383,826 @@
                 "tonic",
                 "medicinal"
             ]
+        },
+        {
+            "id": "breakfast-porridge",
+            "title": "Old-Fashioned Steel-Cut Porridge",
+            "category": "Breakfast",
+            "prep_time": "5m",
+            "cook_time": "30m",
+            "difficulty": 1,
+            "ingredients": [
+                "1 cup Steel-Cut Oats",
+                "3 cups Water",
+                "1/2 tsp Salt",
+                "1/2 cup Milk (optional)",
+                "Maple Syrup or Honey"
+            ],
+            "steps": [
+                "1. Bring water and salt to a boil in a heavy saucepan.",
+                "2. Stir in oats and reduce heat to a low simmer.",
+                "3. Cover and cook for 25-30 minutes, stirring occasionally.",
+                "4. Stir in milk for creaminess if desired.",
+                "5. Top with butter and syrup."
+            ],
+            "tags": [
+                "breakfast",
+                "grain",
+                "slow-burn"
+            ]
+        },
+        {
+            "id": "breakfast-hash",
+            "title": "Homestead Leftover Hash",
+            "category": "Breakfast",
+            "prep_time": "10m",
+            "cook_time": "15m",
+            "difficulty": 1,
+            "ingredients": [
+                "2 cups Cooked Potatoes (cubed)",
+                "1 cup Cooked Meat (Venison, Ham, or Beef)",
+                "1/2 Onion (chopped)",
+                "2 tbsp Fat (Lard or Butter)",
+                "4 Eggs (optional)"
+            ],
+            "steps": [
+                "1. Heat fat in a large cast-iron skillet.",
+                "2. Add onions and sauté until translucent.",
+                "3. Add potatoes and meat. Press down with a spatula to create a crust.",
+                "4. Fry until browned and crispy, flipping in sections.",
+                "5. Serve alongside or topped with fried eggs."
+            ],
+            "tags": [
+                "breakfast",
+                "leftovers",
+                "cast-iron"
+            ]
+        },
+        {
+            "id": "breakfast-biscuits-gravy",
+            "title": "Fuel-Up Biscuits & Sausage Gravy",
+            "category": "Breakfast",
+            "prep_time": "15m",
+            "cook_time": "20m",
+            "difficulty": 2,
+            "ingredients": [
+                "8-10 Large Biscuits (prepared)",
+                "1 lb Breakfast Sausage",
+                "1/3 cup Flour",
+                "3-4 cups Whole Milk",
+                "Black Pepper (lots)"
+            ],
+            "steps": [
+                "1. Brown sausage in a large skillet; do not drain fat.",
+                "2. Sprinkle flour over meat and stir for 1-2 minutes to cook raw flour taste.",
+                "3. Gradually whisk in milk, starting with 3 cups.",
+                "4. Simmer until thickened, adding more milk if too thick.",
+                "5. Season heavily with black pepper. Pour over split biscuits."
+            ],
+            "tags": [
+                "breakfast",
+                "heavy",
+                "fuel"
+            ]
+        },
+        {
+            "id": "breakfast-cornmeal-mush",
+            "title": "Field-Hand Cornmeal Mush",
+            "category": "Breakfast",
+            "prep_time": "5m",
+            "cook_time": "20m",
+            "difficulty": 1,
+            "ingredients": [
+                "1 cup Cornmeal",
+                "1 cup Cold Water",
+                "3 cups Boiling Water",
+                "1 tsp Salt"
+            ],
+            "steps": [
+                "1. Mix cornmeal and cold water in a bowl to prevent lumps.",
+                "2. Slowly pour mixture into salted boiling water, stirring constantly.",
+                "3. Cook and stir until thick (about 5-10m).",
+                "4. Reduce heat, cover, and steam for 10-15m.",
+                "5. Serve hot with milk and sugar, or let set, slice, and fry in butter."
+            ],
+            "tags": [
+                "breakfast",
+                "pantry",
+                "historical"
+            ]
+        },
+        {
+            "id": "breakfast-sourdough-waffles",
+            "title": "Overnight Sourdough Waffles",
+            "category": "Breakfast",
+            "prep_time": "10m (plus overnight)",
+            "cook_time": "5m per batch",
+            "difficulty": 2,
+            "ingredients": [
+                "2 cups Sourdough Starter (fed)",
+                "2 cups Warm Water",
+                "2.5 cups Flour",
+                "2 Eggs",
+                "1/4 cup Melted Butter"
+            ],
+            "steps": [
+                "1. Night before: Mix starter, water, and flour. Cover and leave at room temp.",
+                "2. Morning: Beat eggs, butter, salt, and 1 tsp baking soda (optional for lift).",
+                "3. Fold egg mixture into the bubbly overnight sponge.",
+                "4. Cook in a hot waffle iron until steam stops rising.",
+                "5. Serve with fruit and honey."
+            ],
+            "tags": [
+                "breakfast",
+                "sourdough",
+                "ferment"
+            ]
+        },
+        {
+            "id": "breakfast-dutch-baby",
+            "title": "Wild Berry Dutch Baby",
+            "category": "Breakfast",
+            "prep_time": "5m",
+            "cook_time": "20m",
+            "difficulty": 1,
+            "ingredients": [
+                "3 Eggs",
+                "1/2 cup Milk",
+                "1/2 cup Flour",
+                "2 tbsp Sugar",
+                "1 cup Wild Berries (Blueberries/Raspberries)"
+            ],
+            "steps": [
+                "1. Preheat oven and a 10-inch cast iron skillet to 425°F.",
+                "2. Whisk eggs, milk, flour, and sugar until smooth.",
+                "3. Melt 2 tbsp butter in the hot skillet, then pour in batter.",
+                "4. Scatter berries over the top.",
+                "5. Bake for 15-20 minutes until puffed and golden brown. Do not open oven!"
+            ],
+            "tags": [
+                "breakfast",
+                "cast-iron",
+                "berries"
+            ]
+        },
+        {
+            "id": "soup-leek-potato",
+            "title": "Wild Leek & Potato Soup",
+            "category": "Soups & Stews",
+            "prep_time": "15m",
+            "cook_time": "30m",
+            "difficulty": 1,
+            "ingredients": [
+                "2 cups Wild Leeks (Ramps) or Leeks",
+                "4 large Potatoes (peeled/cubed)",
+                "4 cups Chicken/Veg Stock",
+                "1/2 cup Heavy Cream",
+                "Salt/Pepper"
+            ],
+            "steps": [
+                "1. Sauté leeks in butter until soft.",
+                "2. Add potatoes and stock; bring to a boil.",
+                "3. Simmer until potatoes are tender (20m).",
+                "4. Mash roughly for texture or blend for smoothness.",
+                "5. Stir in cream and season. Serve with crusty bread."
+            ],
+            "tags": [
+                "soup",
+                "foraged",
+                "creamy"
+            ]
+        },
+        {
+            "id": "soup-venison-chili",
+            "title": "Old Man's Venison Chili",
+            "category": "Soups & Stews",
+            "prep_time": "20m",
+            "cook_time": "2h",
+            "difficulty": 2,
+            "ingredients": [
+                "2 lbs Ground Venison",
+                "2 cans Kidney Beans",
+                "1 large Onion",
+                "3 cups Tomato Sauce/Diced Tomatoes",
+                "3 tbsp Chili Powder",
+                "1 tbsp Cumin"
+            ],
+            "steps": [
+                "1. Brown venison and onion in a large pot.",
+                "2. Add spices and stir for 1 minute.",
+                "3. Mix in tomatoes and beans (drained).",
+                "4. Simmer on low for at least 1-2 hours to mellow flavors.",
+                "5. Serve with cornbread and shredded cheese."
+            ],
+            "tags": [
+                "soup",
+                "venison",
+                "slow-cook"
+            ]
+        },
+        {
+            "id": "soup-squash",
+            "title": "Roasted Harvest Squash Soup",
+            "category": "Soups & Stews",
+            "prep_time": "15m",
+            "cook_time": "45m",
+            "difficulty": 2,
+            "ingredients": [
+                "1 large Butternut or Hubbard Squash",
+                "1 Onion",
+                "2 Apples (peeled/chopped)",
+                "4 cups Water/Stock",
+                "1 tsp Nutmeg",
+                "1/2 tsp Ginger"
+            ],
+            "steps": [
+                "1. Roast squash halves at 400°F until soft (45m). Scoop out flesh.",
+                "2. Sauté onion and apples in a pot.",
+                "3. Add squash flesh and stock. Simmer for 10m.",
+                "4. Blend until smooth.",
+                "5. Stir in spices and a touch of maple syrup if desired."
+            ],
+            "tags": [
+                "soup",
+                "garden",
+                "vegetarian"
+            ]
+        },
+        {
+            "id": "soup-rabbit-stew",
+            "title": "Rabbit & Barley Forest Stew",
+            "category": "Soups & Stews",
+            "prep_time": "20m",
+            "cook_time": "1.5h",
+            "difficulty": 2,
+            "ingredients": [
+                "1 Rabbit (jointed)",
+                "1/2 cup Pearl Barley",
+                "3 Carrots",
+                "2 Parsnips",
+                "6 cups Stock",
+                "Fresh Thyme"
+            ],
+            "steps": [
+                "1. Dredge rabbit pieces in flour and brown in a heavy pot.",
+                "2. Remove rabbit; sauté veggies for 5m.",
+                "3. Return rabbit to pot with stock, barley, and herbs.",
+                "4. Simmer gently for 1.5 hours until meat falls off the bone.",
+                "5. Season well. The barley will thicken the broth into a rich stew."
+            ],
+            "tags": [
+                "soup",
+                "small-game",
+                "hearty"
+            ]
+        },
+        {
+            "id": "soup-chowder",
+            "title": "Fisherman's Survival Chowder",
+            "category": "Soups & Stews",
+            "prep_time": "15m",
+            "cook_time": "25m",
+            "difficulty": 2,
+            "ingredients": [
+                "2 lbs White Fish (Bass, Trout, or Cod)",
+                "3 strips Bacon / Salt Pork",
+                "3 Potatoes (diced)",
+                "1 Onion",
+                "2 cups Milk",
+                "1 cup Corn"
+            ],
+            "steps": [
+                "1. Fry bacon/salt pork in pot until crisp. Remove bits.",
+                "2. Sauté onion in the fat.",
+                "3. Add potatoes and just enough stock/water to cover. Simmer 10m.",
+                "4. Add fish chunks and milk. Simmer gently (do not boil!) until fish flakes.",
+                "5. Stir in corn and reserved bacon bits. Season with plenty of pepper."
+            ],
+            "tags": [
+                "soup",
+                "fish",
+                "coastal"
+            ]
+        },
+        {
+            "id": "dinner-trout",
+            "title": "Pan-Seared River Trout",
+            "category": "Dinner",
+            "prep_time": "5m",
+            "cook_time": "10m",
+            "difficulty": 1,
+            "ingredients": [
+                "2 Fresh Trout (cleaned)",
+                "2 tbsp Butter",
+                "1 Lemon (optional)",
+                "Fresh Parsley",
+                "Cornmeal for dredging"
+            ],
+            "steps": [
+                "1. Pat fish dry. Season with salt and pepper.",
+                "2. Dredge in a light coating of cornmeal.",
+                "3. Melt butter in a hot skillet.",
+                "4. Sear fish for 3-4 minutes per side until skin is crispy.",
+                "5. Garnish with lemon and parsley."
+            ],
+            "tags": [
+                "dinner",
+                "fish",
+                "fast"
+            ]
+        },
+        {
+            "id": "dinner-peppers",
+            "title": "Homestead Stuffed Peppers",
+            "category": "Dinner",
+            "prep_time": "20m",
+            "cook_time": "45m",
+            "difficulty": 2,
+            "ingredients": [
+                "4 Large Green Peppers",
+                "1 lb Ground Meat",
+                "2 cups Cooked Rice",
+                "1 Onion (chopped)",
+                "2 cups Tomato Sauce"
+            ],
+            "steps": [
+                "1. Cut tops off peppers and remove seeds.",
+                "2. Sauté meat and onion until browned.",
+                "3. Mix meat with rice and 1 cup of tomato sauce.",
+                "4. Stuff peppers and place in a baking dish.",
+                "5. Pour remaining sauce over top. Bake at 375°F for 45m."
+            ],
+            "tags": [
+                "dinner",
+                "garden",
+                "hearty"
+            ]
+        },
+        {
+            "id": "dinner-shepherds-pie",
+            "title": "Shepherd's Pie (Homestead Style)",
+            "category": "Dinner",
+            "prep_time": "25m",
+            "cook_time": "30m",
+            "difficulty": 2,
+            "ingredients": [
+                "1 lb Ground Beef or Lamb",
+                "2 cups Mixed Vegetables",
+                "1 Onion",
+                "4 cups Mashed Potatoes",
+                "1 cup Gravy"
+            ],
+            "steps": [
+                "1. Brown meat and onion in a large skillet.",
+                "2. Add veggies and gravy; simmer for 5m.",
+                "3. Transfer to a baking dish.",
+                "4. Spread mashed potatoes over the top and fluff with a fork.",
+                "5. Bake at 400°F until top is golden and bubbly."
+            ],
+            "tags": [
+                "dinner",
+                "meat",
+                "comfort"
+            ]
+        },
+        {
+            "id": "dinner-squirrel",
+            "title": "Grandpa's Fried Squirrel",
+            "category": "Dinner",
+            "prep_time": "15m",
+            "cook_time": "20m",
+            "difficulty": 2,
+            "ingredients": [
+                "2-3 Squirrels (jointed)",
+                "1 cup Flour",
+                "1 tbsp Paprika",
+                "Lard for frying",
+                "Salt and Pepper"
+            ],
+            "steps": [
+                "1. Season squirrel pieces heavily.",
+                "2. Dredge in flour mixed with paprika.",
+                "3. Heat lard in a cast iron skillet until shimmering.",
+                "4. Fry pieces until golden brown and cooked through (about 10m per side).",
+                "5. Serve with biscuits and gravy."
+            ],
+            "tags": [
+                "dinner",
+                "wild-game",
+                "traditional"
+            ]
+        },
+        {
+            "id": "dinner-rabbit-cider",
+            "title": "Braised Rabbit with Cider",
+            "category": "Dinner",
+            "prep_time": "15m",
+            "cook_time": "1.5h",
+            "difficulty": 2,
+            "ingredients": [
+                "1 Rabbit (jointed)",
+                "2 cups Apple Cider",
+                "2 Onions (sliced)",
+                "1 cup Heavy Cream",
+                "Fresh Rosemary"
+            ],
+            "steps": [
+                "1. Brown rabbit pieces in butter; remove.",
+                "2. Sauté onions until soft.",
+                "3. Return rabbit and add cider and rosemary.",
+                "4. Simmer covered for 1 hour until tender.",
+                "5. Remove rabbit, stir in cream, and reduce sauce until thickened."
+            ],
+            "tags": [
+                "dinner",
+                "wild-game",
+                "refined"
+            ]
+        },
+        {
+            "id": "baking-dutch-bread",
+            "title": "No-Knead Dutch Oven Bread",
+            "category": "Baking",
+            "prep_time": "5m (plus 12h rise)",
+            "cook_time": "45m",
+            "difficulty": 2,
+            "ingredients": [
+                "3 cups All-Purpose Flour",
+                "1.5 cups Warm Water",
+                "1/4 tsp Instant Yeast",
+                "1.5 tsp Salt"
+            ],
+            "steps": [
+                "1. Mix dry ingredients, then stir in water until a shaggy dough forms.",
+                "2. Cover and let rise at room temp for 12-18 hours.",
+                "3. Preheat oven and Dutch oven to 450°F.",
+                "4. Pour dough onto parchment and place in hot pot.",
+                "5. Bake covered for 30m, then uncovered for 15m until crusty."
+            ],
+            "tags": [
+                "baking",
+                "bread",
+                "pantry"
+            ]
+        },
+        {
+            "id": "baking-johnnycakes",
+            "title": "Old-Time Johnnycakes",
+            "category": "Baking",
+            "prep_time": "5m",
+            "cook_time": "10m",
+            "difficulty": 1,
+            "ingredients": [
+                "1 cup Cornmeal",
+                "1 cup Boiling Water",
+                "1/2 tsp Salt",
+                "Butter for frying"
+            ],
+            "steps": [
+                "1. Mix cornmeal and salt in a bowl.",
+                "2. Pour boiling water over and stir until a stiff paste forms.",
+                "3. Let sit for 5 minutes.",
+                "4. Form into small patties and fry in butter until brown on both sides.",
+                "5. Serve with honey or maple syrup."
+            ],
+            "tags": [
+                "baking",
+                "cornmeal",
+                "historical"
+            ]
+        },
+        {
+            "id": "baking-hardtack",
+            "title": "Survival Hardtack (Pilot Bread)",
+            "category": "Baking",
+            "prep_time": "10m",
+            "cook_time": "1h",
+            "difficulty": 1,
+            "ingredients": [
+                "2 cups Flour",
+                "1/2 cup Water",
+                "1 tsp Salt"
+            ],
+            "steps": [
+                "1. Mix flour and salt. Add water gradually until a stiff dough forms.",
+                "2. Roll out to 1/2 inch thickness.",
+                "3. Cut into squares and poke holes in both sides with a fork.",
+                "4. Bake at 375°F for 30m per side until dry and 'hard as a rock'.",
+                "5. Proper storage will allow these to last years. Soak in coffee/soup before eating."
+            ],
+            "tags": [
+                "baking",
+                "survival",
+                "historical"
+            ]
+        },
+        {
+            "id": "baking-bannock",
+            "title": "Skillet Bannock (Trail Bread)",
+            "category": "Baking",
+            "prep_time": "5m",
+            "cook_time": "15m",
+            "difficulty": 1,
+            "ingredients": [
+                "1 cup Flour",
+                "1 tsp Baking Powder",
+                "1/4 tsp Salt",
+                "1/4 cup Water or Milk"
+            ],
+            "steps": [
+                "1. Mix dry ingredients. Add liquid to form a dough.",
+                "2. Shape into a flat disc.",
+                "3. Fry in a greased skillet on low heat for 8-10m per side.",
+                "4. It should sound hollow when tapped.",
+                "5. Perfect for trail cooking or emergencies."
+            ],
+            "tags": [
+                "baking",
+                "bread",
+                "trail"
+            ]
+        },
+        {
+            "id": "baking-salt-rising",
+            "title": "Traditional Salt-Rising Bread",
+            "category": "Baking",
+            "prep_time": "20m (plus 12h rise)",
+            "cook_time": "40m",
+            "difficulty": 3,
+            "ingredients": [
+                "1/2 cup Boiling Water",
+                "1/4 cup Cornmeal",
+                "1 tsp Sugar",
+                "3 cups Flour",
+                "1 cup Scalded Milk"
+            ],
+            "steps": [
+                "1. Mix cornmeal, sugar, and boiling water. Keep in warm place (12-18h) until bubbly and funky-smelling.",
+                "2. Mix in milk and 1 cup flour to make a sponge. Let rise again (2-4h).",
+                "3. Add remaining flour to make a bread dough.",
+                "4. Shape into a loaf, let rise one final time (1h).",
+                "5. Bake at 375°F until golden. This bread is leavened by bacteria, not yeast!"
+            ],
+            "tags": [
+                "baking",
+                "historical",
+                "bacteria"
+            ]
+        },
+        {
+            "id": "preservation-beets",
+            "title": "Grandma's Pickled Beets",
+            "category": "Preservation",
+            "prep_time": "20m",
+            "cook_time": "30m",
+            "difficulty": 2,
+            "ingredients": [
+                "6-8 Medium Beets",
+                "1 cup Vinegar",
+                "1/2 cup Sugar",
+                "1 tsp Cloves",
+                "1 tsp Cinnamon"
+            ],
+            "steps": [
+                "1. Boil beets until tender. Slip off skins and slice.",
+                "2. Combine vinegar, sugar, and spices in a pot; bring to a boil.",
+                "3. Add beets and simmer for 5m.",
+                "4. Pack into hot jars, leaving 1/2 inch headspace.",
+                "5. Process in a boiling water bath for 30m."
+            ],
+            "tags": [
+                "preservation",
+                "canning",
+                "garden"
+            ]
+        },
+        {
+            "id": "preservation-pepper-jelly",
+            "title": "Hot Pepper Jelly",
+            "category": "Preservation",
+            "prep_time": "30m",
+            "cook_time": "15m",
+            "difficulty": 2,
+            "ingredients": [
+                "1/2 cup Chopped Hot Peppers",
+                "1/2 cup Chopped Bell Peppers",
+                "1.5 cups Apple Cider Vinegar",
+                "6 cups Sugar",
+                "1 pouch Liquid Pectin"
+            ],
+            "steps": [
+                "1. Pulse peppers in a processor until finely minced.",
+                "2. Combine peppers, vinegar, and sugar in a large pot. Bring to a rolling boil.",
+                "3. Stir in pectin. Boil hard for 1 minute.",
+                "4. Skim foam and pour into hot sterile jars.",
+                "5. Process in water bath for 5m. Best served over cream cheese."
+            ],
+            "tags": [
+                "preservation",
+                "canning",
+                "fast"
+            ]
+        },
+        {
+            "id": "preservation-sauerkraut",
+            "title": "Small-Batch Mason Jar Sauerkraut",
+            "category": "Preservation",
+            "prep_time": "30m",
+            "cook_time": "4 weeks (Fermenting)",
+            "difficulty": 2,
+            "ingredients": [
+                "1 medium Cabbage (shredded)",
+                "1.5 tbsp Pickling Salt",
+                "1 tsp Caraway Seeds (optional)"
+            ],
+            "steps": [
+                "1. Toss cabbage and salt in a large bowl. Massage for 10m until water is released.",
+                "2. Pack cabbage into a clean quart mason jar, pressing down hard to keep submerged in its own brine.",
+                "3. Use a weighted glass or a smaller jar to keep cabbage under the liquid.",
+                "4. Cover with a cloth or loose lid. Store in cool, dark place.",
+                "5. Sample after 2 weeks; continue for 4 weeks for deep tang."
+            ],
+            "tags": [
+                "preservation",
+                "fermenting",
+                "probiotic"
+            ]
+        },
+        {
+            "id": "preservation-fruit-leather",
+            "title": "Dried Fruit Leathers",
+            "category": "Preservation",
+            "prep_time": "15m",
+            "cook_time": "8h",
+            "difficulty": 1,
+            "ingredients": [
+                "4 cups Fruit Puree (Berries, Apples, or Peaches)",
+                "2 tbsp Honey",
+                "1 tsp Lemon Juice"
+            ],
+            "steps": [
+                "1. Puree fruit until completely smooth. Stir in honey and lemon.",
+                "2. Line a baking sheet with parchment paper.",
+                "3. Spread puree evenly (about 1/8 inch thick).",
+                "4. Dry in oven at lowest setting (140-170°F) or dehydrator for 6-8 hours.",
+                "5. Peel off and roll up. Should be pliable, not brittle."
+            ],
+            "tags": [
+                "preservation",
+                "drying",
+                "snacks"
+            ]
+        },
+        {
+            "id": "preservation-canned-venison",
+            "title": "Pressure-Canned Venison",
+            "category": "Preservation",
+            "prep_time": "45m",
+            "cook_time": "90m",
+            "difficulty": 3,
+            "ingredients": [
+                "5 lbs Venison (cubed 1-inch)",
+                "Canning Salt",
+                "Beef Bouillon (optional)"
+            ],
+            "steps": [
+                "1. Raw pack: Fill hot jars with raw meat cubes, leaving 1 inch headspace.",
+                "2. Add 1/2 tsp salt per pint (1 tsp per quart). Do not add liquid; meat will make its own juice.",
+                "3. Wipe rims, apply lids.",
+                "4. Process in pressure canner at 11 lbs (altitude dependent).",
+                "5. Pints: 75m, Quarts: 90m. The results are incredibly tender."
+            ],
+            "tags": [
+                "preservation",
+                "canning",
+                "wild-game"
+            ]
+        },
+        {
+            "id": "wild-spruce-syrup",
+            "title": "Spruce Tip Syrup",
+            "category": "Wild Edibles",
+            "prep_time": "15m",
+            "cook_time": "20m (plus 2h steep)",
+            "difficulty": 1,
+            "ingredients": [
+                "2 cups Bright Green Spruce Tips (Spring only)",
+                "2 cups Sugar",
+                "2 cups Water"
+            ],
+            "steps": [
+                "1. Boil water and sugar to make a simple syrup.",
+                "2. Add clean spruce tips. Remove from heat immediately.",
+                "3. Let steep for at least 2 hours (or overnight for stronger flavor).",
+                "4. Strain and bottle.",
+                "5. High in Vitamin C. Excellent on pancakes or in tea."
+            ],
+            "tags": [
+                "foraged",
+                "beverage",
+                "seasonal"
+            ]
+        },
+        {
+            "id": "wild-dandelion-greens",
+            "title": "Sautéed Spring Dandelion Greens",
+            "category": "Wild Edibles",
+            "prep_time": "10m",
+            "cook_time": "5m",
+            "difficulty": 1,
+            "ingredients": [
+                "4 cups Young Dandelion Greens (before flowering)",
+                "2 cloves Garlic (minced)",
+                "1 tbsp Olive Oil or Bacon Fat",
+                "Red Pepper Flakes"
+            ],
+            "steps": [
+                "1. Wash greens thoroughly in cold water.",
+                "2. Sauté garlic and red pepper in fat until fragrant.",
+                "3. Add greens and toss until wilted (just like spinach).",
+                "4. Squeeze a bit of lemon over the top to cut any bitterness.",
+                "5. Serve as a nutrient-dense side dish."
+            ],
+            "tags": [
+                "foraged",
+                "greens",
+                "fast"
+            ]
+        },
+        {
+            "id": "wild-burdock-chips",
+            "title": "Wild Burdock Root Chips",
+            "category": "Wild Edibles",
+            "prep_time": "15m",
+            "cook_time": "10m",
+            "difficulty": 2,
+            "ingredients": [
+                "2 long Burdock Roots (scrubbed)",
+                "Oil for frying",
+                "Sea Salt"
+            ],
+            "steps": [
+                "1. Slice burdock root as thinly as possible into rounds (a mandolin helps).",
+                "2. Soak in cold water for 5m to remove 'earthy' bite, then pat completely dry.",
+                "3. Fry in 350°F oil until edges slightly curl and turn brown.",
+                "4. Drain on paper towels.",
+                "5. Salt immediately. They have a unique, nutty, artichoke-like flavor."
+            ],
+            "tags": [
+                "foraged",
+                "snacks",
+                "roots"
+            ]
+        },
+        {
+            "id": "wild-sumac-lemonade",
+            "title": "Sumac 'Lemonade' (Staghorn)",
+            "category": "Wild Edibles",
+            "prep_time": "5m",
+            "cook_time": "4h (cold steep)",
+            "difficulty": 1,
+            "ingredients": [
+                "4-6 Ripe Sumac Berries (red/fuzzy)",
+                "1 quart Cold Water",
+                "Honey to taste"
+            ],
+            "steps": [
+                "1. Place sumac heads in a jar of cold water.",
+                "2. Mash slightly with a spoon to break surfaces.",
+                "3. Let steep in cold water for 2-4 hours. Do not use boiling water as it releases bitter tannins.",
+                "4. Strain through a fine cloth (coffee filter) to remove tiny hairs.",
+                "5. Sweeten with honey. Tastes remarkably like pink lemonade."
+            ],
+            "tags": [
+                "foraged",
+                "beverage",
+                "fast"
+            ]
+        },
+        {
+            "id": "wild-pine-tea",
+            "title": "White Pine Needle Tea",
+            "category": "Wild Edibles",
+            "prep_time": "5m",
+            "cook_time": "10m",
+            "difficulty": 1,
+            "ingredients": [
+                "1 handful Eastern White Pine Needles (bright green)",
+                "2 cups Water",
+                "Honey"
+            ],
+            "steps": [
+                "1. Finely chop or bruise the pine needles to release oils.",
+                "2. Bring water to a boil, then remove from heat.",
+                "3. Add needles and steep for 5-10 minutes. Do not boil needles directly as it destroys Vitamin C.",
+                "4. Strain into a cup.",
+                "5. Enjoy the citrusy, resinous flavor. Extremely high in Vitamin C and A."
+            ],
+            "tags": [
+                "foraged",
+                "beverage",
+                "survival"
+            ]
         }
     ]
 }

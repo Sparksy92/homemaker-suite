@@ -1,85 +1,30 @@
-# Homemaker Suite: Live Off the Land Edition
+# Homemaker Suite - Developer Readme
 
-A comprehensive digital guide and toolset for modern homesteading, survival, and self-sufficiency. This application combines improved knowledge management with interactive tools to help you master skills from gardening to emergency preparedness.
+This repository contains the source code for the Homemaker Suite, a React-based Progressive Web App (PWA) designed for homesteading and survival management.
 
-## 🌟 Features
+## Tech Stack
+-   **Frontend**: React (Vite)
+-   **Styling**: Vanilla CSS / Tailwind (where requested)
+-   **Storage**: IndexedDB (Local Observations), LocalStorage (Settings/Progress)
+-   **Deployment**: Cloudflare Pages
+-   **Mobile**: Capable of being wrapped via Capacitor (Android/iOS)
 
-- **Extensive Knowledge Base**: Organized into 21+ modules covering gardening, medical care, infrastructure, food storage, and more.
-- **Interactive Tools**: Calculators and wizards for planning resources (e.g., Energy Planner, Construction Calculator).
-- **Offline Capable**: Built as a Progressive Web App (PWA) to ensure access to critical information without an internet connection.
-- **Scenario Playbooks**: Actionable guides for specific emergency scenarios like severe winter storms.
-- **Modern Tech Stack**: Fast, responsive, and mobile-friendly interface.
+## Directory Structure
+-   `/app`: The React application source.
+    -   `/app/src/data`: JSON databases (Recipes, Wildlife).
+    -   `/app/public/content`: The library of Markdown guides.
+    -   `/app/public/images`: Asset directories (wildlife, botany, patterns).
+-   `/app/src/modules`: Feature-specific logic (Food, Wilderness).
+-   `/app/src/components`: Shared UI components.
 
-## 🛠️ Tech Stack
+## Local Development
+1. `cd app`
+2. `npm install`
+3. `npm run dev`
 
-- **Framework**: [React](https://react.dev/) with [Vite](https://vitejs.dev/)
-- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
-- **Routing**: [React Router](https://reactrouter.com/)
-- **Animations**: [Framer Motion](https://www.framer.com/motion/)
-- **Icons**: [Lucide React](https://lucide.dev/)
-- **Content Rendering**: [React Markdown](https://github.com/remarkjs/react-markdown) for rendering the extensive library of markdown guides.
+## Deployment
+The app is deployed to Cloudflare Pages via:
+`npm run deploy` (requires Wrangler)
 
-## 📂 Project Structure
-
-The repository is organized into content modules and the application source code:
-
-- **`app/`**: Contains the source code for the React application.
-- **`0 Foundations` - `21 Scenario Playbooks`**: Markdown content files organized by topic.
-- **`10 Tools & Wizards`**: JSON configurations for interactive tools.
-- **`DEPLOYMENT.md`**: Instructions for deploying the application.
-
-## 🚀 Getting Started
-
-To run the application locally:
-
-1.  **Navigate to the app directory:**
-    ```bash
-    cd app
-    ```
-
-2.  **Install dependencies:**
-    ```bash
-    npm install
-    ```
-
-3.  **Start the development server:**
-    ```bash
-    npm run dev
-    ```
-
-4.  **Open your browser:**
-    The application will typically run at `http://localhost:5173`.
-
-## 📦 Building for Production
-
-To create a production build:
-
-```bash
-cd app
-npm run build
-```
-
-## ☁️ Deployment
-
-This project is configured for deployment on Cloudflare Pages.
-
-To deploy manually using Wrangler:
-
-```bash
-cd app
-npm run deploy
-```
-
-For more detailed deployment instructions, please refer to [DEPLOYMENT.md](./DEPLOYMENT.md).
-
-## 🤝 Contributing
-
-1.  Fork the repository.
-2.  Create a feature branch (`git checkout -b feature/AmazingFeature`).
-3.  Commit your changes (`git commit -m 'Add some AmazingFeature'`).
-4.  Push to the branch (`git push origin feature/AmazingFeature`).
-5.  Open a Pull Request.
-
-## 📄 License
-
-Distributed under the MIT License. See `LICENSE` for more information.
+## Content Management
+New guides should be added as `.md` files in the appropriate folder under `app/public/content`. The index is automatically updated via `generate_index.js` (if implemented) or manually registered in component logic.

@@ -153,7 +153,7 @@ const Cookbook = () => {
             </div>
 
             {/* Grid */}
-            <div className="p-4 grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            <div className="p-4 grid grid-cols-1 sm:grid-cols-2 gap-6 w-full mx-auto">
                 {visibleRecipes.map(recipe => (
                     <motion.button
                         layout
@@ -162,7 +162,7 @@ const Cookbook = () => {
                         layoutId={`card-${recipe.id}`}
                         key={recipe.id}
                         onClick={() => setSelectedRecipe(recipe)}
-                        className="bg-white p-5 rounded-3xl shadow-sm border border-sand-100 text-left hover:shadow-xl transition-all group relative overflow-hidden flex flex-col h-full"
+                        className="bg-white p-5 rounded-3xl shadow-sm border border-sand-100 text-left hover:shadow-xl transition-all group relative overflow-hidden flex flex-col h-full w-full"
                     >
                         {/* Decorative background element */}
                         <div className="absolute top-0 right-0 p-8 opacity-[0.03] group-hover:opacity-[0.08] transition-opacity transform translate-x-4 -translate-y-4">

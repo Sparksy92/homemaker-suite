@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Leaf, Bug, Calendar, AlertTriangle, CheckCircle, Search, Footprints, Filter, Camera, X, ChefHat, Info, Mountain, Maximize2 } from 'lucide-react';
+import { Leaf, Bug, Calendar, AlertTriangle, CheckCircle, Search, Footprints, Filter, Camera, X, ChefHat, Info, Mountain, Maximize2, Waves } from 'lucide-react';
 import wildlifeData from '../data/wildlifeData.json';
+import ImageCarousel from '../components/ImageCarousel';
+import { useObservations } from '../context/ObservationContext';
+import CameraCapture from '../components/CameraCapture';
 
 const Wildlife = () => {
     const [activeTab, setActiveTab] = useState('flora');
@@ -9,6 +12,10 @@ const Wildlife = () => {
     const [filterType, setFilterType] = useState('All'); // All, Edible, Medicinal, Poisonous
     const [selectedItem, setSelectedItem] = useState(null); // Track selected item for modal
     const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+    const [lightboxIndex, setLightboxIndex] = useState(0);
+    const [isCaptureOpen, setIsCaptureOpen] = useState(false);
+    const { getObservationsBySpecies } = useObservations();
+
 
     // Search Logic
     const filterData = (data) => {
@@ -16,7 +23,9 @@ const Wildlife = () => {
         return data.filter(item => {
             const matchesSearch = item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
                 (item.uses && item.uses.toLowerCase().includes(searchQuery.toLowerCase())) ||
-                (item.notes && item.notes.toLowerCase().includes(searchQuery.toLowerCase()));
+                (item.notes && item.notes.toLowerCase().includes(searchQuery.toLowerCase())) ||
+                (item.habitat && item.habitat.toLowerCase().includes(searchQuery.toLowerCase())) ||
+                (item.behavior && item.behavior.toLowerCase().includes(searchQuery.toLowerCase()));
 
             if (activeTab === 'flora' && filterType !== 'All') {
                 return matchesSearch && item.type.includes(filterType);
@@ -25,9 +34,9 @@ const Wildlife = () => {
         });
     };
 
-    const ImagePreview = ({ images, alt, className = "h-40" }) => {
+    const ImagePreview = ({ images, category = 'wildlife', alt, className = "h-40" }) => {
         const [imgError, setImgError] = useState(false);
-        const imageSrc = images && images.length > 0 ? `/images/wildlife/${images[0]}` : null;
+        const imageSrc = images && images.length > 0 ? `/images/${category}/${images[0]}` : null;
 
         if (!imageSrc || imgError) {
             return (
@@ -57,16 +66,27 @@ const Wildlife = () => {
                 <h1 className="text-3xl font-serif font-bold mb-1">Wildlife & Nature</h1>
                 <p className="text-sage-200 opacity-90 text-sm">Field guide to the living world.</p>
 
-                {/* Search Bar */}
-                <div className="mt-4 relative">
-                    <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-sage-400" size={20} />
-                    <input
-                        type="text"
-                        placeholder="Search plants, insects, animals..."
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                        className="w-full pl-12 pr-4 py-3 rounded-xl bg-sage-900/50 border border-sage-700 text-sand-50 placeholder-sage-400 focus:outline-none focus:ring-2 focus:ring-terracotta-500 transition-all font-serif"
-                    />
+                {/* Search & Actions Bar */}
+                <div className="mt-4 flex gap-2">
+                    <div className="relative flex-1">
+                        <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-sage-400" size={20} />
+                        <input
+                            type="text"
+                            placeholder="Search plants, insects, animals..."
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            className="w-full pl-12 pr-4 py-3 rounded-xl bg-sage-900/50 border border-sage-700 text-sand-50 placeholder-sage-400 focus:outline-none focus:ring-2 focus:ring-terracotta-500 transition-all font-serif"
+                        />
+                    </div>
+                    <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={() => setIsCaptureOpen(true)}
+                        className="bg-terracotta-500 text-white px-4 rounded-xl shadow-lg flex items-center justify-center hover:bg-terracotta-600 transition-colors"
+                        title="Log Sighting"
+                    >
+                        <Camera size={24} />
+                    </motion.button>
                 </div>
             </div>
 
@@ -89,6 +109,12 @@ const Wildlife = () => {
                     onClick={() => setActiveTab('fauna')}
                     icon={<Footprints size={18} />}
                     label="Fauna"
+                />
+                <TabButton
+                    active={activeTab === 'aquatic'}
+                    onClick={() => setActiveTab('aquatic')}
+                    icon={<Waves size={18} />}
+                    label="Aquatic"
                 />
                 <TabButton
                     active={activeTab === 'tracking'}
@@ -135,10 +161,10 @@ const Wildlife = () => {
                             {filterData(wildlifeData.flora).map((plant, index) => (
                                 <div
                                     key={index}
-                                    onClick={() => setSelectedItem({ ...plant, category: 'flora' })}
+                                    onClick={() => setSelectedItem({ ...plant, category: 'botany' })}
                                     className="bg-white rounded-2xl shadow-sm border border-sand-200 overflow-hidden active:scale-98 transition-transform cursor-pointer"
                                 >
-                                    <ImagePreview images={plant.images} alt={plant.name} />
+                                    <ImagePreview images={plant.images} category="botany" alt={plant.name} />
                                     <div className={`h-2 ${plant.type.includes('Poisonous') ? 'bg-red-500' : plant.type.includes('Medicinal') ? 'bg-blue-500' : 'bg-green-500'}`} />
                                     <div className="p-5">
                                         <div className="flex justify-between items-start mb-2">
@@ -174,10 +200,10 @@ const Wildlife = () => {
                             {filterData(wildlifeData.insects).map((insect, index) => (
                                 <div
                                     key={index}
-                                    onClick={() => setSelectedItem({ ...insect, category: 'insects' })}
+                                    onClick={() => setSelectedItem({ ...insect, category: 'wildlife' })}
                                     className="bg-white rounded-2xl shadow-sm border border-sand-200 overflow-hidden active:scale-98 transition-transform cursor-pointer"
                                 >
-                                    <ImagePreview images={insect.images} alt={insect.name} />
+                                    <ImagePreview images={insect.images} category="wildlife" alt={insect.name} />
                                     <div className="p-5">
                                         <div className="flex justify-between items-start mb-2">
                                             <div>
@@ -210,10 +236,10 @@ const Wildlife = () => {
                             {filterData(wildlifeData.fauna).map((animal, index) => (
                                 <div
                                     key={index}
-                                    onClick={() => setSelectedItem({ ...animal, category: 'fauna' })}
+                                    onClick={() => setSelectedItem({ ...animal, category: 'wildlife' })}
                                     className="bg-white rounded-2xl shadow-sm border border-sand-200 overflow-hidden active:scale-98 transition-transform cursor-pointer"
                                 >
-                                    <ImagePreview images={animal.images} alt={animal.name} />
+                                    <ImagePreview images={animal.images} category="wildlife" alt={animal.name} />
                                     <div className="p-5">
                                         <div className="flex items-center justify-between mb-3">
                                             <h3 className="text-lg font-bold text-sage-900">{animal.name}</h3>
@@ -231,6 +257,43 @@ const Wildlife = () => {
                                 </div>
                             ))}
                             {filterData(wildlifeData.fauna).length === 0 && <EmptyState />}
+                        </motion.div>
+                    )}
+
+                    {/* AQUATIC */}
+                    {activeTab === 'aquatic' && (
+                        <motion.div
+                            key="aquatic"
+                            initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}
+                            className="space-y-4"
+                        >
+                            {filterData(wildlifeData.aquatic).map((fish, index) => (
+                                <div
+                                    key={index}
+                                    onClick={() => setSelectedItem({ ...fish, category: 'aquatic' })}
+                                    className="bg-white rounded-2xl shadow-sm border border-sand-200 overflow-hidden active:scale-98 transition-transform cursor-pointer"
+                                >
+                                    <ImagePreview images={fish.images} alt={fish.name} />
+                                    <div className="p-5">
+                                        <div className="flex justify-between items-start mb-2">
+                                            <div>
+                                                <h3 className="text-xl font-bold text-sage-900">{fish.name}</h3>
+                                                <p className="text-xs text-sage-500 italic">{fish.scientific_name}</p>
+                                            </div>
+                                            <span className="px-2 py-1 rounded-full text-xs font-bold bg-blue-100 text-blue-700">
+                                                {fish.type}
+                                            </span>
+                                        </div>
+                                        <div className="mt-2 text-sm text-charcoal-600 line-clamp-2">
+                                            {fish.behavior}
+                                        </div>
+                                        <div className="mt-3 flex items-center gap-1 text-xs font-bold text-terracotta-600">
+                                            <span>Bait: {fish.best_bait}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                            {filterData(wildlifeData.aquatic).length === 0 && <EmptyState />}
                         </motion.div>
                     )}
 
@@ -311,27 +374,22 @@ const Wildlife = () => {
                                 <X size={20} />
                             </button>
 
-                            {/* Full Header Image */}
+                            {/* Full Header Carousel */}
                             <div
-                                className="h-64 sm:h-80 w-full bg-sand-200 shrink-0 relative group cursor-pointer"
+                                className="h-64 sm:h-80 w-full shrink-0 relative cursor-pointer"
                                 onClick={() => selectedItem.images && selectedItem.images.length > 0 && setIsLightboxOpen(true)}
                             >
-                                {selectedItem.images && selectedItem.images.length > 0 ? (
-                                    <>
-                                        <img
-                                            src={`/images/wildlife/${selectedItem.images[0]}`}
-                                            alt={selectedItem.name}
-                                            className="w-full h-full object-cover"
-                                        />
-                                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center pointer-events-none">
-                                            <div className="bg-black/50 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity backdrop-blur-sm">
-                                                <Maximize2 size={24} />
-                                            </div>
+                                <ImageCarousel
+                                    images={selectedItem.images}
+                                    speciesId={selectedItem.id}
+                                    category={selectedItem.category}
+                                    alt={selectedItem.name}
+                                />
+                                {selectedItem.images && selectedItem.images.length > 0 && (
+                                    <div className="absolute top-4 right-4 z-20 pointer-events-none">
+                                        <div className="bg-black/50 text-white p-2 rounded-full backdrop-blur-md">
+                                            <Maximize2 size={20} />
                                         </div>
-                                    </>
-                                ) : (
-                                    <div className="w-full h-full flex items-center justify-center bg-sage-100 text-sage-300">
-                                        <Camera size={48} />
                                     </div>
                                 )}
                             </div>
@@ -433,12 +491,21 @@ const Wildlife = () => {
                                     </div>
                                 )}
 
-                                {selectedItem.caution && (
-                                    <div className="bg-amber-50 border border-amber-100 p-4 rounded-xl flex gap-3">
-                                        <AlertTriangle size={20} className="text-amber-500 shrink-0" />
-                                        <div>
-                                            <h4 className="font-bold text-amber-800 text-sm">Caution</h4>
-                                            <p className="text-sm text-amber-900/80">{selectedItem.caution}</p>
+
+                                {selectedItem.id && getObservationsBySpecies(selectedItem.id).length > 0 && (
+                                    <div className="space-y-4 pt-4 border-t border-sand-200">
+                                        <h3 className="text-lg font-bold text-sage-900 flex items-center gap-2">
+                                            <Camera size={20} className="text-terracotta-500" /> My Personal Sightings
+                                        </h3>
+                                        <div className="grid grid-cols-2 gap-3">
+                                            {getObservationsBySpecies(selectedItem.id).map((obs) => (
+                                                <div key={obs.id} className="bg-sand-50 rounded-xl overflow-hidden border border-sand-200 group relative">
+                                                    <img src={obs.image} alt="Sighting" className="w-full aspect-square object-cover" />
+                                                    <div className="absolute bottom-0 inset-x-0 bg-black/50 backdrop-blur-md p-2 text-[10px] text-white">
+                                                        {new Date(obs.timestamp).toLocaleDateString()}
+                                                    </div>
+                                                </div>
+                                            ))}
                                         </div>
                                     </div>
                                 )}
@@ -447,34 +514,51 @@ const Wildlife = () => {
                     </motion.div>
                 )}
             </AnimatePresence>
-            {/* LIGHTBOX OVERLAY (Moved to Root Level) */}
+            {/* LIGHTBOX OVERLAY */}
             <AnimatePresence>
                 {isLightboxOpen && selectedItem && selectedItem.images && selectedItem.images.length > 0 && (
                     <motion.div
                         initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                        className="fixed inset-0 z-[100] bg-black/95 flex items-center justify-center p-4 cursor-zoom-out"
-                        onClick={(e) => {
-                            e.stopPropagation();
-                            setIsLightboxOpen(false);
-                        }}
+                        className="fixed inset-0 z-[100] bg-black/95 flex items-center justify-center p-4"
+                        onClick={() => setIsLightboxOpen(false)}
                     >
                         <button
-                            className="absolute top-4 right-4 text-white p-2 bg-white/10 rounded-full hover:bg-white/20 transition-colors"
+                            className="absolute top-6 right-6 text-white p-3 bg-white/10 rounded-full hover:bg-white/20 transition-colors z-[110]"
                             onClick={() => setIsLightboxOpen(false)}
                         >
                             <X size={32} />
                         </button>
-                        <motion.img
-                            initial={{ scale: 0.9 }} animate={{ scale: 1 }} exit={{ scale: 0.9 }}
-                            src={`/images/wildlife/${selectedItem.images[0]}`}
-                            alt={selectedItem.name}
-                            className="max-w-full max-h-full object-contain cursor-default shadow-2xl"
-                            onClick={(e) => e.stopPropagation()}
-                        />
+
+                        <div className="w-full h-full max-w-5xl max-h-[85vh] relative flex items-center justify-center" onClick={(e) => e.stopPropagation()}>
+                            <ImageCarousel
+                                images={selectedItem.images}
+                                speciesId={selectedItem.id}
+                                category={selectedItem.category === 'foraging_calendar' ? 'wildlife' : selectedItem.category}
+                                alt={selectedItem.name}
+                            />
+                        </div>
+
+                        {/* Caption in Lightbox */}
+                        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 bg-black/50 text-white px-6 py-3 rounded-full backdrop-blur-xl border border-white/10 text-center max-w-[90vw]">
+                            <h4 className="font-serif font-bold text-lg">{selectedItem.name}</h4>
+                            <p className="text-xs text-white/70 italic">{selectedItem.scientific_name}</p>
+                        </div>
                     </motion.div>
                 )}
             </AnimatePresence>
-        </div>
+
+
+            {/* CAMERA CAPTURE MODAL */}
+            <AnimatePresence>
+                {isCaptureOpen && (
+                    <CameraCapture
+                        onClose={() => setIsCaptureOpen(false)}
+                        initialSpeciesId={selectedItem?.id}
+                        speciesName={selectedItem?.name}
+                    />
+                )}
+            </AnimatePresence>
+        </div >
     );
 };
 

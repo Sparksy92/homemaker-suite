@@ -1,21 +1,41 @@
 import React, { useState, useEffect } from 'react';
-import { Sun, Cloud, CloudRain, CloudSnow, CloudLightning, Wind, Thermometer, MapPin } from 'lucide-react';
+import { Sun, Cloud, CloudRain, CloudSnow, CloudLightning, Wind, Thermometer, MapPin, WifiOff } from 'lucide-react';
 
 const WeatherWidget = () => {
     const [weather, setWeather] = useState(null);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
-    const [locationName, setLocationName] = useState('Local Weather');
-
+    const [isEnabled, setIsEnabled] = useState(false);
     const [unit, setUnit] = useState('celsius');
 
+    // Check if user has previously enabled weather
     useEffect(() => {
+        const savedPreference = localStorage.getItem('weather_enabled');
+        if (savedPreference === 'true') {
+            setIsEnabled(true);
+            requestWeather();
+        }
+    }, []);
+
+    // Re-fetch when unit changes (only if already enabled)
+    useEffect(() => {
+        if (isEnabled && weather) {
+            requestWeather();
+        }
+    }, [unit]);
+
+    const requestWeather = () => {
         if (!navigator.geolocation) {
             setError('Geolocation not supported');
-            setLoading(false);
             return;
         }
 
+        if (!navigator.onLine) {
+            setError('Offline');
+            return;
+        }
+
+        setLoading(true);
         navigator.geolocation.getCurrentPosition(
             (position) => {
                 fetchWeather(position.coords.latitude, position.coords.longitude, unit);
@@ -26,22 +46,26 @@ const WeatherWidget = () => {
                 setLoading(false);
             }
         );
-    }, [unit]);
+    };
+
+    const handleEnableWeather = () => {
+        localStorage.setItem('weather_enabled', 'true');
+        setIsEnabled(true);
+        requestWeather();
+    };
 
     const fetchWeather = async (lat, lon, tempUnit) => {
         try {
-            setLoading(true);
-            // Fetch Weather Data
             const response = await fetch(
                 `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code&temperature_unit=${tempUnit}`
             );
             const data = await response.json();
-
             setWeather(data.current);
+            setError(null);
             setLoading(false);
         } catch (err) {
             console.error("Weather fetch error:", err);
-            setError('Weather unavailable');
+            setError('Offline');
             setLoading(false);
         }
     };
@@ -57,6 +81,21 @@ const WeatherWidget = () => {
         return { icon: Thermometer, label: 'Unknown', color: 'text-gray-500' };
     };
 
+    // Opt-In Placeholder State
+    if (!isEnabled) {
+        return (
+            <button
+                onClick={handleEnableWeather}
+                className="bg-white p-3 rounded-2xl shadow-sm border border-sand-200 flex flex-col items-center justify-center w-[100px] h-[84px] hover:bg-sand-50 transition-colors group"
+            >
+                <Cloud size={24} className="text-sage-400 mb-1 group-hover:text-sage-600 transition-colors" />
+                <span className="text-[10px] text-center text-charcoal-light leading-tight font-medium">
+                    Tap to enable weather
+                </span>
+            </button>
+        );
+    }
+
     if (loading) return (
         <div className="bg-white p-3 rounded-2xl shadow-sm border border-sand-200 flex flex-col items-center justify-center w-[100px] h-[84px] animate-pulse">
             <div className="w-6 h-6 bg-sand-200 rounded-full mb-2"></div>
@@ -66,10 +105,12 @@ const WeatherWidget = () => {
 
     if (error) return (
         <div className="bg-white p-3 rounded-2xl shadow-sm border border-sand-200 flex flex-col items-center justify-center w-[100px] h-[84px]">
-            <MapPin size={20} className="text-terracotta-400 mb-1" />
+            <WifiOff size={20} className="text-terracotta-400 mb-1" />
             <span className="text-[10px] text-center text-charcoal-light leading-tight">{error}</span>
         </div>
     );
+
+    if (!weather) return null;
 
     const { icon: Icon, label, color } = getWeatherIcon(weather.weather_code);
 

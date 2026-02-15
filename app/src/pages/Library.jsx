@@ -12,6 +12,35 @@ const getDisplayName = (name) => {
     return name.replace(/^\d+(\.\d+)?\s+/, '').replace('.md', '');
 };
 
+// Categorization for better organization
+const LIBRARY_CATEGORIES = [
+    {
+        id: 'foundations',
+        name: "Foundations & Lifestyle",
+        folders: ["0 Foundations", "7 Budget & Lifestyle", "8 Nutrition", "11 Printables"]
+    },
+    {
+        id: 'culinary',
+        name: "Culinary & Pantry",
+        folders: ["1 Pantry Systems", "2 Cooking Basics", "3 Recipes", "4 Food Storage & Pantry", "4 Preservation"]
+    },
+    {
+        id: 'production',
+        name: "Food Production",
+        folders: ["5 Gardening", "12 Foraging & Wildcrafting", "13 Meat & Protein Security"]
+    },
+    {
+        id: 'homestead',
+        name: "The Homestead",
+        folders: ["6 Home Maintenance", "15 Infrastructure", "16 Tools & Workshop", "17 Shelter & Weatherproofing", "18 Energy & Lighting", "20 Textiles & Clothing"]
+    },
+    {
+        id: 'preparedness',
+        name: "Preparedness & Seasonal",
+        folders: ["14 Health & First Aid", "19 Navigation & Awareness", "21 Scenario Playbooks", "9 Seasonal Guides", "99 Reference Library"]
+    }
+];
+
 const Library = ({ type = 'all' }) => {
     const [currentPath, setCurrentPath] = useState([]);
     const [viewMode, setViewMode] = useState('modules'); // 'modules' or 'reference'
@@ -246,39 +275,80 @@ const Library = ({ type = 'all' }) => {
                                 )}
                             </div>
                         ) : (
-                            <div className="grid gap-4">
-                                {Object.keys(fileSystem)
-                                    .filter(folder => {
-                                        const num = parseInt(folder.split(' ')[0]);
+                            <div className="space-y-10">
+                                {LIBRARY_CATEGORIES.map(category => {
+                                    // Filter folders in this category that match the 'type' (guides vs reference)
+                                    const categoryFolders = category.folders.filter(folderName => {
+                                        if (!fileSystem[folderName]) return false;
+                                        const num = parseInt(folderName.split(' ')[0]);
                                         if (type === 'guides') return num < 40;
-                                        if (type === 'reference') return num >= 40 && num < 50 || num >= 90; // Manuals (40) and Reference (99)
-                                        // Note: Interactive Tools (50) will be handled separately in Tools page,
-                                        // or we can include them in reference if we want.
-                                        // Let's hide 50 from here since it's going to Tools tab?
-                                        // Actually, let's keep it simple: Guides < 40. Reference >= 40 (excluding Tools if we move them).
-                                        // Re-reading plan: Tools tab gets the "Survival Tools".
-                                        // So let's exclude 50 from here entirely if it's meant for Tools tab.
-                                        if (num === 50) return false;
+                                        if (type === 'reference') return num >= 40 && num < 50 || num >= 90;
                                         return true;
-                                    })
-                                    .map((folder) => (
-                                        <button
-                                            key={folder}
-                                            onClick={() => setCurrentPath([folder])}
-                                            className="group flex flex-row items-center p-4 bg-white rounded-2xl border border-sand-200 shadow-sm hover:shadow-md hover:border-sage-300 transition-all text-left gap-4"
-                                        >
-                                            <div className="bg-sage-50 p-3 rounded-xl text-sage-600 group-hover:bg-sage-600 group-hover:text-white transition-colors shrink-0">
-                                                <Folder size={24} />
+                                    });
+
+                                    if (categoryFolders.length === 0) return null;
+
+                                    return (
+                                        <div key={category.id} className="space-y-4">
+                                            <h3 className="text-sm font-bold text-sage-600 uppercase tracking-[0.2em] border-b border-sand-200 pb-2 ml-1">
+                                                {category.name}
+                                            </h3>
+                                            <div className="grid gap-4">
+                                                {categoryFolders.map(folder => (
+                                                    <button
+                                                        key={folder}
+                                                        onClick={() => setCurrentPath([folder])}
+                                                        className="group flex flex-row items-center p-4 bg-white rounded-2xl border border-sand-200 shadow-sm hover:shadow-md hover:border-sage-300 transition-all text-left gap-4"
+                                                    >
+                                                        <div className="bg-sage-50 p-3 rounded-xl text-sage-600 group-hover:bg-sage-600 group-hover:text-white transition-colors shrink-0">
+                                                            <Folder size={24} />
+                                                        </div>
+                                                        <div className="flex-1 min-w-0">
+                                                            <div className="flex items-center justify-between">
+                                                                <span className="font-serif text-xl text-charcoal group-hover:text-sage-900 truncate pr-2">{getDisplayName(folder)}</span>
+                                                                <ChevronRight size={18} className="text-sand-400 group-hover:translate-x-1 transition-transform shrink-0" />
+                                                            </div>
+                                                            <span className="text-xs text-sand-500 mt-1 font-medium uppercase tracking-wider block">{fileSystem[folder].length} Items</span>
+                                                        </div>
+                                                    </button>
+                                                ))}
                                             </div>
-                                            <div className="flex-1 min-w-0">
-                                                <div className="flex items-center justify-between">
-                                                    <span className="font-serif text-xl text-charcoal group-hover:text-sage-900 truncate pr-2">{getDisplayName(folder)}</span>
-                                                    <ChevronRight size={18} className="text-sand-400 group-hover:translate-x-1 transition-transform shrink-0" />
-                                                </div>
-                                                <span className="text-xs text-sand-500 mt-1 font-medium uppercase tracking-wider block">{fileSystem[folder].length} Items</span>
+                                        </div>
+                                    );
+                                })}
+
+                                {/* Fallback for any folders not categorized (Safety Net) */}
+                                {(() => {
+                                    const categorizedFolders = new Set(LIBRARY_CATEGORIES.flatMap(c => c.folders));
+                                    const uncategorizedFolders = Object.keys(fileSystem).filter(f => !categorizedFolders.has(f) && f !== "50 Interactive Tools");
+
+                                    if (uncategorizedFolders.length === 0) return null;
+
+                                    return (
+                                        <div className="space-y-4">
+                                            <h3 className="text-sm font-bold text-sand-400 uppercase tracking-widest border-b border-sand-200 pb-2 ml-1">
+                                                Other Modules
+                                            </h3>
+                                            <div className="grid gap-4">
+                                                {uncategorizedFolders.map(folder => (
+                                                    <button
+                                                        key={folder}
+                                                        onClick={() => setCurrentPath([folder])}
+                                                        className="group flex flex-row items-center p-4 bg-white rounded-2xl border border-sand-200 shadow-sm hover:shadow-md hover:border-sage-300 transition-all text-left gap-4"
+                                                    >
+                                                        <div className="bg-sand-50 p-3 rounded-xl text-sand-400 group-hover:bg-sand-400 group-hover:text-white transition-colors shrink-0">
+                                                            <Folder size={24} />
+                                                        </div>
+                                                        <div className="flex-1 min-w-0">
+                                                            <span className="font-serif text-xl text-charcoal group-hover:text-sage-900 truncate pr-2">{getDisplayName(folder)}</span>
+                                                            <span className="text-xs text-sand-500 mt-1 font-medium uppercase tracking-wider block">{fileSystem[folder].length} Items</span>
+                                                        </div>
+                                                    </button>
+                                                ))}
                                             </div>
-                                        </button>
-                                    ))}
+                                        </div>
+                                    );
+                                })()}
                             </div>
                         )}
                     </motion.div>
@@ -381,7 +451,7 @@ const Library = ({ type = 'all' }) => {
                     </motion.div>
                 )}
             </AnimatePresence>
-        </div>
+        </div >
     );
 };
 

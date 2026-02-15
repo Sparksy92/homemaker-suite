@@ -160,7 +160,8 @@
             "uses": "Needle tea (Vitamin C). Resin for glue/fire starter. Inner bark (famine food).",
             "caution": "Lookalike: Yew (flat needles, red berries) is DEADLY.",
             "images": [
-                "pine.jpg"
+                "pine.jpg",
+                "pine_resin.jpg"
             ],
             "details": {
                 "habitat": "Forests, well-drained soil.",
@@ -341,6 +342,142 @@
                 "habitat": "Deciduous forests (Birch/Beech).",
                 "processing": [
                     "**Tinder:** Cut hard outer shell off. The soft, suede-like brown layer inside is the 'Amadou'. Slice thin. Fluff it up. One spark will catch it and it smolders for hours (coal extender)."
+                ]
+            }
+        },
+        {
+            "id": "birch_polypore",
+            "name": "Birch Polypore",
+            "scientific_name": "Fomitopsis betulina",
+            "type": "Medicinal / Utility",
+            "season": "Year Round",
+            "identification": "Shelf fungus on birch trees. Smooth, grey/brown top, white underside.",
+            "uses": "Anti-parasitic, styptic, immune support. 'Nature's Band-Aid'.",
+            "caution": "None.",
+            "images": [
+                "birch_polypore.jpg"
+            ],
+            "details": {
+                "habitat": "Birch trees (dead or dying).",
+                "processing": [
+                    "**Tea:** Slice and boil to release immune-boosting beta-glucans.",
+                    "**Band-Aid:** Peel a strip of the mushroom's white underside (pore layer) to use as a naturally sterile, adhesive bandage."
+                ]
+            }
+        },
+        {
+            "id": "calendula",
+            "name": "Calendula (Pot Marigold)",
+            "scientific_name": "Calendula officinalis",
+            "type": "Medicinal / Edible",
+            "season": "Summer",
+            "identification": "Bright orange/yellow daisy-like flowers. Sticky green stems.",
+            "uses": "Skin healing, anti-inflammatory. Petals are edible.",
+            "caution": "None.",
+            "images": [
+                "calendula.jpg"
+            ],
+            "details": {
+                "habitat": "Gardens, escaped to waste areas.",
+                "processing": [
+                    "**Salve:** Infuse dried petals in oil for 4-6 weeks to create a powerful skin-healing balm for burns and cuts."
+                ]
+            }
+        },
+        {
+            "id": "comfrey",
+            "name": "Comfrey (Knitbone)",
+            "scientific_name": "Symphytum officinale",
+            "type": "Medicinal",
+            "season": "Spring/Summer",
+            "identification": "Large, hairy leaves. Bell-shaped purple or cream flowers.",
+            "uses": "Speeds healing of bones and sprains (Allantoin). Leaf mulch for gardens.",
+            "caution": "Do not use on deep open wounds (heals surface too fast). Do not ingest large amounts (liver concern).",
+            "images": [
+                "comfrey.jpg"
+            ],
+            "details": {
+                "habitat": "Damp soil, gardens, field edges.",
+                "processing": [
+                    "**Poultice:** Mash fresh leaves and apply to closed fractures, sprains, or bruises to rapidly reduce swelling."
+                ]
+            }
+        },
+        {
+            "id": "echinacea",
+            "name": "Echinacea (Coneflower)",
+            "scientific_name": "Echinacea purpurea",
+            "type": "Medicinal",
+            "season": "Summer",
+            "identification": "Purple petals, spiky orange/brown center cone.",
+            "uses": "Immune stimulant for cold/flu.",
+            "caution": "None.",
+            "images": [
+                "echinacea.jpg"
+            ],
+            "details": {
+                "habitat": "Prairies, gardens.",
+                "processing": [
+                    "**Tincture:** Infuse roots or flower heads in high-proof alcohol for 6 weeks. Take at first sign of illness."
+                ]
+            }
+        },
+        {
+            "id": "oregon_grape_root",
+            "name": "Oregon Grape",
+            "scientific_name": "Mahonia aquifolium",
+            "type": "Medicinal / Edible",
+            "season": "Year Round",
+            "identification": "Holly-like leaves, yellow flowers, blue-purple tart berries.",
+            "uses": "Bright yellow inner bark/root is high in Berberine (antibiotic). Berries for jelly.",
+            "caution": "Berries are very tart; roots are extremely bitter.",
+            "images": [
+                "oregon_grape_root.jpg"
+            ],
+            "details": {
+                "habitat": "Rocky soil, mountain forests, urban landscaping.",
+                "processing": [
+                    "**Antibiotic:** Harvest the yellow root. Dry and decoct for digestive infections or skin fungus."
+                ]
+            }
+        },
+        {
+            "id": "peppermint",
+            "name": "Peppermint",
+            "scientific_name": "Mentha × piperita",
+            "type": "Medicinal / Edible",
+            "season": "Spring-Fall",
+            "identification": "Square stem, opposite leaves. Strong minty scent.",
+            "uses": "Digestion, headaches, cooling effect.",
+            "caution": "Can spread aggressively in gardens.",
+            "images": [
+                "peppermint.jpg"
+            ],
+            "details": {
+                "habitat": "Near water, moist gardens.",
+                "processing": [
+                    "**Tea:** Fresh or dried leaves. Excellent for calming an upset stomach or cooling down on a hot day."
+                ]
+            }
+        },
+        {
+            "id": "usnea",
+            "name": "Usnea (Old Man's Beard)",
+            "scientific_name": "Usnea barbata",
+            "type": "Medicinal",
+            "season": "Year Round",
+            "identification": "Lichen hanging from trees. Grey-green. Pull gently; it has a stretchy white inner core.",
+            "uses": "Powerful natural antibiotic and antifungal. Edible (but bitter).",
+            "caution": "Pulls heavy metals from air - do not harvest near roads.",
+            "images": [
+                "usnea.jpg",
+                "usnea_stretch.jpg"
+            ],
+            "details": {
+                "habitat": "Trees in clean-air forests.",
+                "processing": [
+                    "**Identification:** If it doesn't have the 'rubber band' white core when stretched, it isn't Usnea.",
+                    "**Medicine:** Contains Usnic acid. Best extracted in alcohol (tincture) or simmered in water for a long time."
                 ]
             }
         }
@@ -932,6 +1069,201 @@
             "details": {
                 "behavior": "Colonies in dead wood.",
                 "details": "Roast them. Avoid eating the wood grit. High fat/protein."
+            }
+        }
+    ],
+    "aquatic": [
+        {
+            "id": "largemouth_bass",
+            "name": "Largemouth Bass",
+            "scientific_name": "Micropterus salmoides",
+            "type": "Predatory",
+            "habitat": "Lakes, ponds, and slow rivers with heavy cover (weeds, logs, docks).",
+            "behavior": "Aggressive ambush predator. Most active at dawn and dusk. Moves to deep water in midday heat.",
+            "best_bait": "Live minnows, worms, crawfish. Lures: Jigs, spinnerbaits, plastic worms.",
+            "images": [
+                "largemouth_bass.jpg",
+                "largemouth_bass_2.jpg"
+            ],
+            "details": {
+                "processing": "Bleed and gut immediately. Filleting is the standard method. Mild flavor.",
+                "utilization": "Meat (High protein), Skin (Fragile but can be tanned for small items)."
+            }
+        },
+        {
+            "id": "smallmouth_bass",
+            "name": "Smallmouth Bass",
+            "scientific_name": "Micropterus dolomieu",
+            "type": "Predatory",
+            "habitat": "Clearer, cooler water than largemouth. Rocky bottoms and moving current.",
+            "behavior": "Strong fighter. Feeds on crawfish and small minnows. Often school around rock piles.",
+            "best_bait": "Crayfish (live or lures), small jigs, inline spinners.",
+            "images": [
+                "smallmouth_bass.jpg"
+            ],
+            "details": {
+                "processing": "Same as largemouth. Firmer meat, highly prized.",
+                "utilization": "Meat."
+            }
+        },
+        {
+            "id": "northern_pike",
+            "name": "Northern Pike",
+            "scientific_name": "Esox lucius",
+            "type": "Apex Predator",
+            "habitat": "Cool, weedy shallows in summer; deeper drop-offs in winter.",
+            "behavior": "Fierce predator with razor teeth. Ambush hunter in weed beds.",
+            "best_bait": "Large spoons, spinners, suckers, or large minnows. Requires wire leader.",
+            "images": [
+                "pike.jpg"
+            ],
+            "details": {
+                "processing": "Slime coat is heavy; wipe down with vinegar or salt. Bony (Y-bones) require specialized filleting technique.",
+                "utilization": "Meat, Skin (Can be tanned into very strong fish leather)."
+            }
+        },
+        {
+            "id": "walleye",
+            "name": "Walleye",
+            "scientific_name": "Sander vitreus",
+            "type": "Predatory",
+            "habitat": "Deep pools, gravel bars, and wind-blown points in large lakes/rivers.",
+            "behavior": "Nocturnal sight hunter. Eyes reflect light. Move to shallows at night to feed.",
+            "best_bait": "Leeches, nightcrawlers, minnows. Jigs with bright tails.",
+            "images": [
+                "walleye.jpg"
+            ],
+            "details": {
+                "processing": "The 'Gold Standard' of freshwater eating. Firm, flaky white fillets. Check cheeks for succulent small medallions.",
+                "utilization": "Meat."
+            }
+        },
+        {
+            "id": "channel_catfish",
+            "name": "Channel Catfish",
+            "scientific_name": "Ictalurus punctatus",
+            "type": "Bottom Feeder",
+            "habitat": "Rivers, lakes, and ponds. Prefers current and structure.",
+            "behavior": "Keen sense of smell and taste. Feed most actively at night and in murky water.",
+            "best_bait": "Stink bait, chicken liver, cut fish, nightcrawlers.",
+            "images": [
+                "catfish.jpg"
+            ],
+            "details": {
+                "processing": "CAUTION: Poisonous spines on dorsal/pectoral fins. Skinning is required; use pliers. Remove the 'mud vein' (lateral line).",
+                "utilization": "Meat, Skin (Durable leather), Oil (Rendered from fat)."
+            }
+        },
+        {
+            "id": "rainbow_trout",
+            "name": "Rainbow Trout",
+            "scientific_name": "Oncorhynchus mykiss",
+            "type": "Predatory",
+            "habitat": "Cold, oxygenated rivers and lakes. Current breaks.",
+            "behavior": "Surface feeders in hatch season; move to deep pools in summer. Jump when hooked.",
+            "best_bait": "Insects (flies), salmon eggs, worms, small spinners.",
+            "images": [
+                "rainbow_trout.jpg"
+            ],
+            "details": {
+                "processing": "Delicate meat. Can be cooked whole or filleted. Best fresh; spoilage is rapid.",
+                "utilization": "Meat (High Omega-3s)."
+            }
+        },
+        {
+            "id": "chinook_salmon",
+            "name": "Chinook (King) Salmon",
+            "scientific_name": "Oncorhynchus tshawytscha",
+            "type": "Anadromous",
+            "habitat": "Oceans/Great Lakes; spawns in cold freshwater rivers.",
+            "behavior": "Massive spawning runs. Stop feeding in rivers but strike out of aggression.",
+            "best_bait": "Roe (eggs), large spoons, vibrators, flies.",
+            "images": [
+                "chinook_salmon.jpg"
+            ],
+            "details": {
+                "processing": "Oil content is extremely high. Bleed immediately for best flavor. Ideal for cold smoking.",
+                "utilization": "Meat (Calorie dense), Roe (Nutrient bomb), Skin."
+            }
+        },
+        {
+            "id": "yellow_perch",
+            "name": "Yellow Perch",
+            "scientific_name": "Perca flavescens",
+            "type": "Panfish",
+            "habitat": "Clear water with weed beds. Often in large schools.",
+            "behavior": "Daytime feeders. Travel in schools; if you catch one, there are dozens more.",
+            "best_bait": "Small minnows, worms, jigging spoons.",
+            "images": [
+                "yellow_perch.jpg"
+            ],
+            "details": {
+                "processing": "Small but easy to clean. Scaled and fried whole or filleted.",
+                "utilization": "Meat (The most reliable mass-catch species)."
+            }
+        },
+        {
+            "id": "bluegill",
+            "name": "Bluegill (Sunfish)",
+            "scientific_name": "Lepomis macrochirus",
+            "type": "Panfish",
+            "habitat": "Everywhere. Shallow weeds, docks, fallen trees.",
+            "behavior": "Opportunistic. Will bite almost anything small. Excellent 'first catch' for beginners.",
+            "best_bait": "Worms, crickets, bread balls.",
+            "images": [
+                "bluegill.jpg"
+            ],
+            "details": {
+                "processing": "Scaled and gutted. Cooked whole over a fire.",
+                "utilization": "Meat (Survival staple)."
+            }
+        },
+        {
+            "id": "common_carp",
+            "name": "Common Carp",
+            "scientific_name": "Cyprinus carpio",
+            "type": "Bottom Feeder",
+            "habitat": "Murky lakes and slow rivers with soft bottoms.",
+            "behavior": "Wary and powerful. Sucks food off the bottom. Spawns in shallows in spring with much splashing.",
+            "best_bait": "Corn, dough balls, bread.",
+            "images": [
+                "carp_1.jpg"
+            ],
+            "details": {
+                "processing": "Heavy scales. Dark meat with many small bones. Soaking in saltwater/milk removes 'muddy' taste.",
+                "utilization": "Meat (Massive calorie yield), Industrial scales."
+            }
+        },
+        {
+            "id": "lake_sturgeon",
+            "name": "Lake Sturgeon",
+            "scientific_name": "Acipenser fulvescens",
+            "type": "Bottom Feeder",
+            "habitat": "Large river systems and Great Lakes. Deep holes.",
+            "behavior": "Ancient, armor-plated dinosaur. Scent-based feeder. Lives over 100 years.",
+            "best_bait": "Smelly bait: cut fish, crawfish, gizzard shad.",
+            "images": [
+                "sturgeon.jpg"
+            ],
+            "details": {
+                "processing": "No scales, but bony plates (scutes). Firm, meat-like texture. No bones (cartilaginous skeleton).",
+                "utilization": "Meat (Premium), Isinglass (from swim bladder), Leather."
+            }
+        },
+        {
+            "id": "crayfish",
+            "name": "Crayfish (Crawdad)",
+            "scientific_name": "Astacoidea",
+            "type": "Crustacean",
+            "habitat": "Rocky stream beds, under stones, lake edges.",
+            "behavior": "Nocturnal. Scavengers. Burrow into mud in droughts.",
+            "best_bait": "Anything meaty in a trap (fish guts, chicken neck).",
+            "images": [
+                "crayfish.jpg"
+            ],
+            "details": {
+                "processing": "Purge in clean water for 30 mins. Boil for 5-7 mins until red. Peel tails.",
+                "utilization": "Meat, Excellent bait for larger predatory fish."
             }
         }
     ],
