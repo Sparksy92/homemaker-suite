@@ -46,6 +46,17 @@ export const UserProvider = ({ children }) => {
         };
     });
 
+    const [homeWidgets, setHomeWidgets] = useState(() => {
+        const savedWidgets = localStorage.getItem('homemaker_home_widgets');
+        return savedWidgets ? JSON.parse(savedWidgets) : {
+            quickResume: true,
+            sustainabilityStats: true,
+            priorityTasks: true,
+            favoritesPreview: true,
+            seasonalTip: true,
+            guideRequest: true
+        };
+    });
     const [sustainability, setSustainability] = useState(() => {
         const savedStats = localStorage.getItem('homemaker_sustainability');
         return savedStats ? JSON.parse(savedStats) : {
@@ -95,6 +106,10 @@ export const UserProvider = ({ children }) => {
     useEffect(() => {
         localStorage.setItem('homemaker_sustainability', JSON.stringify(sustainability));
     }, [sustainability]);
+
+    useEffect(() => {
+        localStorage.setItem('homemaker_home_widgets', JSON.stringify(homeWidgets));
+    }, [homeWidgets]);
 
     const updateProfile = (newData) => {
         setUser(prev => ({ ...prev, ...newData }));
@@ -179,10 +194,31 @@ export const UserProvider = ({ children }) => {
     // Calculate Readiness Score (0-100)
     const calculateReadinessScore = () => {
         const people = sustainability.peopleCount || 4;
-        const waterScore = Math.min((sustainability.water.current / (people * 14)) * 100, 100); // 14 day target
-        const foodScore = Math.min((sustainability.food.current / (people * 0.7 * 14)) * 100, 100); // 14 day target
-        return Math.floor((waterScore + foodScore) / 2);
+
+        // 1. Water Score (40%) - 14 day target (1 gal/person/day)
+        const waterScore = Math.min((sustainability.water.current / (people * 14)) * 100, 100);
+
+        // 2. Food Score (30%) - 14 day target (0.7 lbs/person/day)
+        const foodScore = Math.min((sustainability.food.current / (people * 0.7 * 14)) * 100, 100);
+
+        // 3. Energy Score (15%)
+        const energyScore = sustainability.energy.current || 0;
+
+        // 4. Garden Score (15%)
+        const gardenScore = sustainability.garden.current || 0;
+
+        return {
+            total: Math.floor((waterScore * 0.4) + (foodScore * 0.3) + (energyScore * 0.15) + (gardenScore * 0.15)),
+            breakdown: {
+                water: Math.round(waterScore),
+                food: Math.round(foodScore),
+                energy: Math.round(energyScore),
+                garden: Math.round(gardenScore)
+            }
+        };
     };
+
+    const readiness = calculateReadinessScore();
 
     const recordAccess = (item) => {
         setLastAccessedItem({
@@ -215,6 +251,13 @@ export const UserProvider = ({ children }) => {
         setSettings(prev => ({ ...prev, ...newSettings }));
     };
 
+    const toggleHomeWidget = (widgetId) => {
+        setHomeWidgets(prev => ({
+            ...prev,
+            [widgetId]: !prev[widgetId]
+        }));
+    };
+
     const clearAppData = () => {
         localStorage.clear();
         window.location.reload();
@@ -227,8 +270,10 @@ export const UserProvider = ({ children }) => {
         lastAccessedItem,
         settings,
         sustainability,
+        homeWidgets,
         durations,
-        readinessScore: calculateReadinessScore(),
+        readinessScore: readiness.total,
+        readinessBreakdown: readiness.breakdown,
         updateProfile,
         updateSustainability,
         updateSustainabilityRate,
@@ -242,6 +287,7 @@ export const UserProvider = ({ children }) => {
         isFavorite,
         markAsRead,
         updateSettings,
+        toggleHomeWidget,
         clearAppData
     };
 
