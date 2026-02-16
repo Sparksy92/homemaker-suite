@@ -2,7 +2,7 @@ import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Maximize2 } from 'lucide-react';
+import { X, Maximize2, AlertTriangle, AlertCircle, Info, ShieldAlert } from 'lucide-react';
 
 const MarkdownRenderer = ({ content }) => {
     const [selectedImage, setSelectedImage] = React.useState(null);
@@ -48,10 +48,77 @@ const MarkdownRenderer = ({ content }) => {
                         <li className="pl-2 text-charcoal leading-relaxed" {...props} />
                     ),
 
-                    // Blockquotes
-                    blockquote: ({ node, ...props }) => (
-                        <blockquote className="my-6 pl-6 pr-4 py-4 bg-sand-100 border-l-4 border-terracotta-400 rounded-r-lg italic text-charcoal-light shadow-sm" {...props} />
-                    ),
+                    // Blockquotes & Alerts
+                    blockquote: ({ node, children, ...props }) => {
+                        // Extract text content to check for alerts
+                        const content = React.Children.toArray(children).find(c => typeof c === 'object' && c.props && c.props.children);
+                        const firstChild = content ? content.props.children : null;
+                        const text = typeof firstChild === 'string' ? firstChild : '';
+
+                        if (text.startsWith('[!INFO]') || text.startsWith('[!NOTE]')) {
+                            return (
+                                <div className="my-8 p-6 bg-blue-50 border-l-4 border-blue-500 rounded-r-2xl shadow-sm flex gap-4 items-start">
+                                    <div className="p-2 bg-blue-500 rounded-xl text-white shrink-0 shadow-sm"><Info size={20} /></div>
+                                    <div className="flex-1 min-w-0 prose-compact">
+                                        <span className="text-[10px] font-black text-blue-600 uppercase tracking-widest block mb-1">Observation</span>
+                                        <div className="text-blue-900 font-medium leading-relaxed">
+                                            {React.Children.map(children, (child, i) => {
+                                                if (i === 0 && typeof firstChild === 'string') {
+                                                    return firstChild.replace(/^\[!(INFO|NOTE)\]\s*/, '');
+                                                }
+                                                return child;
+                                            })}
+                                        </div>
+                                    </div>
+                                </div>
+                            );
+                        }
+
+                        if (text.startsWith('[!WARNING]') || text.startsWith('[!CAUTION]')) {
+                            return (
+                                <div className="my-8 p-6 bg-amber-50 border-l-4 border-amber-500 rounded-r-2xl shadow-sm flex gap-4 items-start">
+                                    <div className="p-2 bg-amber-500 rounded-xl text-white shrink-0 shadow-sm"><AlertTriangle size={20} /></div>
+                                    <div className="flex-1 min-w-0 prose-compact">
+                                        <span className="text-[10px] font-black text-amber-600 uppercase tracking-widest block mb-1">Cautionary Advice</span>
+                                        <div className="text-amber-900 font-bold leading-relaxed">
+                                            {React.Children.map(children, (child, i) => {
+                                                if (i === 0 && typeof firstChild === 'string') {
+                                                    return firstChild.replace(/^\[!(WARNING|CAUTION)\]\s*/, '');
+                                                }
+                                                return child;
+                                            })}
+                                        </div>
+                                    </div>
+                                </div>
+                            );
+                        }
+
+                        if (text.startsWith('[!DANGER]') || text.startsWith('[!IMPORTANT]')) {
+                            const isDanger = text.startsWith('[!DANGER]');
+                            return (
+                                <div className={`my-8 p-6 ${isDanger ? 'bg-terracotta-50 border-terracotta-500 animate-pulse-subtle' : 'bg-neutral-50 border-neutral-900'} border-l-4 rounded-r-2xl shadow-md flex gap-4 items-start`}>
+                                    <div className={`p-2 ${isDanger ? 'bg-terracotta-600' : 'bg-neutral-900'} rounded-xl text-white shrink-0 shadow-sm`}>
+                                        {isDanger ? <ShieldAlert size={20} /> : <AlertCircle size={20} />}
+                                    </div>
+                                    <div className="flex-1 min-w-0 prose-compact">
+                                        <span className={`text-[10px] font-black ${isDanger ? 'text-terracotta-600' : 'text-neutral-900'} uppercase tracking-[0.2em] block mb-1`}>
+                                            {isDanger ? 'Critical Safety Danger' : 'Essential Protocol'}
+                                        </span>
+                                        <div className={`${isDanger ? 'text-terracotta-900' : 'text-neutral-900'} font-black text-lg leading-snug`}>
+                                            {React.Children.map(children, (child, i) => {
+                                                if (i === 0 && typeof firstChild === 'string') {
+                                                    return firstChild.replace(/^\[!(DANGER|IMPORTANT)\]\s*/, '');
+                                                }
+                                                return child;
+                                            })}
+                                        </div>
+                                    </div>
+                                </div>
+                            );
+                        }
+
+                        return <blockquote className="my-6 pl-6 pr-4 py-4 bg-sand-100 border-l-4 border-terracotta-400 rounded-r-lg italic text-charcoal-light shadow-sm" {...props} />;
+                    },
 
                     // Code
                     code: ({ node, inline, className, children, ...props }) => {

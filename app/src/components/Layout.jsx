@@ -124,7 +124,7 @@ const NavItem = ({ to, icon, label }) => {
             <NavLink
                 to={to}
                 className={({ isActive }) => cn(
-                    "flex flex-col items-center gap-1 p-2 rounded-xl transition-all duration-300 w-20",
+                    "flex flex-col items-center gap-1 p-2 rounded-xl transition-all duration-300 flex-1 min-w-0",
                     isActive
                         ? "text-sage-700 bg-sage-50 translate-y-[-4px]"
                         : "text-charcoal-light hover:text-sage-600 hover:bg-sand-50"

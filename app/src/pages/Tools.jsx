@@ -56,7 +56,7 @@ const Tools = () => {
             <h1 className="text-3xl mb-6 font-serif text-sage-900">Toolkit</h1>
 
             {/* Tabs */}
-            <div className="grid grid-cols-3 sm:flex sm:flex-wrap gap-2 mb-6">
+            <div className="flex flex-wrap gap-2 mb-6">
                 <TabButton
                     active={activeTab === 'wizard'}
                     onClick={() => setActiveTab('wizard')}

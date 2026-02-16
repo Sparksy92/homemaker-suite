@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Folder, FileText, ChevronRight, ArrowLeft, Heart, AlertCircle, Info, CheckCircle, AlertTriangle } from 'lucide-react';
+import { Folder, FileText, ChevronRight, ArrowLeft, Heart, AlertCircle, Info, CheckCircle, AlertTriangle, BookOpen, Droplets, Utensils, Sprout, Zap, ShieldCheck, Thermometer, Compass, Scissors, LayoutGrid, Timer, BarChart3 } from 'lucide-react';
 import { useUser } from '../context/UserContext';
 import { useNavigate, Link } from 'react-router-dom';
 import MarkdownRenderer from '../components/MarkdownRenderer';
@@ -16,28 +16,38 @@ const getDisplayName = (name) => {
 const LIBRARY_CATEGORIES = [
     {
         id: 'foundations',
-        name: "Foundations & Lifestyle",
-        folders: ["0 Foundations", "7 Budget & Lifestyle", "8 Nutrition", "11 Printables"]
+        name: "Foundations",
+        folders: ["0 Foundations", "7 Budget & Lifestyle", "8 Nutrition", "11 Printables"],
+        icon: <BookOpen />,
+        color: "bg-blue-500"
     },
     {
         id: 'culinary',
         name: "Culinary & Pantry",
-        folders: ["1 Pantry Systems", "2 Cooking Basics", "3 Recipes", "4 Food Storage & Pantry", "4 Preservation"]
+        folders: ["1 Pantry Systems", "2 Cooking Basics", "3 Recipes", "4 Food Storage & Pantry", "4 Preservation"],
+        icon: <Utensils />,
+        color: "bg-amber-500"
     },
     {
         id: 'production',
         name: "Food Production",
-        folders: ["5 Gardening", "12 Foraging & Wildcrafting", "13 Meat & Protein Security"]
+        folders: ["5 Gardening", "12 Foraging & Wildcrafting", "13 Meat & Protein Security"],
+        icon: <Sprout />,
+        color: "bg-sage-600"
     },
     {
         id: 'homestead',
-        name: "The Homestead",
-        folders: ["6 Home Maintenance", "15 Infrastructure", "16 Tools & Workshop", "17 Shelter & Weatherproofing", "18 Energy & Lighting", "20 Textiles & Clothing"]
+        name: "Infrastructure",
+        folders: ["6 Home Maintenance", "15 Infrastructure", "16 Tools & Workshop", "17 Shelter & Weatherproofing", "18 Energy & Lighting", "20 Textiles & Clothing"],
+        icon: <Zap />,
+        color: "bg-terracotta-500"
     },
     {
         id: 'preparedness',
-        name: "Preparedness & Seasonal",
-        folders: ["14 Health & First Aid", "19 Navigation & Awareness", "21 Scenario Playbooks", "9 Seasonal Guides", "99 Reference Library"]
+        name: "Preparedness",
+        folders: ["14 Health & First Aid", "19 Navigation & Awareness", "21 Scenario Playbooks", "9 Seasonal Guides", "99 Reference Library"],
+        icon: <ShieldCheck />,
+        color: "bg-neutral-800"
     }
 ];
 
@@ -66,6 +76,16 @@ const Library = ({ type = 'all' }) => {
     // Offline Mode Logic (Cache Storage API)
     const [downloading, setDownloading] = useState(false);
     const [downloadProgress, setDownloadProgress] = useState(0);
+    const [showSafetyAck, setShowSafetyAck] = useState(null); // { file, folder }
+
+    // Files that require explicit safety acknowledgment
+    const LETHAL_RISK_FILES = [
+        "12.3 Mushroom Safety.md",
+        "13.2 Salting and Smoking.md",
+        "15.1 Water Procurement.md",
+        "14.1 Herbal Medicine.md",
+        "4.2 Pressure Canning.md"
+    ];
     const [isOfflineReady, setIsOfflineReady] = useState(false);
 
     // Check if offline cache is populated
@@ -121,6 +141,11 @@ const Library = ({ type = 'all' }) => {
     };
 
     const handleFileClick = async (fileName) => {
+        if (LETHAL_RISK_FILES.includes(fileName) && !sessionStorage.getItem(`safety_ack_${fileName}`)) {
+            setShowSafetyAck({ file: fileName, folder: currentPath[0] });
+            return;
+        }
+
         try {
             const folder = currentPath[0];
             const url = `/content/${folder}/${fileName}`;
@@ -142,7 +167,8 @@ const Library = ({ type = 'all' }) => {
             } else {
                 // 2. Fallback to Network
                 if (isBinary) {
-                    // Binary handling
+                    // Binary handling - for now, just set the URL directly for iframe/object
+                    contentState.url = url;
                 } else {
                     const response = await fetch(url);
                     if (!response.ok) throw new Error("Network response was not ok");
@@ -166,8 +192,16 @@ const Library = ({ type = 'all' }) => {
         }
     };
 
+    const confirmSafetyAck = async () => {
+        if (showSafetyAck) {
+            sessionStorage.setItem(`safety_ack_${showSafetyAck.file}`, 'true');
+            const { file, folder } = showSafetyAck;
+            setShowSafetyAck(null);
 
-
+            // Re-trigger handleFileClick to load the file now that ack is confirmed
+            await handleFileClick(file);
+        }
+    };
 
 
     // Search State
@@ -185,6 +219,31 @@ const Library = ({ type = 'all' }) => {
     }, [fileSystem]);
 
     // Filtered results
+    // Smart Discovery Logic
+    const recommendedGuides = React.useMemo(() => {
+        // Placeholder for sustainability context, assuming it's available or mocked
+        const sustainability = {
+            water: { current: 20 },
+            food: { current: 40 },
+            garden: { current: 45 }
+        };
+
+        if (!sustainability) return [];
+        const recs = [];
+
+        if (sustainability.water.current < 30) {
+            recs.push({ title: 'Water Procurement', folder: '15 Infrastructure', file: '15.1 Water Procurement.md', reason: 'Water Storage Low' });
+        }
+        if (sustainability.food.current < 50) {
+            recs.push({ title: 'Long Term Storage', folder: '1 Pantry Systems', file: '1.2 Long Term Storage.md', reason: 'Food Reserve Low' });
+        }
+        if (sustainability.garden.current < 50) {
+            recs.push({ title: 'Soil Health', folder: '5 Gardening', file: '5.2 Soil Health.md', reason: 'Garden Vitality Low' });
+        }
+
+        return recs;
+    }, []); // Removed sustainability from dependency array as it's a placeholder here
+
     const searchResults = allFiles.filter(item =>
         getDisplayName(item.file).toLowerCase().includes(searchQuery.toLowerCase()) ||
         getDisplayName(item.folder).toLowerCase().includes(searchQuery.toLowerCase())
@@ -193,131 +252,133 @@ const Library = ({ type = 'all' }) => {
     return (
         <div className="min-h-screen bg-sand-50">
             <AnimatePresence mode="wait">
-                {/* View 1: Root Folders OR Search Results */}
+                {/* View 1: Root Categories */}
                 {currentPath.length === 0 && !fileContent && (
                     <motion.div
                         key="root"
-                        initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}
-                        className="p-4 md:p-6 pb-24 max-w-4xl mx-auto w-full"
+                        initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}
+                        className="p-4 md:p-6 pb-24 max-w-6xl mx-auto w-full"
                     >
-                        <div className="flex flex-col md:flex-row md:items-center justify-between mb-6 border-b border-sand-200 pb-6 gap-4">
-                            <h1 className="text-4xl md:text-5xl font-serif text-sage-900">
-                                {type === 'guides' ? 'Guides' : type === 'reference' ? 'Reference' : 'Library'}
-                            </h1>
-                            <div className="flex items-center gap-3 w-full md:w-auto">
-                                <div className="relative flex-1 md:w-80 min-w-0">
+                        {/* Header Section */}
+                        <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 pb-8 border-b border-sand-200 gap-6">
+                            <div className="space-y-1">
+                                <span className="text-[10px] font-black text-sage-500 uppercase tracking-[0.3em]">Knowledge Hub</span>
+                                <h1 className="text-5xl font-serif font-black text-sage-900 tracking-tight">Library</h1>
+                            </div>
+
+                            <div className="flex items-center gap-3">
+                                <div className="relative w-full md:w-80 overflow-hidden">
                                     <input
                                         type="text"
-                                        placeholder="Search..."
+                                        placeholder="Search across all modules..."
                                         value={searchQuery}
                                         onChange={(e) => setSearchQuery(e.target.value)}
-                                        className="w-full pl-10 pr-4 py-3 rounded-full border border-sand-300 focus:border-sage-500 focus:ring-2 focus:ring-sage-200 bg-white shadow-sm outline-none transition-all font-serif text-base"
+                                        className="w-full pl-12 pr-6 py-4 rounded-2xl border border-sand-200 focus:border-sage-500 focus:ring-0 bg-white shadow-sm outline-none transition-all font-serif text-lg text-sage-800 placeholder:text-sand-300"
                                     />
-                                    <div className="absolute left-3 top-1/2 -translate-y-1/2 text-sand-400">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" /></svg>
+                                    <div className="absolute left-4 top-1/2 -translate-y-1/2 text-sage-400">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" /></svg>
                                     </div>
                                 </div>
                                 <button
                                     onClick={handleDownloadAll}
                                     disabled={downloading || isOfflineReady}
-                                    className={`p-3 rounded-full transition-all shadow-sm flex-shrink-0 relative overflow-hidden ${isOfflineReady ? 'bg-sage-100 text-sage-600' : 'bg-white border border-sand-300 text-sand-500 hover:border-terracotta-400 hover:text-terracotta-500'}`}
-                                    title={isOfflineReady ? "Library Downloaded" : "Download for Offline Use"}
+                                    className={`p-4 rounded-2xl transition-all shadow-sm flex-shrink-0 relative overflow-hidden ${isOfflineReady ? 'bg-sage-100 text-sage-600' : 'bg-white border border-sand-200 text-sand-400 hover:border-terracotta-400 hover:text-terracotta-500'}`}
                                 >
-                                    {downloading ? (
-                                        <span className="text-xs font-bold text-terracotta-600">{downloadProgress}%</span>
-                                    ) : isOfflineReady ? (
-                                        <CheckCircle size={20} />
-                                    ) : (
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="7 10 12 15 17 10" /><line x1="12" x2="12" y1="15" y2="3" /></svg>
-                                    )}
-
-                                    {/* Progress Background */}
-                                    {downloading && (
-                                        <div
-                                            className="absolute bottom-0 left-0 h-1 bg-terracotta-400 transition-all duration-300"
-                                            style={{ width: `${downloadProgress}%` }}
-                                        />
-                                    )}
+                                    {downloading ? <span className="text-xs font-black">{downloadProgress}%</span> : isOfflineReady ? <CheckCircle size={22} /> : <Droplets size={22} />}
+                                    {downloading && <div className="absolute bottom-0 left-0 h-1 bg-terracotta-500 transition-all duration-300" style={{ width: `${downloadProgress}%` }} />}
                                 </button>
                             </div>
                         </div>
 
-                        {/* Filter Categories based on Type */}
-                        {searchQuery ? (
-                            <div className="grid gap-3">
-                                {searchResults.length > 0 ? (
-                                    <>
-                                        <p className="text-sand-500 font-medium mb-2 uppercase tracking-wider text-sm">Found {searchResults.length} results</p>
-                                        {searchResults.map((item) => (
-                                            <div key={item.file} className="relative group">
-                                                <button
-                                                    onClick={() => {
-                                                        setCurrentPath([item.folder]);
-                                                        handleFileClick(item.file);
-                                                    }}
-                                                    className="w-full flex items-center gap-3 p-4 bg-white rounded-xl border border-sand-100 shadow-sm hover:shadow-md hover:border-terracotta-200 text-left transition-all"
-                                                >
-                                                    <div className="p-2 bg-sage-50 rounded-lg text-sage-500 shrink-0">
-                                                        <FileText size={20} />
-                                                    </div>
-                                                    <div className="flex-1 min-w-0">
-                                                        <span className="block text-base font-serif text-charcoal group-hover:text-terracotta-700 transition-colors truncate">{getDisplayName(item.file)}</span>
-                                                        <span className="text-xs text-sand-500 uppercase tracking-wide truncate block">{getDisplayName(item.folder)}</span>
-                                                    </div>
-                                                </button>
+                        {/* Smart Recommendations */}
+                        {recommendedGuides.length > 0 && !searchQuery && (
+                            <section className="mb-12">
+                                <h3 className="text-[10px] font-black text-sage-400 uppercase tracking-widest mb-4">Recommended For You</h3>
+                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                    {recommendedGuides.map((rec, i) => (
+                                        <button
+                                            key={i}
+                                            onClick={() => {
+                                                setCurrentPath([rec.folder]);
+                                                handleFileClick(rec.file);
+                                            }}
+                                            className="group bg-terracotta-600 p-5 rounded-[2rem] text-white shadow-xl shadow-terracotta-200/50 hover:bg-terracotta-700 transition-all text-left flex items-start gap-4"
+                                        >
+                                            <div className="p-3 bg-white/20 rounded-2xl backdrop-blur-md">
+                                                <AlertTriangle size={20} />
                                             </div>
-                                        ))}
-                                    </>
-                                ) : (
-                                    <div className="text-center py-12 text-sand-500 italic">
-                                        No guides found matching "{searchQuery}"
-                                    </div>
-                                )}
+                                            <div>
+                                                <span className="text-[8px] font-black uppercase tracking-widest opacity-80">{rec.reason}</span>
+                                                <h4 className="font-serif font-black text-lg block leading-tight">{rec.title}</h4>
+                                                <div className="flex items-center gap-1 mt-1 opacity-70">
+                                                    <BookOpen size={10} />
+                                                    <span className="text-[9px] font-bold uppercase tracking-tighter">View Guide</span>
+                                                </div>
+                                            </div>
+                                        </button>
+                                    ))}
+                                </div>
+                            </section>
+                        )}
+
+                        {/* Search Results */}
+                        {searchQuery ? (
+                            <div className="space-y-4">
+                                <h3 className="text-sm font-bold text-sage-600 uppercase tracking-widest">Found {searchResults.length} matches</h3>
+                                <div className="grid gap-3">
+                                    {searchResults.map((item) => (
+                                        <button
+                                            key={item.file}
+                                            onClick={() => {
+                                                setCurrentPath([item.folder]);
+                                                handleFileClick(item.file);
+                                            }}
+                                            className="flex items-center gap-4 p-5 bg-white rounded-3xl border border-sand-100 shadow-sm hover:shadow-md hover:border-terracotta-200 transition-all text-left"
+                                        >
+                                            <div className="p-3 bg-sage-50 rounded-2xl text-sage-500"><FileText size={20} /></div>
+                                            <div className="flex-1 min-w-0">
+                                                <span className="block text-lg font-serif font-black text-sage-900 truncate">{getDisplayName(item.file)}</span>
+                                                <span className="text-[10px] text-sand-400 font-black uppercase tracking-widest block mt-0.5">{getDisplayName(item.folder)}</span>
+                                            </div>
+                                            <ChevronRight size={18} className="text-sand-300" />
+                                        </button>
+                                    ))}
+                                </div>
                             </div>
                         ) : (
-                            <div className="space-y-10">
-                                {LIBRARY_CATEGORIES.map(category => {
-                                    // Filter folders in this category that match the 'type' (guides vs reference)
-                                    const categoryFolders = category.folders.filter(folderName => {
-                                        if (!fileSystem[folderName]) return false;
-                                        const num = parseInt(folderName.split(' ')[0]);
-                                        if (type === 'guides') return num < 40;
-                                        if (type === 'reference') return num >= 40 && num < 50 || num >= 90;
-                                        return true;
-                                    });
+                            /* Category Grid */
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                                {LIBRARY_CATEGORIES.map(category => (
+                                    <div key={category.id} className="space-y-4 group">
+                                        <div className="flex items-center gap-3 px-1">
+                                            <div className={`p-2 rounded-lg text-white ${category.color} shadow-sm`}>{category.icon}</div>
+                                            <h3 className="text-xs font-black text-sage-600 uppercase tracking-widest">{category.name}</h3>
+                                        </div>
 
-                                    if (categoryFolders.length === 0) return null;
-
-                                    return (
-                                        <div key={category.id} className="space-y-4">
-                                            <h3 className="text-sm font-bold text-sage-600 uppercase tracking-[0.2em] border-b border-sand-200 pb-2 ml-1">
-                                                {category.name}
-                                            </h3>
-                                            <div className="grid gap-4">
-                                                {categoryFolders.map(folder => (
+                                        <div className="space-y-3">
+                                            {category.folders.map(folder => {
+                                                if (!fileSystem[folder]) return null;
+                                                return (
                                                     <button
                                                         key={folder}
                                                         onClick={() => setCurrentPath([folder])}
-                                                        className="group flex flex-row items-center p-4 bg-white rounded-2xl border border-sand-200 shadow-sm hover:shadow-md hover:border-sage-300 transition-all text-left gap-4"
+                                                        className="w-full group/card flex items-center justify-between p-5 bg-white rounded-3xl border border-sand-200 shadow-sm hover:shadow-xl hover:shadow-sage-900/5 hover:border-sage-400 transition-all text-left"
                                                     >
-                                                        <div className="bg-sage-50 p-3 rounded-xl text-sage-600 group-hover:bg-sage-600 group-hover:text-white transition-colors shrink-0">
-                                                            <Folder size={24} />
-                                                        </div>
                                                         <div className="flex-1 min-w-0">
-                                                            <div className="flex items-center justify-between">
-                                                                <span className="font-serif text-xl text-charcoal group-hover:text-sage-900 truncate pr-2">{getDisplayName(folder)}</span>
-                                                                <ChevronRight size={18} className="text-sand-400 group-hover:translate-x-1 transition-transform shrink-0" />
-                                                            </div>
-                                                            <span className="text-xs text-sand-500 mt-1 font-medium uppercase tracking-wider block">{fileSystem[folder].length} Items</span>
+                                                            <span className="font-serif text-lg font-black text-sage-900 block truncate leading-tight group-hover/card:text-sage-700">{getDisplayName(folder)}</span>
+                                                            <span className="text-[10px] font-black text-sand-400 uppercase tracking-widest block mt-1">{fileSystem[folder].length} Resources</span>
+                                                        </div>
+                                                        <div className="w-8 h-8 rounded-full bg-sand-50 flex items-center justify-center text-sand-300 group-hover/card:bg-sage-600 group-hover/card:text-white transition-all">
+                                                            <ChevronRight size={16} />
                                                         </div>
                                                     </button>
-                                                ))}
-                                            </div>
+                                                );
+                                            })}
                                         </div>
-                                    );
-                                })}
+                                    </div>
+                                ))}
 
-                                {/* Fallback for any folders not categorized (Safety Net) */}
+                                {/* Other Modules Fallback */}
                                 {(() => {
                                     const categorizedFolders = new Set(LIBRARY_CATEGORIES.flatMap(c => c.folders));
                                     const uncategorizedFolders = Object.keys(fileSystem).filter(f => !categorizedFolders.has(f) && f !== "50 Interactive Tools");
@@ -326,22 +387,23 @@ const Library = ({ type = 'all' }) => {
 
                                     return (
                                         <div className="space-y-4">
-                                            <h3 className="text-sm font-bold text-sand-400 uppercase tracking-widest border-b border-sand-200 pb-2 ml-1">
-                                                Other Modules
-                                            </h3>
-                                            <div className="grid gap-4">
+                                            <div className="flex items-center gap-3 px-1">
+                                                <div className="p-2 rounded-lg text-white bg-sand-400 shadow-sm"><LayoutGrid size={18} /></div>
+                                                <h3 className="text-xs font-black text-sage-600 uppercase tracking-widest">Other Modules</h3>
+                                            </div>
+                                            <div className="grid gap-3">
                                                 {uncategorizedFolders.map(folder => (
                                                     <button
                                                         key={folder}
                                                         onClick={() => setCurrentPath([folder])}
-                                                        className="group flex flex-row items-center p-4 bg-white rounded-2xl border border-sand-200 shadow-sm hover:shadow-md hover:border-sage-300 transition-all text-left gap-4"
+                                                        className="w-full group/card flex items-center justify-between p-5 bg-white rounded-3xl border border-sand-200 shadow-sm hover:shadow-xl hover:shadow-sage-900/5 hover:border-sage-400 transition-all text-left"
                                                     >
-                                                        <div className="bg-sand-50 p-3 rounded-xl text-sand-400 group-hover:bg-sand-400 group-hover:text-white transition-colors shrink-0">
-                                                            <Folder size={24} />
-                                                        </div>
                                                         <div className="flex-1 min-w-0">
-                                                            <span className="font-serif text-xl text-charcoal group-hover:text-sage-900 truncate pr-2">{getDisplayName(folder)}</span>
-                                                            <span className="text-xs text-sand-500 mt-1 font-medium uppercase tracking-wider block">{fileSystem[folder].length} Items</span>
+                                                            <span className="font-serif text-lg font-black text-sage-900 block truncate leading-tight group-hover/card:text-sage-700">{getDisplayName(folder)}</span>
+                                                            <span className="text-[10px] font-black text-sand-400 uppercase tracking-widest block mt-1">{fileSystem[folder].length} Resources</span>
+                                                        </div>
+                                                        <div className="w-8 h-8 rounded-full bg-sand-50 flex items-center justify-center text-sand-300 group-hover/card:bg-sage-600 group-hover/card:text-white transition-all">
+                                                            <ChevronRight size={16} />
                                                         </div>
                                                     </button>
                                                 ))}
@@ -451,7 +513,60 @@ const Library = ({ type = 'all' }) => {
                     </motion.div>
                 )}
             </AnimatePresence>
-        </div >
+
+            {/* Safety Acknowledgment Modal */}
+            <AnimatePresence>
+                {showSafetyAck && (
+                    <motion.div
+                        initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                        className="fixed inset-0 z-[300] bg-sage-900/90 backdrop-blur-md flex items-center justify-center p-6"
+                    >
+                        <motion.div
+                            initial={{ scale: 0.9, y: 20 }} animate={{ scale: 1, y: 0 }}
+                            className="bg-white rounded-[3rem] p-8 md:p-12 max-w-xl w-full shadow-2xl border-4 border-terracotta-500 overflow-hidden relative"
+                        >
+                            {/* Warning Background Icon */}
+                            <div className="absolute -right-8 -top-8 text-terracotta-50 opacity-10">
+                                <ShieldAlert size={200} />
+                            </div>
+
+                            <div className="relative z-10">
+                                <div className="w-16 h-16 bg-terracotta-100 rounded-2xl flex items-center justify-center text-terracotta-600 mb-6">
+                                    <ShieldAlert size={32} />
+                                </div>
+
+                                <h2 className="text-3xl font-serif font-black text-sage-900 mb-4 leading-tight">
+                                    Lethal Hazard Warning
+                                </h2>
+
+                                <p className="text-lg text-sage-600 mb-8 leading-relaxed">
+                                    The module <span className="font-black text-terracotta-600">"{getDisplayName(showSafetyAck.file)}"</span> contains information about activities that carry a **lethal risk of illness or death** (e.g., botulism, mycophagy, waterborne pathogens) if performed incorrectly.
+                                </p>
+
+                                <div className="space-y-4">
+                                    <button
+                                        onClick={confirmSafetyAck}
+                                        className="w-full py-5 bg-terracotta-600 text-white rounded-2xl font-black uppercase tracking-widest hover:bg-terracotta-700 transition-all shadow-xl shadow-terracotta-200"
+                                    >
+                                        I Understand the Risks
+                                    </button>
+                                    <button
+                                        onClick={() => setShowSafetyAck(null)}
+                                        className="w-full py-4 bg-sand-100 text-sage-600 rounded-2xl font-bold hover:bg-sand-200 transition-all"
+                                    >
+                                        Return to Library
+                                    </button>
+                                </div>
+
+                                <p className="mt-8 text-center text-xs text-sage-400 font-bold uppercase tracking-tighter">
+                                    Safety First • Homemaker Suite
+                                </p>
+                            </div>
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+        </div>
     );
 };
 
@@ -505,21 +620,32 @@ const FolderContentList = ({ files, folder, handleFileClick }) => {
     return (
         <div className="space-y-8">
             <div className="grid gap-3">
-                <h3 className="text-xs font-bold text-sand-500 uppercase tracking-widest pl-1">Educational Guides</h3>
+                <h3 className="text-[10px] font-black text-sand-400 uppercase tracking-[0.2em] pl-1">Knowledge Modules</h3>
                 {visibleFiles.map((file) => (
                     <div key={file} className="relative group">
                         <button
                             onClick={() => handleFileClick(file)}
-                            className="w-full flex items-center gap-4 p-5 bg-white rounded-xl border border-sand-100 shadow-sm hover:shadow-md hover:border-terracotta-200 text-left transition-all"
+                            className="w-full flex items-center gap-6 p-6 bg-white rounded-[2rem] border border-sand-100 shadow-sm hover:shadow-xl hover:shadow-sage-900/5 hover:border-terracotta-400 transition-all text-left"
                         >
-                            <div className="p-2 bg-terracotta-50 rounded-lg text-terracotta-500">
-                                <FileText size={20} />
+                            <div className="p-3 bg-terracotta-50 rounded-2xl text-terracotta-500">
+                                <BookOpen size={24} />
                             </div>
                             <div className="flex-1">
-                                <span className="block text-lg font-serif text-charcoal group-hover:text-terracotta-700 transition-colors">{getDisplayName(file)}</span>
+                                <span className="block text-xl font-serif font-black text-sage-900 group-hover:text-terracotta-700 transition-colors leading-tight">{getDisplayName(file)}</span>
+                                <div className="flex items-center gap-4 mt-2">
+                                    <div className="flex items-center gap-1.5 text-sand-400">
+                                        <Timer size={10} />
+                                        <span className="text-[9px] font-black uppercase tracking-widest">8 min read</span>
+                                    </div>
+                                    <div className="flex items-center gap-1.5 text-sand-400">
+                                        <BarChart3 size={10} />
+                                        <span className="text-[9px] font-black uppercase tracking-widest">Foundation</span>
+                                    </div>
+                                </div>
                             </div>
+                            <ChevronRight size={20} className="text-sand-200 group-hover:text-terracotta-500 group-hover:translate-x-1 transition-all" />
                         </button>
-                        <div className="absolute right-4 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <div className="absolute right-14 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity">
                             <FavoriteButton
                                 item={{ id: file, title: getDisplayName(file), category: folder }}
                             />
