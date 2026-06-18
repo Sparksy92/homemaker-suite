@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Calculator, Soup, Repeat, Calendar, Wrench, Flame, Clock, ChefHat, X, AlertTriangle, BookOpen } from 'lucide-react';
+import { Calculator, Soup, Repeat, Calendar, Wrench, Flame, Clock, ChefHat, X, AlertTriangle, BookOpen, Droplets } from 'lucide-react';
 
 // Import JSON data directly
 import subEngineData from '../data/SubstitutionEngine.json';
@@ -10,6 +10,7 @@ import { useUser } from '../context/UserContext';
 // import recipeData from '../data/RecipeDatabase.json';
 
 import MealPlans from './MealPlans';
+import WaterTracker from '../components/WaterTracker';
 
 // Import generic file fetcher (simplified for this view)
 const Tools = () => {
@@ -21,7 +22,7 @@ const Tools = () => {
     useEffect(() => {
         const handleHashChange = () => {
             const hash = window.location.hash.replace('#', '');
-            const validTabs = ['wizard', 'survival', 'pantry', 'sub', 'plans'];
+            const validTabs = ['wizard', 'survival', 'pantry', 'sub', 'plans', 'water'];
             if (validTabs.includes(hash)) {
                 setActiveTab(hash);
             }
@@ -87,6 +88,12 @@ const Tools = () => {
                     icon={<Calendar size={18} />}
                     label="Plans"
                 />
+                <TabButton
+                    active={activeTab === 'water'}
+                    onClick={() => setActiveTab('water')}
+                    icon={<Droplets size={18} />}
+                    label="Water"
+                />
             </div>
 
             {/* Content Area */}
@@ -95,6 +102,7 @@ const Tools = () => {
                 {activeTab === 'pantry' && <PantryCalculator key="pantry" data={pantryCalcData} />}
                 {activeTab === 'sub' && <SubstitutionEngine key="sub" data={subEngineData} />}
                 {activeTab === 'survival' && <SurvivalToolsList tools={survivalTools} setActiveToolUrl={setActiveToolUrl} />}
+                {activeTab === 'water' && <WaterTracker key="water" />}
                 {activeTab === 'plans' && (
                     <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="space-y-12">
                         <section>
