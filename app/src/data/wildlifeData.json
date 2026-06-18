@@ -790,6 +790,48 @@
                     "**Flower Buds:** Steam young, unopened flower buds for 10-15 minutes. Serve with butter/salt—tastes remarkably like artichoke."
                 ]
             }
+        },
+        {
+            "id": "chamomile",
+            "name": "Chamomile",
+            "scientific_name": "Matricaria chamomilla",
+            "type": "Medicinal",
+            "season": "Summer",
+            "identification": "Small daisy-like flowers with white petals and yellow centers. Feathery leaves. Smells like apples when crushed.",
+            "uses": "Sleep aid, digestive calmative, skin soothing.",
+            "caution": "May cause allergic reaction in people sensitive to the Asteraceae family (ragweed, daisies).",
+            "images": [
+                "chamomile.jpg"
+            ],
+            "details": {
+                "habitat": "Sunny fields, roadsides, well-drained soil.",
+                "processing": [
+                    "**Tea:** Steep fresh or dried flower heads (not leaves) for 5-10 minutes. Famous for promoting sleep and easing anxiety.",
+                    "**Digestive:** Drink after meals to reduce gas and bloating.",
+                    "**Skin:** Use cooled tea as a wash for inflamed skin or as a compress for tired eyes."
+                ]
+            }
+        },
+        {
+            "id": "self_heal",
+            "name": "Self-Heal (Heal-All)",
+            "scientific_name": "Prunella vulgaris",
+            "type": "Medicinal / Edible",
+            "season": "Summer",
+            "identification": "Square stem (mint family). Spiky purple flower head. Oval leaves.",
+            "uses": "Broad-spectrum medicinal. Wound healing, sore throats, antiviral.",
+            "caution": "None.",
+            "images": [
+                "self_heal.jpg"
+            ],
+            "details": {
+                "habitat": "Lawns, gardens, forest edges.",
+                "processing": [
+                    "**Wound Wash:** Strong decoction used to wash cuts. Very effective at stopping bleeding and preventing infection.",
+                    "**Tea:** Used for internal inflammations and as a general tonic.",
+                    "**Edible:** Young leaves can be eaten raw in salads."
+                ]
+            }
         }
     ],
     "fauna": [
@@ -1379,6 +1421,46 @@
             "details": {
                 "behavior": "Colonies in dead wood.",
                 "details": "Roast them. Avoid eating the wood grit. High fat/protein."
+            }
+        },
+        {
+            "id": "cricket",
+            "name": "Cricket / Grasshopper",
+            "scientific_name": "Gryllidae / Caelifera",
+            "role": "Edible",
+            "season": "Summer/Fall",
+            "identification": "Leaping insects. Crickets are usually black/brown; Grasshoppers vary in color.",
+            "notes": "High protein, low fat. Nutty flavor when roasted.",
+            "status": "Harvest",
+            "images": [
+                "cricket.jpg"
+            ],
+            "details": {
+                "caution": "Always cook thoroughly to kill parasites. Remove large legs and wings before eating as they are scratchy and non-nutritious.",
+                "processing": [
+                    "**Catching:** Best caught in early morning when they are sluggish from the cold.",
+                    "**Preparation:** Freeze for 20 mins to kill humanely. Dry roast in a pan until brittle. Toss with salt or chili powder."
+                ]
+            }
+        },
+        {
+            "id": "cicada",
+            "name": "Cicada",
+            "scientific_name": "Cicadoidea",
+            "role": "Edible",
+            "season": "Summer",
+            "identification": "Large, loud insects with transparent wings. Emerges from ground.",
+            "notes": "Tastes like 'shrimp of the land'. High in protein.",
+            "status": "Harvest",
+            "images": [
+                "cicada.jpg"
+            ],
+            "details": {
+                "caution": "Avoid if you have a shellfish allergy (related proteins).",
+                "processing": [
+                    "**Harvesting:** Best eaten just after they emerge from their shells (teneral stage) while they are still soft and white.",
+                    "**Preparation:** Remove wings and legs. Boil for 4-5 minutes then sauté or fry."
+                ]
             }
         }
     ],

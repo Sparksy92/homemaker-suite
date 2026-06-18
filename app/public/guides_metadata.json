@@ -1,0 +1,924 @@
+[
+  {
+    "title": "12.2 Tree Knowledge",
+    "path": "content/12 Foraging & Wildcrafting/12.2 Tree Knowledge.md",
+    "category": "12 Foraging & Wildcrafting",
+    "tags": [
+      "medicinal",
+      "edible",
+      "survival"
+    ],
+    "word_count": 1066
+  },
+  {
+    "title": "12.4 Wild Harvest & Processing",
+    "path": "content/12 Foraging & Wildcrafting/12.4 Wild Harvest & Processing.md",
+    "category": "12 Foraging & Wildcrafting",
+    "tags": [],
+    "word_count": 559
+  },
+  {
+    "title": "12.1 The Big Three",
+    "path": "content/12 Foraging & Wildcrafting/12.1 The Big Three.md",
+    "category": "12 Foraging & Wildcrafting",
+    "tags": [
+      "medicinal",
+      "edible"
+    ],
+    "word_count": 963
+  },
+  {
+    "title": "12.3 Mushroom Safety",
+    "path": "content/12 Foraging & Wildcrafting/12.3 Mushroom Safety.md",
+    "category": "12 Foraging & Wildcrafting",
+    "tags": [
+      "edible"
+    ],
+    "word_count": 1126
+  },
+  {
+    "title": "12.6 Utility & Fiber Plants",
+    "path": "content/12 Foraging & Wildcrafting/12.6 Utility & Fiber Plants.md",
+    "category": "12 Foraging & Wildcrafting",
+    "tags": [
+      "survival"
+    ],
+    "word_count": 469
+  },
+  {
+    "title": "12.5 Poisonous Look-alikes",
+    "path": "content/12 Foraging & Wildcrafting/12.5 Poisonous Look-alikes.md",
+    "category": "12 Foraging & Wildcrafting",
+    "tags": [
+      "edible",
+      "survival"
+    ],
+    "word_count": 573
+  },
+  {
+    "title": "14.11 Advanced Herbal Preparations",
+    "path": "content/14 Health & First Aid/14.11 Advanced Herbal Preparations.md",
+    "category": "14 Health & First Aid",
+    "tags": [
+      "survival"
+    ],
+    "word_count": 464
+  },
+  {
+    "title": "14.5 Evidence-Based Botanical Studies",
+    "path": "content/14 Health & First Aid/14.5 Evidence-Based Botanical Studies.md",
+    "category": "14 Health & First Aid",
+    "tags": [
+      "survival"
+    ],
+    "word_count": 573
+  },
+  {
+    "title": "14.4 Primitive Antimicrobials & Natural Antibiotics",
+    "path": "content/14 Health & First Aid/14.4 Primitive Antimicrobials.md",
+    "category": "14 Health & First Aid",
+    "tags": [
+      "survival"
+    ],
+    "word_count": 685
+  },
+  {
+    "title": "14.8 Reproductive Health & Hygiene",
+    "path": "content/14 Health & First Aid/14.8 Reproductive Health.md",
+    "category": "14 Health & First Aid",
+    "tags": [
+      "survival"
+    ],
+    "word_count": 421
+  },
+  {
+    "title": "14.12 The Nervine Apothecary",
+    "path": "content/14 Health & First Aid/14.12 The Nervine Apothecary.md",
+    "category": "14 Health & First Aid",
+    "tags": [
+      "survival"
+    ],
+    "word_count": 379
+  },
+  {
+    "title": "14.9 Managing Chronic Conditions",
+    "path": "content/14 Health & First Aid/14.9 Managing Chronic Conditions.md",
+    "category": "14 Health & First Aid",
+    "tags": [
+      "survival"
+    ],
+    "word_count": 508
+  },
+  {
+    "title": "14.3 Special Considerations: Children, Elderly & Chronic Conditions",
+    "path": "content/14 Health & First Aid/14.3 Special Considerations \u2013 Children & Elderly.md",
+    "category": "14 Health & First Aid",
+    "tags": [
+      "survival"
+    ],
+    "word_count": 452
+  },
+  {
+    "title": "14.7 Dental Survival & Oral Health",
+    "path": "content/14 Health & First Aid/14.7 Dental Survival.md",
+    "category": "14 Health & First Aid",
+    "tags": [
+      "survival"
+    ],
+    "word_count": 580
+  },
+  {
+    "title": "14.1 Herbal Medicine",
+    "path": "content/14 Health & First Aid/14.1 Herbal Medicine.md",
+    "category": "14 Health & First Aid",
+    "tags": [
+      "medicinal"
+    ],
+    "word_count": 1583
+  },
+  {
+    "title": "14.6 Sanitation & Disease Control",
+    "path": "content/14 Health & First Aid/14.6 Sanitation & Disease Control.md",
+    "category": "14 Health & First Aid",
+    "tags": [
+      "survival"
+    ],
+    "word_count": 562
+  },
+  {
+    "title": "14.2 Wound Care",
+    "path": "content/14 Health & First Aid/14.2 Wound Care.md",
+    "category": "14 Health & First Aid",
+    "tags": [],
+    "word_count": 1581
+  },
+  {
+    "title": "14.10 Psychological First Aid & Triage",
+    "path": "content/14 Health & First Aid/14.10 Psychological First Aid & Triage.md",
+    "category": "14 Health & First Aid",
+    "tags": [
+      "survival"
+    ],
+    "word_count": 538
+  },
+  {
+    "title": "4.2 Pressure Canning: Low Acid Safety",
+    "path": "content/4 Preservation/4.2 Pressure Canning.md",
+    "category": "4 Preservation",
+    "tags": [],
+    "word_count": 293
+  },
+  {
+    "title": "4.5 Root Cellaring: Nature's Refrigerator",
+    "path": "content/4 Preservation/4.5 Root Cellaring.md",
+    "category": "4 Preservation",
+    "tags": [],
+    "word_count": 199
+  },
+  {
+    "title": "4.1 Water Bath Canning: High Acid Preservation",
+    "path": "content/4 Preservation/4.1 Water Bath Canning.md",
+    "category": "4 Preservation",
+    "tags": [],
+    "word_count": 266
+  },
+  {
+    "title": "4.4 Fermentation: Controlled Decay",
+    "path": "content/4 Preservation/4.4 Fermentation.md",
+    "category": "4 Preservation",
+    "tags": [],
+    "word_count": 250
+  },
+  {
+    "title": "4.3 Dehydrating: Removing the Water",
+    "path": "content/4 Preservation/4.3 Dehydrating.md",
+    "category": "4 Preservation",
+    "tags": [],
+    "word_count": 203
+  },
+  {
+    "title": "5.1 Garden Planning: Growing with Intent",
+    "path": "content/5 Gardening/5.1 Garden Planning.md",
+    "category": "5 Gardening",
+    "tags": [
+      "survival"
+    ],
+    "word_count": 433
+  },
+  {
+    "title": "5.7 Wild Plant Cultivation",
+    "path": "content/5 Gardening/5.7 Wild Plant Cultivation.md",
+    "category": "5 Gardening",
+    "tags": [
+      "edible",
+      "survival"
+    ],
+    "word_count": 1255
+  },
+  {
+    "title": "5.3 Seed Starting: The Nursery",
+    "path": "content/5 Gardening/5.3 Seed Starting.md",
+    "category": "5 Gardening",
+    "tags": [],
+    "word_count": 242
+  },
+  {
+    "title": "5.10 Rainwater Harvesting & Irrigation",
+    "path": "content/5 Gardening/5.10 Rainwater Harvesting & Irrigation.md",
+    "category": "5 Gardening",
+    "tags": [],
+    "word_count": 280
+  },
+  {
+    "title": "5.8 Companion Planting Master List",
+    "path": "content/5 Gardening/5.8 Companion Planting Master List.md",
+    "category": "5 Gardening",
+    "tags": [],
+    "word_count": 364
+  },
+  {
+    "title": "5.9 Season Extension & High Tunnels",
+    "path": "content/5 Gardening/5.9 Season Extension & High Tunnels.md",
+    "category": "5 Gardening",
+    "tags": [
+      "survival"
+    ],
+    "word_count": 333
+  },
+  {
+    "title": "5.6 Seed Saving",
+    "path": "content/5 Gardening/5.6 Seed Saving.md",
+    "category": "5 Gardening",
+    "tags": [
+      "survival"
+    ],
+    "word_count": 1587
+  },
+  {
+    "title": "5.5 Pest Management: Integrated Defense",
+    "path": "content/5 Gardening/5.5 Pest Management.md",
+    "category": "5 Gardening",
+    "tags": [],
+    "word_count": 344
+  },
+  {
+    "title": "5.11 Vertical Gardening for Small Spaces",
+    "path": "content/5 Gardening/5.11 Vertical Gardening for Small Spaces.md",
+    "category": "5 Gardening",
+    "tags": [],
+    "word_count": 303
+  },
+  {
+    "title": "5.4 Composting: Turning Trash to Gold",
+    "path": "content/5 Gardening/5.4 Composting.md",
+    "category": "5 Gardening",
+    "tags": [],
+    "word_count": 242
+  },
+  {
+    "title": "5.2 Soil Health: Feed the Soil, Not the Plant",
+    "path": "content/5 Gardening/5.2 Soil Health.md",
+    "category": "5 Gardening",
+    "tags": [],
+    "word_count": 339
+  },
+  {
+    "title": "Meal Planner",
+    "path": "content/11 Printables/MealPlanner.md",
+    "category": "11 Printables",
+    "tags": [],
+    "word_count": 169
+  },
+  {
+    "title": "Garden Planner & Log",
+    "path": "content/11 Printables/GardenPlanner.md",
+    "category": "11 Printables",
+    "tags": [],
+    "word_count": 418
+  },
+  {
+    "title": "Printable: Pantry Inventory Checklist",
+    "path": "content/11 Printables/PantryInventory.md",
+    "category": "11 Printables",
+    "tags": [],
+    "word_count": 580
+  },
+  {
+    "title": "Printable: Cleaning Checklists",
+    "path": "content/11 Printables/CleaningChecklists.md",
+    "category": "11 Printables",
+    "tags": [],
+    "word_count": 248
+  },
+  {
+    "title": "Emergency Quick Reference Sheet",
+    "path": "content/11 Printables/EmergencyReference.md",
+    "category": "11 Printables",
+    "tags": [],
+    "word_count": 240
+  },
+  {
+    "title": "2.2 How to Read Recipes: Deciphering the Code",
+    "path": "content/2 Cooking Basics/2.2 How to Read Recipes.md",
+    "category": "2 Cooking Basics",
+    "tags": [],
+    "word_count": 371
+  },
+  {
+    "title": "2.5 Limited Ingredients: Cooking from the Cupboard",
+    "path": "content/2 Cooking Basics/2.5 Limited Ingredients.md",
+    "category": "2 Cooking Basics",
+    "tags": [],
+    "word_count": 324
+  },
+  {
+    "title": "2.3 Heat & Doneness: Mastering the Flame",
+    "path": "content/2 Cooking Basics/2.3 Heat & Doneness.md",
+    "category": "2 Cooking Basics",
+    "tags": [],
+    "word_count": 343
+  },
+  {
+    "title": "2.4 Flavor Balancing: How to Fix a Dish",
+    "path": "content/2 Cooking Basics/2.4 Flavor Balancing.md",
+    "category": "2 Cooking Basics",
+    "tags": [],
+    "word_count": 342
+  },
+  {
+    "title": "2.7 Fire Cooking",
+    "path": "content/2 Cooking Basics/2.7 Fire Cooking.md",
+    "category": "2 Cooking Basics",
+    "tags": [
+      "survival"
+    ],
+    "word_count": 791
+  },
+  {
+    "title": "2.1 Knife Skills: The Foundation of Cooking",
+    "path": "content/2 Cooking Basics/2.1 Knife Skills.md",
+    "category": "2 Cooking Basics",
+    "tags": [],
+    "word_count": 369
+  },
+  {
+    "title": "2.6 One Pot Cooking: Maximum Flavor, Minimum Cleanup",
+    "path": "content/2 Cooking Basics/2.6 One Pot Cooking.md",
+    "category": "2 Cooking Basics",
+    "tags": [],
+    "word_count": 362
+  },
+  {
+    "title": "0.6 How to Use This Suite",
+    "path": "content/0 Foundations/0.6 How to Use.md",
+    "category": "0 Foundations",
+    "tags": [],
+    "word_count": 340
+  },
+  {
+    "title": "0.1 Welcome to the Homemaker Suite: Live Off the Land Edition",
+    "path": "content/0 Foundations/0.1 Welcome.md",
+    "category": "0 Foundations",
+    "tags": [],
+    "word_count": 409
+  },
+  {
+    "title": "Security & Privacy Policy",
+    "path": "content/0 Foundations/0.7 Security & Privacy.md",
+    "category": "0 Foundations",
+    "tags": [
+      "survival"
+    ],
+    "word_count": 431
+  },
+  {
+    "title": "0.4 Kitchen Setup: optimizing Your Workspace",
+    "path": "content/0 Foundations/0.4 Kitchen Setup.md",
+    "category": "0 Foundations",
+    "tags": [],
+    "word_count": 368
+  },
+  {
+    "title": "0.2 Philosophy: The Mindset of Self-Sufficiency",
+    "path": "content/0 Foundations/0.2 Philosophy.md",
+    "category": "0 Foundations",
+    "tags": [],
+    "word_count": 420
+  },
+  {
+    "title": "0.5 Food Safety: The First Responsibility",
+    "path": "content/0 Foundations/0.5 Food Safety.md",
+    "category": "0 Foundations",
+    "tags": [],
+    "word_count": 442
+  },
+  {
+    "title": "0.3 Tools & Equipment: The Essential Kit",
+    "path": "content/0 Foundations/0.3 Tools & Equipment.md",
+    "category": "0 Foundations",
+    "tags": [],
+    "word_count": 425
+  },
+  {
+    "title": "Knots, Splices, and Rope Work",
+    "path": "content/99 Reference Library/99.1 Knots.md",
+    "category": "99 Reference Library",
+    "tags": [],
+    "word_count": 51
+  },
+  {
+    "title": "9.2 Summer: Abundance (June - August)",
+    "path": "content/9 Seasonal Guides/9.2 Summer.md",
+    "category": "9 Seasonal Guides",
+    "tags": [],
+    "word_count": 113
+  },
+  {
+    "title": "9.3 Autumn: Harvest (September - November)",
+    "path": "content/9 Seasonal Guides/9.3 Autumn.md",
+    "category": "9 Seasonal Guides",
+    "tags": [],
+    "word_count": 119
+  },
+  {
+    "title": "9.4 Winter: Rest (December - February)",
+    "path": "content/9 Seasonal Guides/9.4 Winter.md",
+    "category": "9 Seasonal Guides",
+    "tags": [],
+    "word_count": 121
+  },
+  {
+    "title": "9.1 Spring: Awakening (March - May)",
+    "path": "content/9 Seasonal Guides/9.1 Spring.md",
+    "category": "9 Seasonal Guides",
+    "tags": [],
+    "word_count": 147
+  },
+  {
+    "title": "3.1 Breakfasts: Fuel for the Day",
+    "path": "content/3 Recipes/3.1 Breakfasts.md",
+    "category": "3 Recipes",
+    "tags": [],
+    "word_count": 330
+  },
+  {
+    "title": "3.5 Sauces & Condiments: The Flavor Upgrade",
+    "path": "content/3 Recipes/3.5 Sauces & Condiments.md",
+    "category": "3 Recipes",
+    "tags": [],
+    "word_count": 242
+  },
+  {
+    "title": "3.3 Main Dishes: Protein-Centric Meals",
+    "path": "content/3 Recipes/3.3 Main Dishes.md",
+    "category": "3 Recipes",
+    "tags": [],
+    "word_count": 277
+  },
+  {
+    "title": "3.6 Special Considerations: Kid-Friendly & Texture-Adapted Foods",
+    "path": "content/3 Recipes/3.6 Special Considerations \u2013 Kid-Friendly & Texture-Adapted Foods.md",
+    "category": "3 Recipes",
+    "tags": [
+      "survival"
+    ],
+    "word_count": 424
+  },
+  {
+    "title": "3.2 Soups & Stews: The Economy of Flavor",
+    "path": "content/3 Recipes/3.2 Soups & Stews.md",
+    "category": "3 Recipes",
+    "tags": [],
+    "word_count": 285
+  },
+  {
+    "title": "3.4 Breads & Grains: The Staff of Life",
+    "path": "content/3 Recipes/3.4 Breads & Grains.md",
+    "category": "3 Recipes",
+    "tags": [],
+    "word_count": 296
+  },
+  {
+    "title": "16.3 The Essential Toolkit",
+    "path": "content/16 Tools & Workshop/16.3 The Essential Toolkit.md",
+    "category": "16 Tools & Workshop",
+    "tags": [
+      "off-grid",
+      "survival"
+    ],
+    "word_count": 1056
+  },
+  {
+    "title": "16.6 Textile & Fiber Arts Tools",
+    "path": "content/16 Tools & Workshop/16.6 Textile & Fiber Arts Tools.md",
+    "category": "16 Tools & Workshop",
+    "tags": [],
+    "word_count": 584
+  },
+  {
+    "title": "16.4 Advanced Workshop Projects",
+    "path": "content/16 Tools & Workshop/16.4 Advanced Workshop Projects.md",
+    "category": "16 Tools & Workshop",
+    "tags": [
+      "off-grid"
+    ],
+    "word_count": 1368
+  },
+  {
+    "title": "16.5 Metalworking & Forging",
+    "path": "content/16 Tools & Workshop/16.5 Metalworking & Forging.md",
+    "category": "16 Tools & Workshop",
+    "tags": [],
+    "word_count": 702
+  },
+  {
+    "title": "16.2 Improvised Tools",
+    "path": "content/16 Tools & Workshop/16.2 Improvised Tools.md",
+    "category": "16 Tools & Workshop",
+    "tags": [
+      "survival"
+    ],
+    "word_count": 2192
+  },
+  {
+    "title": "16.1 Tool Maintenance",
+    "path": "content/16 Tools & Workshop/16.1 Tool Maintenance.md",
+    "category": "16 Tools & Workshop",
+    "tags": [
+      "survival"
+    ],
+    "word_count": 1455
+  },
+  {
+    "title": "19.4 Special Considerations: Mobility & Dependents (Navigation)",
+    "path": "content/19 Navigation & Awareness/19.4 Special Considerations \u2013 Mobility & Dependents.md",
+    "category": "19 Navigation & Awareness",
+    "tags": [
+      "survival"
+    ],
+    "word_count": 409
+  },
+  {
+    "title": "19.3 Map and Compass: The Lost Art",
+    "path": "content/19 Navigation & Awareness/19.3 Map and Compass.md",
+    "category": "19 Navigation & Awareness",
+    "tags": [],
+    "word_count": 602
+  },
+  {
+    "title": "19.2 Situational Awareness",
+    "path": "content/19 Navigation & Awareness/19.2 Situational Awareness.md",
+    "category": "19 Navigation & Awareness",
+    "tags": [
+      "survival"
+    ],
+    "word_count": 1359
+  },
+  {
+    "title": "19.1 Natural Navigation",
+    "path": "content/19 Navigation & Awareness/19.1 Natural Navigation.md",
+    "category": "19 Navigation & Awareness",
+    "tags": [
+      "survival"
+    ],
+    "word_count": 1337
+  },
+  {
+    "title": "17.4 Special Considerations: Vulnerable Occupants (Shelter)",
+    "path": "content/17 Shelter & Weatherproofing/17.4 Special Considerations \u2013 Vulnerable Occupants.md",
+    "category": "17 Shelter & Weatherproofing",
+    "tags": [
+      "survival"
+    ],
+    "word_count": 439
+  },
+  {
+    "title": "17.3 Long Term Shelter: Beyond the Debris Hut",
+    "path": "content/17 Shelter & Weatherproofing/17.3 Long Term Shelter.md",
+    "category": "17 Shelter & Weatherproofing",
+    "tags": [],
+    "word_count": 373
+  },
+  {
+    "title": "17.1 Emergency Shelters",
+    "path": "content/17 Shelter & Weatherproofing/17.1 Emergency Shelters.md",
+    "category": "17 Shelter & Weatherproofing",
+    "tags": [
+      "survival"
+    ],
+    "word_count": 1557
+  },
+  {
+    "title": "17.2 Weatherproofing",
+    "path": "content/17 Shelter & Weatherproofing/17.2 Weatherproofing.md",
+    "category": "17 Shelter & Weatherproofing",
+    "tags": [
+      "survival"
+    ],
+    "word_count": 1447
+  },
+  {
+    "title": "1.3 Budget Grocery Framework: Eating Better for Less",
+    "path": "content/1 Pantry Systems/1.3 Budget Grocery Framework.md",
+    "category": "1 Pantry Systems",
+    "tags": [],
+    "word_count": 398
+  },
+  {
+    "title": "1.1 The Homemaker Pantry: Your Store",
+    "path": "content/1 Pantry Systems/1.1 Homemaker Pantry.md",
+    "category": "1 Pantry Systems",
+    "tags": [],
+    "word_count": 419
+  },
+  {
+    "title": "1.5 Shelf Life Guide: When Good Food Goes Bad",
+    "path": "content/1 Pantry Systems/1.5 Shelf Life Guide.md",
+    "category": "1 Pantry Systems",
+    "tags": [],
+    "word_count": 409
+  },
+  {
+    "title": "1.2 Long Term Storage: The Deep Larder",
+    "path": "content/1 Pantry Systems/1.2 Long Term Storage.md",
+    "category": "1 Pantry Systems",
+    "tags": [
+      "survival"
+    ],
+    "word_count": 448
+  },
+  {
+    "title": "1.4 Ingredient Substitutions: The Alchemist's Guide",
+    "path": "content/1 Pantry Systems/1.4 Ingredient Substitutions.md",
+    "category": "1 Pantry Systems",
+    "tags": [],
+    "word_count": 391
+  },
+  {
+    "title": "8.1 Nutrition 101: Fueling the Machine",
+    "path": "content/8 Nutrition/8.1 Nutrition 101.md",
+    "category": "8 Nutrition",
+    "tags": [],
+    "word_count": 225
+  },
+  {
+    "title": "8.2 Dietary Restrictions & Allergies",
+    "path": "content/8 Nutrition/8.2 Dietary Restrictions & Allergies.md",
+    "category": "8 Nutrition",
+    "tags": [
+      "medicinal",
+      "off-grid",
+      "survival"
+    ],
+    "word_count": 540
+  },
+  {
+    "title": "7.2 Frugal Living: Rich Life, Low Cost",
+    "path": "content/7 Budget & Lifestyle/7.2 Frugal Living.md",
+    "category": "7 Budget & Lifestyle",
+    "tags": [],
+    "word_count": 189
+  },
+  {
+    "title": "7.1 The Envelope System: Cash is Truth",
+    "path": "content/7 Budget & Lifestyle/7.1 The Envelope System.md",
+    "category": "7 Budget & Lifestyle",
+    "tags": [],
+    "word_count": 209
+  },
+  {
+    "title": "20.2 Insulation & Layering",
+    "path": "content/20 Textiles & Clothing/20.2 Insulation & Layering.md",
+    "category": "20 Textiles & Clothing",
+    "tags": [
+      "survival"
+    ],
+    "word_count": 1201
+  },
+  {
+    "title": "20.3 Clothing Production: The Anti-Tailor",
+    "path": "content/20 Textiles & Clothing/20.3 Clothing Production.md",
+    "category": "20 Textiles & Clothing",
+    "tags": [],
+    "word_count": 487
+  },
+  {
+    "title": "20.1 Clothing Repair",
+    "path": "content/20 Textiles & Clothing/20.1 Clothing Repair.md",
+    "category": "20 Textiles & Clothing",
+    "tags": [
+      "survival"
+    ],
+    "word_count": 1191
+  },
+  {
+    "title": "13.3 Hunting & Trapping",
+    "path": "content/13 Meat & Protein Security/13.3 Hunting & Trapping.md",
+    "category": "13 Meat & Protein Security",
+    "tags": [
+      "survival"
+    ],
+    "word_count": 1469
+  },
+  {
+    "title": "13.4 Fishing Techniques",
+    "path": "content/13 Meat & Protein Security/13.4 Fishing Techniques.md",
+    "category": "13 Meat & Protein Security",
+    "tags": [
+      "edible",
+      "survival"
+    ],
+    "word_count": 1810
+  },
+  {
+    "title": "13.1 Small Game Processing",
+    "path": "content/13 Meat & Protein Security/13.1 Small Game Processing.md",
+    "category": "13 Meat & Protein Security",
+    "tags": [
+      "edible"
+    ],
+    "word_count": 1225
+  },
+  {
+    "title": "13.5 Advanced Harvesting & Structures",
+    "path": "content/13 Meat & Protein Security/13.5 Advanced Harvesting & Structures.md",
+    "category": "13 Meat & Protein Security",
+    "tags": [
+      "survival"
+    ],
+    "word_count": 799
+  },
+  {
+    "title": "13.2 Salting and Smoking",
+    "path": "content/13 Meat & Protein Security/13.2 Salting and Smoking.md",
+    "category": "13 Meat & Protein Security",
+    "tags": [],
+    "word_count": 1458
+  },
+  {
+    "title": "13.7 Cold Water & Ice Fishing",
+    "path": "content/13 Meat & Protein Security/13.7 Cold Water & Ice Fishing.md",
+    "category": "13 Meat & Protein Security",
+    "tags": [],
+    "word_count": 590
+  },
+  {
+    "title": "21.1 Scenario: 72-Hour Winter Outage (Winter)",
+    "path": "content/21 Scenario Playbooks/21.1 72-Hour Winter Outage.md",
+    "category": "21 Scenario Playbooks",
+    "tags": [],
+    "word_count": 698
+  },
+  {
+    "title": "21.2 Scenario: 72-Hour Summer Outage (Summer)",
+    "path": "content/21 Scenario Playbooks/21.2 72-Hour Summer Outage.md",
+    "category": "21 Scenario Playbooks",
+    "tags": [],
+    "word_count": 567
+  },
+  {
+    "title": "21.6 Scenario: Severe Winter Storm (No Heat + Limited Food)",
+    "path": "content/21 Scenario Playbooks/21.6 Severe Winter Storm.md",
+    "category": "21 Scenario Playbooks",
+    "tags": [],
+    "word_count": 500
+  },
+  {
+    "title": "21.5 Scenario: Water Contamination",
+    "path": "content/21 Scenario Playbooks/21.5 Water Contamination.md",
+    "category": "21 Scenario Playbooks",
+    "tags": [],
+    "word_count": 486
+  },
+  {
+    "title": "21.7 Scenario: 3-Month Supply Plan",
+    "path": "content/21 Scenario Playbooks/21.7 3-Month Supply Plan.md",
+    "category": "21 Scenario Playbooks",
+    "tags": [
+      "survival"
+    ],
+    "word_count": 527
+  },
+  {
+    "title": "21.3 Scenario: 7-Day Grid-Down with Children",
+    "path": "content/21 Scenario Playbooks/21.3 7-Day Grid-Down Children.md",
+    "category": "21 Scenario Playbooks",
+    "tags": [
+      "survival"
+    ],
+    "word_count": 573
+  },
+  {
+    "title": "21.4 Scenario: 30-Day Budget Survival After Job Loss",
+    "path": "content/21 Scenario Playbooks/21.4 30-Day Budget Survival.md",
+    "category": "21 Scenario Playbooks",
+    "tags": [
+      "survival"
+    ],
+    "word_count": 475
+  },
+  {
+    "title": "4.6 Primitive Preservation",
+    "path": "content/4 Food Storage & Pantry/4.6 Primitive Preservation.md",
+    "category": "4 Food Storage & Pantry",
+    "tags": [
+      "survival"
+    ],
+    "word_count": 1197
+  },
+  {
+    "title": "6.1 Cleaning Chemistry: The Stain Bible",
+    "path": "content/6 Home Maintenance/6.1 Cleaning Chemistry.md",
+    "category": "6 Home Maintenance",
+    "tags": [],
+    "word_count": 258
+  },
+  {
+    "title": "6.2 Basic Repairs: Fixing Before Replacing",
+    "path": "content/6 Home Maintenance/6.2 Basic Repairs.md",
+    "category": "6 Home Maintenance",
+    "tags": [],
+    "word_count": 288
+  },
+  {
+    "title": "18.1 Off-Grid Lighting",
+    "path": "content/18 Energy & Lighting/18.1 Off-Grid Lighting.md",
+    "category": "18 Energy & Lighting",
+    "tags": [
+      "off-grid"
+    ],
+    "word_count": 1666
+  },
+  {
+    "title": "18.3 Off-Grid Heating: Surviving the Freeze",
+    "path": "content/18 Energy & Lighting/18.3 Off-Grid Heating.md",
+    "category": "18 Energy & Lighting",
+    "tags": [
+      "off-grid",
+      "survival"
+    ],
+    "word_count": 339
+  },
+  {
+    "title": "18.2 Solar & Passive Energy",
+    "path": "content/18 Energy & Lighting/18.2 Solar & Passive Energy.md",
+    "category": "18 Energy & Lighting",
+    "tags": [],
+    "word_count": 1580
+  },
+  {
+    "title": "15.3 Security: The Quiet Professional",
+    "path": "content/15 Infrastructure/15.3 Security.md",
+    "category": "15 Infrastructure",
+    "tags": [
+      "survival"
+    ],
+    "word_count": 271
+  },
+  {
+    "title": "15.6 Special Considerations: Mobility & Access",
+    "path": "content/15 Infrastructure/15.6 Special Considerations \u2013 Mobility & Access.md",
+    "category": "15 Infrastructure",
+    "tags": [],
+    "word_count": 399
+  },
+  {
+    "title": "15.7 Bio-Sand Filtration for Off-Grid Water",
+    "path": "content/15 Infrastructure/15.7 Bio-Sand Filtration.md",
+    "category": "15 Infrastructure",
+    "tags": [
+      "off-grid"
+    ],
+    "word_count": 382
+  },
+  {
+    "title": "15.2 Waste Management: Closing the Loop",
+    "path": "content/15 Infrastructure/15.2 Waste Management.md",
+    "category": "15 Infrastructure",
+    "tags": [],
+    "word_count": 398
+  },
+  {
+    "title": "15.1 Water Procurement: The First Priority",
+    "path": "content/15 Infrastructure/15.1 Water Procurement.md",
+    "category": "15 Infrastructure",
+    "tags": [
+      "survival"
+    ],
+    "word_count": 570
+  },
+  {
+    "title": "15.4 Advanced Security: Systems & Protocols",
+    "path": "content/15 Infrastructure/15.4 Advanced Security.md",
+    "category": "15 Infrastructure",
+    "tags": [],
+    "word_count": 302
+  },
+  {
+    "title": "15.5 Communication: The Unseen Lifeline",
+    "path": "content/15 Infrastructure/15.5 Communication.md",
+    "category": "15 Infrastructure",
+    "tags": [],
+    "word_count": 256
+  }
+]
