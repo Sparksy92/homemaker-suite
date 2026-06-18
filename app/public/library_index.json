@@ -5,7 +5,8 @@
     "0.3 Tools & Equipment.md",
     "0.4 Kitchen Setup.md",
     "0.5 Food Safety.md",
-    "0.6 How to Use.md"
+    "0.6 How to Use.md",
+    "0.7 Security & Privacy.md"
   ],
   "1 Pantry Systems": [
     "1.1 Homemaker Pantry.md",
@@ -13,77 +14,6 @@
     "1.3 Budget Grocery Framework.md",
     "1.4 Ingredient Substitutions.md",
     "1.5 Shelf Life Guide.md"
-  ],
-  "11 Printables": [
-    "CleaningChecklists.md",
-    "EmergencyReference.md",
-    "GardenPlanner.md",
-    "MealPlanner.md",
-    "PantryInventory.md"
-  ],
-  "12 Foraging & Wildcrafting": [
-    "12.1 The Big Three.md",
-    "12.2 Tree Knowledge.md",
-    "12.3 Mushroom Safety.md",
-    "12.4 Wild Harvest & Processing.md",
-    "12.5 Poisonous Look-alikes.md",
-    "12.6 Utility & Fiber Plants.md"
-  ],
-  "13 Meat & Protein Security": [
-    "13.1 Small Game Processing.md",
-    "13.2 Salting and Smoking.md",
-    "13.3 Hunting & Trapping.md",
-    "13.4 Fishing Techniques.md",
-    "13.5 Advanced Harvesting & Structures.md",
-    "13.6 Advanced Fishing: Gear & Methods.md",
-    "13.7 Cold Water & Ice Fishing.md"
-  ],
-  "14 Health & First Aid": [
-    "14.1 Herbal Medicine.md",
-    "14.2 Wound Care.md",
-    "14.3 Special Considerations – Children & Elderly.md",
-    "14.4 Primitive Antimicrobials.md",
-    "14.5 Evidence-Based Botanical Studies.md",
-    "14.6 Sanitation & Disease Control.md",
-    "14.7 Dental Survival.md",
-    "14.8 Reproductive Health.md",
-    "14.9 Managing Chronic Conditions.md",
-    "14.10 Psychological First Aid & Triage.md",
-    "14.11 Advanced Herbal Preparations.md",
-    "14.12 The Nervine Apothecary.md"
-  ],
-  "15 Infrastructure": [
-    "15.1 Water Procurement.md",
-    "15.2 Waste Management.md",
-    "15.3 Security.md",
-    "15.4 Advanced Security.md",
-    "15.5 Communication.md",
-    "15.6 Special Considerations – Mobility & Access.md"
-  ],
-  "16 Tools & Workshop": [
-    "16.1 Tool Maintenance.md",
-    "16.2 Improvised Tools.md",
-    "16.3 The Essential Toolkit.md",
-    "16.4 Advanced Workshop Projects.md",
-    "16.5 Metalworking & Forging.md",
-    "16.6 Textile & Fiber Arts Tools.md"
-  ],
-  "17 Shelter & Weatherproofing": [
-    "17.1 Emergency Shelters.md",
-    "17.2 Weatherproofing.md",
-    "17.3 Long Term Shelter.md",
-    "17.4 Special Considerations – Vulnerable Occupants.md"
-  ],
-  "18 Energy & Lighting": [
-    "18.1 Off-Grid Lighting.md",
-    "18.2 Solar & Passive Energy.md",
-    "18.3 Off-Grid Heating.md"
-  ],
-  "19 Navigation & Awareness": [
-    "19.1 Natural Navigation.md",
-    "19.2 Situational Awareness.md",
-    "19.3 Map and Compass.md",
-    "19.4 Special Considerations – Mobility & Dependents.md"
   ],
   "2 Cooking Basics": [
     "2.1 Knife Skills.md",
@@ -93,20 +23,6 @@
     "2.5 Limited Ingredients.md",
     "2.6 One Pot Cooking.md",
     "2.7 Fire Cooking.md"
-  ],
-  "20 Textiles & Clothing": [
-    "20.1 Clothing Repair.md",
-    "20.2 Insulation & Layering.md",
-    "20.3 Clothing Production.md"
-  ],
-  "21 Scenario Playbooks": [
-    "21.1 72-Hour Winter Outage.md",
-    "21.2 72-Hour Summer Outage.md",
-    "21.3 7-Day Grid-Down Children.md",
-    "21.4 30-Day Budget Survival.md",
-    "21.5 Water Contamination.md",
-    "21.6 Severe Winter Storm.md",
-    "21.7 3-Month Supply Plan.md"
   ],
   "3 Recipes": [
     "3.1 Breakfasts.md",
@@ -139,12 +55,6 @@
     "5.10 Rainwater Harvesting & Irrigation.md",
     "5.11 Vertical Gardening for Small Spaces.md"
   ],
-  "50 Interactive Tools": [
-    "50.1 Solar Calculator.html",
-    "50.2 Water Purification.html",
-    "50.3 Food Storage.html",
-    "50.4 Firewood Estimator.html"
-  ],
   "6 Home Maintenance": [
     "6.1 Cleaning Chemistry.md",
     "6.2 Basic Repairs.md"
@@ -162,6 +72,110 @@
     "9.2 Summer.md",
     "9.3 Autumn.md",
     "9.4 Winter.md"
+  ],
+  "10 Tools & Wizards": [
+    "BudgetCalculator.json",
+    "EmergencyPlanWizard.json",
+    "EnergyPlannerWizard.json",
+    "GardenPlannerWizard.json",
+    "IngredientWizard.json",
+    "MealPlannerWizard.json",
+    "PantryCalculator.json",
+    "SubstitutionEngine.json",
+    "WaterSafetyWizard.json",
+    "WinterBlackoutWizard.json"
+  ],
+  "11 Printables": [
+    "CleaningChecklists.md",
+    "EmergencyReference.md",
+    "GardenPlanner.md",
+    "MealPlanner.md",
+    "PantryInventory.md"
+  ],
+  "12 Foraging & Wildcrafting": [
+    "12.1 The Big Three.md",
+    "12.2 Tree Knowledge.md",
+    "12.3 Mushroom Safety.md",
+    "12.4 Wild Harvest & Processing.md",
+    "12.5 Poisonous Look-alikes.md",
+    "12.6 Utility & Fiber Plants.md"
+  ],
+  "13 Meat & Protein Security": [
+    "13.1 Small Game Processing.md",
+    "13.2 Salting and Smoking.md",
+    "13.3 Hunting & Trapping.md",
+    "13.4 Fishing Techniques.md",
+    "13.5 Advanced Harvesting & Structures.md",
+    "13.6 Advanced Fishing",
+    "13.7 Cold Water & Ice Fishing.md"
+  ],
+  "14 Health & First Aid": [
+    "14.1 Herbal Medicine.md",
+    "14.2 Wound Care.md",
+    "14.3 Special Considerations – Children & Elderly.md",
+    "14.4 Primitive Antimicrobials.md",
+    "14.5 Evidence-Based Botanical Studies.md",
+    "14.6 Sanitation & Disease Control.md",
+    "14.7 Dental Survival.md",
+    "14.8 Reproductive Health.md",
+    "14.9 Managing Chronic Conditions.md",
+    "14.10 Psychological First Aid & Triage.md",
+    "14.11 Advanced Herbal Preparations.md",
+    "14.12 The Nervine Apothecary.md"
+  ],
+  "15 Infrastructure": [
+    "15.1 Water Procurement.md",
+    "15.2 Waste Management.md",
+    "15.3 Security.md",
+    "15.4 Advanced Security.md",
+    "15.5 Communication.md",
+    "15.6 Special Considerations – Mobility & Access.md",
+    "15.7 Bio-Sand Filtration.md"
+  ],
+  "16 Tools & Workshop": [
+    "16.1 Tool Maintenance.md",
+    "16.2 Improvised Tools.md",
+    "16.3 The Essential Toolkit.md",
+    "16.4 Advanced Workshop Projects.md",
+    "16.5 Metalworking & Forging.md",
+    "16.6 Textile & Fiber Arts Tools.md"
+  ],
+  "17 Shelter & Weatherproofing": [
+    "17.1 Emergency Shelters.md",
+    "17.2 Weatherproofing.md",
+    "17.3 Long Term Shelter.md",
+    "17.4 Special Considerations – Vulnerable Occupants.md"
+  ],
+  "18 Energy & Lighting": [
+    "18.1 Off-Grid Lighting.md",
+    "18.2 Solar & Passive Energy.md",
+    "18.3 Off-Grid Heating.md"
+  ],
+  "19 Navigation & Awareness": [
+    "19.1 Natural Navigation.md",
+    "19.2 Situational Awareness.md",
+    "19.3 Map and Compass.md",
+    "19.4 Special Considerations – Mobility & Dependents.md"
+  ],
+  "20 Textiles & Clothing": [
+    "20.1 Clothing Repair.md",
+    "20.2 Insulation & Layering.md",
+    "20.3 Clothing Production.md"
+  ],
+  "21 Scenario Playbooks": [
+    "21.1 72-Hour Winter Outage.md",
+    "21.2 72-Hour Summer Outage.md",
+    "21.3 7-Day Grid-Down Children.md",
+    "21.4 30-Day Budget Survival.md",
+    "21.5 Water Contamination.md",
+    "21.6 Severe Winter Storm.md",
+    "21.7 3-Month Supply Plan.md"
+  ],
+  "50 Interactive Tools": [
+    "50.1 Solar Calculator.html",
+    "50.2 Water Purification.html",
+    "50.3 Food Storage.html",
+    "50.4 Firewood Estimator.html"
   ],
   "99 Reference Library": [
     "99.1 Knots.md"
