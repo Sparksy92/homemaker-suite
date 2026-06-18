@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Folder, FileText, ChevronRight, ArrowLeft, Heart, AlertCircle, Info, CheckCircle, AlertTriangle, BookOpen, Droplets, Utensils, Sprout, Zap, ShieldCheck, Thermometer, Compass, Scissors, LayoutGrid, Timer, BarChart3 } from 'lucide-react';
+import { Folder, FileText, ChevronRight, ArrowLeft, Heart, AlertCircle, Info, CheckCircle, AlertTriangle, BookOpen, Droplets, Utensils, Sprout, Zap, ShieldCheck, ShieldAlert, Thermometer, Compass, Scissors, LayoutGrid, Timer, BarChart3 } from 'lucide-react';
 import { useUser } from '../context/UserContext';
 import { useNavigate, Link } from 'react-router-dom';
 import MarkdownRenderer from '../components/MarkdownRenderer';
@@ -58,20 +58,72 @@ const Library = ({ type = 'all' }) => {
     const [fileSystem, setFileSystem] = useState({});
     const [loading, setLoading] = useState(true);
     const { recordAccess } = useUser();
+    const [guidesMetadata, setGuidesMetadata] = useState([]);
 
-    // Fetch the dynamic index on mount
+    // Clean up old homemaker-v1 cache on mount if it exists
     React.useEffect(() => {
-        fetch('/library_index.json')
-            .then(res => res.json())
-            .then(data => {
-                setFileSystem(data);
-                setLoading(false);
-            })
-            .catch(err => {
-                console.error("Failed to load library index:", err);
-                setLoading(false);
-            });
+        caches.has('homemaker-v1').then(hasOld => {
+            if (hasOld) caches.delete('homemaker-v1');
+        });
     }, []);
+
+    // Fetch the dynamic index and metadata on mount with caching
+    React.useEffect(() => {
+        const loadCacheAndFetch = async () => {
+            try {
+                const cache = await caches.open('homemaker-v2');
+
+                // Try loading from Cache API first for instant offline access
+                const cachedIndex = await cache.match('/library_index.json');
+                if (cachedIndex) {
+                    const data = await cachedIndex.json();
+                    setFileSystem(data);
+                }
+
+                const cachedMeta = await cache.match('/guides_metadata.json');
+                if (cachedMeta) {
+                    const data = await cachedMeta.json();
+                    setGuidesMetadata(data);
+                }
+
+                // Fetch fresh data from network and update cache in background
+                const indexRes = await fetch('/library_index.json');
+                if (indexRes.ok) {
+                    const data = await indexRes.json();
+                    setFileSystem(data);
+                    await cache.put('/library_index.json', indexRes.clone());
+                }
+
+                const metaRes = await fetch('/guides_metadata.json');
+                if (metaRes.ok) {
+                    const data = await metaRes.json();
+                    setGuidesMetadata(data);
+                    await cache.put('/guides_metadata.json', metaRes.clone());
+                }
+            } catch (err) {
+                console.error("Failed to load library files/metadata:", err);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        loadCacheAndFetch();
+    }, []);
+
+    // Deep linking helper
+    const location = useLocation();
+    React.useEffect(() => {
+        if (Object.keys(fileSystem).length === 0) return;
+
+        const params = new URLSearchParams(location.search);
+        const folderParam = params.get('folder');
+        const fileParam = params.get('file');
+
+        if (folderParam && fileParam) {
+            setCurrentPath([folderParam]);
+            handleFileClick(fileParam, folderParam);
+        }
+    }, [location.search, fileSystem]);
 
     // Offline Mode Logic (Cache Storage API)
     const [downloading, setDownloading] = useState(false);
@@ -84,16 +136,16 @@ const Library = ({ type = 'all' }) => {
         "13.2 Salting and Smoking.md",
         "15.1 Water Procurement.md",
         "14.1 Herbal Medicine.md",
-        "4.2 Pressure Canning.md"
+        "4.2 Pressure Canning.md",
+        "15.7 Bio-Sand Filtration.md"
     ];
     const [isOfflineReady, setIsOfflineReady] = useState(false);
 
     // Check if offline cache is populated
     React.useEffect(() => {
-        caches.has('homemaker-v1').then(hasCache => {
+        caches.has('homemaker-v2').then(hasCache => {
             if (hasCache) {
-                // Ideally check file count, but for now cache existence is a good proxy
-                caches.open('homemaker-v1').then(cache => {
+                caches.open('homemaker-v2').then(cache => {
                     cache.keys().then(keys => {
                         if (keys.length > 50) setIsOfflineReady(true);
                     });
@@ -107,7 +159,25 @@ const Library = ({ type = 'all' }) => {
         setDownloadProgress(0);
 
         try {
-            const cache = await caches.open('homemaker-v1');
+            const cache = await caches.open('homemaker-v2');
+            
+            // Precache core offline files
+            const coreAssets = [
+                '/library_index.json',
+                '/guides_metadata.json',
+                '/images/botany/chamomile.jpg',
+                '/images/botany/self_heal.jpg',
+                '/images/wildlife/cricket.jpg',
+                '/images/wildlife/cicada.jpg'
+            ];
+            for (const asset of coreAssets) {
+                try {
+                    await cache.add(asset);
+                } catch (err) {
+                    console.warn(`Could not cache asset ${asset}:`, err);
+                }
+            }
+
             const allItems = allFiles;
             let completed = 0;
 
@@ -117,7 +187,6 @@ const Library = ({ type = 'all' }) => {
                 const batch = allItems.slice(i, i + BATCH_SIZE);
                 await Promise.all(batch.map(async (item) => {
                     const url = `/content/${item.folder}/${item.file}`;
-                    // Skip if already cached
                     const match = await cache.match(url);
                     if (!match) {
                         try {
@@ -140,21 +209,21 @@ const Library = ({ type = 'all' }) => {
         }
     };
 
-    const handleFileClick = async (fileName) => {
+    const handleFileClick = async (fileName, folderOverride = null) => {
+        const folder = folderOverride || currentPath[0];
         if (LETHAL_RISK_FILES.includes(fileName) && !sessionStorage.getItem(`safety_ack_${fileName}`)) {
-            setShowSafetyAck({ file: fileName, folder: currentPath[0] });
+            setShowSafetyAck({ file: fileName, folder: folder });
             return;
         }
 
         try {
-            const folder = currentPath[0];
             const url = `/content/${folder}/${fileName}`;
             let contentState = { name: fileName, text: '', url: url };
 
             const isBinary = fileName.endsWith('.pdf') || fileName.endsWith('.mp4') || fileName.endsWith('.html');
 
             // 1. Try Cache API first (Offline First strategy)
-            const cache = await caches.open('homemaker-v1');
+            const cache = await caches.open('homemaker-v2');
             const cachedResponse = await cache.match(url);
 
             if (cachedResponse) {
@@ -199,7 +268,7 @@ const Library = ({ type = 'all' }) => {
             setShowSafetyAck(null);
 
             // Re-trigger handleFileClick to load the file now that ack is confirmed
-            await handleFileClick(file);
+            await handleFileClick(file, folder);
         }
     };
 
@@ -244,10 +313,29 @@ const Library = ({ type = 'all' }) => {
         return recs;
     }, []); // Removed sustainability from dependency array as it's a placeholder here
 
-    const searchResults = allFiles.filter(item =>
-        getDisplayName(item.file).toLowerCase().includes(searchQuery.toLowerCase()) ||
-        getDisplayName(item.folder).toLowerCase().includes(searchQuery.toLowerCase())
-    );
+    const searchResults = React.useMemo(() => {
+        const query = searchQuery.toLowerCase().trim();
+        if (!query) return [];
+
+        if (guidesMetadata && guidesMetadata.length > 0) {
+            return guidesMetadata.filter(item => {
+                const titleMatch = item.title.toLowerCase().includes(query);
+                const categoryMatch = item.category.toLowerCase().includes(query);
+                const tagMatch = item.tags.some(tag => tag.toLowerCase().includes(query));
+                const filenameMatch = item.path.toLowerCase().includes(query);
+                return titleMatch || categoryMatch || tagMatch || filenameMatch;
+            }).map(item => {
+                const parts = item.path.split('/');
+                const file = parts[parts.length - 1];
+                return { file, folder: item.category, metadata: item };
+            });
+        }
+
+        return allFiles.filter(item =>
+            getDisplayName(item.file).toLowerCase().includes(query) ||
+            getDisplayName(item.folder).toLowerCase().includes(query)
+        );
+    }, [searchQuery, guidesMetadata, allFiles]);
 
     return (
         <div className="min-h-screen bg-sand-50">
@@ -339,6 +427,15 @@ const Library = ({ type = 'all' }) => {
                                             <div className="flex-1 min-w-0">
                                                 <span className="block text-lg font-serif font-black text-sage-900 truncate">{getDisplayName(item.file)}</span>
                                                 <span className="text-[10px] text-sand-400 font-black uppercase tracking-widest block mt-0.5">{getDisplayName(item.folder)}</span>
+                                                {item.metadata && item.metadata.tags && item.metadata.tags.length > 0 && (
+                                                    <div className="flex flex-wrap gap-1 mt-1.5">
+                                                        {item.metadata.tags.map(tag => (
+                                                            <span key={tag} className="text-[8px] font-black uppercase tracking-widest bg-sage-50 text-sage-600 px-1.5 py-0.5 rounded-md border border-sage-100">
+                                                                {tag}
+                                                            </span>
+                                                        ))}
+                                                    </div>
+                                                )}
                                             </div>
                                             <ChevronRight size={18} className="text-sand-300" />
                                         </button>
@@ -435,6 +532,7 @@ const Library = ({ type = 'all' }) => {
                             files={fileSystem[currentPath[0]]}
                             folder={currentPath[0]}
                             handleFileClick={handleFileClick}
+                            guidesMetadata={guidesMetadata}
                         />
 
                     </motion.div>
@@ -571,7 +669,7 @@ const Library = ({ type = 'all' }) => {
 };
 
 // Extracted for pagination
-const FolderContentList = ({ files, folder, handleFileClick }) => {
+const FolderContentList = ({ files, folder, handleFileClick, guidesMetadata = [] }) => {
     const [visibleCount, setVisibleCount] = useState(20);
     const navigate = useNavigate();
 
@@ -621,37 +719,53 @@ const FolderContentList = ({ files, folder, handleFileClick }) => {
         <div className="space-y-8">
             <div className="grid gap-3">
                 <h3 className="text-[10px] font-black text-sand-400 uppercase tracking-[0.2em] pl-1">Knowledge Modules</h3>
-                {visibleFiles.map((file) => (
-                    <div key={file} className="relative group">
-                        <button
-                            onClick={() => handleFileClick(file)}
-                            className="w-full flex items-center gap-6 p-6 bg-white rounded-[2rem] border border-sand-100 shadow-sm hover:shadow-xl hover:shadow-sage-900/5 hover:border-terracotta-400 transition-all text-left"
-                        >
-                            <div className="p-3 bg-terracotta-50 rounded-2xl text-terracotta-500">
-                                <BookOpen size={24} />
-                            </div>
-                            <div className="flex-1">
-                                <span className="block text-xl font-serif font-black text-sage-900 group-hover:text-terracotta-700 transition-colors leading-tight">{getDisplayName(file)}</span>
-                                <div className="flex items-center gap-4 mt-2">
-                                    <div className="flex items-center gap-1.5 text-sand-400">
-                                        <Timer size={10} />
-                                        <span className="text-[9px] font-black uppercase tracking-widest">8 min read</span>
-                                    </div>
-                                    <div className="flex items-center gap-1.5 text-sand-400">
-                                        <BarChart3 size={10} />
-                                        <span className="text-[9px] font-black uppercase tracking-widest">Foundation</span>
+                {visibleFiles.map((file) => {
+                    const fileMeta = guidesMetadata.find(m => m.path === `content/${folder}/${file}`);
+                    const readTime = fileMeta && fileMeta.word_count ? Math.max(1, Math.round(fileMeta.word_count / 200)) : 8;
+                    const tags = fileMeta ? fileMeta.tags : [];
+
+                    return (
+                        <div key={file} className="relative group">
+                            <button
+                                onClick={() => handleFileClick(file)}
+                                className="w-full flex items-center gap-6 p-6 bg-white rounded-[2rem] border border-sand-100 shadow-sm hover:shadow-xl hover:shadow-sage-900/5 hover:border-terracotta-400 transition-all text-left"
+                            >
+                                <div className="p-3 bg-terracotta-50 rounded-2xl text-terracotta-500">
+                                    <BookOpen size={24} />
+                                </div>
+                                <div className="flex-1">
+                                    <span className="block text-xl font-serif font-black text-sage-900 group-hover:text-terracotta-700 transition-colors leading-tight">{getDisplayName(file)}</span>
+                                    <div className="flex items-center gap-4 mt-2">
+                                        <div className="flex items-center gap-1.5 text-sand-400">
+                                            <Timer size={10} />
+                                            <span className="text-[9px] font-black uppercase tracking-widest">{readTime} min read</span>
+                                        </div>
+                                        {tags.length > 0 ? (
+                                            <div className="flex flex-wrap gap-1 mt-0.5">
+                                                {tags.slice(0, 3).map(tag => (
+                                                    <span key={tag} className="text-[8px] font-black uppercase tracking-widest bg-sage-50 text-sage-600 px-1.5 py-0.5 rounded-md border border-sage-100">
+                                                        {tag}
+                                                    </span>
+                                                ))}
+                                            </div>
+                                        ) : (
+                                            <div className="flex items-center gap-1.5 text-sand-400">
+                                                <BarChart3 size={10} />
+                                                <span className="text-[9px] font-black uppercase tracking-widest">Guide</span>
+                                            </div>
+                                        )}
                                     </div>
                                 </div>
+                                <ChevronRight size={20} className="text-sand-200 group-hover:text-terracotta-500 group-hover:translate-x-1 transition-all" />
+                            </button>
+                            <div className="absolute right-14 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                <FavoriteButton
+                                    item={{ id: file, title: getDisplayName(file), category: folder }}
+                                />
                             </div>
-                            <ChevronRight size={20} className="text-sand-200 group-hover:text-terracotta-500 group-hover:translate-x-1 transition-all" />
-                        </button>
-                        <div className="absolute right-14 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity">
-                            <FavoriteButton
-                                item={{ id: file, title: getDisplayName(file), category: folder }}
-                            />
                         </div>
-                    </div>
-                ))}
+                    );
+                })}
 
                 {hasMore && (
                     <button

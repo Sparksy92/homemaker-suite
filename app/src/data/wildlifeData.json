@@ -96,7 +96,7 @@
             "season": "Spring/Summer",
             "identification": "Low rosette, oval leaves with distinct parallel ribs.",
             "uses": "'Green Band-Aid'. Chew leaf into poultice for bee stings, bites, and cuts.",
-            "caution": "None.",
+            "caution": "Wash thoroughly. Ensure the collection area is free from animal waste, pesticides, and road runoff.",
             "images": [
                 "plantain.jpg"
             ],
@@ -180,7 +180,7 @@
             "season": "Summer",
             "identification": "Tall, translucent stem, orange trumpet flowers. Grows near Poison Ivy.",
             "uses": "The Antidote. Crush stem juice onto Poison Ivy rash immediately.",
-            "caution": "None.",
+            "caution": "For topical use only; do not ingest. Ensure correct identification to avoid other orange-flowered plants.",
             "images": [
                 "jewelweed.jpg"
             ],
@@ -234,7 +234,7 @@
             "season": "Summer/Fall",
             "identification": "Bright blue daisy-like flowers on stiff stalks. jagged leaves like dandelion.",
             "uses": "Root roasted for coffee substitute. Young leaves for salad.",
-            "caution": "None.",
+            "caution": "Excessive consumption may cause mild digestive upset. Consult a healthcare professional if pregnant or nursing.",
             "images": [
                 "chicory.jpg"
             ],
@@ -274,7 +274,7 @@
             "season": "Biennial",
             "identification": "Huge rhubarb-like leaves. Purple thistle flowers (burrs that stick to clothes).",
             "uses": "Root is a substantial calorie source. Blood purifier.",
-            "caution": "None.",
+            "caution": "Diuretic effect. Digging deep taproots requires caution to avoid muscle strain or contact with soil pathogens.",
             "images": [
                 "burdock.jpg"
             ],
@@ -335,7 +335,7 @@
             "season": "Year Round",
             "identification": "Grey, hoof-shaped fungus growing on dead/dying Birch or Beech trees.",
             "uses": "Fire starter (takes a spark instantly). Hat making (felt).",
-            "caution": "None.",
+            "caution": "Extremely dry and flammable; keep away from unintended open flames. Do not ingest.",
             "images": [
                 "amadou.jpg"
             ],
@@ -354,7 +354,7 @@
             "season": "Year Round",
             "identification": "Shelf fungus on birch trees. Smooth, grey/brown top, white underside.",
             "uses": "Anti-parasitic, styptic, immune support. 'Nature's Band-Aid'.",
-            "caution": "None.",
+            "caution": "Has a very bitter taste. Ensure proper identification to avoid harvesting toxic look-alike tree fungi.",
             "images": [
                 "birch_polypore.jpg"
             ],
@@ -374,7 +374,7 @@
             "season": "Summer",
             "identification": "Bright orange/yellow daisy-like flowers. Sticky green stems.",
             "uses": "Skin healing, anti-inflammatory. Petals are edible.",
-            "caution": "None.",
+            "caution": "May cause allergic reactions in individuals sensitive to the Asteraceae family (daisies, ragweed).",
             "images": [
                 "calendula.jpg"
             ],
@@ -412,7 +412,7 @@
             "season": "Summer",
             "identification": "Purple petals, spiky orange/brown center cone.",
             "uses": "Immune stimulant for cold/flu.",
-            "caution": "None.",
+            "caution": "Avoid continuous use for more than 8 weeks. Do not use if you have autoimmune conditions or are sensitive to ragweed.",
             "images": [
                 "echinacea.jpg"
             ],
