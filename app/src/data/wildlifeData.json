@@ -96,7 +96,7 @@
             "season": "Spring/Summer",
             "identification": "Low rosette, oval leaves with distinct parallel ribs.",
             "uses": "'Green Band-Aid'. Chew leaf into poultice for bee stings, bites, and cuts.",
-            "caution": "None.",
+            "caution": "Wash thoroughly. Ensure the collection area is free from animal waste, pesticides, and road runoff.",
             "images": [
                 "plantain.jpg"
             ],
@@ -180,7 +180,7 @@
             "season": "Summer",
             "identification": "Tall, translucent stem, orange trumpet flowers. Grows near Poison Ivy.",
             "uses": "The Antidote. Crush stem juice onto Poison Ivy rash immediately.",
-            "caution": "None.",
+            "caution": "For topical use only; do not ingest. Ensure correct identification to avoid other orange-flowered plants.",
             "images": [
                 "jewelweed.jpg"
             ],
@@ -234,7 +234,7 @@
             "season": "Summer/Fall",
             "identification": "Bright blue daisy-like flowers on stiff stalks. jagged leaves like dandelion.",
             "uses": "Root roasted for coffee substitute. Young leaves for salad.",
-            "caution": "None.",
+            "caution": "Excessive consumption may cause mild digestive upset. Consult a healthcare professional if pregnant or nursing.",
             "images": [
                 "chicory.jpg"
             ],
@@ -274,7 +274,7 @@
             "season": "Biennial",
             "identification": "Huge rhubarb-like leaves. Purple thistle flowers (burrs that stick to clothes).",
             "uses": "Root is a substantial calorie source. Blood purifier.",
-            "caution": "None.",
+            "caution": "Diuretic effect. Digging deep taproots requires caution to avoid muscle strain or contact with soil pathogens.",
             "images": [
                 "burdock.jpg"
             ],
@@ -335,7 +335,7 @@
             "season": "Year Round",
             "identification": "Grey, hoof-shaped fungus growing on dead/dying Birch or Beech trees.",
             "uses": "Fire starter (takes a spark instantly). Hat making (felt).",
-            "caution": "None.",
+            "caution": "Extremely dry and flammable; keep away from unintended open flames. Do not ingest.",
             "images": [
                 "amadou.jpg"
             ],
@@ -354,7 +354,7 @@
             "season": "Year Round",
             "identification": "Shelf fungus on birch trees. Smooth, grey/brown top, white underside.",
             "uses": "Anti-parasitic, styptic, immune support. 'Nature's Band-Aid'.",
-            "caution": "None.",
+            "caution": "Has a very bitter taste. Ensure proper identification to avoid harvesting toxic look-alike tree fungi.",
             "images": [
                 "birch_polypore.jpg"
             ],
@@ -374,7 +374,7 @@
             "season": "Summer",
             "identification": "Bright orange/yellow daisy-like flowers. Sticky green stems.",
             "uses": "Skin healing, anti-inflammatory. Petals are edible.",
-            "caution": "None.",
+            "caution": "May cause allergic reactions in individuals sensitive to the Asteraceae family (daisies, ragweed).",
             "images": [
                 "calendula.jpg"
             ],
@@ -412,7 +412,7 @@
             "season": "Summer",
             "identification": "Purple petals, spiky orange/brown center cone.",
             "uses": "Immune stimulant for cold/flu.",
-            "caution": "None.",
+            "caution": "Avoid continuous use for more than 8 weeks. Do not use if you have autoimmune conditions or are sensitive to ragweed.",
             "images": [
                 "echinacea.jpg"
             ],
@@ -788,6 +788,48 @@
                     "**Eating:** Roast seeds in their shells. High in Vitamin E and essential fatty acids.",
                     "**Oil Extraction:** In a survival context, crush the de-shelled seeds and boil them in water. The oil will float to the top and can be skimmed off for cooking or as a high-calorie supplement.",
                     "**Flower Buds:** Steam young, unopened flower buds for 10-15 minutes. Serve with butter/salt—tastes remarkably like artichoke."
+                ]
+            }
+        },
+        {
+            "id": "chamomile",
+            "name": "Chamomile",
+            "scientific_name": "Matricaria chamomilla",
+            "type": "Medicinal",
+            "season": "Summer",
+            "identification": "Small daisy-like flowers with white petals and yellow centers. Feathery leaves. Smells like apples when crushed.",
+            "uses": "Sleep aid, digestive calmative, skin soothing.",
+            "caution": "May cause allergic reaction in people sensitive to the Asteraceae family (ragweed, daisies).",
+            "images": [
+                "chamomile.jpg"
+            ],
+            "details": {
+                "habitat": "Sunny fields, roadsides, well-drained soil.",
+                "processing": [
+                    "**Tea:** Steep fresh or dried flower heads (not leaves) for 5-10 minutes. Famous for promoting sleep and easing anxiety.",
+                    "**Digestive:** Drink after meals to reduce gas and bloating.",
+                    "**Skin:** Use cooled tea as a wash for inflamed skin or as a compress for tired eyes."
+                ]
+            }
+        },
+        {
+            "id": "self_heal",
+            "name": "Self-Heal (Heal-All)",
+            "scientific_name": "Prunella vulgaris",
+            "type": "Medicinal / Edible",
+            "season": "Summer",
+            "identification": "Square stem (mint family). Spiky purple flower head. Oval leaves.",
+            "uses": "Broad-spectrum medicinal. Wound healing, sore throats, antiviral.",
+            "caution": "None.",
+            "images": [
+                "self_heal.jpg"
+            ],
+            "details": {
+                "habitat": "Lawns, gardens, forest edges.",
+                "processing": [
+                    "**Wound Wash:** Strong decoction used to wash cuts. Very effective at stopping bleeding and preventing infection.",
+                    "**Tea:** Used for internal inflammations and as a general tonic.",
+                    "**Edible:** Young leaves can be eaten raw in salads."
                 ]
             }
         }
@@ -1379,6 +1421,46 @@
             "details": {
                 "behavior": "Colonies in dead wood.",
                 "details": "Roast them. Avoid eating the wood grit. High fat/protein."
+            }
+        },
+        {
+            "id": "cricket",
+            "name": "Cricket / Grasshopper",
+            "scientific_name": "Gryllidae / Caelifera",
+            "role": "Edible",
+            "season": "Summer/Fall",
+            "identification": "Leaping insects. Crickets are usually black/brown; Grasshoppers vary in color.",
+            "notes": "High protein, low fat. Nutty flavor when roasted.",
+            "status": "Harvest",
+            "images": [
+                "cricket.jpg"
+            ],
+            "details": {
+                "caution": "Always cook thoroughly to kill parasites. Remove large legs and wings before eating as they are scratchy and non-nutritious.",
+                "processing": [
+                    "**Catching:** Best caught in early morning when they are sluggish from the cold.",
+                    "**Preparation:** Freeze for 20 mins to kill humanely. Dry roast in a pan until brittle. Toss with salt or chili powder."
+                ]
+            }
+        },
+        {
+            "id": "cicada",
+            "name": "Cicada",
+            "scientific_name": "Cicadoidea",
+            "role": "Edible",
+            "season": "Summer",
+            "identification": "Large, loud insects with transparent wings. Emerges from ground.",
+            "notes": "Tastes like 'shrimp of the land'. High in protein.",
+            "status": "Harvest",
+            "images": [
+                "cicada.jpg"
+            ],
+            "details": {
+                "caution": "Avoid if you have a shellfish allergy (related proteins).",
+                "processing": [
+                    "**Harvesting:** Best eaten just after they emerge from their shells (teneral stage) while they are still soft and white.",
+                    "**Preparation:** Remove wings and legs. Boil for 4-5 minutes then sauté or fry."
+                ]
             }
         }
     ],
