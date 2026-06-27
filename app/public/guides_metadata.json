@@ -665,6 +665,18 @@
     "word_count": 448
   },
   {
+    "title": "Forest Berries & Fruits",
+    "path": "content/12 Foraging & Wildcrafting/12.7 Forest Berries & Fruits.md",
+    "category": "12 Foraging & Wildcrafting",
+    "tags": [
+      "foraging",
+      "berries",
+      "fruit",
+      "safety"
+    ],
+    "word_count": 587
+  },
+  {
     "title": "Small Game Processing",
     "path": "content/13 Meat & Protein Security/13.1 Small Game Processing.md",
     "category": "13 Meat & Protein Security",
@@ -705,6 +717,18 @@
     "category": "13 Meat & Protein Security",
     "tags": [],
     "word_count": 590
+  },
+  {
+    "title": "Large Game Field Dressing",
+    "path": "content/13 Meat & Protein Security/13.8 Large Game Field Dressing.md",
+    "category": "13 Meat & Protein Security",
+    "tags": [
+      "hunting",
+      "butchery",
+      "large-game",
+      "survival"
+    ],
+    "word_count": 615
   },
   {
     "title": "Herbal Medicine",
@@ -919,6 +943,18 @@
     "word_count": 432
   },
   {
+    "title": "Finding & Accessing Water",
+    "path": "content/15 Infrastructure/15.8 Finding & Accessing Water.md",
+    "category": "15 Infrastructure",
+    "tags": [
+      "water",
+      "infrastructure",
+      "wells",
+      "springs"
+    ],
+    "word_count": 669
+  },
+  {
     "title": "Tool Maintenance",
     "path": "content/16 Tools & Workshop/16.1 Tool Maintenance.md",
     "category": "16 Tools & Workshop",
@@ -1030,6 +1066,18 @@
       "elderly"
     ],
     "word_count": 420
+  },
+  {
+    "title": "Simple Off-Grid Structures",
+    "path": "content/17 Shelter & Weatherproofing/17.5 Simple Off-Grid Structures.md",
+    "category": "17 Shelter & Weatherproofing",
+    "tags": [
+      "construction",
+      "shelter",
+      "cabin",
+      "a-frame"
+    ],
+    "word_count": 547
   },
   {
     "title": "Off-Grid Lighting",
@@ -1217,6 +1265,18 @@
       "planning"
     ],
     "word_count": 509
+  },
+  {
+    "title": "Raw Land Transition",
+    "path": "content/21 Scenario Playbooks/21.8 Raw Land Transition.md",
+    "category": "21 Scenario Playbooks",
+    "tags": [
+      "off-grid",
+      "raw-land",
+      "transition",
+      "survival"
+    ],
+    "word_count": 640
   },
   {
     "title": "Knots",
