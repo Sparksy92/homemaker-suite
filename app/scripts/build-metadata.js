@@ -84,7 +84,8 @@ const buildMetadata = () => {
                 path: relativePath,
                 category: folder,
                 tags: fm.tags || [],
-                word_count: wordCount
+                word_count: wordCount,
+                ...fm
             });
         });
     });

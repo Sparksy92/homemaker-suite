@@ -1,0 +1,32 @@
+[
+    {
+        "crop": "Tomato",
+        "startIndoors": "Late Winter (6-8 weeks before last frost)",
+        "transplant": "Late Spring (soil temp > 60°F)",
+        "harvest": "Mid Summer to Fall"
+    },
+    {
+        "crop": "Lettuce",
+        "startIndoors": "Early Spring / Late Summer",
+        "transplant": "Mid Spring / Early Fall",
+        "harvest": "Late Spring / Late Fall"
+    },
+    {
+        "crop": "Carrot",
+        "startIndoors": "Direct sow only (cannot transplant)",
+        "transplant": "Direct sow",
+        "harvest": "Late Summer to Late Fall (sweeter after frost)"
+    },
+    {
+        "crop": "Potato",
+        "startIndoors": "Pre-sprout indoors (Late Winter)",
+        "transplant": "Early Spring (direct plant sets)",
+        "harvest": "Late Summer to Mid Fall"
+    },
+    {
+        "crop": "Garlic",
+        "startIndoors": "Direct sow in Fall",
+        "transplant": "Plant cloves in Fall (dormant in Winter)",
+        "harvest": "Mid Summer (curling scapes)"
+    }
+]

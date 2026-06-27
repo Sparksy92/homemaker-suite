@@ -1,0 +1,27 @@
+[
+    {
+        "crop": "Tomato",
+        "companions": ["Basil (improves flavor/deters pests)", "Marigold (repels nematodes)", "Garlic (deters aphids)"],
+        "antagonists": ["Potato (shares blight)", "Fennel (stunts growth)", "Cabbage (competes for nutrients)"]
+    },
+    {
+        "crop": "Lettuce",
+        "companions": ["Chives (repels aphids)", "Carrot (deep root vs shallow root)", "Cucumber (shade-giver)"],
+        "antagonists": ["Garlic (stunts growth)", "Onion (stunts growth)"]
+    },
+    {
+        "crop": "Carrot",
+        "companions": ["Rosemary (repels carrot fly)", "Radish (breaks crusty soil)", "Lettuce (cool ground cover)"],
+        "antagonists": ["Dill (cross-pollinates/attracts pests)", "Fennel (attracts pests)"]
+    },
+    {
+        "crop": "Potato",
+        "companions": ["Bush Beans (adds nitrogen/repels beetles)", "Marigold (repels pests)", "Horseradish (increases disease resistance)"],
+        "antagonists": ["Tomato (shares blight)", "Sunflower (stunts tuber growth)", "Pumpkin (shares rot)"]
+    },
+    {
+        "crop": "Garlic",
+        "companions": ["Tomato (repels spider mites)", "Pepper (repels pests)", "Spinach (companion shade)"],
+        "antagonists": ["Beans (stunts legume root nodules)", "Peas (stunts growth)"]
+    }
+]
