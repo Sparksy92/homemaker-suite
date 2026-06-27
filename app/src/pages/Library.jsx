@@ -900,8 +900,8 @@ const Library = ({ type = 'all' }) => {
                                     </div>
                                 ) : (
                                     // Default Markdown View
-                                    <div className="px-6 py-12 pb-32">
-                                        <article className="bg-white p-8 md:p-12 rounded-3xl shadow-sm border border-sand-100 max-w-3xl mx-auto">
+                                    <div className="px-0 sm:px-6 py-4 sm:py-12 pb-32">
+                                        <article className="bg-white p-4 sm:p-8 md:p-12 rounded-[2rem] sm:rounded-3xl shadow-sm border-y sm:border border-sand-100 max-w-3xl mx-auto">
                                             <MarkdownRenderer content={fileContent.text} />
                                         </article>
                                     </div>
