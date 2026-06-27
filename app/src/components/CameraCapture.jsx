@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Camera, X, Check, Loader2, MapPin, Tag, RefreshCw, Trash2 } from 'lucide-react';
 import { useObservations } from '../context/ObservationContext';
