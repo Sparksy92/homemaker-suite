@@ -84,6 +84,17 @@ export const importAppData = (backup) => {
         if (backup.schemaVersion !== 1) {
             return reject(`Unsupported backup schema version: ${backup.schemaVersion}. Current supported version is 1.`);
         }
+        if (backup.localStorage !== undefined && (typeof backup.localStorage !== 'object' || backup.localStorage === null || Array.isArray(backup.localStorage))) {
+            return reject('Invalid backup structure: localStorage must be an object');
+        }
+        if (backup.indexedDB !== undefined) {
+            if (typeof backup.indexedDB !== 'object' || backup.indexedDB === null || Array.isArray(backup.indexedDB)) {
+                return reject('Invalid backup structure: indexedDB must be an object');
+            }
+            if (backup.indexedDB.observations !== undefined && !Array.isArray(backup.indexedDB.observations)) {
+                return reject('Invalid backup structure: indexedDB.observations must be an array');
+            }
+        }
 
         // 1. Restore localStorage allowlisted keys
         if (backup.localStorage) {
@@ -169,18 +180,45 @@ export const clearAllAppData = () => {
             localStorage.removeItem(key);
         });
 
-        // 2. Delete the IndexedDB observations database
-        const deleteRequest = indexedDB.deleteDatabase(DB_NAME);
-        deleteRequest.onsuccess = () => {
+        // 2. Open DB and clear observations store scoped transaction
+        const request = indexedDB.open(DB_NAME);
+        request.onupgradeneeded = (event) => {
+            const db = event.target.result;
+            if (!db.objectStoreNames.contains(STORE_NAME)) {
+                db.createObjectStore(STORE_NAME, { keyPath: 'id', autoIncrement: true });
+            }
+        };
+        request.onerror = () => {
+            console.error('Failed to open database during clear');
             resolve();
         };
-        deleteRequest.onerror = () => {
-            console.error('Failed to delete observations database');
-            resolve();
-        };
-        deleteRequest.onblocked = () => {
-            console.warn('Delete observations database blocked');
-            resolve();
+        request.onsuccess = (event) => {
+            const db = event.target.result;
+            if (!db.objectStoreNames.contains(STORE_NAME)) {
+                db.close();
+                resolve();
+                return;
+            }
+
+            try {
+                const transaction = db.transaction([STORE_NAME], 'readwrite');
+                const store = transaction.objectStore(STORE_NAME);
+                store.clear();
+
+                transaction.oncomplete = () => {
+                    db.close();
+                    resolve();
+                };
+                transaction.onerror = () => {
+                    console.error('Clear transaction failed');
+                    db.close();
+                    resolve();
+                };
+            } catch (e) {
+                console.error('Failed to clear database store:', e);
+                db.close();
+                resolve();
+            }
         };
     });
 };
