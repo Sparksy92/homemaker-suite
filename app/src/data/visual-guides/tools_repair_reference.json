@@ -1,0 +1,48 @@
+{
+    "provenance": {
+        "sourceType": "general_reference",
+        "lastReviewed": "2026-06-27",
+        "safetyLevel": "Medium",
+        "notes": "Always wear eye protection and gloves. Disconnect power and relieve water pressure before attempting any tools or pipe maintenance."
+    },
+    "toolCategories": [
+        {
+            "category": "Carpentry & Build",
+            "items": ["Hand saw (crosscut, 8-12 TPI)", "Claw hammer (16 oz)", "Chisels (wood, 1/2\" and 1\")", "Speed square", "Level (24\")", "Tape measure (25')"]
+        },
+        {
+            "category": "Off-Grid Plumbing",
+            "items": ["Pipe wrench (14\")", "PEX crimp tool", "Utility knife", "Thread seal tape (Teflon)", "Hacksaw", "Spare rubber washers/gaskets"]
+        },
+        {
+            "category": "Electrical & Solar",
+            "items": ["Digital multimeter (tests V/A/Ohm)", "Wire strippers / Crimpers", "Insulated screwdrivers", "Electrical tape", "Spare inline DC fuses", "Heat shrink tubing"]
+        },
+        {
+            "category": "Homestead & Garden",
+            "items": ["Spade shovel", "Bow rake", "Hand pruners / Loppers", "Wheelbarrow", "Axe (splitting maul and hand hatchet)", "File (single-cut mill bastard)"]
+        }
+    ],
+    "maintenanceSchedule": [
+        { "dateRange": "Monthly", "status": "Essential", "title": "Safety & Battery Inspection", "desc": "Check battery voltage terminals for corrosion. Test fire/CO detectors. Run backup generator under load for 15 mins." },
+        { "dateRange": "Bi-Annual", "status": "Recommended", "title": "Tool Care & Roof Audit", "desc": "Sharpen axe blades, knives, and spades with files. Clean rust off steel tools and apply light motor oil coat. Clear roof valleys and gutters of silt." },
+        { "dateRange": "Annual", "status": "Critical", "title": "Winterization & Filters", "desc": "Drain above-ground water pipes. Clean cistern intake screens. Inspect chimney flues for creosote build-up to prevent flue fires." }
+    ],
+    "repairWorkflows": [
+        {
+            "title": "Patching a Small Roof Leak",
+            "body": "Locate the leak inside during rain. Climb roof under dry conditions. Inspect corresponding area for cracked shingles or loose nails. Apply a generous layer of roofing sealant mastic under the loose shingle, press down, and cap exposed nail heads with mastic.",
+            "checklist": ["Identify structural leak path", "Sweep away silt/debris from shingle", "Apply exterior sealant mastic", "Cap nails to repel water"]
+        },
+        {
+            "title": "Replacing a Faucet Washer",
+            "body": "Shut off the local water supply valve. Open faucet to drain remaining water. Unscrew the handle screw, pull handle off, and use a wrench to remove the valve stem. Unscrew the small screw at the bottom of the stem, replace the worn rubber washer with a matching new one, and reassemble.",
+            "checklist": ["Isolate water lines", "Remove valve stem", "Swap rubber gasket washer", "Reassemble and check seals"]
+        },
+        {
+            "title": "Sharpening an Axe",
+            "body": "Clamp the axe head firmly in a bench vise. Hold a flat mill file at the matching bevel angle (~25 degrees). Push the file away from the blade edge in smooth, forward strokes. Work one side until a burr forms, then flip the axe and file the other side. Finish by honing with an oiled whetstone.",
+            "checklist": ["Secure axe head in vise", "File from bevel base toward edge", "Maintain consistent 25° angle", "Hone burr off with whetstone"]
+        }
+    ]
+}

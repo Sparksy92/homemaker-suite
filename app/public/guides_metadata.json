@@ -944,7 +944,12 @@
       "fruit",
       "safety"
     ],
-    "word_count": 587
+    "word_count": 587,
+    "id": "foraging-12.7",
+    "timeframe": "seasonal",
+    "difficulty": "beginner",
+    "module": "12 Foraging & Wildcrafting",
+    "section": "12.7"
   },
   {
     "title": "Small Game Processing",
@@ -998,7 +1003,12 @@
       "large-game",
       "survival"
     ],
-    "word_count": 615
+    "word_count": 615,
+    "id": "meat-13.8",
+    "timeframe": "seasonal",
+    "difficulty": "expert",
+    "module": "13 Meat & Protein Security",
+    "section": "13.8"
   },
   {
     "title": "Herbal Medicine",
@@ -1307,7 +1317,12 @@
       "wells",
       "springs"
     ],
-    "word_count": 669
+    "word_count": 669,
+    "id": "infra-15.8",
+    "timeframe": "essential",
+    "difficulty": "advanced",
+    "module": "15 Infrastructure",
+    "section": "15.8"
   },
   {
     "title": "Tool Maintenance",
@@ -1482,7 +1497,12 @@
       "cabin",
       "a-frame"
     ],
-    "word_count": 547
+    "word_count": 547,
+    "id": "shelter-17.5",
+    "timeframe": "long-term",
+    "difficulty": "expert",
+    "module": "17 Shelter & Weatherproofing",
+    "section": "17.5"
   },
   {
     "title": "Off-Grid Lighting",
@@ -1766,7 +1786,12 @@
       "transition",
       "survival"
     ],
-    "word_count": 640
+    "word_count": 640,
+    "id": "scenario-21.8",
+    "timeframe": "immediate",
+    "difficulty": "advanced",
+    "module": "21 Scenario Playbooks",
+    "section": "21.8"
   },
   {
     "title": "Knots",

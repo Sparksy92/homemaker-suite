@@ -1,11 +1,17 @@
 {
+    "provenance": {
+        "sourceType": "general_reference",
+        "lastReviewed": "2026-06-27",
+        "safetyLevel": "High",
+        "notes": "Always install fuses or circuit breakers between panels, controllers, and batteries. Short circuits can trigger catastrophic lithium fire risks."
+    },
     "batteryChemistries": [
         {
             "type": "LiFePO4 (Lithium Iron Phosphate)",
             "cycles": "3,000 - 5,000 cycles",
             "dod": "80% - 90% depth of discharge",
             "tempRange": "32°F to 113°F (cannot charge below freezing)",
-            "safety": "High (no thermal runaway risk)",
+            "safety": "High (stable chemistry, no thermal runaway)",
             "cost": "High initial, lowest lifetime cost"
         },
         {
@@ -13,8 +19,24 @@
             "cycles": "300 - 600 cycles",
             "dod": "50% maximum depth of discharge",
             "tempRange": "-4°F to 122°F (handles cold better)",
-            "safety": "Moderate (requires venting if flooded)",
+            "safety": "Moderate (maintenance free, sealed)",
             "cost": "Low initial, high lifetime cost"
+        },
+        {
+            "type": "Lead-Acid (Gel Cell)",
+            "cycles": "500 - 1,000 cycles",
+            "dod": "50% maximum depth of discharge",
+            "tempRange": "-4°F to 113°F (good in heat, slow charge rate)",
+            "safety": "Moderate (sealed, non-spillable)",
+            "cost": "Medium initial, moderate lifetime cost"
+        },
+        {
+            "type": "Lead-Acid (Flooded / Deep Cycle)",
+            "cycles": "500 - 1,200 cycles",
+            "dod": "50% maximum depth of discharge",
+            "tempRange": "-10°F to 122°F (requires checking water levels)",
+            "safety": "Low to Moderate (off-gasses explosive hydrogen; must be ventilated)",
+            "cost": "Lowest initial, moderate lifetime cost"
         }
     ],
     "applianceLoads": [
@@ -22,31 +44,64 @@
             "name": "LED Lighting",
             "watts": 10,
             "hours": 5,
-            "dailyWh": 50
+            "dailyWh": 50,
+            "notes": "Low draw, highly recommended for solar."
         },
         {
-            "name": "Homestead Router/PWA",
+            "name": "Homestead Router",
             "watts": 15,
             "hours": 24,
-            "dailyWh": 360
+            "dailyWh": 360,
+            "notes": "Steady continuous drain. Unplug at night to save power."
+        },
+        {
+            "name": "Starlink Satellite Dish",
+            "watts": 80,
+            "hours": 12,
+            "dailyWh": 960,
+            "notes": "Significant load. Turn off when not actively browsing."
         },
         {
             "name": "DC Fridge (High Efficiency)",
             "watts": 45,
             "hours": 12,
-            "dailyWh": 540
+            "dailyWh": 540,
+            "notes": "Runs on/off compressor cycle. Avoid opening frequently."
         },
         {
             "name": "Charge Phone/Laptop",
-            "watts": 60,
+            "watts": 65,
             "hours": 3,
-            "dailyWh": 180
+            "dailyWh": 195,
+            "notes": "Charge directly from 12V DC ports if possible."
         },
         {
-            "name": "Water Pump (DC)",
-            "watts": 80,
+            "name": "Deep Well Water Pump (1/2 HP)",
+            "watts": 750,
+            "hours": 2,
+            "dailyWh": 1500,
+            "notes": "Requires high surge inverter to handle starting motor current."
+        },
+        {
+            "name": "Circular Saw / Power Tools",
+            "watts": 1500,
             "hours": 1,
-            "dailyWh": 80
+            "dailyWh": 1500,
+            "notes": "Only run during peak sun periods when battery is full."
+        },
+        {
+            "name": "Electric Water Kettle",
+            "watts": 1500,
+            "hours": 0.25,
+            "dailyWh": 375,
+            "notes": "WARNING: Extreme surge load. Rapidly drains batteries. Use propane instead."
+        },
+        {
+            "name": "Electric Space Heater",
+            "watts": 1500,
+            "hours": 4,
+            "dailyWh": 6000,
+            "notes": "CRITICAL: Incompatible with off-grid solar. Use wood heat instead."
         }
     ]
 }

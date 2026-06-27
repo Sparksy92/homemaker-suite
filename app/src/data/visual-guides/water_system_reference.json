@@ -1,32 +1,73 @@
 {
+    "provenance": {
+        "sourceType": "general_reference",
+        "lastReviewed": "2026-06-27",
+        "safetyLevel": "High",
+        "notes": "Untreated roof runoff or surface water contains bacteria and parasites. Water must be treated/purified and tested before drinking."
+    },
     "filtrationMethods": [
         {
             "method": "Bio-Sand Filter",
-            "effectiveness": "95-99% pathogens, protozoa, sediment",
+            "effectiveness": "95-99% bacteria, protozoa, sediment, heavy metals",
             "cost": "Very Low (sand, gravel, barrel)",
             "flowRate": "Moderate (gravity fed)",
-            "maintenance": "Scrape top bio-layer (schmutzdecke) occasionally"
+            "maintenance": "Scrape top bio-layer (schmutzdecke) when flow slows."
         },
         {
             "method": "Activated Charcoal",
-            "effectiveness": "Chemicals, heavy metals, chlorine, taste",
+            "effectiveness": "Chemicals, herbicides, pesticides, heavy metals, odor",
             "cost": "Low (requires charcoal replacement)",
             "flowRate": "Fast",
-            "maintenance": "Replace carbon media every 3-6 months"
+            "maintenance": "Replace carbon media every 3-6 months. Keep dry before use."
         },
         {
             "method": "Boiling",
-            "effectiveness": "100% pathogens, viruses, protozoa",
-            "cost": "High (fuel consumption)",
+            "effectiveness": "100% pathogens, bacteria, viruses, protozoa",
+            "cost": "High (fuel/biomass consumption)",
             "flowRate": "Slow (batch process)",
-            "maintenance": "None"
+            "maintenance": "None. Must boil for 1 full minute (3 mins at high altitudes)."
         },
         {
             "method": "UV Purification",
-            "effectiveness": "99.9% DNA disruption of pathogens",
+            "effectiveness": "99.9% DNA disruption of bacteria, viruses",
             "cost": "High (requires solar/battery power)",
             "flowRate": "Fast",
-            "maintenance": "Clean quartz sleeve, replace bulb annually"
+            "maintenance": "Clean quartz sleeve, replace bulb annually. Water must be pre-filtered clear."
+        },
+        {
+            "method": "Ceramic Drip Filter",
+            "effectiveness": "99.9% bacteria, protozoa, sediment (0.2 micron)",
+            "cost": "Low to Medium (ceramic candle)",
+            "flowRate": "Very Slow (drips under gravity)",
+            "maintenance": "Scrub candle exterior with a clean soft brush under running water to restore flow."
+        },
+        {
+            "method": "Hollow Fiber Membrane (Sawyer style)",
+            "effectiveness": "99.999% bacteria, protozoa, microplastics (0.1 micron)",
+            "cost": "Low (inline filters)",
+            "flowRate": "Fast (gravity or squeeze)",
+            "maintenance": "Backwash with clean water syringe regularly. NEVER allow to freeze once wet."
+        },
+        {
+            "method": "Reverse Osmosis (RO)",
+            "effectiveness": "99.9% viruses, heavy metals, arsenic, lead, fluoride",
+            "cost": "High (requires pumps and replacement membranes)",
+            "flowRate": "Moderate (requires high pressure)",
+            "maintenance": "Replace pre-filters every 6 months, membrane every 2 years. Generates waste brine water."
+        },
+        {
+            "method": "Solar Distillation (Solar Still)",
+            "effectiveness": "100% minerals, heavy metals, salts, pathogens",
+            "cost": "Low (plastic sheets, glass panes, sun)",
+            "flowRate": "Very Slow (condensation batch)",
+            "maintenance": "Keep evaporation basin clean of crusty salt and mineral deposits."
+        },
+        {
+            "method": "SODIS (Solar Water Disinfection)",
+            "effectiveness": "Disrupts DNA of bacteria and viruses via solar UV",
+            "cost": "Zero (PET plastic bottles, sunlight)",
+            "flowRate": "Slow (requires 6 hours direct solar exposure)",
+            "maintenance": "Ensure plastic bottles are clear, un-scratched, and clean. Fill, shake, and place on tin roof."
         }
     ],
     "catchmentSystem": {
@@ -34,19 +75,23 @@
         "components": [
             {
                 "name": "Roof Surface",
-                "desc": "Metal roofing preferred (cleanest runoff). Avoid asphalt shingles due to toxic chemicals."
+                "desc": "Metal roofing preferred (cleanest runoff). Avoid asphalt shingles due to toxic petroleum chemicals."
             },
             {
                 "name": "Gutters & Guards",
-                "desc": "Wide gutters with leaf screens to block leaves, pine needles, and large debris."
+                "desc": "Wide gutters sloped 1/16\" per foot, covered with mesh screens to block large leaf debris."
             },
             {
                 "name": "First Flush Diverter",
-                "desc": "Diverts the first 10-20 gallons of dirtier initial rain runoff containing bird droppings/dust."
+                "desc": "Diverts the first 10-20 gallons of dirty runoff. Requires a slow-draining weep hole to empty itself between storms."
             },
             {
-                "name": "Cistern/Barrels",
-                "desc": "Food-grade, opaque storage tanks. Keep out of direct sun to prevent algae growth."
+                "name": "IBC Totes (275 Gal)",
+                "desc": "Heavy-duty poly tanks housed in steel cages. MUST be wrapped in black/green tarp to block sunlight and prevent algae."
+            },
+            {
+                "name": "Indoor Cistern",
+                "desc": "Food-grade polyethylene tanks stored inside a basement or insulated building to prevent freeze-cracking in winters."
             }
         ]
     }

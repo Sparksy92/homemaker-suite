@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Bell, Lock, User, Palette, Globe, Moon, Download, Upload } from 'lucide-react';
+import { ArrowLeft, Bell, Lock, User, Palette, Globe, Moon, Download, Upload, Home } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 import { useUser } from '../context/UserContext';
 import { exportAppData, importAppData } from '../services/appDataService';
+import HomesteadOnboarding from '../components/onboarding/HomesteadOnboarding';
 
 const Settings = () => {
     const navigate = useNavigate();
@@ -12,6 +13,7 @@ const Settings = () => {
 
     const [isEditingProfile, setIsEditingProfile] = useState(false);
     const [editForm, setEditForm] = useState({ name: user.name, email: user.email });
+    const [showOnboarding, setShowOnboarding] = useState(false);
 
     const handleExport = async () => {
         try {
@@ -90,6 +92,16 @@ const Settings = () => {
                         label="Security"
                         description="Change password (Local session only)"
                         onClick={() => alert('Security settings are managed locally in this demo.')}
+                    />
+                </Section>
+
+                {/* Homestead Profile Section */}
+                <Section title="Homestead Profile">
+                    <SettingItem
+                        icon={<Home size={20} />}
+                        label="Configure Homestead Setup"
+                        description="Update household size, water sourcing, energy arrays, and disclaimers"
+                        onClick={() => setShowOnboarding(true)}
                     />
                 </Section>
 
@@ -233,6 +245,11 @@ const Settings = () => {
                             </form>
                         </motion.div>
                     </div>
+                )}
+
+                {/* Onboarding Wizard Overlay */}
+                {showOnboarding && (
+                    <HomesteadOnboarding onClose={() => setShowOnboarding(false)} />
                 )}
             </div>
         </div>

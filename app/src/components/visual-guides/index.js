@@ -11,3 +11,7 @@ export { default as CalloutBlock } from './CalloutBlock';
 export { default as GardeningLanding } from './GardeningLanding';
 export { default as WaterLanding } from './WaterLanding';
 export { default as EnergyLanding } from './EnergyLanding';
+export { default as ShelterLanding } from './ShelterLanding';
+export { default as PreservationLanding } from './PreservationLanding';
+export { default as HealthSanitationLanding } from './HealthSanitationLanding';
+export { default as ToolsRepairLanding } from './ToolsRepairLanding';

@@ -1,0 +1,61 @@
+{
+    "provenance": {
+        "sourceType": "general_reference",
+        "lastReviewed": "2026-06-27",
+        "safetyLevel": "High",
+        "notes": "Medical triage and sanitation references are educational and do not replace professional medical diagnosis, surgery, or care."
+    },
+    "sanitation": [
+        {
+            "system": "Composting Toilet (Bio-dry)",
+            "useCase": "Permanent off-grid cabins, sustainable builds",
+            "water": "None",
+            "maintenance": "Cover waste with carbon (peat moss/sawdust) after use. Empty bucket every 1-2 weeks.",
+            "risk": "Medium (improper carbon ratio leads to fly breeding and odor)",
+            "cold": "Bacterial activity drops below 55°F; acts as holding chamber in winter."
+        },
+        {
+            "system": "Emergency Bucket (Double-bag)",
+            "useCase": "Short term grid-down disasters",
+            "water": "None",
+            "maintenance": "Line 5-gal bucket with heavy contractor bag. Cover with sawdust/kitty litter. Tie off.",
+            "risk": "High (spillage, pathogen exposure when handling full bags)",
+            "cold": "Will freeze if left in unheated outbuildings."
+        },
+        {
+            "system": "Traditional Pit Outhouse",
+            "useCase": "Remote homesteads, secondary facilities",
+            "water": "None",
+            "maintenance": "Dig 4-6 ft pit. Build structure over it. Throw lime or ash down regularly to suppress smells.",
+            "risk": "High (water table contamination if dug too close to wells/springs)",
+            "cold": "Fully operational in cold weather; freezing wind can be uncomfortable."
+        },
+        {
+            "system": "Septic & Leach Field",
+            "useCase": "Standard homestead permits, high water flow",
+            "water": "High (gravity flush toilets)",
+            "maintenance": "Pump tank every 3-5 years. Avoid flushing grease, chemicals, or plastics.",
+            "risk": "Low (if installed by code; high cost to replace failed leach field)",
+            "cold": "Requires pipes buried below local frost depth to prevent freeze blockages."
+        }
+    ],
+    "hygiene": [
+        { "activity": "Handwashing", "desc": "Setup a 'tippy-tap' gravity bottle filled with water, activated by a foot pedal string. Keep soap suspended in a mesh bag to dry." },
+        { "activity": "Grid-Down Dishwashing", "desc": "Use a 3-basin system. Basin 1: Scrape & wash (hot soapy water). Basin 2: Rinse (clean warm water). Basin 3: Sanitize (cool water with 1 capful of bleach). Air dry only." },
+        { "activity": "No-Power Laundry", "desc": "Agitate clothes in a clean 5-gallon bucket using a clean plunger (with holes cut in the rubber cone). Wring out using a manual hand wringer." },
+        { "activity": "Vector Control", "desc": "Store all food in steel canisters. Set snap traps along wall bases. Keep compost piles at least 50 feet away from living quarters." }
+    ],
+    "firstAidTriage": [
+        { "condition": "Severe Bleeding", "action": "Apply direct pressure with sterile gauze. If bleeding doesn't stop and is arterial (spurting), apply a tourniquet high and tight on the limb. Record application time." },
+        { "condition": "Airway Obstruction", "desc": "Verify breathing. If unconscious, perform head-tilt chin-lift. Check for obstruction. Start CPR if pulse is absent." },
+        { "condition": "Severe Burns", "action": "Cool burn immediately with cool running water for 10-20 mins. Do NOT apply grease, butter, or ice. Cover loosely with sterile non-stick dressing." },
+        { "condition": "Hypothermia", "action": "Remove wet clothes. Wrap patient in dry blankets (cover head but not face). Share body heat if possible. Give warm, sweet liquids ONLY if fully conscious." },
+        { "condition": "Systemic Infection", "action": "Watch for: expanding red streaks from wound, hot skin, high fever, or confusion. Requires immediate medical attention." }
+    ],
+    "medKit": [
+        { "category": "Wound Care", "items": ["Sterile gauze pads (4x4)", "Roller bandages (conforming)", "Adhesive bandages (assorted)", "Medical tape", "Antiseptic wipes", "Shears"] },
+        { "category": "Burn Care", "items": ["Hydrogel burn dressings", "Non-stick sterile pads", "Aloe vera gel"] },
+        { "category": "Pain / Inflammation", "items": ["Ibuprofen (anti-inflammatory)", "Acetaminophen (pain/fever reliever)", "Aspirin (heart attack emergency)"] },
+        { "category": "Allergy / Bite Care", "items": ["Diphenhydramine (Benadryl)", "Hydrocortisone cream", "Tweezers (tick removal)"] }
+    ]
+}

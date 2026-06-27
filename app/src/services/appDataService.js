@@ -11,7 +11,8 @@ const LOCAL_STORAGE_ALLOWLIST = [
     'homemaker_sustainability',
     'homemaker_water_inventory',
     'weather_enabled',
-    'homemaker_beta_notice_dismissed'
+    'homemaker_beta_notice_dismissed',
+    'homemaker_homestead_profile'
 ];
 
 export const exportAppData = () => {

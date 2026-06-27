@@ -8,15 +8,16 @@ import companionData from '../../data/visual-guides/gardening_companion_planting
 import calendarData from '../../data/visual-guides/seasonal_garden_calendar.json';
 
 const GardeningLanding = ({ handleFileClick, files = [] }) => {
-    const [selectedCrop, setSelectedCrop] = useState(cropData[0].name);
+    const crops = Array.isArray(cropData) ? cropData : (cropData.crops || []);
+    const [selectedCrop, setSelectedCrop] = useState(crops[0]?.name || '');
     const [searchQuery, setSearchQuery] = useState('');
 
-    const cropMap = cropData.reduce((acc, c) => {
+    const cropMap = crops.reduce((acc, c) => {
         acc[c.name] = c;
         return acc;
     }, {});
 
-    const activeCrop = cropMap[selectedCrop] || cropData[0];
+    const activeCrop = cropMap[selectedCrop] || crops[0];
 
     // Helper to clean file names for display
     const getDisplayName = (name) => {
@@ -72,7 +73,7 @@ const GardeningLanding = ({ handleFileClick, files = [] }) => {
                 </div>
                 
                 <div className="flex gap-2 overflow-x-auto pb-3 no-scrollbar scroll-smooth w-full">
-                    {cropData.map(c => (
+                    {crops.map(c => (
                         <button
                             key={c.name}
                             onClick={() => setSelectedCrop(c.name)}

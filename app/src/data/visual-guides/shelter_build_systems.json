@@ -1,0 +1,116 @@
+{
+    "provenance": {
+        "sourceType": "general_reference",
+        "lastReviewed": "2026-06-27",
+        "safetyLevel": "High",
+        "notes": "Educational reference only. Structural projects require professional load reviews and local permit inspection."
+    },
+    "siteSelection": [
+        { "factor": "Drainage", "guideline": "Avoid low spots. Build on high, sloped ground so surface water flows away from foundations." },
+        { "factor": "Wind Exposure", "guideline": "A windbreak (trees, fence) is vital on the windward side to reduce heating loads." },
+        { "factor": "Solar Orientation", "guideline": "Longest wall must face within 15 degrees of true South to maximize passive winter heat." },
+        { "factor": "Road Access", "guideline": "Ensure clear, level pathways for transport of materials, fuel, and emergency vehicles." },
+        { "factor": "Water Access", "guideline": "Place close to springs or catchment cistern tanks to limit uphill bucket carrying." },
+        { "factor": "Snow Load", "guideline": "Pitch roofs to 4:12 minimum in heavy snow regions to prevent structural rafter collapse." },
+        { "factor": "Fire Safety", "guideline": "Clear all tall brush and combustible materials within a 30-foot perimeter of the structure." }
+    ],
+    "foundations": [
+        {
+            "type": "Pier Foundation (Deck blocks / Sonotubes)",
+            "useCase": "Cabins, sheds, uneven ground",
+            "difficulty": "Easy to Medium",
+            "cost": "Low",
+            "frost": "Highly vulnerable to heaving unless piers go below frost line",
+            "drainage": "Excellent under-floor ventilation",
+            "risks": "Differential settling, cold floors"
+        },
+        {
+            "type": "Skid Foundation (Timber skids on gravel)",
+            "useCase": "Moveable sheds, outhouses",
+            "difficulty": "Easy",
+            "cost": "Very Low",
+            "frost": "Moves with frost, but easily re-leveled with jacks",
+            "drainage": "Good if built on gravel pad",
+            "risks": "Wood rot, settling"
+        },
+        {
+            "type": "Concrete Slab on Grade",
+            "useCase": "Large homes, garages, workshops",
+            "difficulty": "Hard",
+            "cost": "High",
+            "frost": "Requires insulation skirt (FPSF) or deep footings",
+            "drainage": "Requires perimeter drainage lines",
+            "risks": "Cracking, zero accessibility to under-floor utility lines"
+        },
+        {
+            "type": "Rubble Trench Foundation",
+            "useCase": "Straw bale builds, earthbag, cabins",
+            "difficulty": "Medium",
+            "cost": "Low to Medium",
+            "frost": "Excellent (gravel self-drains, preventing water freezing)",
+            "drainage": "Superb (acts as its own french drain)",
+            "risks": "Labor intensive to dig by hand"
+        }
+    ],
+    "framingSteps": [
+        { "step": "Floor Platform", "desc": "Laying sill plates on foundation, mounting joists (spaced 16\" or 24\" on center), and screwing subfloor plywood panels." },
+        { "step": "Wall Studs & Headers", "desc": "Assembling vertical wall frames flat on floor, inserting double headers above door/window openings, and raising walls." },
+        { "step": "Roof Rafters or Trusses", "desc": "Installing ceiling joists and roof rafters or pre-engineered triangular roof trusses to support roof loads." },
+        { "step": "Sheathing & Wraps", "desc": "Covering wall and roof framing with OSB or plywood sheets, then applying housewrap (vapor-permeable weather barrier)." }
+    ],
+    "insulationOptions": [
+        {
+            "material": "Sheep's Wool Batts",
+            "rValue": "R-3.6 per inch",
+            "pros": "Natural, absorbs moisture without losing R-value, filters indoor air.",
+            "cons": "Requires moth treatment, expensive."
+        },
+        {
+            "material": "Rockwool / Mineral Wool",
+            "rValue": "R-3.0 to R-3.3 per inch",
+            "pros": "Fireproof, water repellent, rodent repellent, doesn't settle.",
+            "cons": "Requires mask during install, heavy."
+        },
+        {
+            "material": "Rigid Foam Board (XPS)",
+            "rValue": "R-5.0 per inch",
+            "pros": "High R-value, blocks moisture, easy to cut.",
+            "cons": "Flammable, petroleum-based, releases toxic gas if burned."
+        },
+        {
+            "material": "Straw Bale (Typical 18\" Wall)",
+            "rValue": "R-30 to R-35 total wall",
+            "pros": "Highly renewable, carbon capturing, superior thermal mass when plastered.",
+            "cons": "Thick walls require wide foundations, highly vulnerable to water rot during build."
+        }
+    ],
+    "projects": [
+        {
+            "name": "Standard Raised Bed Frame",
+            "purpose": "Elevated soil plot for gardening.",
+            "materials": ["Three 2x12x8' cedar boards", "Box of 3\" deck screws", "Hardware cloth (gopher barrier)"],
+            "tools": ["Handsaw or circular saw", "Drill / Driver", "Tape measure"],
+            "difficulty": "Easy",
+            "time": "1-2 hours",
+            "safety": "Wear safety glasses. Cedar sawdust can irritate lungs."
+        },
+        {
+            "name": "Passive Solar Cold Frame",
+            "purpose": "Protects spring seedlings from overnight frosts.",
+            "materials": ["Old glass window frame", "Scrap 2x4 lumber", "Hinges and handle"],
+            "tools": ["Saw", "Screw driver", "Paintbrush (exterior paint)"],
+            "difficulty": "Easy to Medium",
+            "time": "3-4 hours",
+            "safety": "Glass carries breakage hazards. Handle old window frames with care."
+        },
+        {
+            "name": "Simple Woodshed (Pallet Build)",
+            "purpose": "Dry firewood storage with cross ventilation.",
+            "materials": ["4 heavy wood pallets", "4 T-posts or metal stakes", "Tarpaulin sheet or corrugated roofing metal"],
+            "tools": ["Sledgehammer", "Heavy wire ties or screws"],
+            "difficulty": "Easy",
+            "time": "2-3 hours",
+            "safety": "Pallet wood can splinter easily. Wear heavy leather gloves."
+        }
+    ]
+}

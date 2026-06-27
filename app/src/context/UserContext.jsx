@@ -112,6 +112,23 @@ export const UserProvider = ({ children }) => {
         localStorage.setItem('homemaker_home_widgets', JSON.stringify(homeWidgets));
     }, [homeWidgets]);
 
+    const [homesteadProfile, setHomesteadProfile] = useState(() => {
+        const savedProfile = localStorage.getItem('homemaker_homestead_profile');
+        return savedProfile ? JSON.parse(savedProfile) : null;
+    });
+
+    useEffect(() => {
+        if (homesteadProfile !== null) {
+            localStorage.setItem('homemaker_homestead_profile', JSON.stringify(homesteadProfile));
+        } else {
+            localStorage.removeItem('homemaker_homestead_profile');
+        }
+    }, [homesteadProfile]);
+
+    const updateHomesteadProfile = (profileData) => {
+        setHomesteadProfile(profileData);
+    };
+
     const updateProfile = (newData) => {
         setUser(prev => ({ ...prev, ...newData }));
     };
@@ -280,6 +297,8 @@ export const UserProvider = ({ children }) => {
         durations,
         readinessScore: readiness.total,
         readinessBreakdown: readiness.breakdown,
+        homesteadProfile,
+        updateHomesteadProfile,
         updateProfile,
         updateSustainability,
         updateSustainabilityRate,

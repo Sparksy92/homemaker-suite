@@ -1,0 +1,82 @@
+{
+    "provenance": {
+        "sourceType": "general_reference",
+        "lastReviewed": "2026-06-27",
+        "safetyLevel": "High",
+        "notes": "Low-acid foods (vegetables, meat, fish) must be pressure canned. Water bath canning is limited to high-acid foods. Failure to follow verified processing times carries lethal botulism risks."
+    },
+    "methods": [
+        {
+            "name": "Water Bath Canning",
+            "foods": "High-acid foods (Fruits, tomatoes, pickles, jams)",
+            "shelfLife": "1 - 2 Years",
+            "equipment": "Large stockpot, jar lifter, canning jars/lids",
+            "risk": "Low (acid inhibits botulinum growth)",
+            "energy": "High (boiling water for 10-30 mins)",
+            "beginner": "Highly Suitable"
+        },
+        {
+            "name": "Pressure Canning",
+            "foods": "Low-acid foods (Vegetables, meat, poultry, fish, soups)",
+            "shelfLife": "1 - 2 Years",
+            "equipment": "Dial/Weighted Gauge Pressure Canner, canning accessories",
+            "risk": "High (canner failure or under-processing allows botulism survival)",
+            "energy": "High (holds steam at 240°F for 75-90 mins)",
+            "beginner": "Requires careful instruction"
+        },
+        {
+            "name": "Dehydrating",
+            "foods": "Fruits, vegetables, herbs, meat jerky",
+            "shelfLife": "6 - 12 Months",
+            "equipment": "Solar dehydrator or electric dehydrator, storage bags",
+            "risk": "Low (mold if not fully dry)",
+            "energy": "Low (especially solar methods)",
+            "beginner": "Highly Suitable"
+        },
+        {
+            "name": "Fermentation",
+            "foods": "Cabbage (sauerkraut), cucumbers, carrots, dairy",
+            "shelfLife": "3 - 6 Months (cold storage)",
+            "equipment": "Crocks or glass jars, fermentation weights, salt",
+            "risk": "Low (safe lactic acid environment)",
+            "energy": "None",
+            "beginner": "Highly Suitable"
+        },
+        {
+            "name": "Root Cellaring",
+            "foods": "Potatoes, carrots, onions, garlic, apples, winter squash",
+            "shelfLife": "2 - 8 Months",
+            "equipment": "Ventilated boxes, damp sand (for root crops), dark cool room",
+            "risk": "Low (mold/rot if ventilation fails)",
+            "energy": "None",
+            "beginner": "Highly Suitable"
+        }
+    ],
+    "safetyFlow": [
+        { "step": "Determine Acidity", "desc": "Identify food pH. If pH is above 4.6 (e.g., green beans, carrots, beef), you MUST use a pressure canner. Boiling water bath is NOT safe for low-acid foods." },
+        { "step": "Jar Inspection", "desc": "Check jars for cracks, nicks, or chips along the rim. Rims must be completely smooth to achieve a vacuum hermetic seal." },
+        { "step": "Sanitize & Fill", "desc": "Wash jars. Fill with food, leaving the exact headspace specified by the recipe (typically 1/2\" for fruit/pickles, 1\" for meats/vegetables)." },
+        { "step": "Wipe & Seal", "desc": "Wipe jar rims with a clean damp cloth to remove any grease or residue. Center clean lid on jar, and screw band down to fingertip-tight." },
+        { "step": "Process & Cool", "desc": "Process in canner according to altitude-adjusted times. Let jars cool undisturbed for 12-24 hours. Check seals (lids should not flex when pressed)." }
+    ],
+    "rootCellarRules": [
+        { "aspect": "Temperature", "rule": "Maintain 32°F to 40°F. Temperatures above 45°F speed rot and trigger sprouting." },
+        { "aspect": "Humidity", "rule": "Aim for 85-95% relative humidity for roots (carrots, potatoes) to prevent shriveling. Store in damp sand." },
+        { "aspect": "Ethylene Separation", "rule": "Never store apples/pears near potatoes. Apples release ethylene gas which causes potatoes to sprout and rot." }
+    ],
+    "timeline": [
+        { "dateRange": "Spring", "status": "Dehydrate / Freeze", "title": "Wild Greens & Herbs", "desc": "Dry dandelion greens, nettles, chamomile, chives, and early spring spinach." },
+        { "dateRange": "Summer", "status": "Water Bath Canning", "title": "Berries & Tomatoes", "desc": "Can strawberry jams, pickled cucumbers, tomato sauces, and summer squash chutneys." },
+        { "dateRange": "Fall", "status": "Pressure / Cellar", "title": "Root Crops & Meats", "desc": "Store potatoes/carrots in root cellar. Pressure can beans, stews, venison, and autumn pumpkins." }
+    ],
+    "pantryEstimator": {
+        "caloricNeedPerDay": 2000,
+        "splits": {
+            "grains_starch": 0.40,
+            "proteins_legumes": 0.25,
+            "fats_oils": 0.15,
+            "vegetables_fruit": 0.20
+        },
+        "description": "Approximate weights required per person for off-grid survival. Grains yield roughly 1600 kcal per lb, dry beans 1500 kcal per lb, fats 4000 kcal per lb."
+    }
+}

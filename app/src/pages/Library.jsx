@@ -4,7 +4,8 @@ import { Folder, FileText, ChevronRight, ArrowLeft, Heart, AlertCircle, Info, Ch
 import { useUser } from '../context/UserContext';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 import MarkdownRenderer from '../components/MarkdownRenderer';
-import { GardeningLanding, WaterLanding, EnergyLanding } from '../components/visual-guides';
+import { GardeningLanding, WaterLanding, EnergyLanding, ShelterLanding, PreservationLanding, HealthSanitationLanding, ToolsRepairLanding } from '../components/visual-guides';
+import HomesteadOnboarding from '../components/onboarding/HomesteadOnboarding';
 
 // Helper to clean display names
 const getDisplayName = (name) => {
@@ -108,8 +109,15 @@ const Library = ({ type = 'all' }) => {
     const [fileContent, setFileContent] = useState(null);
     const [fileSystem, setFileSystem] = useState({});
     const [loading, setLoading] = useState(true);
-    const { recordAccess } = useUser();
+    const { recordAccess, sustainability, readinessScore, readinessBreakdown, lastAccessedItem, homesteadProfile, readGuides } = useUser();
     const [guidesMetadata, setGuidesMetadata] = useState([]);
+    const [showOnboarding, setShowOnboarding] = useState(false);
+
+    React.useEffect(() => {
+        if (homesteadProfile === null) {
+            setShowOnboarding(true);
+        }
+    }, [homesteadProfile]);
 
     // Clean up old homemaker-v1 cache on mount if it exists
     React.useEffect(() => {
@@ -341,28 +349,111 @@ const Library = ({ type = 'all' }) => {
     // Filtered results
     // Smart Discovery Logic
     const recommendedGuides = React.useMemo(() => {
-        // Placeholder for sustainability context, assuming it's available or mocked
-        const sustainability = {
-            water: { current: 20 },
-            food: { current: 40 },
-            garden: { current: 45 }
-        };
-
-        if (!sustainability) return [];
         const recs = [];
 
-        if (sustainability.water.current < 30) {
-            recs.push({ title: 'Water Procurement', folder: '15 Infrastructure', file: '15.1 Water Procurement.md', reason: 'Water Storage Low' });
-        }
-        if (sustainability.food.current < 50) {
-            recs.push({ title: 'Long Term Storage', folder: '1 Pantry Systems', file: '1.2 Long Term Storage.md', reason: 'Food Reserve Low' });
-        }
-        if (sustainability.garden.current < 50) {
-            recs.push({ title: 'Soil Health', folder: '5 Gardening', file: '5.2 Soil Health.md', reason: 'Garden Vitality Low' });
+        // 0. Onboarding recommendation
+        if (!homesteadProfile) {
+            recs.push({ 
+                title: 'Homestead Profile Setup', 
+                folder: 'onboarding', 
+                file: 'setup', 
+                reason: 'Start Here',
+                desc: 'Set up your off-grid profile for personalized guides.' 
+            });
+        } else if (homesteadProfile.skipped) {
+            recs.push({ 
+                title: 'Complete Homestead Profile', 
+                folder: 'onboarding', 
+                file: 'setup', 
+                reason: 'Profile Incomplete',
+                desc: 'Fill out your household profile to enable accurate metrics.' 
+            });
         }
 
-        return recs;
-    }, []); // Removed sustainability from dependency array as it's a placeholder here
+        // 1. Water Systems (Water score low < 50)
+        if (readinessBreakdown && readinessBreakdown.water < 50) {
+            recs.push({ 
+                title: 'Water Procurement', 
+                folder: '15 Infrastructure', 
+                file: '15.1 Water Procurement.md', 
+                reason: 'Water Storage Low',
+                desc: 'Review catchment calculations and storage sizing.'
+            });
+            recs.push({
+                title: 'Bio-Sand Filtration',
+                folder: '15 Infrastructure',
+                file: '15.7 Bio-Sand Filtration.md',
+                reason: 'Water Safety Critical',
+                desc: 'Build a biological sand filter column.'
+            });
+        }
+
+        // 2. Food & Pantry (Food score low < 50)
+        if (readinessBreakdown && readinessBreakdown.food < 50) {
+            recs.push({ 
+                title: 'Long Term Storage', 
+                folder: '1 Pantry Systems', 
+                file: '1.2 Long Term Storage.md', 
+                reason: 'Food Reserves Low',
+                desc: 'Store shelf-stable calories safely.'
+            });
+            recs.push({
+                title: 'Pressure Canning',
+                folder: '4 Preservation',
+                file: '4.2 Pressure Canning.md',
+                reason: 'Preservation Critical',
+                desc: 'Learn low-acid canning guidelines to prevent botulism.'
+            });
+        }
+
+        // 3. Gardening & Soil (Garden score low < 50)
+        if (readinessBreakdown && readinessBreakdown.garden < 50) {
+            recs.push({ 
+                title: 'Soil Health', 
+                folder: '5 Gardening', 
+                file: '5.2 Soil Health.md', 
+                reason: 'Garden Vitality Low',
+                desc: 'Amend organic soils and compost correct layers.'
+            });
+            recs.push({
+                title: 'Garden Planning',
+                folder: '5 Gardening',
+                file: '5.1 Garden Planning.md',
+                reason: 'Crop Scheduling',
+                desc: 'Plan sowing zones and frost dates.'
+            });
+        }
+
+        // 4. Energy & Lighting (Energy score low < 50)
+        if (readinessBreakdown && readinessBreakdown.energy < 50) {
+            recs.push({ 
+                title: 'Solar & Passive Energy', 
+                folder: '18 Energy & Lighting', 
+                file: '18.2 Solar & Passive Energy.md', 
+                reason: 'Energy Autonomy Low',
+                desc: 'Build solar cookers and passive heating thermal mass.'
+            });
+        }
+
+        // 5. Unread Starter Guides
+        const starterGuides = [
+            { title: 'Home Maintenance', folder: '6 Home Maintenance', file: '6.1 Basic Repairs.md' },
+            { title: 'First Aid Basics', folder: '14 Health & First Aid', file: '14.1 Herbal Medicine.md' }
+        ];
+        starterGuides.forEach(guide => {
+            if (readGuides && !readGuides.includes(guide.file) && recs.length < 4) {
+                recs.push({
+                    title: guide.title,
+                    folder: guide.folder,
+                    file: guide.file,
+                    reason: 'Unread Foundation',
+                    desc: 'Review essential homestead repair and medicine.'
+                });
+            }
+        });
+
+        return recs.slice(0, 4);
+    }, [readinessBreakdown, homesteadProfile, readGuides]);
 
     const searchResults = React.useMemo(() => {
         const query = searchQuery.toLowerCase().trim();
@@ -472,8 +563,12 @@ const Library = ({ type = 'all' }) => {
                                         <button
                                             key={i}
                                             onClick={() => {
-                                                setCurrentPath([rec.folder]);
-                                                handleFileClick(rec.file);
+                                                if (rec.folder === 'onboarding') {
+                                                    setShowOnboarding(true);
+                                                } else {
+                                                    setCurrentPath([rec.folder]);
+                                                    handleFileClick(rec.file);
+                                                }
                                             }}
                                             className="group bg-terracotta-600 p-5 rounded-[2rem] text-white shadow-xl shadow-terracotta-200/50 hover:bg-terracotta-700 transition-all text-left flex items-start gap-4"
                                         >
@@ -483,7 +578,8 @@ const Library = ({ type = 'all' }) => {
                                             <div>
                                                 <span className="text-[8px] font-black uppercase tracking-widest opacity-80">{rec.reason}</span>
                                                 <h4 className="font-serif font-black text-lg block leading-tight">{rec.title}</h4>
-                                                <div className="flex items-center gap-1 mt-1 opacity-70">
+                                                {rec.desc && <p className="text-[10px] text-white/80 font-medium leading-relaxed mt-1">{rec.desc}</p>}
+                                                <div className="flex items-center gap-1 mt-2 opacity-70">
                                                     <BookOpen size={10} />
                                                     <span className="text-[9px] font-bold uppercase tracking-tighter">View Guide</span>
                                                 </div>
@@ -696,6 +792,34 @@ const Library = ({ type = 'all' }) => {
                                 handleFileClick={handleFileClick}
                                 files={fileSystem[currentPath[0]]}
                             />
+                        ) : currentPath[0] === '17 Shelter & Weatherproofing' ? (
+                            <ShelterLanding
+                                handleFileClick={handleFileClick}
+                                files={fileSystem[currentPath[0]]}
+                            />
+                        ) : (currentPath[0] === '1 Pantry Systems' || currentPath[0] === '4 Food Storage & Pantry' || currentPath[0] === '4 Preservation') ? (
+                            <PreservationLanding
+                                handleFileClick={handleFileClick}
+                                files={[
+                                    ...(fileSystem['1 Pantry Systems'] || []),
+                                    ...(fileSystem['4 Food Storage & Pantry'] || []),
+                                    ...(fileSystem['4 Preservation'] || [])
+                                ]}
+                            />
+                        ) : currentPath[0] === '14 Health & First Aid' ? (
+                            <HealthSanitationLanding
+                                handleFileClick={handleFileClick}
+                                files={fileSystem[currentPath[0]]}
+                            />
+                        ) : (currentPath[0] === '16 Tools & Workshop' || currentPath[0] === '10 Tools & Wizards' || currentPath[0] === '50 Interactive Tools') ? (
+                            <ToolsRepairLanding
+                                handleFileClick={handleFileClick}
+                                files={[
+                                    ...(fileSystem['16 Tools & Workshop'] || []),
+                                    ...(fileSystem['10 Tools & Wizards'] || []),
+                                    ...(fileSystem['50 Interactive Tools'] || [])
+                                ]}
+                            />
                         ) : (
                             <>
                                 <h2 className="text-2xl sm:text-4xl mb-6 font-serif text-sage-900">{getDisplayName(currentPath[0])}</h2>
@@ -840,6 +964,10 @@ const Library = ({ type = 'all' }) => {
                     </motion.div>
                 )}
             </AnimatePresence>
+
+            {showOnboarding && (
+                <HomesteadOnboarding onClose={() => setShowOnboarding(false)} />
+            )}
         </div>
     );
 };
