@@ -1,0 +1,39 @@
+{
+    "orientationRules": [
+        {
+            "aspect": "Solar Alignment",
+            "rule": "Orient the longest walls of the structure facing true South (in Northern hemisphere) or true North (in Southern hemisphere).",
+            "benefit": "Maximizes passive heating in Winter, reduces heat load in Summer."
+        },
+        {
+            "aspect": "Window Placement",
+            "rule": "Place 70-80% of window glazing on the solar-facing wall. Keep window sizes minimal on East/West/North walls.",
+            "benefit": "Allows high winter solar heat gain while preventing severe overnight heat loss."
+        },
+        {
+            "aspect": "Overhang Design",
+            "rule": "Calculate roof overhangs using the local latitude angle. Overhangs must shade windows in summer while letting winter sun pass underneath.",
+            "benefit": "Prevents building overheating during the summer solstice."
+        }
+    ],
+    "insulationOptions": [
+        {
+            "material": "Sheep's Wool",
+            "rValue": "R-3.5 to R-3.8 per inch",
+            "pros": "Natural, absorbs moisture without losing R-value, filters air pollutants.",
+            "cons": "Requires moth treatment, expensive."
+        },
+        {
+            "material": "Fiberglass Batts",
+            "rValue": "R-3.1 to R-3.4 per inch",
+            "pros": "Cheap, standard availability, fire resistant.",
+            "cons": "Releases glass fibers, loses R-value if wet, itchy to install."
+        },
+        {
+            "material": "Straw Bale",
+            "rValue": "R-2.4 to R-3.0 per inch (total R-35+ for typical wall)",
+            "pros": "Superb insulation, highly renewable, carbon-sequestering, low-cost.",
+            "cons": "Thick walls require wide foundations, highly vulnerable to water rot during construction."
+        }
+    ]
+}

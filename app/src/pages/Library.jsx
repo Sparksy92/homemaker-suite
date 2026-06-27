@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Folder, FileText, ChevronRight, ArrowLeft, Heart, AlertCircle, Info, CheckCircle, AlertTriangle, BookOpen, Droplets, Utensils, Sprout, Zap, ShieldCheck, ShieldAlert, Thermometer, Compass, Scissors, LayoutGrid, Timer, BarChart3 } from 'lucide-react';
+import { Folder, FileText, ChevronRight, ArrowLeft, Heart, AlertCircle, Info, CheckCircle, AlertTriangle, BookOpen, Droplets, Utensils, Sprout, Zap, ShieldCheck, ShieldAlert, Thermometer, Compass, Scissors, LayoutGrid, Timer, BarChart3, Home, Archive, Wrench, Activity } from 'lucide-react';
 import { useUser } from '../context/UserContext';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 import MarkdownRenderer from '../components/MarkdownRenderer';
+import { GardeningLanding, WaterLanding, EnergyLanding } from '../components/visual-guides';
 
 // Helper to clean display names
 const getDisplayName = (name) => {
@@ -12,41 +13,90 @@ const getDisplayName = (name) => {
     return name.replace(/^\d+(\.\d+)?\s+/, '').replace('.md', '');
 };
 
-// Categorization for better organization
+// Categorization for better organization (modernized homestead taxonomy)
 const LIBRARY_CATEGORIES = [
     {
         id: 'foundations',
-        name: "Foundations",
+        name: "01 Foundations",
         folders: ["0 Foundations", "7 Budget & Lifestyle", "8 Nutrition", "11 Printables"],
-        icon: <BookOpen />,
+        icon: <BookOpen size={18} />,
         color: "bg-blue-500"
     },
     {
-        id: 'culinary',
-        name: "Culinary & Pantry",
+        id: 'shelter',
+        name: "02 Shelter & Construction",
+        folders: ["17 Shelter & Weatherproofing", "6 Home Maintenance"],
+        icon: <Home size={18} />,
+        color: "bg-stone-500"
+    },
+    {
+        id: 'water',
+        name: "03 Water Systems",
+        folders: ["15 Infrastructure"],
+        icon: <Droplets size={18} />,
+        color: "bg-cyan-500"
+    },
+    {
+        id: 'energy',
+        name: "04 Energy & Electricity",
+        folders: ["18 Energy & Lighting"],
+        icon: <Zap size={18} />,
+        color: "bg-yellow-500"
+    },
+    {
+        id: 'gardening',
+        name: "05 Gardening & Soil",
+        folders: ["5 Gardening"],
+        icon: <Sprout size={18} />,
+        color: "bg-lime-600"
+    },
+    {
+        id: 'food_production',
+        name: "06 Food Production",
+        folders: ["13 Meat & Protein Security"],
+        icon: <Utensils size={18} />,
+        color: "bg-emerald-600"
+    },
+    {
+        id: 'preservation',
+        name: "07 Food Preservation & Pantry",
         folders: ["1 Pantry Systems", "2 Cooking Basics", "3 Recipes", "4 Food Storage & Pantry", "4 Preservation"],
-        icon: <Utensils />,
-        color: "bg-amber-500"
+        icon: <Archive size={18} />,
+        color: "bg-amber-600"
     },
     {
-        id: 'production',
-        name: "Food Production",
-        folders: ["5 Gardening", "12 Foraging & Wildcrafting", "13 Meat & Protein Security"],
-        icon: <Sprout />,
-        color: "bg-sage-600"
+        id: 'wildlife',
+        name: "08 Wildlife, Foraging & Living Off Land",
+        folders: ["12 Foraging & Wildcrafting", "19 Navigation & Awareness"],
+        icon: <Compass size={18} />,
+        color: "bg-orange-500"
     },
     {
-        id: 'homestead',
-        name: "Infrastructure",
-        folders: ["6 Home Maintenance", "15 Infrastructure", "16 Tools & Workshop", "17 Shelter & Weatherproofing", "18 Energy & Lighting", "20 Textiles & Clothing"],
-        icon: <Zap />,
-        color: "bg-terracotta-500"
+        id: 'medical',
+        name: "09 Health, Sanitation & Medical",
+        folders: ["14 Health & First Aid"],
+        icon: <Activity size={18} />,
+        color: "bg-red-500"
     },
     {
-        id: 'preparedness',
-        name: "Preparedness",
-        folders: ["14 Health & First Aid", "19 Navigation & Awareness", "21 Scenario Playbooks", "9 Seasonal Guides", "99 Reference Library"],
-        icon: <ShieldCheck />,
+        id: 'tools',
+        name: "10 Tools, Workshop & Repair",
+        folders: ["16 Tools & Workshop", "10 Tools & Wizards", "50 Interactive Tools"],
+        icon: <Wrench size={18} />,
+        color: "bg-slate-600"
+    },
+    {
+        id: 'seasonal',
+        name: "11 Seasonal Planning",
+        folders: ["9 Seasonal Guides"],
+        icon: <Timer size={18} />,
+        color: "bg-indigo-500"
+    },
+    {
+        id: 'scenarios',
+        name: "12 Scenario Playbooks",
+        folders: ["21 Scenario Playbooks", "99 Reference Library"],
+        icon: <ShieldCheck size={18} />,
         color: "bg-neutral-800"
     }
 ];
@@ -338,6 +388,40 @@ const Library = ({ type = 'all' }) => {
         );
     }, [searchQuery, guidesMetadata, allFiles]);
 
+    const [activeFilter, setActiveFilter] = useState('all');
+
+    const getFilteredGuides = React.useMemo(() => {
+        return () => {
+            if (!guidesMetadata || guidesMetadata.length === 0) return [];
+            
+            return guidesMetadata.filter(item => {
+                const tags = item.tags || [];
+                const fileName = item.path.split('/').pop() || '';
+                
+                if (activeFilter === 'visual') {
+                    return item.category === '5 Gardening' || item.category === '15 Infrastructure' || item.category === '18 Energy & Lighting' || tags.includes('visual') || item.type === 'visual';
+                }
+                if (activeFilter === 'safety') {
+                    return LETHAL_RISK_FILES.includes(fileName) || tags.includes('safety') || item.safety === 'High' || item.safetyLevel === 'High';
+                }
+                if (activeFilter === 'seasonal') {
+                    return item.category === '9 Seasonal Guides' || tags.includes('seasonal') || tags.includes('season') || item.seasonalContext !== undefined;
+                }
+                if (activeFilter === 'start') {
+                    return tags.includes('beginner') || tags.includes('foundations') || tags.includes('basics') || item.difficulty === 'Easy';
+                }
+                if (activeFilter === 'build') {
+                    return tags.includes('build') || tags.includes('construction') || tags.includes('project') || item.category === '17 Shelter & Weatherproofing' || item.category === '16 Tools & Workshop';
+                }
+                return true;
+            }).map(item => {
+                const parts = item.path.split('/');
+                const file = parts[parts.length - 1];
+                return { file, folder: item.category, tags: item.tags, metadata: item };
+            });
+        };
+    }, [activeFilter, guidesMetadata]);
+
     return (
         <div className="min-h-screen bg-sand-50">
             <AnimatePresence mode="wait">
@@ -410,7 +494,33 @@ const Library = ({ type = 'all' }) => {
                             </section>
                         )}
 
-                        {/* Search Results */}
+                        {/* Discovery Filters */}
+                        <div className="flex gap-2 overflow-x-auto pb-4 mb-6 no-scrollbar scroll-smooth w-full">
+                            {['all', 'visual', 'safety', 'seasonal', 'start', 'build'].map(filter => {
+                                const labels = {
+                                    all: 'All Categories',
+                                    visual: 'Visual Guides',
+                                    safety: 'Safety Critical',
+                                    seasonal: 'Seasonal Planning',
+                                    start: 'Start Here',
+                                    build: 'Build Projects'
+                                };
+                                return (
+                                    <button
+                                        key={filter}
+                                        onClick={() => {
+                                            setActiveFilter(filter);
+                                            setSearchQuery('');
+                                        }}
+                                        className={`px-4 py-2 rounded-xl text-xs font-bold border transition-all shrink-0 ${filter === activeFilter ? 'bg-sage-600 text-white border-sage-600 shadow-sm' : 'bg-white border-sand-200 text-sage-800 hover:bg-sand-50'}`}
+                                    >
+                                        {labels[filter]}
+                                    </button>
+                                );
+                            })}
+                        </div>
+
+                        {/* Search & Filter Feed */}
                         {searchQuery ? (
                             <div className="space-y-4">
                                 <h3 className="text-sm font-bold text-sage-600 uppercase tracking-widest">Found {searchResults.length} matches</h3>
@@ -441,6 +551,50 @@ const Library = ({ type = 'all' }) => {
                                             <ChevronRight size={18} className="text-sand-300" />
                                         </button>
                                     ))}
+                                </div>
+                            </div>
+                        ) : activeFilter !== 'all' ? (
+                            <div className="space-y-4">
+                                <div className="flex justify-between items-center border-b border-sand-200 pb-2">
+                                    <h3 className="text-xs font-black text-sage-500 uppercase tracking-[0.2em]">
+                                        Filtered Results ({getFilteredGuides().length})
+                                    </h3>
+                                    <button onClick={() => setActiveFilter('all')} className="text-xs font-black uppercase tracking-widest text-terracotta-600 hover:text-terracotta-800 transition-colors">
+                                        Clear Filter
+                                    </button>
+                                </div>
+                                <div className="grid gap-3">
+                                    {getFilteredGuides().map((item) => (
+                                        <button
+                                            key={item.file}
+                                            onClick={() => {
+                                                setCurrentPath([item.folder]);
+                                                handleFileClick(item.file);
+                                            }}
+                                            className="flex items-center gap-4 p-5 bg-white rounded-3xl border border-sand-100 shadow-sm hover:shadow-md hover:border-terracotta-200 transition-all text-left"
+                                        >
+                                            <div className="p-3 bg-sage-50 rounded-2xl text-sage-500"><FileText size={20} /></div>
+                                            <div className="flex-1 min-w-0">
+                                                <span className="block text-lg font-serif font-black text-sage-900 truncate">{getDisplayName(item.file)}</span>
+                                                <span className="text-[10px] text-sand-400 font-black uppercase tracking-widest block mt-0.5">{getDisplayName(item.folder)}</span>
+                                                {item.tags && item.tags.length > 0 && (
+                                                    <div className="flex flex-wrap gap-1 mt-1.5">
+                                                        {item.tags.map(tag => (
+                                                            <span key={tag} className="text-[8px] font-black uppercase tracking-widest bg-sage-50 text-sage-600 px-1.5 py-0.5 rounded-md border border-sage-100">
+                                                                {tag}
+                                                            </span>
+                                                        ))}
+                                                    </div>
+                                                )}
+                                            </div>
+                                            <ChevronRight size={18} className="text-sand-300" />
+                                        </button>
+                                    ))}
+                                    {getFilteredGuides().length === 0 && (
+                                        <div className="text-center py-12 text-sand-400 text-xs font-medium">
+                                            No matching resources found offline.
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         ) : (
@@ -527,14 +681,32 @@ const Library = ({ type = 'all' }) => {
                         >
                             <ArrowLeft size={18} /> Back to Library
                         </button>
-                        <h2 className="text-2xl sm:text-4xl mb-6 font-serif text-sage-900">{getDisplayName(currentPath[0])}</h2>
-
-                        <FolderContentList
-                            files={fileSystem[currentPath[0]]}
-                            folder={currentPath[0]}
-                            handleFileClick={handleFileClick}
-                            guidesMetadata={guidesMetadata}
-                        />
+                        {currentPath[0] === '5 Gardening' ? (
+                            <GardeningLanding
+                                handleFileClick={handleFileClick}
+                                files={fileSystem[currentPath[0]]}
+                            />
+                        ) : currentPath[0] === '15 Infrastructure' ? (
+                            <WaterLanding
+                                handleFileClick={handleFileClick}
+                                files={fileSystem[currentPath[0]]}
+                            />
+                        ) : currentPath[0] === '18 Energy & Lighting' ? (
+                            <EnergyLanding
+                                handleFileClick={handleFileClick}
+                                files={fileSystem[currentPath[0]]}
+                            />
+                        ) : (
+                            <>
+                                <h2 className="text-2xl sm:text-4xl mb-6 font-serif text-sage-900">{getDisplayName(currentPath[0])}</h2>
+                                <FolderContentList
+                                    files={fileSystem[currentPath[0]]}
+                                    folder={currentPath[0]}
+                                    handleFileClick={handleFileClick}
+                                    guidesMetadata={guidesMetadata}
+                                />
+                            </>
+                        )}
 
                     </motion.div>
                 )}

@@ -1,0 +1,53 @@
+{
+    "filtrationMethods": [
+        {
+            "method": "Bio-Sand Filter",
+            "effectiveness": "95-99% pathogens, protozoa, sediment",
+            "cost": "Very Low (sand, gravel, barrel)",
+            "flowRate": "Moderate (gravity fed)",
+            "maintenance": "Scrape top bio-layer (schmutzdecke) occasionally"
+        },
+        {
+            "method": "Activated Charcoal",
+            "effectiveness": "Chemicals, heavy metals, chlorine, taste",
+            "cost": "Low (requires charcoal replacement)",
+            "flowRate": "Fast",
+            "maintenance": "Replace carbon media every 3-6 months"
+        },
+        {
+            "method": "Boiling",
+            "effectiveness": "100% pathogens, viruses, protozoa",
+            "cost": "High (fuel consumption)",
+            "flowRate": "Slow (batch process)",
+            "maintenance": "None"
+        },
+        {
+            "method": "UV Purification",
+            "effectiveness": "99.9% DNA disruption of pathogens",
+            "cost": "High (requires solar/battery power)",
+            "flowRate": "Fast",
+            "maintenance": "Clean quartz sleeve, replace bulb annually"
+        }
+    ],
+    "catchmentSystem": {
+        "formula": "1 inch of rain on a 1,000 sq ft roof yields ~623 gallons.",
+        "components": [
+            {
+                "name": "Roof Surface",
+                "desc": "Metal roofing preferred (cleanest runoff). Avoid asphalt shingles due to toxic chemicals."
+            },
+            {
+                "name": "Gutters & Guards",
+                "desc": "Wide gutters with leaf screens to block leaves, pine needles, and large debris."
+            },
+            {
+                "name": "First Flush Diverter",
+                "desc": "Diverts the first 10-20 gallons of dirtier initial rain runoff containing bird droppings/dust."
+            },
+            {
+                "name": "Cistern/Barrels",
+                "desc": "Food-grade, opaque storage tanks. Keep out of direct sun to prevent algae growth."
+            }
+        ]
+    }
+}

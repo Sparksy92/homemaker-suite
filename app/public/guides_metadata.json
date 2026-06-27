@@ -57,7 +57,12 @@
       "inventory",
       "basics"
     ],
-    "word_count": 401
+    "word_count": 401,
+    "id": "pantry-1.1",
+    "timeframe": "immediate",
+    "difficulty": "beginner",
+    "module": "1 Pantry Systems",
+    "section": "1.1"
   },
   {
     "title": "Long Term Storage",
@@ -68,7 +73,12 @@
       "bulk",
       "long-term"
     ],
-    "word_count": 429
+    "word_count": 429,
+    "id": "pantry-1.2",
+    "timeframe": "long-term",
+    "difficulty": "intermediate",
+    "module": "1 Pantry Systems",
+    "section": "1.2"
   },
   {
     "title": "Budget Grocery Framework",
@@ -79,7 +89,12 @@
       "shopping",
       "finance"
     ],
-    "word_count": 380
+    "word_count": 380,
+    "id": "pantry-1.3",
+    "timeframe": "immediate",
+    "difficulty": "beginner",
+    "module": "1 Pantry Systems",
+    "section": "1.3"
   },
   {
     "title": "Ingredient Substitutions",
@@ -90,7 +105,12 @@
       "substitution",
       "pantry"
     ],
-    "word_count": 373
+    "word_count": 373,
+    "id": "pantry-1.4",
+    "timeframe": "immediate",
+    "difficulty": "beginner",
+    "module": "1 Pantry Systems",
+    "section": "1.4"
   },
   {
     "title": "Shelf Life Guide",
@@ -101,7 +121,12 @@
       "safety",
       "storage"
     ],
-    "word_count": 391
+    "word_count": 391,
+    "id": "pantry-1.5",
+    "timeframe": "long-term",
+    "difficulty": "beginner",
+    "module": "1 Pantry Systems",
+    "section": "1.5"
   },
   {
     "title": "Knife Skills",
@@ -112,7 +137,12 @@
       "skills",
       "knife"
     ],
-    "word_count": 351
+    "word_count": 351,
+    "id": "cooking-2.1",
+    "timeframe": "immediate",
+    "difficulty": "beginner",
+    "module": "2 Cooking Basics",
+    "section": "2.1"
   },
   {
     "title": "How to Read Recipes",
@@ -123,7 +153,12 @@
       "skills",
       "recipes"
     ],
-    "word_count": 353
+    "word_count": 353,
+    "id": "cooking-2.2",
+    "timeframe": "immediate",
+    "difficulty": "beginner",
+    "module": "2 Cooking Basics",
+    "section": "2.2"
   },
   {
     "title": "Heat & Doneness",
@@ -134,7 +169,12 @@
       "heat",
       "safety"
     ],
-    "word_count": 325
+    "word_count": 325,
+    "id": "cooking-2.3",
+    "timeframe": "immediate",
+    "difficulty": "intermediate",
+    "module": "2 Cooking Basics",
+    "section": "2.3"
   },
   {
     "title": "Flavor Balancing",
@@ -145,7 +185,12 @@
       "flavor",
       "skills"
     ],
-    "word_count": 324
+    "word_count": 324,
+    "id": "cooking-2.4",
+    "timeframe": "immediate",
+    "difficulty": "intermediate",
+    "module": "2 Cooking Basics",
+    "section": "2.4"
   },
   {
     "title": "Limited Ingredients",
@@ -156,7 +201,12 @@
       "pantry",
       "improvisation"
     ],
-    "word_count": 306
+    "word_count": 306,
+    "id": "cooking-2.5",
+    "timeframe": "essential",
+    "difficulty": "intermediate",
+    "module": "2 Cooking Basics",
+    "section": "2.5"
   },
   {
     "title": "One Pot Cooking",
@@ -167,7 +217,12 @@
       "efficiency",
       "methods"
     ],
-    "word_count": 344
+    "word_count": 344,
+    "id": "cooking-2.6",
+    "timeframe": "essential",
+    "difficulty": "beginner",
+    "module": "2 Cooking Basics",
+    "section": "2.6"
   },
   {
     "title": "Fire Cooking",
@@ -178,7 +233,12 @@
       "fire",
       "survival"
     ],
-    "word_count": 773
+    "word_count": 773,
+    "id": "cooking-2.7",
+    "timeframe": "essential",
+    "difficulty": "intermediate",
+    "module": "2 Cooking Basics",
+    "section": "2.7"
   },
   {
     "title": "Breakfasts",
@@ -189,7 +249,12 @@
       "breakfast",
       "meal-prep"
     ],
-    "word_count": 313
+    "word_count": 313,
+    "id": "recipes-3.1",
+    "timeframe": "daily",
+    "difficulty": "beginner",
+    "module": "3 Recipes",
+    "section": "3.1"
   },
   {
     "title": "Soups & Stews",
@@ -200,7 +265,12 @@
       "soup",
       "comfort"
     ],
-    "word_count": 268
+    "word_count": 268,
+    "id": "recipes-3.2",
+    "timeframe": "seasonal",
+    "difficulty": "beginner",
+    "module": "3 Recipes",
+    "section": "3.2"
   },
   {
     "title": "Main Dishes",
@@ -211,7 +281,12 @@
       "dinner",
       "protein"
     ],
-    "word_count": 260
+    "word_count": 260,
+    "id": "recipes-3.3",
+    "timeframe": "daily",
+    "difficulty": "intermediate",
+    "module": "3 Recipes",
+    "section": "3.3"
   },
   {
     "title": "Breads & Grains",
@@ -222,7 +297,12 @@
       "baking",
       "staples"
     ],
-    "word_count": 279
+    "word_count": 279,
+    "id": "recipes-3.4",
+    "timeframe": "daily",
+    "difficulty": "intermediate",
+    "module": "3 Recipes",
+    "section": "3.4"
   },
   {
     "title": "Sauces & Condiments",
@@ -233,7 +313,12 @@
       "flavor",
       "pantry"
     ],
-    "word_count": 225
+    "word_count": 225,
+    "id": "recipes-3.5",
+    "timeframe": "long-term",
+    "difficulty": "beginner",
+    "module": "3 Recipes",
+    "section": "3.5"
   },
   {
     "title": "Special Considerations – Kid-Friendly & Texture-Adapted Foods",
@@ -244,7 +329,12 @@
       "kids",
       "texture"
     ],
-    "word_count": 407
+    "word_count": 407,
+    "id": "recipes-3.6",
+    "timeframe": "daily",
+    "difficulty": "intermediate",
+    "module": "3 Recipes",
+    "section": "3.6"
   },
   {
     "title": "Primitive Preservation",
@@ -255,7 +345,12 @@
       "primitive",
       "food storage"
     ],
-    "word_count": 1176
+    "word_count": 1176,
+    "id": "pantry-4.6",
+    "timeframe": "long-term",
+    "difficulty": "expert",
+    "module": "4 Food Storage & Pantry",
+    "section": "4.6"
   },
   {
     "title": "Water Bath Canning",
@@ -266,7 +361,12 @@
       "canning",
       "high-acid"
     ],
-    "word_count": 249
+    "word_count": 249,
+    "id": "pres-4.1",
+    "timeframe": "seasonal",
+    "difficulty": "intermediate",
+    "module": "4 Preservation",
+    "section": "4.1"
   },
   {
     "title": "Pressure Canning",
@@ -277,7 +377,12 @@
       "canning",
       "low-acid"
     ],
-    "word_count": 276
+    "word_count": 276,
+    "id": "pres-4.2",
+    "timeframe": "seasonal",
+    "difficulty": "advanced",
+    "module": "4 Preservation",
+    "section": "4.2"
   },
   {
     "title": "Dehydrating",
@@ -288,7 +393,12 @@
       "dehydrating",
       "storage"
     ],
-    "word_count": 186
+    "word_count": 186,
+    "id": "pres-4.3",
+    "timeframe": "seasonal",
+    "difficulty": "beginner",
+    "module": "4 Preservation",
+    "section": "4.3"
   },
   {
     "title": "Fermentation",
@@ -299,7 +409,12 @@
       "fermentation",
       "probiotics"
     ],
-    "word_count": 233
+    "word_count": 233,
+    "id": "pres-4.4",
+    "timeframe": "seasonal",
+    "difficulty": "intermediate",
+    "module": "4 Preservation",
+    "section": "4.4"
   },
   {
     "title": "Root Cellaring",
@@ -310,7 +425,12 @@
       "storage",
       "root-cellar"
     ],
-    "word_count": 182
+    "word_count": 182,
+    "id": "pres-4.5",
+    "timeframe": "seasonal",
+    "difficulty": "beginner",
+    "module": "4 Preservation",
+    "section": "4.5"
   },
   {
     "title": "Garden Planning",
@@ -321,7 +441,12 @@
       "planning",
       "food production"
     ],
-    "word_count": 415
+    "word_count": 415,
+    "id": "gardening-5.1",
+    "timeframe": "seasonal",
+    "difficulty": "beginner",
+    "module": "5 Gardening",
+    "section": "5.1"
   },
   {
     "title": "Soil Health",
@@ -332,7 +457,12 @@
       "soil",
       "composting"
     ],
-    "word_count": 322
+    "word_count": 322,
+    "id": "gardening-5.2",
+    "timeframe": "seasonal",
+    "difficulty": "intermediate",
+    "module": "5 Gardening",
+    "section": "5.2"
   },
   {
     "title": "Seed Starting",
@@ -343,7 +473,12 @@
       "seeds",
       "planting"
     ],
-    "word_count": 225
+    "word_count": 225,
+    "id": "gardening-5.3",
+    "timeframe": "seasonal",
+    "difficulty": "intermediate",
+    "module": "5 Gardening",
+    "section": "5.3"
   },
   {
     "title": "Composting",
@@ -354,7 +489,12 @@
       "waste",
       "composting"
     ],
-    "word_count": 225
+    "word_count": 225,
+    "id": "gardening-5.4",
+    "timeframe": "seasonal",
+    "difficulty": "beginner",
+    "module": "5 Gardening",
+    "section": "5.4"
   },
   {
     "title": "Pest Management",
@@ -365,7 +505,12 @@
       "pests",
       "insects"
     ],
-    "word_count": 327
+    "word_count": 327,
+    "id": "gardening-5.5",
+    "timeframe": "seasonal",
+    "difficulty": "beginner",
+    "module": "5 Gardening",
+    "section": "5.5"
   },
   {
     "title": "Seed Saving",
@@ -376,7 +521,12 @@
       "seeds",
       "sustainability"
     ],
-    "word_count": 1570
+    "word_count": 1570,
+    "id": "gardening-5.6",
+    "timeframe": "long-term",
+    "difficulty": "intermediate",
+    "module": "5 Gardening",
+    "section": "5.6"
   },
   {
     "title": "Wild Plant Cultivation",
@@ -387,7 +537,12 @@
       "wildcrafting",
       "permaculture"
     ],
-    "word_count": 1238
+    "word_count": 1238,
+    "id": "gardening-5.7",
+    "timeframe": "long-term",
+    "difficulty": "intermediate",
+    "module": "5 Gardening",
+    "section": "5.7"
   },
   {
     "title": "Companion Planting Master List",
@@ -399,7 +554,12 @@
       "pest control",
       "yield optimization"
     ],
-    "word_count": 343
+    "word_count": 343,
+    "id": "gardening-5.8",
+    "timeframe": "seasonal",
+    "difficulty": "intermediate",
+    "module": "5 Gardening",
+    "section": "5.8"
   },
   {
     "title": "Season Extension & High Tunnels",
@@ -411,7 +571,12 @@
       "high tunnels",
       "winter growing"
     ],
-    "word_count": 312
+    "word_count": 312,
+    "id": "gardening-5.9",
+    "timeframe": "autumnal",
+    "difficulty": "advanced",
+    "module": "5 Gardening",
+    "section": "5.9"
   },
   {
     "title": "Rainwater Harvesting & Irrigation",
@@ -423,7 +588,12 @@
       "irrigation",
       "homesteading"
     ],
-    "word_count": 262
+    "word_count": 262,
+    "id": "gardening-5.10",
+    "timeframe": "year-round",
+    "difficulty": "intermediate",
+    "module": "5 Gardening",
+    "section": "5.10"
   },
   {
     "title": "Vertical Gardening for Small Spaces",
@@ -435,7 +605,12 @@
       "vertical",
       "yield"
     ],
-    "word_count": 285
+    "word_count": 285,
+    "id": "gardening-5.11",
+    "timeframe": "seasonal",
+    "difficulty": "beginner",
+    "module": "5 Gardening",
+    "section": "5.11"
   },
   {
     "title": "Cleaning Chemistry",
@@ -446,7 +621,12 @@
       "cleaning",
       "hygiene"
     ],
-    "word_count": 240
+    "word_count": 240,
+    "id": "home-6.1",
+    "timeframe": "weekly",
+    "difficulty": "beginner",
+    "module": "6 Home Maintenance",
+    "section": "6.1"
   },
   {
     "title": "Basic Repairs",
@@ -457,7 +637,12 @@
       "repair",
       "skills"
     ],
-    "word_count": 270
+    "word_count": 270,
+    "id": "home-6.2",
+    "timeframe": "as-needed",
+    "difficulty": "intermediate",
+    "module": "6 Home Maintenance",
+    "section": "6.2"
   },
   {
     "title": "The Envelope System",
@@ -468,7 +653,12 @@
       "finance",
       "planning"
     ],
-    "word_count": 190
+    "word_count": 190,
+    "id": "budget-7.1",
+    "timeframe": "monthly",
+    "difficulty": "beginner",
+    "module": "7 Budget & Lifestyle",
+    "section": "7.1"
   },
   {
     "title": "Frugal Living",
@@ -479,7 +669,12 @@
       "lifestyle",
       "savings"
     ],
-    "word_count": 170
+    "word_count": 170,
+    "id": "budget-7.2",
+    "timeframe": "ongoing",
+    "difficulty": "beginner",
+    "module": "7 Budget & Lifestyle",
+    "section": "7.2"
   },
   {
     "title": "Nutrition 101",
@@ -490,7 +685,12 @@
       "health",
       "basics"
     ],
-    "word_count": 208
+    "word_count": 208,
+    "id": "nutrition-8.1",
+    "timeframe": "daily",
+    "difficulty": "beginner",
+    "module": "8 Nutrition",
+    "section": "8.1"
   },
   {
     "title": "Dietary Restrictions & Allergies",
@@ -501,7 +701,12 @@
       "health",
       "allergies"
     ],
-    "word_count": 523
+    "word_count": 523,
+    "id": "nutrition-8.2",
+    "timeframe": "daily",
+    "difficulty": "intermediate",
+    "module": "8 Nutrition",
+    "section": "8.2"
   },
   {
     "title": "Spring",
@@ -512,7 +717,12 @@
       "spring",
       "planting"
     ],
-    "word_count": 129
+    "word_count": 129,
+    "id": "season-9.1",
+    "timeframe": "seasonal",
+    "difficulty": "beginner",
+    "module": "9 Seasonal Guides",
+    "section": "9.1"
   },
   {
     "title": "Summer",
@@ -523,7 +733,12 @@
       "summer",
       "preserving"
     ],
-    "word_count": 95
+    "word_count": 95,
+    "id": "season-9.2",
+    "timeframe": "seasonal",
+    "difficulty": "beginner",
+    "module": "9 Seasonal Guides",
+    "section": "9.2"
   },
   {
     "title": "Autumn",
@@ -534,7 +749,12 @@
       "autumn",
       "harvest"
     ],
-    "word_count": 101
+    "word_count": 101,
+    "id": "season-9.3",
+    "timeframe": "seasonal",
+    "difficulty": "beginner",
+    "module": "9 Seasonal Guides",
+    "section": "9.3"
   },
   {
     "title": "Winter",
@@ -545,7 +765,12 @@
       "winter",
       "planning"
     ],
-    "word_count": 103
+    "word_count": 103,
+    "id": "season-9.4",
+    "timeframe": "seasonal",
+    "difficulty": "beginner",
+    "module": "9 Seasonal Guides",
+    "section": "9.4"
   },
   {
     "title": "CleaningChecklists",
@@ -563,7 +788,12 @@
       "emergency",
       "reference"
     ],
-    "word_count": 223
+    "word_count": 223,
+    "id": "print-emergency",
+    "timeframe": "essential",
+    "difficulty": "n/a",
+    "module": "11 Printables",
+    "section": "EmergencyReference"
   },
   {
     "title": "GardenPlanner",
@@ -574,7 +804,12 @@
       "garden",
       "planning"
     ],
-    "word_count": 401
+    "word_count": 401,
+    "id": "print-garden",
+    "timeframe": "seasonal",
+    "difficulty": "n/a",
+    "module": "11 Printables",
+    "section": "GardenPlanner"
   },
   {
     "title": "MealPlanner",
@@ -585,7 +820,12 @@
       "meal-plan",
       "organization"
     ],
-    "word_count": 152
+    "word_count": 152,
+    "id": "print-meal",
+    "timeframe": "weekly",
+    "difficulty": "n/a",
+    "module": "11 Printables",
+    "section": "MealPlanner"
   },
   {
     "title": "PantryInventory",
@@ -596,7 +836,12 @@
       "pantry",
       "inventory"
     ],
-    "word_count": 563
+    "word_count": 563,
+    "id": "print-pantry",
+    "timeframe": "monthly",
+    "difficulty": "n/a",
+    "module": "11 Printables",
+    "section": "PantryInventory"
   },
   {
     "title": "The Big Three",
@@ -607,7 +852,12 @@
       "plants",
       "basics"
     ],
-    "word_count": 944
+    "word_count": 944,
+    "id": "foraging-12.1",
+    "timeframe": "immediate",
+    "difficulty": "beginner",
+    "module": "12 Foraging & Wildcrafting",
+    "section": "12.1"
   },
   {
     "title": "Tree Knowledge",
@@ -618,7 +868,12 @@
       "trees",
       "medicine"
     ],
-    "word_count": 1047
+    "word_count": 1047,
+    "id": "foraging-12.2",
+    "timeframe": "seasonal",
+    "difficulty": "beginner",
+    "module": "12 Foraging & Wildcrafting",
+    "section": "12.2"
   },
   {
     "title": "Mushroom Safety",
@@ -637,7 +892,12 @@
       "safety",
       "food-prep"
     ],
-    "word_count": 539
+    "word_count": 539,
+    "id": "foraging-12.4",
+    "timeframe": "seasonal",
+    "difficulty": "intermediate",
+    "module": "12 Foraging & Wildcrafting",
+    "section": "12.4"
   },
   {
     "title": "Poisonous Look-alikes",
@@ -649,7 +909,12 @@
       "poisonous",
       "lookup"
     ],
-    "word_count": 553
+    "word_count": 553,
+    "id": "foraging-12.5",
+    "timeframe": "immediate",
+    "difficulty": "intermediate",
+    "module": "12 Foraging & Wildcrafting",
+    "section": "12.5"
   },
   {
     "title": "Utility & Fiber Plants",
@@ -662,7 +927,12 @@
       "cordage",
       "survival"
     ],
-    "word_count": 448
+    "word_count": 448,
+    "id": "foraging-12.6",
+    "timeframe": "ongoing",
+    "difficulty": "beginner",
+    "module": "12 Foraging & Wildcrafting",
+    "section": "12.6"
   },
   {
     "title": "Forest Berries & Fruits",
@@ -739,7 +1009,12 @@
       "medicine",
       "plants"
     ],
-    "word_count": 1563
+    "word_count": 1563,
+    "id": "health-14.1",
+    "timeframe": "ongoing",
+    "difficulty": "intermediate",
+    "module": "14 Health & First Aid",
+    "section": "14.1"
   },
   {
     "title": "Wound Care",
@@ -750,7 +1025,12 @@
       "first aid",
       "safety"
     ],
-    "word_count": 1560
+    "word_count": 1560,
+    "id": "health-14.2",
+    "timeframe": "immediate",
+    "difficulty": "essential",
+    "module": "14 Health & First Aid",
+    "section": "14.2"
   },
   {
     "title": "Special Considerations – Children & Elderly",
@@ -761,7 +1041,12 @@
       "children",
       "elderly"
     ],
-    "word_count": 432
+    "word_count": 432,
+    "id": "health-14.3",
+    "timeframe": "immediate",
+    "difficulty": "intermediate",
+    "module": "14 Health & First Aid",
+    "section": "14.3"
   },
   {
     "title": "Primitive Antimicrobials",
@@ -787,7 +1072,12 @@
       "disease",
       "water"
     ],
-    "word_count": 541
+    "word_count": 541,
+    "id": "health-14.6",
+    "timeframe": "immediate",
+    "difficulty": "intermediate",
+    "module": "14 Health & First Aid",
+    "section": "14.6"
   },
   {
     "title": "Dental Survival",
@@ -799,7 +1089,12 @@
       "hygiene",
       "emergency"
     ],
-    "word_count": 559
+    "word_count": 559,
+    "id": "health-14.7",
+    "timeframe": "ongoing",
+    "difficulty": "intermediate",
+    "module": "14 Health & First Aid",
+    "section": "14.7"
   },
   {
     "title": "Reproductive Health",
@@ -811,7 +1106,12 @@
       "women",
       "hygiene"
     ],
-    "word_count": 400
+    "word_count": 400,
+    "id": "health-14.8",
+    "timeframe": "ongoing",
+    "difficulty": "intermediate",
+    "module": "14 Health & First Aid",
+    "section": "14.8"
   },
   {
     "title": "Managing Chronic Conditions",
@@ -824,7 +1124,12 @@
       "diabetes",
       "heart"
     ],
-    "word_count": 486
+    "word_count": 486,
+    "id": "health-14.9",
+    "timeframe": "ongoing",
+    "difficulty": "advanced",
+    "module": "14 Health & First Aid",
+    "section": "14.9"
   },
   {
     "title": "Psychological First Aid & Triage",
@@ -837,7 +1142,12 @@
       "mental health",
       "first aid"
     ],
-    "word_count": 514
+    "word_count": 514,
+    "id": "health-14.10",
+    "timeframe": "immediate",
+    "difficulty": "advanced",
+    "module": "14 Health & First Aid",
+    "section": "14.10"
   },
   {
     "title": "Advanced Herbal Preparations",
@@ -849,7 +1159,12 @@
       "herbs",
       "prep"
     ],
-    "word_count": 443
+    "word_count": 443,
+    "id": "health-14.11",
+    "timeframe": "ongoing",
+    "difficulty": "advanced",
+    "module": "14 Health & First Aid",
+    "section": "14.11"
   },
   {
     "title": "The Nervine Apothecary",
@@ -862,7 +1177,12 @@
       "stress",
       "sleep"
     ],
-    "word_count": 357
+    "word_count": 357,
+    "id": "health-14.12",
+    "timeframe": "ongoing",
+    "difficulty": "intermediate",
+    "module": "14 Health & First Aid",
+    "section": "14.12"
   },
   {
     "title": "Water Procurement",
@@ -873,7 +1193,12 @@
       "infrastructure",
       "purification"
     ],
-    "word_count": 553
+    "word_count": 553,
+    "id": "infra-15.1",
+    "timeframe": "essential",
+    "difficulty": "intermediate",
+    "module": "15 Infrastructure",
+    "section": "15.1"
   },
   {
     "title": "Waste Management",
@@ -884,7 +1209,12 @@
       "sanitation",
       "hygiene"
     ],
-    "word_count": 381
+    "word_count": 381,
+    "id": "infra-15.2",
+    "timeframe": "essential",
+    "difficulty": "intermediate",
+    "module": "15 Infrastructure",
+    "section": "15.2"
   },
   {
     "title": "Security",
@@ -895,7 +1225,12 @@
       "defense",
       "safety"
     ],
-    "word_count": 254
+    "word_count": 254,
+    "id": "infra-15.3",
+    "timeframe": "immediate",
+    "difficulty": "beginner",
+    "module": "15 Infrastructure",
+    "section": "15.3"
   },
   {
     "title": "Advanced Security",
@@ -906,7 +1241,12 @@
       "technology",
       "surveillance"
     ],
-    "word_count": 285
+    "word_count": 285,
+    "id": "infra-15.4",
+    "timeframe": "immediate",
+    "difficulty": "advanced",
+    "module": "15 Infrastructure",
+    "section": "15.4"
   },
   {
     "title": "Communication",
@@ -917,7 +1257,12 @@
       "radio",
       "signals"
     ],
-    "word_count": 239
+    "word_count": 239,
+    "id": "infra-15.5",
+    "timeframe": "essential",
+    "difficulty": "intermediate",
+    "module": "15 Infrastructure",
+    "section": "15.5"
   },
   {
     "title": "Special Considerations – Mobility & Access",
@@ -928,7 +1273,12 @@
       "mobility",
       "access"
     ],
-    "word_count": 382
+    "word_count": 382,
+    "id": "infra-15.6",
+    "timeframe": "immediate",
+    "difficulty": "intermediate",
+    "module": "15 Infrastructure",
+    "section": "15.6"
   },
   {
     "title": "Bio-Sand Filtration",
@@ -940,7 +1290,12 @@
       "infrastructure",
       "off-grid"
     ],
-    "word_count": 432
+    "word_count": 432,
+    "id": "infrastructure-15.7",
+    "timeframe": "immediate",
+    "difficulty": "medium",
+    "module": "15 Infrastructure",
+    "section": "15.7"
   },
   {
     "title": "Finding & Accessing Water",
@@ -963,7 +1318,12 @@
       "maintenance",
       "sharpening"
     ],
-    "word_count": 1436
+    "word_count": 1436,
+    "id": "tools-16.1",
+    "timeframe": "ongoing",
+    "difficulty": "intermediate",
+    "module": "16 Tools & Workshop",
+    "section": "16.1"
   },
   {
     "title": "Improvised Tools",
@@ -974,7 +1334,12 @@
       "improvisation",
       "primitive"
     ],
-    "word_count": 2173
+    "word_count": 2173,
+    "id": "tools-16.2",
+    "timeframe": "long-term",
+    "difficulty": "advanced",
+    "module": "16 Tools & Workshop",
+    "section": "16.2"
   },
   {
     "title": "The Essential Toolkit",
@@ -985,7 +1350,12 @@
       "basics",
       "inventory"
     ],
-    "word_count": 1037
+    "word_count": 1037,
+    "id": "tools-16.3",
+    "timeframe": "immediate",
+    "difficulty": "beginner",
+    "module": "16 Tools & Workshop",
+    "section": "16.3"
   },
   {
     "title": "Advanced Workshop Projects",
@@ -997,7 +1367,12 @@
       "fabrication",
       "infrastructure"
     ],
-    "word_count": 1348
+    "word_count": 1348,
+    "id": "tools-16.4",
+    "timeframe": "long-term",
+    "difficulty": "expert",
+    "module": "16 Tools & Workshop",
+    "section": "16.4"
   },
   {
     "title": "Metalworking & Forging",
@@ -1009,7 +1384,12 @@
       "blacksmithing",
       "scrap"
     ],
-    "word_count": 682
+    "word_count": 682,
+    "id": "tools-16.5",
+    "timeframe": "long-term",
+    "difficulty": "expert",
+    "module": "16 Tools & Workshop",
+    "section": "16.5"
   },
   {
     "title": "Textile & Fiber Arts Tools",
@@ -1021,7 +1401,12 @@
       "spinning",
       "fiber-arts"
     ],
-    "word_count": 564
+    "word_count": 564,
+    "id": "tools-16.6",
+    "timeframe": "long-term",
+    "difficulty": "advanced",
+    "module": "16 Tools & Workshop",
+    "section": "16.6"
   },
   {
     "title": "Emergency Shelters",
@@ -1032,7 +1417,12 @@
       "survival",
       "warmth"
     ],
-    "word_count": 1538
+    "word_count": 1538,
+    "id": "shelter-17.1",
+    "timeframe": "immediate",
+    "difficulty": "intermediate",
+    "module": "17 Shelter & Weatherproofing",
+    "section": "17.1"
   },
   {
     "title": "Weatherproofing",
@@ -1043,7 +1433,12 @@
       "insulation",
       "repair"
     ],
-    "word_count": 1428
+    "word_count": 1428,
+    "id": "shelter-17.2",
+    "timeframe": "seasonal",
+    "difficulty": "intermediate",
+    "module": "17 Shelter & Weatherproofing",
+    "section": "17.2"
   },
   {
     "title": "Long Term Shelter",
@@ -1054,7 +1449,12 @@
       "construction",
       "permanent"
     ],
-    "word_count": 354
+    "word_count": 354,
+    "id": "shelter-17.3",
+    "timeframe": "long-term",
+    "difficulty": "advanced",
+    "module": "17 Shelter & Weatherproofing",
+    "section": "17.3"
   },
   {
     "title": "Special Considerations – Vulnerable Occupants",
@@ -1065,7 +1465,12 @@
       "safety",
       "elderly"
     ],
-    "word_count": 420
+    "word_count": 420,
+    "id": "shelter-17.4",
+    "timeframe": "immediate",
+    "difficulty": "intermediate",
+    "module": "17 Shelter & Weatherproofing",
+    "section": "17.4"
   },
   {
     "title": "Simple Off-Grid Structures",
@@ -1088,7 +1493,12 @@
       "lighting",
       "candles"
     ],
-    "word_count": 1647
+    "word_count": 1647,
+    "id": "energy-18.1",
+    "timeframe": "immediate",
+    "difficulty": "beginner",
+    "module": "18 Energy & Lighting",
+    "section": "18.1"
   },
   {
     "title": "Solar & Passive Energy",
@@ -1099,7 +1509,12 @@
       "solar",
       "passive"
     ],
-    "word_count": 1561
+    "word_count": 1561,
+    "id": "energy-18.2",
+    "timeframe": "long-term",
+    "difficulty": "intermediate",
+    "module": "18 Energy & Lighting",
+    "section": "18.2"
   },
   {
     "title": "Off-Grid Heating",
@@ -1110,7 +1525,12 @@
       "heating",
       "fire"
     ],
-    "word_count": 320
+    "word_count": 320,
+    "id": "energy-18.3",
+    "timeframe": "seasonal",
+    "difficulty": "intermediate",
+    "module": "18 Energy & Lighting",
+    "section": "18.3"
   },
   {
     "title": "Natural Navigation",
@@ -1121,7 +1541,12 @@
       "nature",
       "sun"
     ],
-    "word_count": 1318
+    "word_count": 1318,
+    "id": "nav-19.1",
+    "timeframe": "immediate",
+    "difficulty": "beginner",
+    "module": "19 Navigation & Awareness",
+    "section": "19.1"
   },
   {
     "title": "Situational Awareness",
@@ -1132,7 +1557,12 @@
       "psychology",
       "observation"
     ],
-    "word_count": 1340
+    "word_count": 1340,
+    "id": "nav-19.2",
+    "timeframe": "immediate",
+    "difficulty": "beginner",
+    "module": "19 Navigation & Awareness",
+    "section": "19.2"
   },
   {
     "title": "Map and Compass",
@@ -1143,7 +1573,12 @@
       "tools",
       "orienteering"
     ],
-    "word_count": 583
+    "word_count": 583,
+    "id": "nav-19.3",
+    "timeframe": "immediate",
+    "difficulty": "intermediate",
+    "module": "19 Navigation & Awareness",
+    "section": "19.3"
   },
   {
     "title": "Special Considerations – Mobility & Dependents",
@@ -1154,7 +1589,12 @@
       "mobility",
       "safety"
     ],
-    "word_count": 390
+    "word_count": 390,
+    "id": "nav-19.4",
+    "timeframe": "immediate",
+    "difficulty": "intermediate",
+    "module": "19 Navigation & Awareness",
+    "section": "19.4"
   },
   {
     "title": "Clothing Repair",
@@ -1165,7 +1605,12 @@
       "repair",
       "sewing"
     ],
-    "word_count": 1172
+    "word_count": 1172,
+    "id": "textiles-20.1",
+    "timeframe": "as-needed",
+    "difficulty": "beginner",
+    "module": "20 Textiles & Clothing",
+    "section": "20.1"
   },
   {
     "title": "Insulation & Layering",
@@ -1176,7 +1621,12 @@
       "warmth",
       "clothing"
     ],
-    "word_count": 1182
+    "word_count": 1182,
+    "id": "textiles-20.2",
+    "timeframe": "seasonal",
+    "difficulty": "intermediate",
+    "module": "20 Textiles & Clothing",
+    "section": "20.2"
   },
   {
     "title": "Clothing Production",
@@ -1187,7 +1637,12 @@
       "sewing",
       "making"
     ],
-    "word_count": 468
+    "word_count": 468,
+    "id": "textiles-20.3",
+    "timeframe": "long-term",
+    "difficulty": "advanced",
+    "module": "20 Textiles & Clothing",
+    "section": "20.3"
   },
   {
     "title": "72-Hour Winter Outage",
@@ -1198,7 +1653,12 @@
       "outage",
       "winter"
     ],
-    "word_count": 680
+    "word_count": 680,
+    "id": "playbook-winter-72h",
+    "timeframe": "acute",
+    "difficulty": "intermediate",
+    "module": "21 Scenario Playbooks",
+    "section": "21.1"
   },
   {
     "title": "72-Hour Summer Outage",
@@ -1209,7 +1669,12 @@
       "outage",
       "summer"
     ],
-    "word_count": 549
+    "word_count": 549,
+    "id": "playbook-summer-72h",
+    "timeframe": "acute",
+    "difficulty": "intermediate",
+    "module": "21 Scenario Playbooks",
+    "section": "21.2"
   },
   {
     "title": "7-Day Grid-Down Children",
@@ -1220,7 +1685,12 @@
       "grid-down",
       "children"
     ],
-    "word_count": 555
+    "word_count": 555,
+    "id": "playbook-children",
+    "timeframe": "acute",
+    "difficulty": "advanced",
+    "module": "21 Scenario Playbooks",
+    "section": "21.3"
   },
   {
     "title": "30-Day Budget Survival",
@@ -1231,7 +1701,12 @@
       "budget",
       "survival"
     ],
-    "word_count": 457
+    "word_count": 457,
+    "id": "playbook-budget",
+    "timeframe": "medium-term",
+    "difficulty": "intermediate",
+    "module": "21 Scenario Playbooks",
+    "section": "21.4"
   },
   {
     "title": "Water Contamination",
@@ -1242,7 +1717,12 @@
       "water",
       "health"
     ],
-    "word_count": 468
+    "word_count": 468,
+    "id": "playbook-water",
+    "timeframe": "acute",
+    "difficulty": "advanced",
+    "module": "21 Scenario Playbooks",
+    "section": "21.5"
   },
   {
     "title": "Severe Winter Storm",
@@ -1253,7 +1733,12 @@
       "winter",
       "storm"
     ],
-    "word_count": 482
+    "word_count": 482,
+    "id": "playbook-storm",
+    "timeframe": "acute",
+    "difficulty": "advanced",
+    "module": "21 Scenario Playbooks",
+    "section": "21.6"
   },
   {
     "title": "3-Month Supply Plan",
@@ -1264,7 +1749,12 @@
       "supply",
       "planning"
     ],
-    "word_count": 509
+    "word_count": 509,
+    "id": "playbook-supply-3mo",
+    "timeframe": "long-term",
+    "difficulty": "intermediate",
+    "module": "21 Scenario Playbooks",
+    "section": "21.7"
   },
   {
     "title": "Raw Land Transition",

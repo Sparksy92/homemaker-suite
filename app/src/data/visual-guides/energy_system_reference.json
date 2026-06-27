@@ -1,0 +1,52 @@
+{
+    "batteryChemistries": [
+        {
+            "type": "LiFePO4 (Lithium Iron Phosphate)",
+            "cycles": "3,000 - 5,000 cycles",
+            "dod": "80% - 90% depth of discharge",
+            "tempRange": "32°F to 113°F (cannot charge below freezing)",
+            "safety": "High (no thermal runaway risk)",
+            "cost": "High initial, lowest lifetime cost"
+        },
+        {
+            "type": "Lead-Acid (AGM / Sealed)",
+            "cycles": "300 - 600 cycles",
+            "dod": "50% maximum depth of discharge",
+            "tempRange": "-4°F to 122°F (handles cold better)",
+            "safety": "Moderate (requires venting if flooded)",
+            "cost": "Low initial, high lifetime cost"
+        }
+    ],
+    "applianceLoads": [
+        {
+            "name": "LED Lighting",
+            "watts": 10,
+            "hours": 5,
+            "dailyWh": 50
+        },
+        {
+            "name": "Homestead Router/PWA",
+            "watts": 15,
+            "hours": 24,
+            "dailyWh": 360
+        },
+        {
+            "name": "DC Fridge (High Efficiency)",
+            "watts": 45,
+            "hours": 12,
+            "dailyWh": 540
+        },
+        {
+            "name": "Charge Phone/Laptop",
+            "watts": 60,
+            "hours": 3,
+            "dailyWh": 180
+        },
+        {
+            "name": "Water Pump (DC)",
+            "watts": 80,
+            "hours": 1,
+            "dailyWh": 80
+        }
+    ]
+}
