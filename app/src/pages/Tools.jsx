@@ -12,26 +12,54 @@ import { useUser } from '../context/UserContext';
 import MealPlans from './MealPlans';
 import WaterTracker from '../components/WaterTracker';
 
+import { useNavigate, useLocation } from 'react-router-dom';
+
+const getRequestedTab = (location) => {
+    const validTabs = ['wizard', 'survival', 'pantry', 'sub', 'plans', 'water'];
+
+    // 1. Try parsing from query parameters (location.search)
+    const params = new URLSearchParams(location.search);
+    const tabParam = params.get('tab');
+    if (validTabs.includes(tabParam)) {
+        return tabParam;
+    }
+
+    // 2. Try parsing from hash parameter (location.hash)
+    const hashParam = (location.hash || '').replace('#', '');
+    if (validTabs.includes(hashParam)) {
+        return hashParam;
+    }
+
+    // 3. Fallback to raw window location split (handles things like #/tools#water directly if react-router hasn't updated yet)
+    try {
+        const rawHash = window.location.hash || '';
+        const hashParts = rawHash.split('#').filter(Boolean);
+        const lastHashPart = hashParts[hashParts.length - 1];
+        if (validTabs.includes(lastHashPart)) {
+            return lastHashPart;
+        }
+    } catch (e) {
+        // Ignore
+    }
+
+    return null;
+};
+
 // Import generic file fetcher (simplified for this view)
 const Tools = () => {
+    const navigate = useNavigate();
+    const location = useLocation();
     const [activeTab, setActiveTab] = useState('wizard');
     const [recipeData, setRecipeData] = useState({ recipes: [] });
     const [survivalTools, setSurvivalTools] = useState([]);
 
-    // Handle initial tab from hash and listen for changes
+    // Handle tab synchronization from location (query/hash)
     useEffect(() => {
-        const handleHashChange = () => {
-            const hash = window.location.hash.replace('#', '');
-            const validTabs = ['wizard', 'survival', 'pantry', 'sub', 'plans', 'water'];
-            if (validTabs.includes(hash)) {
-                setActiveTab(hash);
-            }
-        };
-
-        handleHashChange(); // Check on mount
-        window.addEventListener('hashchange', handleHashChange);
-        return () => window.removeEventListener('hashchange', handleHashChange);
-    }, []);
+        const tab = getRequestedTab(location);
+        if (tab) {
+            setActiveTab(tab);
+        }
+    }, [location]);
 
     // Fetch recipes and survival tools on mount
     useEffect(() => {
@@ -60,37 +88,37 @@ const Tools = () => {
             <div className="flex overflow-x-auto gap-2 mb-6 pb-2 no-scrollbar scroll-smooth snap-x snap-mandatory shrink-0 w-full">
                 <TabButton
                     active={activeTab === 'wizard'}
-                    onClick={() => setActiveTab('wizard')}
+                    onClick={() => navigate('/tools?tab=wizard', { replace: true })}
                     icon={<Soup size={18} />}
                     label="Chef"
                 />
                 <TabButton
                     active={activeTab === 'survival'}
-                    onClick={() => setActiveTab('survival')}
+                    onClick={() => navigate('/tools?tab=survival', { replace: true })}
                     icon={<Wrench size={18} />}
                     label="Survival"
                 />
                 <TabButton
                     active={activeTab === 'pantry'}
-                    onClick={() => setActiveTab('pantry')}
+                    onClick={() => navigate('/tools?tab=pantry', { replace: true })}
                     icon={<Calculator size={18} />}
                     label="Pantry"
                 />
                 <TabButton
                     active={activeTab === 'sub'}
-                    onClick={() => setActiveTab('sub')}
+                    onClick={() => navigate('/tools?tab=sub', { replace: true })}
                     icon={<Repeat size={18} />}
                     label="Subs"
                 />
                 <TabButton
                     active={activeTab === 'plans'}
-                    onClick={() => setActiveTab('plans')}
+                    onClick={() => navigate('/tools?tab=plans', { replace: true })}
                     icon={<Calendar size={18} />}
                     label="Plans"
                 />
                 <TabButton
                     active={activeTab === 'water'}
-                    onClick={() => setActiveTab('water')}
+                    onClick={() => navigate('/tools?tab=water', { replace: true })}
                     icon={<Droplets size={18} />}
                     label="Water"
                 />
@@ -367,8 +395,6 @@ const IngredientWizard = ({ recipeData }) => {
         </motion.div>
     );
 };
-
-import { useNavigate } from 'react-router-dom';
 
 const SurvivalToolsList = ({ tools, setActiveToolUrl }) => {
     const navigate = useNavigate();

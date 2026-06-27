@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { clearAllAppData } from '../services/appDataService';
 
 const UserContext = createContext();
 
@@ -258,9 +259,14 @@ export const UserProvider = ({ children }) => {
         }));
     };
 
-    const clearAppData = () => {
-        localStorage.clear();
-        window.location.reload();
+    const clearAppData = async () => {
+        try {
+            await clearAllAppData();
+        } catch (e) {
+            console.error("Failed to clear app data:", e);
+        } finally {
+            window.location.reload();
+        }
     };
 
     const value = {

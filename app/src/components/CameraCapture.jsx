@@ -44,9 +44,7 @@ const CameraCapture = ({ onClose, initialSpeciesId = null, speciesName = '' }) =
         );
     };
 
-    useEffect(() => {
-        acquireGps();
-    }, []);
+    // Geolocation is captured on user consent via "Add GPS Location" button
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
@@ -99,8 +97,12 @@ const CameraCapture = ({ onClose, initialSpeciesId = null, speciesName = '' }) =
                     <h2 className="text-xl font-serif font-bold text-sage-900 flex items-center gap-2">
                         <Camera size={20} className="text-terracotta-500" /> Log Observation
                     </h2>
-                    <button onClick={onClose} className="p-2 hover:bg-sand-200 rounded-full transition-colors">
-                        <X size={20} />
+                    <button
+                        onClick={onClose}
+                        className="p-3 hover:bg-sand-200 rounded-full transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
+                        aria-label="Close modal"
+                    >
+                        <X size={24} />
                     </button>
                 </div>
 
@@ -130,9 +132,10 @@ const CameraCapture = ({ onClose, initialSpeciesId = null, speciesName = '' }) =
                             <img src={imagePreview} alt="Capture" className="w-full h-full object-cover" />
                             <button
                                 onClick={() => setImagePreview(null)}
-                                className="absolute top-4 right-4 bg-black/50 text-white p-2 rounded-full hover:bg-black/70 backdrop-blur-md"
+                                className="absolute top-4 right-4 bg-black/50 text-white p-3 rounded-full hover:bg-black/70 backdrop-blur-md min-w-[44px] min-h-[44px] flex items-center justify-center"
+                                aria-label="Remove image"
                             >
-                                <X size={16} />
+                                <X size={20} />
                             </button>
                         </div>
                     )}
@@ -156,7 +159,7 @@ const CameraCapture = ({ onClose, initialSpeciesId = null, speciesName = '' }) =
                             />
                         </div>
 
-                        <div className="flex flex-col gap-2 bg-sand-50 p-4 rounded-xl border border-sand-200">
+                        <div className="flex flex-col gap-3 bg-sand-50 p-4 rounded-xl border border-sand-200">
                             <div className="flex items-center justify-between">
                                 <div className="flex items-center gap-2 text-xs font-bold text-sage-600 uppercase tracking-widest">
                                     <MapPin size={14} className={gpsStatus === 'success' ? 'text-sage-700 animate-pulse' : 'text-sand-400'} />
@@ -165,64 +168,79 @@ const CameraCapture = ({ onClose, initialSpeciesId = null, speciesName = '' }) =
                                 <span className="text-[10px] text-sage-400 font-medium italic">Private (stored locally only)</span>
                             </div>
 
-                            <div className="flex items-center justify-between text-sm text-charcoal">
-                                <div className="flex items-center gap-2">
-                                    {gpsStatus === 'acquiring' && (
-                                        <div className="flex items-center gap-2 text-sage-50 font-semibold">
-                                            <Loader2 size={14} className="animate-spin text-sage-600" />
-                                            <span>Acquiring GPS location...</span>
-                                        </div>
-                                    )}
-                                    {gpsStatus === 'success' && (
-                                        <div className="flex flex-col">
-                                            <span className="font-mono font-bold text-sage-900">
-                                                {coords.latitude.toFixed(6)}, {coords.longitude.toFixed(6)}
-                                            </span>
-                                            {coords.accuracy !== null && (
-                                                <span className="text-[10px] text-sage-500">
-                                                    Accuracy: ±{Math.round(coords.accuracy)}m
+                            {gpsStatus === 'idle' && coords.latitude === null ? (
+                                <div className="space-y-3">
+                                    <p className="text-xs text-charcoal-700 leading-relaxed">
+                                        Observation coordinates are stored locally on this device only.
+                                    </p>
+                                    <button
+                                        type="button"
+                                        onClick={acquireGps}
+                                        className="w-full min-h-[44px] py-2.5 bg-sage-600 text-white rounded-xl font-bold shadow-sm hover:bg-sage-700 active:scale-95 transition-all text-xs uppercase tracking-wider flex items-center justify-center gap-2"
+                                    >
+                                        <MapPin size={14} /> Add GPS Location
+                                    </button>
+                                </div>
+                            ) : (
+                                <div className="flex items-center justify-between text-sm text-charcoal">
+                                    <div className="flex items-center gap-2">
+                                        {gpsStatus === 'acquiring' && (
+                                            <div className="flex items-center gap-2 text-sage-800 font-semibold">
+                                                <Loader2 size={14} className="animate-spin text-sage-700" />
+                                                <span>Acquiring GPS location...</span>
+                                            </div>
+                                        )}
+                                        {gpsStatus === 'success' && (
+                                            <div className="flex flex-col">
+                                                <span className="font-mono font-bold text-sage-900">
+                                                    {coords.latitude.toFixed(6)}, {coords.longitude.toFixed(6)}
                                                 </span>
-                                            )}
-                                        </div>
-                                    )}
-                                    {gpsStatus === 'denied' && (
-                                        <span className="text-terracotta-600 font-medium">GPS permission denied</span>
-                                    )}
-                                    {gpsStatus === 'unavailable' && (
-                                        <span className="text-sand-500 font-medium">GPS unavailable</span>
-                                    )}
-                                    {gpsStatus === 'timeout' && (
-                                        <span className="text-sand-500 font-medium">GPS timed out</span>
-                                    )}
-                                    {(gpsStatus === 'error' || (gpsStatus === 'idle' && coords.latitude === null)) && (
-                                        <span className="text-sand-400">No coordinates captured</span>
-                                    )}
-                                </div>
+                                                {coords.accuracy !== null && (
+                                                    <span className="text-[10px] text-sage-500">
+                                                        Accuracy: ±{Math.round(coords.accuracy)}m
+                                                    </span>
+                                                )}
+                                            </div>
+                                        )}
+                                        {gpsStatus === 'denied' && (
+                                            <span className="text-terracotta-600 font-medium">GPS permission denied</span>
+                                        )}
+                                        {gpsStatus === 'unavailable' && (
+                                            <span className="text-sand-500 font-medium">GPS unavailable</span>
+                                        )}
+                                        {gpsStatus === 'timeout' && (
+                                            <span className="text-sand-500 font-medium">GPS timed out</span>
+                                        )}
+                                        {(gpsStatus === 'error' || (gpsStatus === 'idle' && coords.latitude === null)) && (
+                                            <span className="text-sand-400">No coordinates captured</span>
+                                        )}
+                                    </div>
 
-                                <div className="flex items-center gap-2">
-                                    {['denied', 'unavailable', 'timeout', 'error', 'idle'].includes(gpsStatus) && (
-                                        <button
-                                            type="button"
-                                            onClick={acquireGps}
-                                            className="px-3 py-1.5 bg-white border border-sand-300 text-sage-700 rounded-lg text-xs font-bold shadow-sm hover:bg-sand-50 transition-colors flex items-center gap-1"
-                                        >
-                                            <RefreshCw size={12} /> Retry
-                                        </button>
-                                    )}
-                                    {gpsStatus === 'success' && (
-                                        <button
-                                            type="button"
-                                            onClick={() => {
-                                                setCoords({ latitude: null, longitude: null, accuracy: null });
-                                                setGpsStatus('idle');
-                                            }}
-                                            className="px-3 py-1.5 bg-red-50 border border-red-100 text-red-600 rounded-lg text-xs font-bold shadow-sm hover:bg-red-100 transition-colors flex items-center gap-1"
-                                        >
-                                            <Trash2 size={12} /> Clear
-                                        </button>
-                                    )}
+                                    <div className="flex items-center gap-2">
+                                        {['denied', 'unavailable', 'timeout', 'error', 'idle'].includes(gpsStatus) && (
+                                            <button
+                                                type="button"
+                                                onClick={acquireGps}
+                                                className="px-4 py-2 bg-white border border-sand-300 text-sage-700 rounded-lg text-xs font-bold shadow-sm hover:bg-sand-50 transition-colors flex items-center gap-1.5 min-h-[44px]"
+                                            >
+                                                <RefreshCw size={12} /> Retry
+                                            </button>
+                                        )}
+                                        {gpsStatus === 'success' && (
+                                            <button
+                                                type="button"
+                                                onClick={() => {
+                                                    setCoords({ latitude: null, longitude: null, accuracy: null });
+                                                    setGpsStatus('idle');
+                                                }}
+                                                className="px-4 py-2 bg-red-50 border border-red-100 text-red-600 rounded-lg text-xs font-bold shadow-sm hover:bg-red-100 transition-colors flex items-center gap-1.5 min-h-[44px]"
+                                            >
+                                                <Trash2 size={12} /> Clear
+                                            </button>
+                                        )}
+                                    </div>
                                 </div>
-                            </div>
+                            )}
                         </div>
                     </div>
                 </div>

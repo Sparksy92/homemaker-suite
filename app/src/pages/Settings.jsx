@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Bell, Lock, User, Palette, Globe, Moon } from 'lucide-react';
+import { ArrowLeft, Bell, Lock, User, Palette, Globe, Moon, Download, Upload } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 import { useUser } from '../context/UserContext';
+import { exportAppData, importAppData } from '../services/appDataService';
 
 const Settings = () => {
     const navigate = useNavigate();
@@ -11,6 +12,49 @@ const Settings = () => {
 
     const [isEditingProfile, setIsEditingProfile] = useState(false);
     const [editForm, setEditForm] = useState({ name: user.name, email: user.email });
+
+    const handleExport = async () => {
+        try {
+            const data = await exportAppData();
+            const jsonString = JSON.stringify(data, null, 2);
+            const blob = new Blob([jsonString], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            
+            const dateStr = new Date().toISOString().split('T')[0];
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `homemaker-suite-backup-${dateStr}.json`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+        } catch (err) {
+            console.error('Export failed:', err);
+            alert('Failed to export backup file.');
+        }
+    };
+
+    const handleImport = (e) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = async (event) => {
+            try {
+                const json = JSON.parse(event.target.result);
+                
+                if (window.confirm('WARNING: Importing this backup will overwrite your current settings, favorites, water storage, and observations. This cannot be undone. Do you want to proceed?')) {
+                    await importAppData(json);
+                    alert('Data restored successfully! The app will now reload.');
+                    window.location.reload();
+                }
+            } catch (err) {
+                console.error('Import failed:', err);
+                alert(`Restore failed: ${err.message || err}`);
+            }
+        };
+        reader.readAsText(file);
+    };
 
     const handleSaveProfile = (e) => {
         e.preventDefault();
@@ -81,6 +125,37 @@ const Settings = () => {
                             checked={settings.darkMode}
                             onChange={() => updateSettings({ darkMode: !settings.darkMode })}
                         />
+                    </div>
+                    <p className="text-[10px] text-sage-500 px-2 leading-relaxed italic">
+                        Weather uses your approximate location to request current conditions from Open-Meteo when enabled.
+                    </p>
+                </Section>
+
+                {/* Data Backup & Recovery */}
+                <Section title="Data Backup & Recovery">
+                    <div className="bg-white rounded-xl border border-sand-100 p-4 space-y-4">
+                        <p className="text-xs text-charcoal-500 leading-relaxed">
+                            Backup your local profile, water inventory, favorites, read progress, and wildlife observations. All backup files are stored entirely offline on your device.
+                        </p>
+                        
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <button
+                                onClick={handleExport}
+                                className="flex items-center justify-center gap-2 p-4 bg-sage-600 text-white rounded-xl font-bold hover:bg-sage-700 transition-colors shadow-sm min-h-[44px]"
+                            >
+                                <Download size={18} /> Export Data
+                            </button>
+                            
+                            <label className="flex items-center justify-center gap-2 p-4 bg-sand-100 text-sage-800 rounded-xl font-bold hover:bg-sand-200 transition-colors border border-sand-200 cursor-pointer text-center min-h-[44px]">
+                                <Upload size={18} /> Import Data
+                                <input
+                                    type="file"
+                                    accept=".json"
+                                    onChange={handleImport}
+                                    className="hidden"
+                                />
+                            </label>
+                        </div>
                     </div>
                 </Section>
 
