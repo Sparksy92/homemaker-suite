@@ -95,15 +95,21 @@ const WeatherWidget = () => {
     // Opt-In Placeholder State
     if (!isEnabled) {
         return (
-            <button
-                onClick={handleEnableWeather}
-                className="bg-white p-3 rounded-2xl shadow-sm border border-sand-200 flex flex-col items-center justify-center w-[100px] h-[84px] hover:bg-sand-50 transition-colors group"
-            >
-                <Cloud size={24} className="text-sage-400 mb-1 group-hover:text-sage-600 transition-colors" />
-                <span className="text-[10px] text-center text-charcoal-light leading-tight font-medium">
-                    Tap to enable weather
+            <div className="flex flex-col items-center gap-1.5">
+                <button
+                    onClick={handleEnableWeather}
+                    className="bg-white p-3 rounded-2xl shadow-sm border border-sand-200 flex flex-col items-center justify-center w-[100px] h-[84px] hover:bg-sand-50 transition-colors group"
+                    title="Weather uses your approximate location to request current conditions from Open-Meteo when enabled."
+                >
+                    <Cloud size={24} className="text-sage-400 mb-1 group-hover:text-sage-600 transition-colors" />
+                    <span className="text-[10px] text-center text-charcoal-light leading-tight font-medium">
+                        Tap to enable weather
+                    </span>
+                </button>
+                <span className="text-[7px] text-center text-sand-400 max-w-[100px] leading-tight select-none">
+                    Weather uses approximate location to request conditions from Open-Meteo when enabled.
                 </span>
-            </button>
+            </div>
         );
     }
 
@@ -129,7 +135,7 @@ const WeatherWidget = () => {
         <div
             onClick={() => setUnit(unit === 'fahrenheit' ? 'celsius' : 'fahrenheit')}
             className="bg-white p-3 rounded-2xl shadow-sm border border-sand-200 flex flex-col items-center w-[100px] relative cursor-pointer hover:bg-sand-50 active:scale-95 transition-all select-none"
-            title="Tap to toggle units"
+            title="Tap to toggle units. Weather uses your approximate location to request current conditions from Open-Meteo when enabled."
         >
             <div
                 className="absolute top-1 right-1 text-[8px] font-bold bg-sand-100 text-sage-600 px-1 rounded pointer-events-none"
