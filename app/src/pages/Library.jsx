@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Folder, FileText, ChevronRight, ArrowLeft, Heart, AlertCircle, Info, CheckCircle, AlertTriangle, BookOpen, Droplets, Utensils, Sprout, Zap, ShieldCheck, ShieldAlert, Thermometer, Compass, Scissors, LayoutGrid, Timer, BarChart3 } from 'lucide-react';
 import { useUser } from '../context/UserContext';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
 import MarkdownRenderer from '../components/MarkdownRenderer';
 
 // Helper to clean display names
@@ -52,6 +52,7 @@ const LIBRARY_CATEGORIES = [
 ];
 
 const Library = ({ type = 'all' }) => {
+    const navigate = useNavigate();
     const [currentPath, setCurrentPath] = useState([]);
     const [viewMode, setViewMode] = useState('modules'); // 'modules' or 'reference'
     const [fileContent, setFileContent] = useState(null);
@@ -526,7 +527,7 @@ const Library = ({ type = 'all' }) => {
                         >
                             <ArrowLeft size={18} /> Back to Library
                         </button>
-                        <h2 className="text-4xl mb-8 font-serif text-sage-900">{getDisplayName(currentPath[0])}</h2>
+                        <h2 className="text-2xl sm:text-4xl mb-6 font-serif text-sage-900">{getDisplayName(currentPath[0])}</h2>
 
                         <FolderContentList
                             files={fileSystem[currentPath[0]]}
@@ -548,7 +549,10 @@ const Library = ({ type = 'all' }) => {
                         {/* Header Bar */}
                         <div className="px-6 py-4 bg-white/80 backdrop-blur-md border-b border-sand-200 flex justify-between items-center sticky top-0 z-10">
                             <button
-                                onClick={() => setFileContent(null)}
+                                onClick={() => {
+                                    setFileContent(null);
+                                    navigate('/library', { replace: true });
+                                }}
                                 className="flex items-center gap-2 px-4 py-2 bg-white rounded-full border border-sand-300 hover:bg-sand-50 transition-colors shadow-sm text-sage-700 font-medium"
                             >
                                 <ArrowLeft size={18} /> Back
@@ -821,8 +825,7 @@ const FavoriteButton = ({ item }) => {
                 e.stopPropagation();
                 toggleFavorite(item);
             }}
-            className={`p-3 rounded-full transition-all duration-300 ${active ? 'bg-terracotta-50 text-terracotta-500 scale-110' : 'bg-white text-sand-400 hover:text-terracotta-400 hover:bg-sand-50'}`}
-        >
+            className={`p-3.5 rounded-full transition-all duration-300 ${active ? 'bg-terracotta-50 text-terracotta-500 scale-110' : 'bg-white text-sand-400 hover:text-terracotta-400 hover:bg-sand-50'}`}        >
             <Heart size={20} fill={active ? "currentColor" : "none"} />
         </button>
     );

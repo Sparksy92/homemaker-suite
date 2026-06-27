@@ -195,12 +195,12 @@ const Cookbook = () => {
                 </div>
 
                 {/* Main Categories */}
-                <div className="flex flex-wrap gap-2 mb-3">
+                <div className="flex overflow-x-auto gap-2 mb-3 pb-2 no-scrollbar scroll-smooth w-full snap-x snap-mandatory">
                     {categories.map(cat => (
                         <button
                             key={cat}
                             onClick={() => setActiveCategory(cat)}
-                            className={`px-4 py-2 rounded-full text-xs font-black uppercase tracking-widest transition-all border ${activeCategory === cat
+                            className={`shrink-0 snap-center px-4 py-2 rounded-full text-xs font-black uppercase tracking-widest transition-all border ${activeCategory === cat
                                 ? 'bg-sage-700 text-white border-sage-700 shadow-md transform scale-105'
                                 : 'bg-white text-sage-600 border-sand-200 hover:bg-sand-100 hover:border-sand-300 shadow-sm'
                                 }`}
@@ -217,16 +217,16 @@ const Cookbook = () => {
                             initial={{ opacity: 0, y: -10 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -10 }}
-                            className="flex flex-wrap gap-1.5 pt-1 border-t border-sand-100 mt-2"
+                            className="flex overflow-x-auto gap-1.5 pt-1 border-t border-sand-100 mt-2 no-scrollbar scroll-smooth w-full snap-x snap-mandatory"
                         >
-                            <span className="text-[10px] font-bold text-sand-400 uppercase flex items-center mr-1">
+                            <span className="shrink-0 text-[10px] font-bold text-sand-400 uppercase flex items-center mr-1">
                                 <Filter size={10} className="mr-1" /> Refine:
                             </span>
                             {subCategoryMap[activeCategory].map(sub => (
                                 <button
                                     key={sub}
                                     onClick={() => setActiveSubCategory(sub)}
-                                    className={`px-3 py-1 rounded-lg text-[11px] font-bold transition-all ${activeSubCategory === sub
+                                    className={`shrink-0 snap-center px-3 py-1 rounded-lg text-[11px] font-bold transition-all ${activeSubCategory === sub
                                         ? 'bg-terracotta-100 text-terracotta-700'
                                         : 'bg-sand-50 text-sand-500 hover:bg-sand-100'
                                         }`}
@@ -414,12 +414,22 @@ const Cookbook = () => {
                                         ))}
                                     </div>
                                     <div className="flex items-center gap-4">
-                                        <div className="flex items-center gap-2 bg-sand-100 px-3 py-1.5 rounded-2xl border border-sand-200">
-                                            <Users size={14} className="text-sage-500" />
-                                            <button onClick={() => setServings(Math.max(1, servings - 1))} className="w-6 h-6 flex items-center justify-center rounded-lg hover:bg-white text-sage-600 font-bold">-</button>
-                                            <span className="w-8 text-center text-xs font-black text-sage-800">{servings}</span>
-                                            <button onClick={() => setServings(servings + 1)} className="w-6 h-6 flex items-center justify-center rounded-lg hover:bg-white text-sage-600 font-bold">+</button>
-                                            <span className="text-[9px] font-bold text-sage-400 uppercase tracking-tighter ml-1">Serves</span>
+                                        <div className="flex items-center gap-2 bg-sand-100 p-1.5 rounded-2xl border border-sand-200">
+                                            <Users size={16} className="text-sage-500 ml-2" />
+                                            <button
+                                                onClick={() => setServings(Math.max(1, servings - 1))}
+                                                className="w-11 h-11 flex items-center justify-center rounded-xl bg-white/50 hover:bg-white text-sage-600 font-bold transition-colors text-lg shadow-sm"
+                                            >
+                                                -
+                                            </button>
+                                            <span className="w-8 text-center text-sm font-black text-sage-800">{servings}</span>
+                                            <button
+                                                onClick={() => setServings(servings + 1)}
+                                                className="w-11 h-11 flex items-center justify-center rounded-xl bg-white/50 hover:bg-white text-sage-600 font-bold transition-colors text-lg shadow-sm"
+                                            >
+                                                +
+                                            </button>
+                                            <span className="text-[10px] font-bold text-sage-400 uppercase tracking-tighter mr-2">Serves</span>
                                         </div>
 
                                         <button

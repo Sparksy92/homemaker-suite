@@ -24,3 +24,13 @@
     @apply bg-sage-300 rounded-full hover:bg-sage-400;
   }
 }
+
+@layer utilities {
+  .no-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
