@@ -1,11 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Bell, Lock, User, Palette, Globe, Moon, Download, Upload, Home } from 'lucide-react';
+import { ArrowLeft, Bell, Lock, User, Palette, Globe, Moon, Download, Upload, Home, Cloud, RefreshCw } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 import { useUser } from '../context/UserContext';
 import { exportAppData, importAppData } from '../services/appDataService';
 import HomesteadOnboarding from '../components/onboarding/HomesteadOnboarding';
+import { isSupabaseConfigured } from '../utils/supabaseClient';
+import {
+    getSyncConfig,
+    enableCloudBackup,
+    upgradeAnonymousAccount,
+    disableCloudBackup,
+    deleteRemoteBackup,
+    pushQueue,
+    pullNow
+} from '../services/homesteadSyncService';
 
 const Settings = () => {
     const navigate = useNavigate();
@@ -14,6 +24,104 @@ const Settings = () => {
     const [isEditingProfile, setIsEditingProfile] = useState(false);
     const [editForm, setEditForm] = useState({ name: user.name, email: user.email });
     const [showOnboarding, setShowOnboarding] = useState(false);
+
+    const [syncConfig, setSyncConfig] = useState(getSyncConfig());
+    const [authForm, setAuthForm] = useState({ email: '', password: '' });
+
+    // Periodically refresh sync config status if syncing/working
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setSyncConfig(getSyncConfig());
+        }, 1500);
+        return () => clearInterval(interval);
+    }, []);
+
+    const handleToggleSync = async () => {
+        if (syncConfig.enabled) {
+            if (window.confirm('Are you sure you want to disable Cloud Sync? Your local data will remain unchanged, but automatic backups will stop.')) {
+                await disableCloudBackup();
+                setSyncConfig(getSyncConfig());
+            }
+        } else {
+            const newConfig = {
+                enabled: true,
+                lastSyncAt: null,
+                accountUpgradeStatus: 'local',
+                syncStatus: 'idle',
+                userEmail: null
+            };
+            localStorage.setItem('homemaker_sync_config', JSON.stringify(newConfig));
+            setSyncConfig(newConfig);
+        }
+    };
+
+    const handleEnableBackup = async (method) => {
+        let res;
+        if (method === 'anonymous') {
+            res = await enableCloudBackup('anonymous');
+        } else {
+            if (!authForm.email || !authForm.password) {
+                alert('Please enter both email and password.');
+                return;
+            }
+            res = await enableCloudBackup('email', authForm.email, authForm.password);
+        }
+
+        if (res.status === 'success') {
+            alert('Cloud Backup activated successfully!');
+            setSyncConfig(getSyncConfig());
+            setAuthForm({ email: '', password: '' });
+        } else {
+            alert(`Failed to activate backup: ${res.message}`);
+        }
+    };
+
+    const handleUpgrade = async () => {
+        if (!authForm.email || !authForm.password) {
+            alert('Please specify an email and password.');
+            return;
+        }
+
+        const res = await upgradeAnonymousAccount(authForm.email, authForm.password);
+        if (res.status === 'success') {
+            alert('Your anonymous backup account was upgraded successfully!');
+            setSyncConfig(getSyncConfig());
+            setAuthForm({ email: '', password: '' });
+        } else {
+            alert(`Failed to upgrade account: ${res.message}`);
+        }
+    };
+
+    const handlePush = async () => {
+        await pushQueue();
+        setSyncConfig(getSyncConfig());
+        alert('Data pushed to cloud database successfully!');
+    };
+
+    const handlePull = async () => {
+        if (window.confirm('Pulling latest cloud backup will overwrite local modifications if remote version is newer. Continue?')) {
+            const res = await pullNow();
+            setSyncConfig(getSyncConfig());
+            if (res.status === 'success') {
+                alert(`Data pulled successfully! Overwritten modules: ${res.mergedCount}`);
+                window.location.reload();
+            } else {
+                alert(`Failed to pull: ${res.message}`);
+            }
+        }
+    };
+
+    const handleDeleteBackup = async () => {
+        if (window.confirm('WARNING: This will permanently delete your remote backups and profile stored in Supabase and disable cloud sync. Local data will NOT be touched. This is permanent. Continue?')) {
+            const res = await deleteRemoteBackup();
+            if (res.status === 'success') {
+                alert('Remote backup deleted successfully.');
+                setSyncConfig(getSyncConfig());
+            } else {
+                alert(`Failed to delete remote backup: ${res.message}`);
+            }
+        }
+    };
 
     const handleExport = async () => {
         try {
@@ -170,6 +278,149 @@ const Settings = () => {
                         </div>
                     </div>
                 </Section>
+
+                {/* Cloud Sync & Backup */}
+                {isSupabaseConfigured && (
+                    <Section title="Cloud Sync & Backup">
+                        <div className="bg-white rounded-xl border border-sand-100 p-4 space-y-4">
+                            <div className="flex items-center justify-between">
+                                <div className="flex items-center gap-3">
+                                    <div className="bg-sage-50 p-2 rounded-lg text-sage-600">
+                                        <Cloud size={20} />
+                                    </div>
+                                    <div>
+                                        <h3 className="font-semibold text-sage-900">Enable Cloud Backup</h3>
+                                        <p className="text-xs text-charcoal-500">Back up structured planners to cloud database</p>
+                                    </div>
+                                </div>
+                                <Switch
+                                    checked={syncConfig.enabled}
+                                    onChange={handleToggleSync}
+                                />
+                            </div>
+
+                            {syncConfig.enabled && (
+                                <div className="space-y-4 pt-3 border-t border-sand-100">
+                                    <div className="flex flex-wrap justify-between text-xs gap-2">
+                                        <span className="font-bold text-charcoal-500">Sync Status:</span>
+                                        <span className="font-bold capitalize text-sage-800 bg-sage-50 px-2 py-0.5 rounded border border-sage-100 flex items-center gap-1.5">
+                                            {syncConfig.syncStatus === 'syncing' && <RefreshCw size={10} className="animate-spin" />}
+                                            {syncConfig.syncStatus}
+                                        </span>
+                                    </div>
+                                    <div className="flex flex-wrap justify-between text-xs gap-2">
+                                        <span className="font-bold text-charcoal-500">Last Synced:</span>
+                                        <span className="font-sans font-bold text-charcoal-800">
+                                            {syncConfig.lastSyncAt ? new Date(syncConfig.lastSyncAt).toLocaleString() : 'Never'}
+                                        </span>
+                                    </div>
+                                    <div className="flex flex-wrap justify-between text-xs gap-2">
+                                        <span className="font-bold text-charcoal-500">Backup Type:</span>
+                                        <span className="font-bold capitalize text-sage-800">
+                                            {syncConfig.accountUpgradeStatus} {syncConfig.userEmail ? `(${syncConfig.userEmail})` : ''}
+                                        </span>
+                                    </div>
+
+                                    {/* Action Buttons */}
+                                    {syncConfig.accountUpgradeStatus !== 'local' && (
+                                        <div className="grid grid-cols-2 gap-2 pt-2">
+                                            <button
+                                                onClick={handlePush}
+                                                disabled={syncConfig.syncStatus === 'syncing'}
+                                                className="py-2 px-3 bg-sage-600 hover:bg-sage-700 text-white font-bold text-[10px] uppercase tracking-wider rounded-lg transition-all text-center min-h-[36px]"
+                                            >
+                                                Push Now
+                                            </button>
+                                            <button
+                                                onClick={handlePull}
+                                                disabled={syncConfig.syncStatus === 'syncing'}
+                                                className="py-2 px-3 bg-sand-100 hover:bg-sand-200 text-sage-800 font-bold text-[10px] uppercase tracking-wider rounded-lg transition-all text-center border border-sand-200 min-h-[36px]"
+                                            >
+                                                Pull Latest
+                                            </button>
+                                        </div>
+                                    )}
+
+                                    {/* Upgrade Path for Anonymous Account */}
+                                    {syncConfig.accountUpgradeStatus === 'anonymous' && (
+                                        <div className="p-4 bg-sand-50 rounded-xl space-y-3 border border-sand-200 text-xs">
+                                            <h4 className="font-bold text-sage-950 uppercase text-[9px] tracking-wider">Upgrade to Permanent Account</h4>
+                                            <p className="text-[10px] text-charcoal-500 leading-normal">
+                                                Temporary anonymous backups can be lost if you clear your browser cookies. Link your email to sync across other devices.
+                                            </p>
+                                            <div className="space-y-2">
+                                                <input
+                                                    type="email" placeholder="Email Address"
+                                                    value={authForm.email}
+                                                    onChange={e => setAuthForm({ ...authForm, email: e.target.value })}
+                                                    className="w-full p-2 bg-white rounded border border-sand-300 text-xs outline-none focus:border-sage-500 font-semibold"
+                                                />
+                                                <input
+                                                    type="password" placeholder="Choose Password"
+                                                    value={authForm.password}
+                                                    onChange={e => setAuthForm({ ...authForm, password: e.target.value })}
+                                                    className="w-full p-2 bg-white rounded border border-sand-300 text-xs outline-none focus:border-sage-500 font-semibold"
+                                                />
+                                                <button
+                                                    onClick={handleUpgrade}
+                                                    className="w-full py-1.5 px-3 bg-sage-800 hover:bg-sage-950 text-white font-bold text-[10px] uppercase tracking-wider rounded-lg transition-all"
+                                                >
+                                                    Link Email Account
+                                                </button>
+                                            </div>
+                                        </div>
+                                    )}
+
+                                    {/* Sign In form if not logged in but enabled */}
+                                    {syncConfig.accountUpgradeStatus === 'local' && (
+                                        <div className="p-4 bg-sand-50 rounded-xl space-y-3 border border-sand-200 text-xs">
+                                            <h4 className="font-bold text-sage-950 uppercase text-[9px] tracking-wider">Sign In / Create Account</h4>
+                                            <div className="space-y-2">
+                                                <input
+                                                    type="email" placeholder="Email Address"
+                                                    value={authForm.email}
+                                                    onChange={e => setAuthForm({ ...authForm, email: e.target.value })}
+                                                    className="w-full p-2 bg-white rounded border border-sand-300 text-xs outline-none focus:border-sage-500 font-semibold"
+                                                />
+                                                <input
+                                                    type="password" placeholder="Password"
+                                                    value={authForm.password}
+                                                    onChange={e => setAuthForm({ ...authForm, password: e.target.value })}
+                                                    className="w-full p-2 bg-white rounded border border-sand-300 text-xs outline-none focus:border-sage-500 font-semibold"
+                                                />
+                                                <div className="grid grid-cols-2 gap-2">
+                                                    <button
+                                                        onClick={() => handleEnableBackup('email')}
+                                                        className="py-1.5 px-3 bg-sage-800 hover:bg-sage-950 text-white font-bold text-[10px] uppercase tracking-wider rounded-lg transition-all"
+                                                    >
+                                                        Login / Signup
+                                                    </button>
+                                                    <button
+                                                        onClick={() => handleEnableBackup('anonymous')}
+                                                        className="py-1.5 px-3 bg-sand-200 hover:bg-sand-300 text-charcoal font-bold text-[10px] uppercase tracking-wider rounded-lg transition-all border border-sand-300"
+                                                    >
+                                                        Anonymous
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )}
+
+                                    {/* Delete Remote Backup */}
+                                    <div className="pt-2 border-t border-sand-100 flex justify-between items-center text-xs">
+                                        <span className="text-[10px] text-charcoal-400 font-medium">Want to wipe cloud backups?</span>
+                                        <button
+                                            onClick={handleDeleteBackup}
+                                            className="text-terracotta-600 hover:text-terracotta-800 font-bold underline text-[10px]"
+                                        >
+                                            Delete Remote Data
+                                        </button>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                    </Section>
+                )}
 
                 {/* App Info */}
                 <Section title="About">

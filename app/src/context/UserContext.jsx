@@ -83,6 +83,21 @@ export const UserProvider = ({ children }) => {
         };
     });
 
+    // Startup Pull Sync
+    useEffect(() => {
+        const startupSync = async () => {
+            const { isSyncEnabled, pullNow } = await import('../services/homesteadSyncService');
+            if (isSyncEnabled()) {
+                await pullNow();
+                const savedProfile = localStorage.getItem('homemaker_homestead_profile');
+                if (savedProfile) {
+                    setHomesteadProfile(JSON.parse(savedProfile));
+                }
+            }
+        };
+        startupSync();
+    }, []);
+
     // Persist changes
     useEffect(() => {
         localStorage.setItem('homemaker_user', JSON.stringify(user));
@@ -120,6 +135,9 @@ export const UserProvider = ({ children }) => {
     useEffect(() => {
         if (homesteadProfile !== null) {
             localStorage.setItem('homemaker_homestead_profile', JSON.stringify(homesteadProfile));
+            import('../services/homesteadSyncService').then(({ triggerSyncPush }) => {
+                triggerSyncPush('homemaker_homestead_profile');
+            });
         } else {
             localStorage.removeItem('homemaker_homestead_profile');
         }

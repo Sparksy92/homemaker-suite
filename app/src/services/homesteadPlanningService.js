@@ -1,4 +1,5 @@
 // Local planning data service for Homemaker Suite
+import { triggerSyncPush } from './homesteadSyncService';
 
 const KEYS = {
     HOMESTEAD: 'homemaker_homestead_plan',
@@ -118,6 +119,7 @@ export const savePlan = (key, value) => {
             value.updatedAt = new Date().toISOString();
         }
         localStorage.setItem(key, JSON.stringify(value));
+        triggerSyncPush(key);
     } catch (e) {
         console.error(`Error saving plan for key ${key}:`, e);
     }

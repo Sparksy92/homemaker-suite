@@ -15,6 +15,10 @@ Since we built this as a Progressive Web App (PWA), the best way to distribute i
     *   Go to [vercel.com](https://vercel.com) and sign up.
     *   Click "Add New Project".
     *   Select your `homemaker-suite` repo.
+    *   Set the **Root Directory** to `app` if deploying the entire repository.
+    *   In the **Environment Variables** section, add:
+        - `VITE_SUPABASE_URL`: Your Supabase Project API URL (e.g. `https://your-ref.supabase.co`).
+        - `VITE_SUPABASE_ANON_KEY`: Your Supabase Project anonymous key.
     *   Click "Deploy".
 3.  **Done:** Vercel will give you a URL (e.g., `homemaker-suite.vercel.app`).
     *   Share this link.
