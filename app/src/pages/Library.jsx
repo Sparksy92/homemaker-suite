@@ -567,7 +567,7 @@ const Library = ({ type = 'all' }) => {
                                                     setShowOnboarding(true);
                                                 } else {
                                                     setCurrentPath([rec.folder]);
-                                                    handleFileClick(rec.file);
+                                                    handleFileClick(rec.file, rec.folder);
                                                 }
                                             }}
                                             className="group bg-terracotta-600 p-5 rounded-[2rem] text-white shadow-xl shadow-terracotta-200/50 hover:bg-terracotta-700 transition-all text-left flex items-start gap-4"
@@ -801,9 +801,9 @@ const Library = ({ type = 'all' }) => {
                             <PreservationLanding
                                 handleFileClick={handleFileClick}
                                 files={[
-                                    ...(fileSystem['1 Pantry Systems'] || []),
-                                    ...(fileSystem['4 Food Storage & Pantry'] || []),
-                                    ...(fileSystem['4 Preservation'] || [])
+                                    ...(fileSystem['1 Pantry Systems'] || []).map(file => ({ file, folder: '1 Pantry Systems' })),
+                                    ...(fileSystem['4 Food Storage & Pantry'] || []).map(file => ({ file, folder: '4 Food Storage & Pantry' })),
+                                    ...(fileSystem['4 Preservation'] || []).map(file => ({ file, folder: '4 Preservation' }))
                                 ]}
                             />
                         ) : currentPath[0] === '14 Health & First Aid' ? (
@@ -815,9 +815,9 @@ const Library = ({ type = 'all' }) => {
                             <ToolsRepairLanding
                                 handleFileClick={handleFileClick}
                                 files={[
-                                    ...(fileSystem['16 Tools & Workshop'] || []),
-                                    ...(fileSystem['10 Tools & Wizards'] || []),
-                                    ...(fileSystem['50 Interactive Tools'] || [])
+                                    ...(fileSystem['16 Tools & Workshop'] || []).map(file => ({ file, folder: '16 Tools & Workshop' })),
+                                    ...(fileSystem['10 Tools & Wizards'] || []).map(file => ({ file, folder: '10 Tools & Wizards' })),
+                                    ...(fileSystem['50 Interactive Tools'] || []).map(file => ({ file, folder: '50 Interactive Tools' }))
                                 ]}
                             />
                         ) : (

@@ -41,6 +41,7 @@ const Layout = () => {
                             <hr className="border-sand-200" />
 
                             <ul className="flex flex-col gap-4">
+                                <MenuLink to="/homestead" label="Homestead OS" onClick={() => setIsMenuOpen(false)} icon={<Home size={20} />} />
                                 <MenuLink to="/profile" label="Profile" onClick={() => setIsMenuOpen(false)} icon={<User size={20} />} />
                                 <MenuLink to="/settings" label="Settings" onClick={() => setIsMenuOpen(false)} icon={<Settings size={20} />} />
                                 <MenuLink to="/feedback" label="Suggestion Box" onClick={() => setIsMenuOpen(false)} icon={<MessageSquare size={20} />} />

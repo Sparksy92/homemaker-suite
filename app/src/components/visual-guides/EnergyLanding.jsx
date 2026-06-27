@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Zap, Search, ChevronRight, FileText, Activity, ShieldAlert, Calculator } from 'lucide-react';
 import { GuideHeroCard, ComparisonTable, CalloutBlock } from './index';
 
@@ -6,6 +7,7 @@ import { GuideHeroCard, ComparisonTable, CalloutBlock } from './index';
 import energyRef from '../../data/visual-guides/energy_system_reference.json';
 
 const EnergyLanding = ({ handleFileClick, files = [] }) => {
+    const navigate = useNavigate();
     const [searchQuery, setSearchQuery] = useState('');
     
     // Solar Estimator State
@@ -68,6 +70,22 @@ const EnergyLanding = ({ handleFileClick, files = [] }) => {
                 seasonalContext="Year-Round (Winter Sun Drop)"
                 safetyLevel="High"
             />
+
+            {/* Planner Integration Callout */}
+            <div className="p-5 bg-sage-800 text-white rounded-[2rem] border border-sage-700 shadow-lg flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div className="space-y-1">
+                    <h4 className="font-serif font-black text-sm text-sand-100 uppercase tracking-wider">Configure Energy Plan</h4>
+                    <p className="text-[10px] text-sand-200 leading-relaxed font-sans max-w-md">
+                        Map daily appliance Wh consumption, size solar panels and battery banks, and view surge warning safety checklists.
+                    </p>
+                </div>
+                <button
+                    onClick={() => navigate('/homestead/energy-plan')}
+                    className="py-2.5 px-4 bg-terracotta-600 hover:bg-terracotta-700 text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-all self-start sm:self-center shrink-0 min-h-[44px]"
+                >
+                    Open Energy Planner
+                </button>
+            </div>
 
             {/* Electrical Safety Alert */}
             <CalloutBlock type="danger" title="HIGH VOLTAGE / SHIELD WARNING">

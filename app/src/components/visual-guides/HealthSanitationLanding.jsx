@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ShieldAlert, Search, ChevronRight, FileText, Activity, Check, Heart } from 'lucide-react';
 import { GuideHeroCard, ComparisonTable, StepGuide, CalloutBlock } from './index';
 
@@ -6,6 +7,7 @@ import { GuideHeroCard, ComparisonTable, StepGuide, CalloutBlock } from './index
 import healthRef from '../../data/visual-guides/health_sanitation_reference.json';
 
 const HealthSanitationLanding = ({ handleFileClick, files = [] }) => {
+    const navigate = useNavigate();
     const [searchQuery, setSearchQuery] = useState('');
 
     const getDisplayName = (name) => {
@@ -43,6 +45,22 @@ const HealthSanitationLanding = ({ handleFileClick, files = [] }) => {
                 seasonalContext="Year-Round"
                 safetyLevel="High"
             />
+
+            {/* Planner Integration Callout */}
+            <div className="p-5 bg-sage-800 text-white rounded-[2rem] border border-sage-700 shadow-lg flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div className="space-y-1">
+                    <h4 className="font-serif font-black text-sm text-sand-100 uppercase tracking-wider">Homestead OS Command Center</h4>
+                    <p className="text-[10px] text-sand-200 leading-relaxed font-sans max-w-md">
+                        Review active first-aid checklists, manage sanitation tasks, and monitor household readiness metrics in the operating system.
+                    </p>
+                </div>
+                <button
+                    onClick={() => navigate('/homestead')}
+                    className="py-2.5 px-4 bg-terracotta-600 hover:bg-terracotta-700 text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-all self-start sm:self-center shrink-0 min-h-[44px]"
+                >
+                    Open Command Center
+                </button>
+            </div>
 
             {/* Medical Disclaimer */}
             <CalloutBlock type="danger" title="CRITICAL MEDICAL DISCLAIMER">

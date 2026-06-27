@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Droplets, Search, ChevronRight, FileText, Activity, ShieldAlert, Check } from 'lucide-react';
 import { GuideHeroCard, SystemMapCard, ComparisonTable, CalloutBlock } from './index';
 
@@ -6,6 +7,7 @@ import { GuideHeroCard, SystemMapCard, ComparisonTable, CalloutBlock } from './i
 import waterRef from '../../data/visual-guides/water_system_reference.json';
 
 const WaterLanding = ({ handleFileClick, files = [] }) => {
+    const navigate = useNavigate();
     const [searchQuery, setSearchQuery] = useState('');
 
     // Clean file name helper
@@ -47,6 +49,22 @@ const WaterLanding = ({ handleFileClick, files = [] }) => {
                 seasonalContext="Year-Round (Winterize)"
                 safetyLevel="High"
             />
+
+            {/* Planner Integration Callout */}
+            <div className="p-5 bg-sage-800 text-white rounded-[2rem] border border-sage-700 shadow-lg flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div className="space-y-1">
+                    <h4 className="font-serif font-black text-sm text-sand-100 uppercase tracking-wider">Configure Water Plan</h4>
+                    <p className="text-[10px] text-sand-200 leading-relaxed font-sans max-w-md">
+                        Calculate daily drinking volumes, buffer targets, container models, and run rain catchment calculations.
+                    </p>
+                </div>
+                <button
+                    onClick={() => navigate('/homestead/water-plan')}
+                    className="py-2.5 px-4 bg-terracotta-600 hover:bg-terracotta-700 text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-all self-start sm:self-center shrink-0 min-h-[44px]"
+                >
+                    Open Water Planner
+                </button>
+            </div>
 
             {/* Critical Safety Gate Warning */}
             <CalloutBlock type="danger" title="LETHAL RISK DISPATCH">

@@ -45,7 +45,7 @@ const Settings = () => {
             try {
                 const json = JSON.parse(event.target.result);
                 
-                if (window.confirm('WARNING: Importing this backup will overwrite your current settings, favorites, water storage, and observations. This cannot be undone. Do you want to proceed?')) {
+                if (window.confirm('WARNING: Importing this backup will overwrite your current settings, profile, planners, build projects, favorites, water storage, and observations. This cannot be undone. Do you want to proceed?')) {
                     await importAppData(json);
                     alert('Data restored successfully! The app will now reload.');
                     window.location.reload();
@@ -147,7 +147,7 @@ const Settings = () => {
                 <Section title="Data Backup & Recovery">
                     <div className="bg-white rounded-xl border border-sand-100 p-4 space-y-4">
                         <p className="text-xs text-charcoal-500 leading-relaxed">
-                            Backup your local profile, water inventory, favorites, read progress, and wildlife observations. All backup files are stored entirely offline on your device.
+                            Backup your local profile, planners, build projects, field binder settings, water inventory, favorites, read progress, and wildlife observations. All backup files are stored entirely offline on your device.
                         </p>
                         
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">

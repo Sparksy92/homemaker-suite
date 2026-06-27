@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import {
     Droplets, Zap, Thermometer, CloudRain,
     Wind, ShieldAlert, ChevronRight, X,
     MessageSquare, Battery, Activity, Info,
-    Heart, Sprout, ArrowLeft, BarChart3
+    Heart, Sprout, ArrowLeft, BarChart3, Home as HomeIcon
 } from 'lucide-react';
 import { useUser } from '../context/UserContext';
-import { Link } from 'react-router-dom';
 import WeatherWidget from '../components/WeatherWidget';
+import { loadPlan } from '../services/homesteadPlanningService';
 
 const Home = () => {
     const {
@@ -29,6 +29,18 @@ const Home = () => {
     const [isAddingTask, setIsAddingTask] = useState(false);
     const [showReadinessModal, setShowReadinessModal] = useState(false);
     const [showConfig, setShowConfig] = useState(false);
+
+    // Planning States
+    const [activeProjects, setActiveProjects] = useState([]);
+    const [waterPlan, setWaterPlan] = useState(null);
+    const [pantryPlan, setPantryPlan] = useState(null);
+
+    useEffect(() => {
+        const proj = loadPlan('homemaker_build_projects', { projects: [] });
+        setActiveProjects(proj.projects || []);
+        setWaterPlan(loadPlan('homemaker_water_plan'));
+        setPantryPlan(loadPlan('homemaker_pantry_plan'));
+    }, []);
 
     const {
         homeWidgets,
@@ -106,6 +118,77 @@ const Home = () => {
                     </div>
                     <WeatherWidget />
                 </header>
+
+                {/* Today on the Homestead Dashboard */}
+                <section className="bg-sage-800 text-white p-6 rounded-[2.5rem] shadow-xl border border-sage-700 space-y-6">
+                    <div className="flex items-center justify-between border-b border-white/10 pb-3">
+                        <div className="flex items-center gap-2">
+                            <div className="p-2 bg-white/10 rounded-xl"><Activity size={18} className="text-sand-100" /></div>
+                            <h3 className="text-sm font-black uppercase tracking-wider text-sand-100">Today on the Homestead</h3>
+                        </div>
+                        <Link to="/homestead" className="text-xs text-sand-300 hover:text-white underline font-bold">
+                            Open Command Center
+                        </Link>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                        <div className="bg-white/5 border border-white/10 p-4 rounded-2xl space-y-1">
+                            <span className="text-[8px] font-black uppercase text-sand-300 tracking-widest">Water Security</span>
+                            <div className="text-sm font-bold text-white">{waterPlan?.targetDays || 90} Days Potable Buffer</div>
+                            <Link to="/homestead/water-plan" className="text-[10px] text-terracotta-300 hover:underline block pt-1">
+                                Open Water Planner &rarr;
+                            </Link>
+                        </div>
+                        <div className="bg-white/5 border border-white/10 p-4 rounded-2xl space-y-1">
+                            <span className="text-[8px] font-black uppercase text-sand-300 tracking-widest">Pantry Reserves</span>
+                            <div className="text-sm font-bold text-white">{pantryPlan?.householdSize || 2} People • {pantryPlan?.targetDays || 90} Days</div>
+                            <Link to="/homestead/pantry-plan" className="text-[10px] text-terracotta-300 hover:underline block pt-1">
+                                Configure Food Targets &rarr;
+                            </Link>
+                        </div>
+                        {activeProjects.length > 0 ? (
+                            <div className="bg-white/5 border border-white/10 p-4 rounded-2xl space-y-1 sm:col-span-2">
+                                <span className="text-[8px] font-black uppercase text-sand-300 tracking-widest">Active Construction</span>
+                                <div className="text-sm font-bold text-white">{activeProjects[0].title}</div>
+                                <p className="text-[10px] text-sand-200 leading-normal font-sans">
+                                    Next: {activeProjects[0].steps.find(s => !s.completed)?.text || 'Review blueprints'}
+                                </p>
+                                <Link to="/homestead/build-projects" className="text-[10px] text-terracotta-300 hover:underline block pt-1">
+                                    Track Build Milestones &rarr;
+                                </Link>
+                            </div>
+                        ) : (
+                            <div className="bg-white/5 border border-white/10 p-4 rounded-2xl space-y-1 sm:col-span-2">
+                                <span className="text-[8px] font-black uppercase text-sand-300 tracking-widest">Active Project</span>
+                                <div className="text-sm font-bold text-white">No active builds. Setup a project!</div>
+                                <Link to="/homestead/build-projects" className="text-[10px] text-terracotta-300 hover:underline block pt-1">
+                                    Browse Project Blueprints &rarr;
+                                </Link>
+                            </div>
+                        )}
+                    </div>
+
+                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 pt-2 border-t border-white/10">
+                        <Link to="/homestead/garden-plan" className="py-2 px-3 bg-white/10 hover:bg-white/20 text-center font-bold text-[10px] uppercase tracking-wider rounded-xl transition-all">
+                            Plan Garden
+                        </Link>
+                        <Link to="/homestead/pantry-plan" className="py-2 px-3 bg-white/10 hover:bg-white/20 text-center font-bold text-[10px] uppercase tracking-wider rounded-xl transition-all">
+                            Plan Pantry
+                        </Link>
+                        <Link to="/homestead/water-plan" className="py-2 px-3 bg-white/10 hover:bg-white/20 text-center font-bold text-[10px] uppercase tracking-wider rounded-xl transition-all">
+                            Plan Water
+                        </Link>
+                        <Link to="/homestead/energy-plan" className="py-2 px-3 bg-white/10 hover:bg-white/20 text-center font-bold text-[10px] uppercase tracking-wider rounded-xl transition-all">
+                            Plan Energy
+                        </Link>
+                        <Link to="/homestead/build-projects" className="py-2 px-3 bg-white/10 hover:bg-white/20 text-center font-bold text-[10px] uppercase tracking-wider rounded-xl transition-all">
+                            Build Projects
+                        </Link>
+                        <Link to="/field-binder" className="py-2 px-3 bg-terracotta-600 hover:bg-terracotta-700 text-center font-bold text-[10px] uppercase tracking-wider rounded-xl transition-all">
+                            Print OS Binder
+                        </Link>
+                    </div>
+                </section>
 
                 {/* 2. Quick Resumption */}
                 <AnimatePresence>

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Wrench, Search, ChevronRight, FileText, Check, Calendar } from 'lucide-react';
 import { GuideHeroCard, StepGuide, TimelineGuide, CalloutBlock } from './index';
 
@@ -6,10 +7,17 @@ import { GuideHeroCard, StepGuide, TimelineGuide, CalloutBlock } from './index';
 import toolsRef from '../../data/visual-guides/tools_repair_reference.json';
 
 const ToolsRepairLanding = ({ handleFileClick, files = [] }) => {
+    const navigate = useNavigate();
     const [searchQuery, setSearchQuery] = useState('');
 
-    const getDisplayName = (name) => {
-        return name.replace(/^\d+(\.\d+)?\s+/, '').replace('.md', '');
+    const normalizeFileItem = (item, fallbackFolder = null) => {
+        if (typeof item === 'string') return { file: item, folder: fallbackFolder };
+        return item;
+    };
+
+    const getDisplayName = (item) => {
+        const normalized = normalizeFileItem(item);
+        return normalized.file.replace(/^\d+(\.\d+)?\s+/, '').replace('.md', '');
     };
 
     const filteredFiles = files.filter(f => 
@@ -42,6 +50,22 @@ const ToolsRepairLanding = ({ handleFileClick, files = [] }) => {
                 seasonalContext="Year-Round"
                 safetyLevel="Medium"
             />
+
+            {/* Planner Integration Callout */}
+            <div className="p-5 bg-sage-800 text-white rounded-[2rem] border border-sage-700 shadow-lg flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div className="space-y-1">
+                    <h4 className="font-serif font-black text-sm text-sand-100 uppercase tracking-wider">Configure Build Projects</h4>
+                    <p className="text-[10px] text-sand-200 leading-relaxed font-sans max-w-md">
+                        Track tools, materials checklists, and assembly steps for composting bins, rain stands, and handwash stations.
+                    </p>
+                </div>
+                <button
+                    onClick={() => navigate('/homestead/build-projects')}
+                    className="py-2.5 px-4 bg-terracotta-600 hover:bg-terracotta-700 text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-all self-start sm:self-center shrink-0 min-h-[44px]"
+                >
+                    Open Build Projects
+                </button>
+            </div>
 
             {/* Safety Warning */}
             <CalloutBlock type="warning" title="REPAIR SAFETY WARNING">
@@ -111,19 +135,22 @@ const ToolsRepairLanding = ({ handleFileClick, files = [] }) => {
                 </div>
 
                 <div className="grid gap-3">
-                    {filteredFiles.map(file => (
-                        <button
-                            key={file}
-                            onClick={() => handleFileClick(file)}
-                            className="w-full flex items-center justify-between p-4 bg-white rounded-2xl border border-sand-200 shadow-sm hover:border-sage-400 hover:shadow-md transition-all text-left"
-                        >
-                            <div className="flex items-center gap-3">
-                                <div className="p-2 bg-sage-50 rounded-xl text-sage-600"><FileText size={18} /></div>
-                                <span className="text-sm font-bold text-sage-900 leading-tight">{getDisplayName(file)}</span>
-                            </div>
-                            <ChevronRight size={16} className="text-sand-300" />
-                        </button>
-                    ))}
+                    {filteredFiles.map(file => {
+                        const normalized = normalizeFileItem(file);
+                        return (
+                            <button
+                                key={normalized.file}
+                                onClick={() => handleFileClick(normalized.file, normalized.folder)}
+                                className="w-full flex items-center justify-between p-4 bg-white rounded-2xl border border-sand-200 shadow-sm hover:border-sage-400 hover:shadow-md transition-all text-left"
+                            >
+                                <div className="flex items-center gap-3">
+                                    <div className="p-2 bg-sage-50 rounded-xl text-sage-600"><FileText size={18} /></div>
+                                    <span className="text-sm font-bold text-sage-900 leading-tight">{getDisplayName(normalized)}</span>
+                                </div>
+                                <ChevronRight size={16} className="text-sand-300" />
+                            </button>
+                        );
+                    })}
                     {filteredFiles.length === 0 && (
                         <div className="text-center py-6 text-xs text-sand-400">No matching files found.</div>
                     )}

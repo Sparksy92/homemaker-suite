@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Home, Search, ChevronRight, FileText, Compass, Info, Check, Wrench } from 'lucide-react';
 import { GuideHeroCard, InfoGraphicCard, ComparisonTable, StepGuide, BlueprintCard, CalloutBlock } from './index';
 import { SunPathDiagram } from './diagrams';
@@ -7,6 +8,7 @@ import { SunPathDiagram } from './diagrams';
 import shelterRef from '../../data/visual-guides/shelter_build_systems.json';
 
 const ShelterLanding = ({ handleFileClick, files = [] }) => {
+    const navigate = useNavigate();
     const [searchQuery, setSearchQuery] = useState('');
 
     const getDisplayName = (name) => {
@@ -61,6 +63,22 @@ const ShelterLanding = ({ handleFileClick, files = [] }) => {
                 seasonalContext="Spring / Summer Build"
                 safetyLevel="High"
             />
+
+            {/* Planner Integration Callout */}
+            <div className="p-5 bg-sage-800 text-white rounded-[2rem] border border-sage-700 shadow-lg flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div className="space-y-1">
+                    <h4 className="font-serif font-black text-sm text-sand-100 uppercase tracking-wider">Configure Build Projects</h4>
+                    <p className="text-[10px] text-sand-200 leading-relaxed font-sans max-w-md">
+                        Track assembly steps, materials checklists, and tools for woodsheds, root cellars, and greenhouse structures.
+                    </p>
+                </div>
+                <button
+                    onClick={() => navigate('/homestead/build-projects')}
+                    className="py-2.5 px-4 bg-terracotta-600 hover:bg-terracotta-700 text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-all self-start sm:self-center shrink-0 min-h-[44px]"
+                >
+                    Track Build Projects
+                </button>
+            </div>
 
             {/* Safety Disclaimer */}
             <CalloutBlock type="danger" title="CRITICAL STRUCTURAL DISPATCH">

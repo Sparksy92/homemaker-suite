@@ -4,6 +4,7 @@ import Layout from './components/Layout';
 import { UserProvider } from './context/UserContext';
 import { ObservationProvider } from './context/ObservationContext';
 import WelcomePopup from './components/WelcomePopup';
+import OnboardingGate from './components/onboarding/OnboardingGate';
 
 // Lazy load pages for better performance and smaller bundle size
 const Home = lazy(() => import('./pages/Home'));
@@ -17,6 +18,13 @@ const ManualReader = lazy(() => import('./pages/ManualReader'));
 const WizardPage = lazy(() => import('./pages/WizardPage'));
 const Cookbook = lazy(() => import('./pages/Cookbook'));
 const Feedback = lazy(() => import('./pages/Feedback'));
+const HomesteadCommandCenter = lazy(() => import('./pages/HomesteadCommandCenter'));
+const GardenPlannerPage = lazy(() => import('./pages/planners/GardenPlannerPage'));
+const PantryPlannerPage = lazy(() => import('./pages/planners/PantryPlannerPage'));
+const WaterPlannerPage = lazy(() => import('./pages/planners/WaterPlannerPage'));
+const EnergyPlannerPage = lazy(() => import('./pages/planners/EnergyPlannerPage'));
+const BuildProjectsPage = lazy(() => import('./pages/planners/BuildProjectsPage'));
+const FieldBinder = lazy(() => import('./pages/FieldBinder'));
 
 // Loading fallback component
 const PageLoader = () => (
@@ -30,6 +38,7 @@ function App() {
     return (
         <UserProvider>
             <ObservationProvider>
+                <OnboardingGate />
                 <WelcomePopup />
                 <HashRouter>
                     <Suspense fallback={<PageLoader />}>
@@ -46,6 +55,13 @@ function App() {
                                 <Route path="manual/:id" element={<ManualReader />} />
                                 <Route path="wizard/:id" element={<WizardPage />} />
                                 <Route path="cookbook" element={<Cookbook />} />
+                                <Route path="homestead" element={<HomesteadCommandCenter />} />
+                                <Route path="homestead/garden-plan" element={<GardenPlannerPage />} />
+                                <Route path="homestead/pantry-plan" element={<PantryPlannerPage />} />
+                                <Route path="homestead/water-plan" element={<WaterPlannerPage />} />
+                                <Route path="homestead/energy-plan" element={<EnergyPlannerPage />} />
+                                <Route path="homestead/build-projects" element={<BuildProjectsPage />} />
+                                <Route path="field-binder" element={<FieldBinder />} />
                             </Route>
                         </Routes>
                     </Suspense>

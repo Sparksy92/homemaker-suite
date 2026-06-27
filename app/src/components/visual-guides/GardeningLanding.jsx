@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Sprout, Search, ChevronRight, FileText, Calendar, Compass } from 'lucide-react';
 import { GuideHeroCard, PlantProfileCard, ComparisonTable, TimelineGuide, CalloutBlock } from './index';
 
@@ -8,6 +9,7 @@ import companionData from '../../data/visual-guides/gardening_companion_planting
 import calendarData from '../../data/visual-guides/seasonal_garden_calendar.json';
 
 const GardeningLanding = ({ handleFileClick, files = [] }) => {
+    const navigate = useNavigate();
     const crops = Array.isArray(cropData) ? cropData : (cropData.crops || []);
     const [selectedCrop, setSelectedCrop] = useState(crops[0]?.name || '');
     const [searchQuery, setSearchQuery] = useState('');
@@ -57,6 +59,22 @@ const GardeningLanding = ({ handleFileClick, files = [] }) => {
                 seasonalContext="Spring / Fall Planting"
                 safetyLevel="Low"
             />
+
+            {/* Planner Integration Callout */}
+            <div className="p-5 bg-sage-800 text-white rounded-[2rem] border border-sage-700 shadow-lg flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div className="space-y-1">
+                    <h4 className="font-serif font-black text-sm text-sand-100 uppercase tracking-wider">Configure Garden Plan</h4>
+                    <p className="text-[10px] text-sand-200 leading-relaxed font-sans max-w-md">
+                        Map out your specific raised beds, estimate planting capacity, and calculate custom frost dates in the Garden Planner.
+                    </p>
+                </div>
+                <button
+                    onClick={() => navigate('/homestead/garden-plan')}
+                    className="py-2.5 px-4 bg-terracotta-600 hover:bg-terracotta-700 text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-all self-start sm:self-center shrink-0 min-h-[44px]"
+                >
+                    Open Garden Planner
+                </button>
+            </div>
 
             {/* Start Here Pathway */}
             <CalloutBlock type="tip" title="Getting Started Pathway">
