@@ -75,7 +75,7 @@ const ManualReader = () => {
             <div className={`relative bg-sage-900 text-white overflow-hidden shadow-md`}>
                 <div className="absolute inset-0 opacity-10 bg-[url('/patterns/topography.svg')]"></div> {/* Texture placeholder/concept */}
                 <div className="relative z-10 max-w-4xl mx-auto px-6 py-6 md:py-8">
-                    <Link to="/" className="inline-flex items-center gap-2 text-sage-200 hover:text-white mb-3 transition-colors">
+                    <Link to="/library" className="inline-flex items-center gap-2 text-sage-200 hover:text-white mb-3 transition-colors">
                         <ArrowLeft className="w-5 h-5" />
                         <span className="font-bold tracking-wide text-sm uppercase">Back to Library</span>
                     </Link>

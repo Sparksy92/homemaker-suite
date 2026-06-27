@@ -7,6 +7,41 @@ const WeatherWidget = () => {
     const [error, setError] = useState(null);
     const [isEnabled, setIsEnabled] = useState(false);
     const [unit, setUnit] = useState('celsius');
+    const [coords, setCoords] = useState(null);
+
+    const requestWeather = (cachedCoords = coords) => {
+        if (!navigator.geolocation) {
+            setError('Geolocation not supported');
+            return;
+        }
+
+        if (!navigator.onLine) {
+            setError('Offline');
+            return;
+        }
+
+        if (cachedCoords) {
+            fetchWeather(cachedCoords.latitude, cachedCoords.longitude, unit);
+            return;
+        }
+
+        setLoading(true);
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                const newCoords = {
+                    latitude: position.coords.latitude,
+                    longitude: position.coords.longitude
+                };
+                setCoords(newCoords);
+                fetchWeather(newCoords.latitude, newCoords.longitude, unit);
+            },
+            (err) => {
+                console.error("Weather location error:", err);
+                setError('Location denied');
+                setLoading(false);
+            }
+        );
+    };
 
     // Check if user has previously enabled weather
     useEffect(() => {
@@ -23,30 +58,6 @@ const WeatherWidget = () => {
             requestWeather();
         }
     }, [unit]);
-
-    const requestWeather = () => {
-        if (!navigator.geolocation) {
-            setError('Geolocation not supported');
-            return;
-        }
-
-        if (!navigator.onLine) {
-            setError('Offline');
-            return;
-        }
-
-        setLoading(true);
-        navigator.geolocation.getCurrentPosition(
-            (position) => {
-                fetchWeather(position.coords.latitude, position.coords.longitude, unit);
-            },
-            (err) => {
-                console.error("Weather location error:", err);
-                setError('Location denied');
-                setLoading(false);
-            }
-        );
-    };
 
     const handleEnableWeather = () => {
         localStorage.setItem('weather_enabled', 'true');
@@ -115,17 +126,19 @@ const WeatherWidget = () => {
     const { icon: Icon, label, color } = getWeatherIcon(weather.weather_code);
 
     return (
-        <div className="bg-white p-3 rounded-2xl shadow-sm border border-sand-200 flex flex-col items-center w-[100px] relative">
-            <button
-                onClick={() => setUnit(unit === 'fahrenheit' ? 'celsius' : 'fahrenheit')}
-                className="absolute top-1 right-1 text-[8px] font-bold bg-sand-100 text-sage-600 px-1 rounded hover:bg-sand-200 transition-colors"
-                title="Toggle Units"
+        <div
+            onClick={() => setUnit(unit === 'fahrenheit' ? 'celsius' : 'fahrenheit')}
+            className="bg-white p-3 rounded-2xl shadow-sm border border-sand-200 flex flex-col items-center w-[100px] relative cursor-pointer hover:bg-sand-50 active:scale-95 transition-all select-none"
+            title="Tap to toggle units"
+        >
+            <div
+                className="absolute top-1 right-1 text-[8px] font-bold bg-sand-100 text-sage-600 px-1 rounded pointer-events-none"
             >
                 {unit === 'fahrenheit' ? '°F' : '°C'}
-            </button>
-            <Icon className={`${color} mb-1`} size={24} />
-            <span className="text-xl font-bold text-charcoal">{Math.round(weather.temperature_2m)}°</span>
-            <span className="text-xs text-sage-500 whitespace-nowrap">{label}</span>
+            </div>
+            <Icon className={`${color} mb-1 pointer-events-none`} size={24} />
+            <span className="text-xl font-bold text-charcoal pointer-events-none">{Math.round(weather.temperature_2m)}°</span>
+            <span className="text-xs text-sage-500 whitespace-nowrap pointer-events-none">{label}</span>
         </div>
     );
 };

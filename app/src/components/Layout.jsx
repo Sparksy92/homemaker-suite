@@ -1,6 +1,6 @@
 import React from 'react';
 import { Outlet, NavLink, useLocation } from 'react-router-dom';
-import { Home, BookOpen, Wrench, Menu, User, Settings, LogOut, Leaf, Archive, Utensils, MessageSquare } from 'lucide-react';
+import { Home, BookOpen, Wrench, Menu, User, Settings, LogOut, Leaf, Archive, Utensils, MessageSquare, X } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -32,9 +32,9 @@ const Layout = () => {
                                 <h2 className="text-2xl font-serif text-sage-800 font-bold">Menu</h2>
                                 <button
                                     onClick={() => setIsMenuOpen(false)}
-                                    className="p-2 hover:bg-sand-100 rounded-full text-sage-600"
+                                    className="p-3 hover:bg-sand-100 rounded-full text-sage-600 flex items-center justify-center min-w-[44px] min-h-[44px]"
                                 >
-                                    ✕
+                                    <X size={24} />
                                 </button>
                             </div>
 
@@ -76,9 +76,9 @@ const Layout = () => {
                 </div>
                 <button
                     onClick={() => setIsMenuOpen(true)}
-                    className="p-2 hover:bg-sage-600 rounded-full transition-colors"
+                    className="p-3 hover:bg-sage-600 rounded-full transition-colors"
                 >
-                    <Menu size={20} className="text-sand-100" />
+                    <Menu size={24} className="text-sand-100" />
                 </button>
             </header>
 

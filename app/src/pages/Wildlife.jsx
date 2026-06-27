@@ -91,7 +91,7 @@ const Wildlife = () => {
             </div>
 
             {/* Navigation Tabs */}
-            <div className="grid grid-cols-3 sm:flex sm:flex-wrap justify-center gap-2 p-4 border-b border-sand-200 mb-4 bg-white sticky top-0 z-10 shadow-sm">
+            <div className="flex overflow-x-auto gap-2 p-4 border-b border-sand-200 mb-4 bg-white sticky top-0 z-10 shadow-sm no-scrollbar scroll-smooth snap-x snap-mandatory w-full">
                 <TabButton
                     active={activeTab === 'flora'}
                     onClick={() => setActiveTab('flora')}
@@ -132,12 +132,12 @@ const Wildlife = () => {
 
             {/* Sub-Filters for Flora */}
             {activeTab === 'flora' && (
-                <div className="px-6 mb-4 grid grid-cols-3 sm:flex sm:flex-wrap gap-2">
+                <div className="px-6 mb-4 flex overflow-x-auto gap-2 no-scrollbar scroll-smooth w-full snap-x snap-mandatory">
                     {['All', 'Edible', 'Medicinal', 'Poisonous', 'Utility'].map(type => (
                         <button
                             key={type}
                             onClick={() => setFilterType(type)}
-                            className={`px-3 py-1 rounded-full text-xs font-bold whitespace-nowrap transition-colors ${filterType === type
+                            className={`shrink-0 snap-center px-3 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-colors ${filterType === type
                                 ? 'bg-sage-600 text-white'
                                 : 'bg-sand-200 text-sage-700 hover:bg-sand-300'
                                 }`}
@@ -369,9 +369,9 @@ const Wildlife = () => {
                             {/* Close Button */}
                             <button
                                 onClick={() => setSelectedItem(null)}
-                                className="absolute top-4 right-4 z-10 bg-black/50 text-white p-2 rounded-full hover:bg-black/70 backdrop-blur-md transition-colors"
+                                className="absolute top-4 right-4 z-10 bg-black/50 text-white p-3.5 rounded-full hover:bg-black/70 backdrop-blur-md transition-colors animate-fade-in"
                             >
-                                <X size={20} />
+                                <X size={24} />
                             </button>
 
                             {/* Full Header Carousel */}
@@ -565,7 +565,7 @@ const Wildlife = () => {
 const TabButton = ({ active, onClick, icon, label }) => (
     <button
         onClick={onClick}
-        className={`flex items-center gap-2 px-4 py-2 rounded-full whitespace-nowrap transition-all ${active
+        className={`shrink-0 snap-center flex items-center gap-2 px-4 py-2 rounded-full whitespace-nowrap transition-all ${active
             ? 'bg-sage-600 text-white shadow-md'
             : 'bg-white text-sage-700 border border-sand-200 hover:bg-sand-50'
             }`}

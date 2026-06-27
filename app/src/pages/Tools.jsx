@@ -57,7 +57,7 @@ const Tools = () => {
             <h1 className="text-3xl mb-6 font-serif text-sage-900">Toolkit</h1>
 
             {/* Tabs */}
-            <div className="flex flex-wrap gap-2 mb-6">
+            <div className="flex overflow-x-auto gap-2 mb-6 pb-2 no-scrollbar scroll-smooth snap-x snap-mandatory shrink-0 w-full">
                 <TabButton
                     active={activeTab === 'wizard'}
                     onClick={() => setActiveTab('wizard')}
@@ -145,7 +145,7 @@ const Tools = () => {
 const TabButton = ({ active, onClick, icon, label }) => (
     <button
         onClick={onClick}
-        className={`flex-grow flex items-center justify-center gap-2 px-4 py-2 rounded-full whitespace-nowrap transition-all ${active
+        className={`flex-grow shrink-0 snap-center flex items-center justify-center gap-2 px-4 py-2 rounded-full whitespace-nowrap transition-all ${active
             ? 'bg-sage-600 text-white shadow-lg'
             : 'bg-white text-sage-700 border border-sage-200 hover:bg-sage-50'
             }`}

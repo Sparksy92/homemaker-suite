@@ -1,6 +1,6 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Camera, X, Check, Loader2, MapPin, Tag } from 'lucide-react';
+import { Camera, X, Check, Loader2, MapPin, Tag, RefreshCw, Trash2 } from 'lucide-react';
 import { useObservations } from '../context/ObservationContext';
 
 const CameraCapture = ({ onClose, initialSpeciesId = null, speciesName = '' }) => {
@@ -8,7 +8,45 @@ const CameraCapture = ({ onClose, initialSpeciesId = null, speciesName = '' }) =
     const [imagePreview, setImagePreview] = useState(null);
     const [notes, setNotes] = useState('');
     const [isSaving, setIsSaving] = useState(false);
+    const [gpsStatus, setGpsStatus] = useState('idle'); // idle, acquiring, success, denied, unavailable, timeout, error
+    const [coords, setCoords] = useState({ latitude: null, longitude: null, accuracy: null });
     const fileInputRef = useRef(null);
+
+    const acquireGps = () => {
+        if (!navigator.geolocation) {
+            setGpsStatus('unavailable');
+            return;
+        }
+
+        setGpsStatus('acquiring');
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                setCoords({
+                    latitude: position.coords.latitude,
+                    longitude: position.coords.longitude,
+                    accuracy: position.coords.accuracy
+                });
+                setGpsStatus('success');
+            },
+            (error) => {
+                console.error("GPS Acquisition Error:", error);
+                if (error.code === error.PERMISSION_DENIED) {
+                    setGpsStatus('denied');
+                } else if (error.code === error.POSITION_UNAVAILABLE) {
+                    setGpsStatus('unavailable');
+                } else if (error.code === error.TIMEOUT) {
+                    setGpsStatus('timeout');
+                } else {
+                    setGpsStatus('error');
+                }
+            },
+            { enableHighAccuracy: true, timeout: 10000, maximumAge: 60000 }
+        );
+    };
+
+    useEffect(() => {
+        acquireGps();
+    }, []);
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
@@ -26,13 +64,21 @@ const CameraCapture = ({ onClose, initialSpeciesId = null, speciesName = '' }) =
 
         setIsSaving(true);
         try {
-            await addObservation({
+            const observationData = {
                 image: imagePreview,
                 notes,
                 speciesId: initialSpeciesId,
                 speciesName: speciesName || 'Unknown Species',
-                location: 'Local Observation' // Placeholder for GPS
-            });
+                location: gpsStatus === 'success' && coords.latitude !== null
+                    ? `${coords.latitude.toFixed(6)}, ${coords.longitude.toFixed(6)}`
+                    : 'Local Sighting'
+            };
+
+            if (gpsStatus === 'success' && coords.accuracy !== null) {
+                observationData.locationAccuracyMeters = coords.accuracy;
+            }
+
+            await addObservation(observationData);
             onClose();
         } catch (error) {
             console.error('Failed to save observation:', error);
@@ -110,9 +156,73 @@ const CameraCapture = ({ onClose, initialSpeciesId = null, speciesName = '' }) =
                             />
                         </div>
 
-                        <div className="flex items-center gap-2 text-xs text-sage-400 pl-1">
-                            <MapPin size={14} />
-                            <span>GPS Location stored locally (if enabled)</span>
+                        <div className="flex flex-col gap-2 bg-sand-50 p-4 rounded-xl border border-sand-200">
+                            <div className="flex items-center justify-between">
+                                <div className="flex items-center gap-2 text-xs font-bold text-sage-600 uppercase tracking-widest">
+                                    <MapPin size={14} className={gpsStatus === 'success' ? 'text-sage-700 animate-pulse' : 'text-sand-400'} />
+                                    <span>Sighting Location</span>
+                                </div>
+                                <span className="text-[10px] text-sage-400 font-medium italic">Private (stored locally only)</span>
+                            </div>
+
+                            <div className="flex items-center justify-between text-sm text-charcoal">
+                                <div className="flex items-center gap-2">
+                                    {gpsStatus === 'acquiring' && (
+                                        <div className="flex items-center gap-2 text-sage-50 font-semibold">
+                                            <Loader2 size={14} className="animate-spin text-sage-600" />
+                                            <span>Acquiring GPS location...</span>
+                                        </div>
+                                    )}
+                                    {gpsStatus === 'success' && (
+                                        <div className="flex flex-col">
+                                            <span className="font-mono font-bold text-sage-900">
+                                                {coords.latitude.toFixed(6)}, {coords.longitude.toFixed(6)}
+                                            </span>
+                                            {coords.accuracy !== null && (
+                                                <span className="text-[10px] text-sage-500">
+                                                    Accuracy: ±{Math.round(coords.accuracy)}m
+                                                </span>
+                                            )}
+                                        </div>
+                                    )}
+                                    {gpsStatus === 'denied' && (
+                                        <span className="text-terracotta-600 font-medium">GPS permission denied</span>
+                                    )}
+                                    {gpsStatus === 'unavailable' && (
+                                        <span className="text-sand-500 font-medium">GPS unavailable</span>
+                                    )}
+                                    {gpsStatus === 'timeout' && (
+                                        <span className="text-sand-500 font-medium">GPS timed out</span>
+                                    )}
+                                    {(gpsStatus === 'error' || (gpsStatus === 'idle' && coords.latitude === null)) && (
+                                        <span className="text-sand-400">No coordinates captured</span>
+                                    )}
+                                </div>
+
+                                <div className="flex items-center gap-2">
+                                    {['denied', 'unavailable', 'timeout', 'error', 'idle'].includes(gpsStatus) && (
+                                        <button
+                                            type="button"
+                                            onClick={acquireGps}
+                                            className="px-3 py-1.5 bg-white border border-sand-300 text-sage-700 rounded-lg text-xs font-bold shadow-sm hover:bg-sand-50 transition-colors flex items-center gap-1"
+                                        >
+                                            <RefreshCw size={12} /> Retry
+                                        </button>
+                                    )}
+                                    {gpsStatus === 'success' && (
+                                        <button
+                                            type="button"
+                                            onClick={() => {
+                                                setCoords({ latitude: null, longitude: null, accuracy: null });
+                                                setGpsStatus('idle');
+                                            }}
+                                            className="px-3 py-1.5 bg-red-50 border border-red-100 text-red-600 rounded-lg text-xs font-bold shadow-sm hover:bg-red-100 transition-colors flex items-center gap-1"
+                                        >
+                                            <Trash2 size={12} /> Clear
+                                        </button>
+                                    )}
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
