@@ -99,6 +99,10 @@ export const loadPlan = (key, fallback) => {
             return def;
         }
         const parsed = JSON.parse(data);
+        // If tombstoned as deleted, return default schema so UI handles it as new/empty
+        if (parsed && parsed.deletedAt) {
+            return DEFAULT_SCHEMAS[key] ? DEFAULT_SCHEMAS[key]() : (fallback || {});
+        }
         // Ensure standard fields like schemaVersion exist
         if (parsed && typeof parsed === 'object') {
             return {
@@ -139,13 +143,14 @@ export const updatePlan = (key, updater) => {
 
 export const resetPlan = (key) => {
     try {
-        if (DEFAULT_SCHEMAS[key]) {
-            const def = DEFAULT_SCHEMAS[key]();
-            savePlan(key, def);
-            return def;
-        }
-        localStorage.removeItem(key);
-        return null;
+        const tombstone = {
+            deletedAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString(),
+            schemaVersion: 1
+        };
+        localStorage.setItem(key, JSON.stringify(tombstone));
+        triggerSyncPush(key);
+        return DEFAULT_SCHEMAS[key] ? DEFAULT_SCHEMAS[key]() : null;
     } catch (e) {
         console.error(`Error resetting plan for key ${key}:`, e);
         return null;

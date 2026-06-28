@@ -82,6 +82,9 @@ export const triggerSyncPush = (key) => {
 };
 
 // Push all queued items
+
+
+// Push all queued items
 export const pushQueue = async () => {
     if (!isSyncEnabled()) return;
     const queue = getSyncQueue();
@@ -109,6 +112,7 @@ export const pushQueue = async () => {
                     plan_data: parsed,
                     updated_at: parsed.updatedAt || new Date().toISOString(),
                     sync_updated_at: new Date().toISOString(),
+                    deleted_at: parsed.deletedAt || null,
                     schema_version: parsed.schemaVersion || 1
                 }, { onConflict: 'user_id,module_key' });
 
@@ -144,7 +148,7 @@ export const pullNow = async () => {
 
         const { data, error } = await supabase
             .from('homestead_plans')
-            .select('module_key, plan_data, updated_at')
+            .select('module_key, plan_data, updated_at, deleted_at')
             .eq('user_id', user.id);
 
         if (error) throw error;
@@ -172,7 +176,11 @@ export const pullNow = async () => {
             }
 
             if (shouldOverwrite) {
-                localStorage.setItem(row.module_key, JSON.stringify(row.plan_data));
+                const mergedData = row.plan_data || {};
+                if (row.deleted_at) {
+                    mergedData.deletedAt = row.deleted_at;
+                }
+                localStorage.setItem(row.module_key, JSON.stringify(mergedData));
                 mergedCount++;
             }
         });
