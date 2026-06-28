@@ -16,16 +16,23 @@ ON CONFLICT (id) DO NOTHING;
 -- -------------------------------------------------------------
 -- Test Case 1: User A Session Read/Write own data
 -- -------------------------------------------------------------
+-- Enforce authenticated role for RLS policy checks
+SET LOCAL ROLE authenticated;
 SELECT set_config('request.jwt.claims', '{"sub": "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa"}', true);
-SELECT set_config('role', 'authenticated', true);
 
--- User A inserts their own profile
+-- User A inserts/updates their own profile
+-- Using ON CONFLICT DO UPDATE to support handle_new_user() triggers
 INSERT INTO public.profiles (id, display_name, sync_enabled)
-VALUES ('aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', 'User A Display', true);
+VALUES ('aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', 'User A Display', true)
+ON CONFLICT (id) DO UPDATE SET 
+  display_name = EXCLUDED.display_name, 
+  sync_enabled = EXCLUDED.sync_enabled;
 
--- User A inserts their own plan
+-- User A inserts/updates their own plan
 INSERT INTO public.homestead_plans (user_id, module_key, plan_data)
-VALUES ('aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', 'homemaker_garden_plan', '{"beds": []}'::jsonb);
+VALUES ('aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', 'homemaker_garden_plan', '{"beds": []}'::jsonb)
+ON CONFLICT (user_id, module_key) DO UPDATE SET
+  plan_data = EXCLUDED.plan_data;
 
 -- Verify User A can SELECT their own profile and plan
 DO $$
@@ -42,7 +49,8 @@ END $$;
 -- -------------------------------------------------------------
 -- Test Case 2: User B Session attempting to access User A's data
 -- -------------------------------------------------------------
--- Switch to User B Session (Authenticated role remains active)
+-- Switch to User B Session (Enforcing authenticated role for RLS check)
+SET LOCAL ROLE authenticated;
 SELECT set_config('request.jwt.claims', '{"sub": "bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb"}', true);
 
 -- Verify User B CANNOT select User A's profile or plan
@@ -83,6 +91,9 @@ END $$;
 -- -------------------------------------------------------------
 -- Test Case 3: Verify Profile does not store credentials
 -- -------------------------------------------------------------
+-- Reset role to superuser temporarily to query schema tables
+RESET ROLE;
+
 DO $$
 BEGIN
   IF EXISTS (
