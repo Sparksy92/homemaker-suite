@@ -10,6 +10,8 @@ import {
 import { useUser } from '../context/UserContext';
 import WeatherWidget from '../components/WeatherWidget';
 import { loadPlan } from '../services/homesteadPlanningService';
+import BackupReminder from '../components/BackupReminder';
+import PwaInstallPrompt from '../components/PwaInstallPrompt';
 
 const Home = () => {
     const {
@@ -118,6 +120,9 @@ const Home = () => {
                     </div>
                     <WeatherWidget />
                 </header>
+
+                <BackupReminder />
+                <PwaInstallPrompt inline={true} />
 
                 {/* Today on the Homestead Dashboard */}
                 <section className="bg-sage-800 text-white p-6 rounded-[2.5rem] shadow-xl border border-sage-700 space-y-6">

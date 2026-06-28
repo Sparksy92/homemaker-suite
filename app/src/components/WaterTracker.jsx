@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Plus, Trash2, Edit3, AlertTriangle, Droplets, CheckCircle, XCircle, Info, Calendar, Save, X, ArrowRight, Heart } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 
 // TODO: Migrate data persistence from localStorage to IndexedDB for larger datasets and P2P sync readiness.
 const WATER_STORAGE_KEY = 'homemaker_water_inventory';

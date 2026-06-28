@@ -10,6 +10,7 @@ import {
 } from '../../planners/gardenPlanner';
 import cropProfiles from '../../data/visual-guides/gardening_crop_profiles.json';
 import RaisedBedLayoutDiagram from '../../components/visual-guides/diagrams/RaisedBedLayoutDiagram';
+import PlannerConfidenceIndicator from '../../components/PlannerConfidenceIndicator';
 import { Home, ArrowLeft, Plus, Trash2, Calendar, ShieldCheck, RefreshCw } from 'lucide-react';
 
 const GardenPlannerPage = () => {
@@ -191,6 +192,8 @@ const GardenPlannerPage = () => {
                     </button>
                 </div>
             </div>
+
+            <PlannerConfidenceIndicator lastSaved={plan.updatedAt} />
 
             {message && (
                 <div className="p-4 bg-emerald-50 text-emerald-800 border border-emerald-200 rounded-2xl font-semibold text-xs animate-pulse">

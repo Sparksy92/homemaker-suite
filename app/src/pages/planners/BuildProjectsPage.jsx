@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useUser } from '../../context/UserContext';
 import { loadPlan, savePlan, resetPlan, updatePlan } from '../../services/homesteadPlanningService';
 import { PROJECT_TEMPLATES, createProjectFromTemplate, calculateProjectProgress } from '../../planners/projectPlanner';
+import PlannerConfidenceIndicator from '../../components/PlannerConfidenceIndicator';
 import { Wrench, ArrowLeft, Plus, Trash2, CheckCircle, Clock, Shield, AlertTriangle } from 'lucide-react';
 
 const BuildProjectsPage = () => {
@@ -176,6 +177,8 @@ const BuildProjectsPage = () => {
                     </button>
                 </div>
             </div>
+
+            <PlannerConfidenceIndicator lastSaved={projectsPlan.updatedAt} />
 
             {message && (
                 <div className="p-4 bg-emerald-50 text-emerald-800 border border-emerald-200 rounded-2xl font-semibold text-xs animate-pulse">

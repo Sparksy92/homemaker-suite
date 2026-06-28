@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { useUser } from '../context/UserContext';
 import { useToast } from '../context/ToastContext';
 import ConflictResolverModal from '../components/ConflictResolverModal';
+import PwaInstallPrompt from '../components/PwaInstallPrompt';
 import { exportAppData, importAppData } from '../services/appDataService';
 import HomesteadOnboarding from '../components/onboarding/HomesteadOnboarding';
 import { isSupabaseConfigured } from '../utils/supabaseClient';
@@ -162,9 +163,13 @@ const Settings = () => {
             link.click();
             document.body.removeChild(link);
             URL.revokeObjectURL(url);
+
+            // Record export timestamp
+            localStorage.setItem('homemaker_last_export_at', new Date().toISOString());
+            showToast('Backup file exported successfully!', 'success');
         } catch (err) {
             console.error('Export failed:', err);
-            alert('Failed to export backup file.');
+            showToast('Failed to export backup file.', 'error');
         }
     };
 
@@ -452,6 +457,10 @@ const Settings = () => {
                         </div>
                     </Section>
                 )}
+
+                <div className="mt-4">
+                    <PwaInstallPrompt inline={true} />
+                </div>
 
                 {/* App Info */}
                 <Section title="About">

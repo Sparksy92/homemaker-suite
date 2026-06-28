@@ -14,38 +14,38 @@ const MarkdownRenderer = ({ content }) => {
                 components={{
                     // Headings
                     h1: ({ node, ...props }) => (
-                        <h1 className="mt-6 mb-4 text-2xl sm:text-3xl md:text-4xl font-serif font-bold text-sage-800 border-b-2 border-sand-200 pb-2 leading-tight" {...props} />
+                        <h1 className="mt-6 mb-4 text-xl sm:text-2xl md:text-3xl font-sans font-bold text-slate-900 border-b border-sand-300 pb-2 leading-tight tracking-tight" {...props} />
                     ),
                     h2: ({ node, ...props }) => (
-                        <h2 className="mt-6 mb-3 text-xl sm:text-2xl md:text-3xl font-serif font-bold text-sage-700 leading-tight" {...props} />
+                        <h2 className="mt-6 mb-3 text-lg sm:text-xl md:text-2xl font-sans font-bold text-slate-900 leading-tight tracking-tight" {...props} />
                     ),
                     h3: ({ node, ...props }) => (
-                        <h3 className="mt-5 mb-2.5 text-lg sm:text-xl md:text-2xl font-serif font-semibold text-sage-600 leading-snug" {...props} />
+                        <h3 className="mt-5 mb-2.5 text-base sm:text-lg md:text-xl font-sans font-semibold text-slate-900 leading-snug tracking-tight" {...props} />
                     ),
                     h4: ({ node, ...props }) => (
-                        <h4 className="mt-4 mb-2 text-base sm:text-lg md:text-xl font-serif font-medium text-sage-600 leading-snug" {...props} />
+                        <h4 className="mt-4 mb-2 text-sm sm:text-base md:text-lg font-sans font-medium text-slate-700 leading-snug" {...props} />
                     ),
-
+ 
                     // Paragraphs and Text
                     p: ({ node, ...props }) => (
-                        <p className="mb-3.5 text-charcoal leading-relaxed font-sans text-sm sm:text-base md:text-lg" {...props} />
+                        <p className="mb-4 text-charcoal leading-relaxed font-sans text-base sm:text-[17px] md:text-lg" {...props} />
                     ),
                     strong: ({ node, ...props }) => (
-                        <strong className="font-bold text-sage-900" {...props} />
+                        <strong className="font-bold text-slate-950" {...props} />
                     ),
                     em: ({ node, ...props }) => (
-                        <em className="text-charcoal-light font-serif italic" {...props} />
+                        <em className="text-charcoal leading-relaxed italic" {...props} />
                     ),
-
+ 
                     // Lists
                     ul: ({ node, ...props }) => (
                         <ul className="mb-4 ml-4 sm:ml-6 list-disc marker:text-sage-500 space-y-1.5" {...props} />
                     ),
                     ol: ({ node, ...props }) => (
-                        <ol className="mb-4 ml-4 sm:ml-6 list-decimal marker:text-sage-600 marker:font-bold space-y-1.5" {...props} />
+                        <ol className="mb-4 ml-4 sm:ml-6 list-decimal marker:text-charcoal marker:font-bold space-y-1.5" {...props} />
                     ),
                     li: ({ node, ...props }) => (
-                        <li className="pl-1 text-charcoal leading-relaxed text-sm sm:text-base md:text-lg" {...props} />
+                        <li className="pl-1 text-charcoal leading-relaxed text-base sm:text-[17px] md:text-lg" {...props} />
                     ),
 
                     // Blockquotes & Alerts
@@ -117,7 +117,7 @@ const MarkdownRenderer = ({ content }) => {
                             );
                         }
 
-                        return <blockquote className="my-4 pl-4 pr-3 py-3 sm:pl-6 sm:pr-4 sm:py-4 bg-sand-100 border-l-4 border-terracotta-400 rounded-r-lg italic text-charcoal-light shadow-sm text-xs sm:text-sm md:text-base" {...props} />;
+                        return <blockquote className="my-4 pl-4 pr-3 py-3 sm:pl-6 sm:pr-4 sm:py-4 bg-sand-100 border-l-4 border-terracotta-400 rounded-r-lg italic text-charcoal shadow-sm text-xs sm:text-sm md:text-base" {...props}>{children}</blockquote>;
                     },
 
                     // Code
@@ -137,12 +137,12 @@ const MarkdownRenderer = ({ content }) => {
 
                     // Tables
                     table: ({ node, ...props }) => (
-                        <div className="overflow-x-auto my-6 rounded-lg shadow-sm border border-sand-300 w-full no-scrollbar">
+                        <div className="overflow-x-auto my-6 rounded-lg shadow-sm border border-sand-300 w-full">
                             <table className="w-full text-left border-collapse min-w-[500px] sm:min-w-full" {...props} />
                         </div>
                     ),
                     thead: ({ node, ...props }) => (
-                        <thead className="bg-sage-100 text-sage-800" {...props} />
+                        <thead className="bg-sand-300 text-slate-900" {...props} />
                     ),
                     tbody: ({ node, ...props }) => (
                         <tbody className="bg-white divide-y divide-sand-200" {...props} />
@@ -151,7 +151,7 @@ const MarkdownRenderer = ({ content }) => {
                         <tr className="hover:bg-sand-50 transition-colors" {...props} />
                     ),
                     th: ({ node, ...props }) => (
-                        <th className="px-3 py-2 sm:px-6 sm:py-3 font-serif font-bold text-xs sm:text-sm uppercase tracking-wider" {...props} />
+                        <th className="px-3 py-2 sm:px-6 sm:py-3 font-sans font-bold text-xs sm:text-sm uppercase tracking-wider text-slate-900" {...props} />
                     ),
                     td: ({ node, ...props }) => (
                         <td className="px-3 py-2.5 sm:px-6 sm:py-4 whitespace-normal text-charcoal text-xs sm:text-sm" {...props} />
@@ -183,7 +183,7 @@ const MarkdownRenderer = ({ content }) => {
                                     </div>
                                 </div>
                             </div>
-                            {title && <p className="text-center text-xs sm:text-sm text-charcoal-light mt-2.5 italic font-serif">{title}</p>}
+                            {title && <p className="text-center text-xs sm:text-sm text-charcoal mt-2.5 italic font-sans">{title}</p>}
                         </div>
                     )
                 }}
@@ -222,7 +222,7 @@ const MarkdownRenderer = ({ content }) => {
                                 animate={{ y: 0, opacity: 1 }}
                                 className="mt-6 bg-white/10 backdrop-blur-md px-6 py-3 rounded-2xl border border-white/20 text-white text-center max-w-2xl"
                             >
-                                <p className="font-serif italic">{selectedImage.title}</p>
+                                <p className="font-sans italic">{selectedImage.title}</p>
                             </motion.div>
                         )}
                     </motion.div>

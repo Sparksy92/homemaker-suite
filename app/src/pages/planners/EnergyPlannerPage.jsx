@@ -10,6 +10,7 @@ import {
     generateEnergySafetyChecklist
 } from '../../planners/energyPlanner';
 import SimpleSolarSystemDiagram from '../../components/visual-guides/diagrams/SimpleSolarSystemDiagram';
+import PlannerConfidenceIndicator from '../../components/PlannerConfidenceIndicator';
 import { Zap, ArrowLeft, RefreshCw, AlertTriangle, ShieldAlert, Plus, Trash2, ShieldCheck } from 'lucide-react';
 
 const EnergyPlannerPage = () => {
@@ -160,6 +161,8 @@ const EnergyPlannerPage = () => {
                     </button>
                 </div>
             </div>
+
+            <PlannerConfidenceIndicator lastSaved={plan.updatedAt} />
 
             {message && (
                 <div className="p-4 bg-emerald-50 text-emerald-800 border border-emerald-200 rounded-2xl font-semibold text-xs animate-pulse">

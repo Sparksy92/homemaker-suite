@@ -10,6 +10,7 @@ import {
     generateWaterMaintenanceTasks
 } from '../../planners/waterPlanner';
 import RainCatchmentDiagram from '../../components/visual-guides/diagrams/RainCatchmentDiagram';
+import PlannerConfidenceIndicator from '../../components/PlannerConfidenceIndicator';
 import { Droplets, ArrowLeft, RefreshCw, AlertTriangle, ShieldCheck, CheckSquare } from 'lucide-react';
 
 const WaterPlannerPage = () => {
@@ -163,6 +164,8 @@ const WaterPlannerPage = () => {
                     </button>
                 </div>
             </div>
+
+            <PlannerConfidenceIndicator lastSaved={plan.updatedAt} />
 
             {message && (
                 <div className="p-4 bg-emerald-50 text-emerald-800 border border-emerald-200 rounded-2xl font-semibold text-xs animate-pulse">

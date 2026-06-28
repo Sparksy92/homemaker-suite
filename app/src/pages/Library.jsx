@@ -245,7 +245,7 @@ const Library = ({ type = 'all' }) => {
             for (let i = 0; i < allItems.length; i += BATCH_SIZE) {
                 const batch = allItems.slice(i, i + BATCH_SIZE);
                 await Promise.all(batch.map(async (item) => {
-                    const url = `/content/${item.folder}/${item.file}`;
+                    const url = `/content/${encodeURIComponent(item.folder)}/${encodeURIComponent(item.file)}`;
                     const match = await cache.match(url);
                     if (!match) {
                         try {
@@ -276,7 +276,7 @@ const Library = ({ type = 'all' }) => {
         }
 
         try {
-            const url = `/content/${folder}/${fileName}`;
+            const url = `/content/${encodeURIComponent(folder)}/${encodeURIComponent(fileName)}`;
             let contentState = { name: fileName, text: '', url: url };
 
             const isBinary = fileName.endsWith('.pdf') || fileName.endsWith('.mp4') || fileName.endsWith('.html');
