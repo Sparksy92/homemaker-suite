@@ -299,6 +299,7 @@ export const UserProvider = ({ children }) => {
             const { disableCloudBackup } = await import('../services/homesteadSyncService');
             await disableCloudBackup();
             await clearAllAppData();
+            sessionStorage.setItem('homemaker_post_reload_toast', 'local_only_restored');
         } catch (e) {
             console.error("Failed to clear app data:", e);
         } finally {

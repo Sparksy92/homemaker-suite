@@ -37,7 +37,7 @@ export const getSyncConfig = () => {
 };
 
 // Write config
-const saveSyncConfig = (config) => {
+export const saveSyncConfig = (config) => {
     localStorage.setItem(SYNC_CONFIG_KEY, JSON.stringify(config));
 };
 
@@ -136,7 +136,8 @@ export const pushQueue = async () => {
 };
 
 // Pull all remote data
-export const pullNow = async () => {
+// Pull all remote data with conflict detection
+export const pullNow = async (force = false) => {
     if (!isSyncEnabled()) return { status: 'error', message: 'Sync not enabled' };
 
     const config = getSyncConfig();
@@ -153,9 +154,61 @@ export const pullNow = async () => {
 
         if (error) throw error;
 
-        let mergedCount = 0;
+        const queue = getSyncQueue();
+        const conflicts = [];
+        const nonConflictingRows = [];
 
         (data || []).forEach(row => {
+            const localRaw = localStorage.getItem(row.module_key);
+            if (!localRaw) {
+                nonConflictingRows.push(row);
+                return;
+            }
+
+            let localData;
+            try {
+                localData = JSON.parse(localRaw);
+            } catch {
+                nonConflictingRows.push(row);
+                return;
+            }
+
+            const localIsDirty = queue.includes(row.module_key);
+            const remoteTime = new Date(row.updated_at).getTime();
+            const localTime = new Date(localData.updatedAt || 0).getTime();
+            const timestampsDiffer = Math.abs(remoteTime - localTime) > 1000; // 1s tolerance
+
+            const remoteIsDeleted = !!row.deleted_at;
+            const localIsDeleted = !!localData.deletedAt;
+            const tombstoneConflict = (remoteIsDeleted && !localIsDeleted) || (!remoteIsDeleted && localIsDeleted);
+
+            // Flag conflict if dirty locally AND (timestamps differ OR tombstone status differs)
+            if (!force && localIsDirty && (timestampsDiffer || tombstoneConflict)) {
+                conflicts.push({
+                    key: row.module_key,
+                    localData,
+                    remoteData: {
+                        ...row.plan_data,
+                        updatedAt: row.updated_at,
+                        deletedAt: row.deleted_at || undefined
+                    }
+                });
+            } else {
+                nonConflictingRows.push(row);
+            }
+        });
+
+        if (conflicts.length > 0) {
+            saveSyncConfig({
+                ...config,
+                syncStatus: 'conflict'
+            });
+            return { status: 'conflict', conflicts };
+        }
+
+        // Apply non-conflicting updates
+        let mergedCount = 0;
+        nonConflictingRows.forEach(row => {
             const localRaw = localStorage.getItem(row.module_key);
             let shouldOverwrite = false;
 
@@ -166,7 +219,6 @@ export const pullNow = async () => {
                     const localData = JSON.parse(localRaw);
                     const localTime = new Date(localData.updatedAt || 0).getTime();
                     const remoteTime = new Date(row.updated_at).getTime();
-
                     if (remoteTime > localTime) {
                         shouldOverwrite = true;
                     }
@@ -179,6 +231,7 @@ export const pullNow = async () => {
                 const mergedData = row.plan_data || {};
                 if (row.deleted_at) {
                     mergedData.deletedAt = row.deleted_at;
+                    mergedData.updatedAt = row.updated_at;
                 }
                 localStorage.setItem(row.module_key, JSON.stringify(mergedData));
                 mergedCount++;
@@ -198,6 +251,85 @@ export const pullNow = async () => {
         return { status: 'error', message: err.message };
     }
 };
+
+// Resolve conflict for a single key
+export const resolveConflict = async (key, resolution) => {
+    if (!isSyncEnabled()) return { status: 'error', message: 'Sync not enabled' };
+
+    try {
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) throw new Error('Not authenticated');
+
+        const localRaw = localStorage.getItem(key);
+        if (!localRaw) throw new Error('Local data missing');
+        const localData = JSON.parse(localRaw);
+
+        // Fetch remote data
+        const { data: remoteRows, error: fetchErr } = await supabase
+            .from('homestead_plans')
+            .select('plan_data, updated_at, deleted_at')
+            .eq('user_id', user.id)
+            .eq('module_key', key);
+
+        if (fetchErr) throw fetchErr;
+        const remoteRow = remoteRows?.[0];
+        if (!remoteRow) throw new Error('Remote data missing');
+
+        let winner = 'local'; // default
+
+        if (resolution === 'use_remote') {
+            winner = 'remote';
+        } else if (resolution === 'latest_timestamp') {
+            const localTime = new Date(localData.updatedAt || 0).getTime();
+            const remoteTime = new Date(remoteRow.updated_at).getTime();
+            if (remoteTime > localTime) {
+                winner = 'remote';
+            }
+        }
+
+        if (winner === 'remote') {
+            // Apply remote locally
+            const mergedData = remoteRow.plan_data || {};
+            if (remoteRow.deleted_at) {
+                mergedData.deletedAt = remoteRow.deleted_at;
+                mergedData.updatedAt = remoteRow.updated_at;
+            }
+            localStorage.setItem(key, JSON.stringify(mergedData));
+        } else {
+            // Push local to remote
+            const { error: upsertErr } = await supabase
+                .from('homestead_plans')
+                .upsert({
+                    user_id: user.id,
+                    module_key: key,
+                    plan_data: localData,
+                    updated_at: localData.updatedAt || new Date().toISOString(),
+                    sync_updated_at: new Date().toISOString(),
+                    deleted_at: localData.deletedAt || null,
+                    schema_version: localData.schemaVersion || 1
+                }, { onConflict: 'user_id,module_key' });
+
+            if (upsertErr) throw upsertErr;
+        }
+
+        // Remove from local sync queue
+        const queue = getSyncQueue().filter(k => k !== key);
+        localStorage.setItem(SYNC_QUEUE_KEY, JSON.stringify(queue));
+
+        // Restore sync status to idle if queue is clear
+        const config = getSyncConfig();
+        saveSyncConfig({
+            ...config,
+            syncStatus: queue.length === 0 ? 'idle' : 'syncing'
+        });
+
+        return { status: 'success' };
+    } catch (err) {
+        console.error('Resolve conflict error:', err.message);
+        return { status: 'error', message: err.message };
+    }
+};
+
 
 // Enable cloud backup (opt-in trigger)
 export const enableCloudBackup = async (method, email = '', password = '') => {

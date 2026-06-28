@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Bell, Lock, User, Palette, Globe, Moon, Download, Upload, Home, Cloud, RefreshCw } from 'lucide-react';
+import { ArrowLeft, Bell, Lock, User, Palette, Globe, Moon, Download, Upload, Home, Cloud, RefreshCw, AlertCircle } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 import { useUser } from '../context/UserContext';
+import { useToast } from '../context/ToastContext';
+import ConflictResolverModal from '../components/ConflictResolverModal';
 import { exportAppData, importAppData } from '../services/appDataService';
 import HomesteadOnboarding from '../components/onboarding/HomesteadOnboarding';
 import { isSupabaseConfigured } from '../utils/supabaseClient';
@@ -20,6 +22,7 @@ import {
 const Settings = () => {
     const navigate = useNavigate();
     const { user, settings, updateSettings, updateProfile, clearAppData } = useUser();
+    const { showToast } = useToast();
 
     const [isEditingProfile, setIsEditingProfile] = useState(false);
     const [editForm, setEditForm] = useState({ name: user.name, email: user.email });
@@ -27,6 +30,10 @@ const Settings = () => {
 
     const [syncConfig, setSyncConfig] = useState(getSyncConfig());
     const [authForm, setAuthForm] = useState({ email: '', password: '' });
+    
+    // Conflict states
+    const [conflicts, setConflicts] = useState([]);
+    const [showConflictModal, setShowConflictModal] = useState(false);
 
     // Periodically refresh sync config status if syncing/working
     useEffect(() => {
@@ -44,6 +51,7 @@ const Settings = () => {
                 await disableCloudBackup();
                 setSyncConfig(getSyncConfig());
                 setShowSyncSetup(false);
+                showToast('Cloud sync disabled locally. Remote backups intact.', 'warning');
             }
         } else {
             setShowSyncSetup(!showSyncSetup);
@@ -53,67 +61,88 @@ const Settings = () => {
     const handleEnableBackup = async (method) => {
         let res;
         if (method === 'anonymous') {
+            showToast('Initializing anonymous backup...', 'info');
             res = await enableCloudBackup('anonymous');
         } else {
             if (!authForm.email || !authForm.password) {
-                alert('Please enter both email and password.');
+                showToast('Please enter both email and password.', 'warning');
                 return;
             }
+            showToast('Activating cloud account...', 'info');
             res = await enableCloudBackup('email', authForm.email, authForm.password);
         }
 
         if (res.status === 'success') {
-            alert('Cloud Backup activated successfully!');
+            showToast(method === 'anonymous' ? 'Anonymous backup activated!' : 'Account registered and backup activated!', 'success');
             setSyncConfig(getSyncConfig());
+            setShowSyncSetup(false);
             setAuthForm({ email: '', password: '' });
         } else {
-            alert(`Failed to activate backup: ${res.message}`);
+            showToast(`Failed to activate backup: ${res.message}`, 'error');
         }
     };
 
     const handleUpgrade = async () => {
         if (!authForm.email || !authForm.password) {
-            alert('Please specify an email and password.');
+            showToast('Please specify an email and password.', 'warning');
             return;
         }
 
+        showToast('Linking email account...', 'info');
         const res = await upgradeAnonymousAccount(authForm.email, authForm.password);
         if (res.status === 'success') {
-            alert('Your anonymous backup account was upgraded successfully!');
+            showToast('Account upgraded successfully!', 'success');
             setSyncConfig(getSyncConfig());
             setAuthForm({ email: '', password: '' });
         } else {
-            alert(`Failed to upgrade account: ${res.message}`);
+            showToast(`Failed to upgrade account: ${res.message}`, 'error');
         }
     };
 
     const handlePush = async () => {
+        showToast('Pushing updates to cloud...', 'info');
         await pushQueue();
-        setSyncConfig(getSyncConfig());
-        alert('Data pushed to cloud database successfully!');
+        const cfg = getSyncConfig();
+        if (cfg.syncStatus === 'error') {
+            showToast('Failed to push updates.', 'error');
+        } else {
+            showToast('Data pushed to cloud database successfully!', 'success');
+        }
+        setSyncConfig(cfg);
     };
 
     const handlePull = async () => {
-        if (window.confirm('Pulling latest cloud backup will overwrite local modifications if remote version is newer. Continue?')) {
-            const res = await pullNow();
-            setSyncConfig(getSyncConfig());
-            if (res.status === 'success') {
-                alert(`Data pulled successfully! Overwritten modules: ${res.mergedCount}`);
-                window.location.reload();
-            } else {
-                alert(`Failed to pull: ${res.message}`);
-            }
+        showToast('Checking remote database...', 'info');
+        const res = await pullNow();
+        if (res.status === 'success') {
+            showToast(`Data pulled successfully! Merged ${res.mergedCount} modules.`, 'success');
+            setTimeout(() => window.location.reload(), 1000);
+        } else if (res.status === 'conflict') {
+            showToast('Sync conflicts detected. Please resolve.', 'warning');
+            setConflicts(res.conflicts);
+            setShowConflictModal(true);
+        } else {
+            showToast(`Failed to pull: ${res.message}`, 'error');
         }
+        setSyncConfig(getSyncConfig());
+    };
+
+    const handleResolveComplete = () => {
+        setShowConflictModal(false);
+        setConflicts([]);
+        showToast('Conflicts resolved successfully!', 'success');
+        setTimeout(() => window.location.reload(), 1000);
     };
 
     const handleDeleteBackup = async () => {
         if (window.confirm('WARNING: This will permanently delete your remote backups and profile stored in Supabase and disable cloud sync. Local data will NOT be touched. This is permanent. Continue?')) {
+            showToast('Deleting remote backups...', 'info');
             const res = await deleteRemoteBackup();
             if (res.status === 'success') {
-                alert('Remote backup deleted successfully.');
+                showToast('Remote backup deleted successfully.', 'success');
                 setSyncConfig(getSyncConfig());
             } else {
-                alert(`Failed to delete remote backup: ${res.message}`);
+                showToast(`Failed to delete remote backup: ${res.message}`, 'error');
             }
         }
     };
@@ -298,6 +327,13 @@ const Settings = () => {
                                 <div className="space-y-4 pt-3 border-t border-sand-100">
                                     {syncConfig.enabled ? (
                                         <>
+                                            <div className="bg-sand-50 border border-sand-200 rounded-xl p-3 flex items-start gap-2.5 text-[10px] leading-normal text-charcoal-500">
+                                                <AlertCircle size={14} className="text-charcoal-400 shrink-0 mt-0.5" />
+                                                <span>
+                                                    <strong>Important Note:</strong> Disabling Cloud Sync stops automatic backups, but remote database copies are preserved. To erase all remote data, use <strong>Delete Remote Data</strong> at the bottom.
+                                                </span>
+                                            </div>
+
                                             <div className="flex flex-wrap justify-between text-xs gap-2">
                                                 <span className="font-bold text-charcoal-500">Sync Status:</span>
                                                 <span className="font-bold capitalize text-sage-800 bg-sage-50 px-2 py-0.5 rounded border border-sage-100 flex items-center gap-1.5">
@@ -496,6 +532,18 @@ const Settings = () => {
                 {/* Onboarding Wizard Overlay */}
                 {showOnboarding && (
                     <HomesteadOnboarding onClose={() => setShowOnboarding(false)} />
+                )}
+
+                {/* Conflict Resolver Modal */}
+                {showConflictModal && (
+                    <ConflictResolverModal
+                        conflicts={conflicts}
+                        onClose={() => {
+                            setShowConflictModal(false);
+                            setConflicts([]);
+                        }}
+                        onResolveComplete={handleResolveComplete}
+                    />
                 )}
             </div>
         </div>
