@@ -8,7 +8,11 @@ import {
     estimateBedCapacity,
     generateGardenTasks
 } from '../../planners/gardenPlanner';
-import cropProfiles from '../../data/visual-guides/gardening_crop_profiles.json';
+import cropProfilesData from '../../data/visual-guides/gardening_crop_profiles.json';
+const crops = (Array.isArray(cropProfilesData) ? cropProfilesData : (cropProfilesData.crops || [])).map(c => ({
+    ...c,
+    id: c.id || c.name.toLowerCase().replace(/[^a-z0-9]+/g, '_')
+}));
 import RaisedBedLayoutDiagram from '../../components/visual-guides/diagrams/RaisedBedLayoutDiagram';
 import PlannerConfidenceIndicator from '../../components/PlannerConfidenceIndicator';
 import { Home, ArrowLeft, Plus, Trash2, Calendar, ShieldCheck, RefreshCw } from 'lucide-react';
@@ -55,7 +59,7 @@ const GardenPlannerPage = () => {
             firstFall = parts[1] ? parts[1].replace('First:', '').trim() : '';
         }
 
-        const suggested = suggestCropsForProfile({ homesteadProfile, cropProfiles });
+        const suggested = suggestCropsForProfile({ homesteadProfile, cropProfiles: crops });
 
         const updated = {
             ...plan,
@@ -71,12 +75,12 @@ const GardenPlannerPage = () => {
         updated.cropCalendar = generateCropCalendar({
             selectedCrops: updated.selectedCrops,
             frostDates: updated.frostDates,
-            cropProfiles
+            cropProfiles: crops
         });
         updated.tasks = generateGardenTasks({
             selectedCrops: updated.selectedCrops,
             frostDates: updated.frostDates,
-            cropProfiles
+            cropProfiles: crops
         });
 
         handleSave(updated);
@@ -130,12 +134,12 @@ const GardenPlannerPage = () => {
             cropCalendar: generateCropCalendar({
                 selectedCrops: updatedCrops,
                 frostDates: plan.frostDates,
-                cropProfiles
+                cropProfiles: crops
             }),
             tasks: generateGardenTasks({
                 selectedCrops: updatedCrops,
                 frostDates: plan.frostDates,
-                cropProfiles
+                cropProfiles: crops
             })
         };
         handleSave(updated);
@@ -149,12 +153,12 @@ const GardenPlannerPage = () => {
             cropCalendar: generateCropCalendar({
                 selectedCrops: plan.selectedCrops,
                 frostDates: updatedFrost,
-                cropProfiles
+                cropProfiles: crops
             }),
             tasks: generateGardenTasks({
                 selectedCrops: plan.selectedCrops,
                 frostDates: updatedFrost,
-                cropProfiles
+                cropProfiles: crops
             })
         };
         setPlan(updated); // Update local state immediately
@@ -163,7 +167,7 @@ const GardenPlannerPage = () => {
     const { totalSqFt, cropEstimates } = estimateBedCapacity({
         beds: plan.beds || [],
         selectedCrops: plan.selectedCrops || [],
-        cropProfiles
+        cropProfiles: crops
     });
 
     return (
@@ -327,7 +331,7 @@ const GardenPlannerPage = () => {
                     Select Crop Varieties
                 </h3>
                 <div className="flex flex-wrap gap-2">
-                    {cropProfiles.map(crop => {
+                    {crops.map(crop => {
                         const isSelected = plan.selectedCrops?.includes(crop.id);
                         return (
                             <button

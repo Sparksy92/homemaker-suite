@@ -11,7 +11,7 @@ import {
 } from '../../planners/energyPlanner';
 import SimpleSolarSystemDiagram from '../../components/visual-guides/diagrams/SimpleSolarSystemDiagram';
 import PlannerConfidenceIndicator from '../../components/PlannerConfidenceIndicator';
-import { Zap, ArrowLeft, RefreshCw, AlertTriangle, ShieldAlert, Plus, Trash2, ShieldCheck } from 'lucide-react';
+import { Zap, ArrowLeft, RefreshCw, AlertTriangle, ShieldAlert, Plus, Trash2, ShieldCheck, CheckSquare } from 'lucide-react';
 
 const EnergyPlannerPage = () => {
     const navigate = useNavigate();
