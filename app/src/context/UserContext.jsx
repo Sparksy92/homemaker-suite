@@ -296,6 +296,8 @@ export const UserProvider = ({ children }) => {
 
     const clearAppData = async () => {
         try {
+            const { disableCloudBackup } = await import('../services/homesteadSyncService');
+            await disableCloudBackup();
             await clearAllAppData();
         } catch (e) {
             console.error("Failed to clear app data:", e);

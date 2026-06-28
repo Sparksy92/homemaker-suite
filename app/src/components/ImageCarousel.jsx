@@ -9,10 +9,16 @@ const ImageCarousel = ({
     alt = 'Image',
     enableDiscovery = false
 }) => {
-    // Filter out any invalid image values (empty string, null, undefined, placeholders)
+    // Filter out any invalid image values (empty string, null, undefined, placeholders) and deduplicate
     const sanitizeImages = (list) => {
         if (!list || !Array.isArray(list)) return [];
-        return list.filter(img => img && typeof img === 'string' && img.trim() !== '' && !img.toLowerCase().includes('placeholder'));
+        const filtered = list.filter(img => 
+            img && 
+            typeof img === 'string' && 
+            img.trim() !== '' && 
+            !['placeholder', 'no-image', 'missing', 'null', 'undefined'].some(term => img.toLowerCase().includes(term))
+        );
+        return [...new Set(filtered)];
     };
 
     const [images, setImages] = useState(() => sanitizeImages(initialImages));

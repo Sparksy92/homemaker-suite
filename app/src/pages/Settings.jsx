@@ -427,7 +427,7 @@ const Settings = () => {
                     />
                     <button
                         onClick={() => {
-                            if (window.confirm('This will reset all your progress, favorites, and settings. Continue?')) {
+                            if (window.confirm('This will reset local app data and sign out of cloud sync on this device. Remote backups are not deleted unless you use Delete Remote Data.')) {
                                 clearAppData();
                             }
                         }}
