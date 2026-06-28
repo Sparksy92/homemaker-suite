@@ -2,23 +2,34 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Camera } from 'lucide-react';
 
-const ImageCarousel = ({ images: initialImages, speciesId, category = 'wildlife', alt = 'Image' }) => {
-    const [images, setImages] = useState(initialImages || []);
+const ImageCarousel = ({
+    images: initialImages,
+    speciesId,
+    category = 'wildlife',
+    alt = 'Image',
+    enableDiscovery = false
+}) => {
+    // Filter out any invalid image values (empty string, null, undefined, placeholders)
+    const sanitizeImages = (list) => {
+        if (!list || !Array.isArray(list)) return [];
+        return list.filter(img => img && typeof img === 'string' && img.trim() !== '' && !img.toLowerCase().includes('placeholder'));
+    };
+
+    const [images, setImages] = useState(() => sanitizeImages(initialImages));
     const [currentIndex, setCurrentIndex] = useState(0);
 
     // Sync state if initialImages prop changes
     React.useEffect(() => {
-        setImages(initialImages || []);
+        setImages(sanitizeImages(initialImages));
         setCurrentIndex(0);
     }, [initialImages]);
 
     // Lazy Magic Discovery
     React.useEffect(() => {
-        if (!speciesId) return;
+        if (!enableDiscovery || !speciesId) return;
 
         const checkImage = async (filename) => {
             try {
-                // Use a simple fetch HEAD to check existence without downloading full file
                 const response = await fetch(`/images/${category}/${filename}`, { method: 'HEAD' });
                 return response.ok;
             } catch (e) {
@@ -29,7 +40,6 @@ const ImageCarousel = ({ images: initialImages, speciesId, category = 'wildlife'
         const discover = async () => {
             for (let i = 1; i <= 10; i++) {
                 const filename = `${speciesId}_${i}.jpg`;
-                // Skip if already in the list
                 if (images.includes(filename)) continue;
 
                 const exists = await checkImage(filename);
@@ -39,10 +49,19 @@ const ImageCarousel = ({ images: initialImages, speciesId, category = 'wildlife'
             }
         };
 
-        // Small delay to let initial render finish
         const timer = setTimeout(discover, 500);
         return () => clearTimeout(timer);
-    }, [speciesId, category]);
+    }, [speciesId, category, enableDiscovery, images]);
+
+    const handleImageError = (failedImg) => {
+        setImages(prev => {
+            const updated = prev.filter(img => img !== failedImg);
+            if (currentIndex >= updated.length) {
+                setCurrentIndex(Math.max(0, updated.length - 1));
+            }
+            return updated;
+        });
+    };
 
     if (!images || images.length === 0) {
         return (
@@ -63,18 +82,24 @@ const ImageCarousel = ({ images: initialImages, speciesId, category = 'wildlife'
         setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
     };
 
+    const currentImage = images[currentIndex];
+    const imageSrc = currentImage.startsWith('http') || currentImage.startsWith('/')
+        ? currentImage
+        : `/images/${category}/${currentImage}`;
+
     return (
         <div className="relative w-full h-full group overflow-hidden bg-sand-200">
             <AnimatePresence mode="wait">
                 <motion.img
-                    key={images[currentIndex]}
-                    src={`/images/${category}/${images[currentIndex]}`}
+                    key={currentImage}
+                    src={imageSrc}
                     alt={`${alt} ${currentIndex + 1}`}
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -20 }}
                     transition={{ duration: 0.3, ease: 'easeInOut' }}
                     className="w-full h-full object-cover"
+                    onError={() => handleImageError(currentImage)}
                 />
             </AnimatePresence>
 

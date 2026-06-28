@@ -20,7 +20,9 @@ const LOCAL_STORAGE_ALLOWLIST = [
     'homemaker_energy_plan',
     'homemaker_build_projects',
     'homemaker_seasonal_tasks',
-    'homemaker_field_binder_settings'
+    'homemaker_field_binder_settings',
+    'homemaker_sync_config',
+    'homemaker_sync_queue'
 ];
 
 export const exportAppData = () => {

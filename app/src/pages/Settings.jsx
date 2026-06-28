@@ -36,22 +36,17 @@ const Settings = () => {
         return () => clearInterval(interval);
     }, []);
 
+    const [showSyncSetup, setShowSyncSetup] = useState(false);
+
     const handleToggleSync = async () => {
         if (syncConfig.enabled) {
             if (window.confirm('Are you sure you want to disable Cloud Sync? Your local data will remain unchanged, but automatic backups will stop.')) {
                 await disableCloudBackup();
                 setSyncConfig(getSyncConfig());
+                setShowSyncSetup(false);
             }
         } else {
-            const newConfig = {
-                enabled: true,
-                lastSyncAt: null,
-                accountUpgradeStatus: 'local',
-                syncStatus: 'idle',
-                userEmail: null
-            };
-            localStorage.setItem('homemaker_sync_config', JSON.stringify(newConfig));
-            setSyncConfig(newConfig);
+            setShowSyncSetup(!showSyncSetup);
         }
     };
 
@@ -294,85 +289,96 @@ const Settings = () => {
                                     </div>
                                 </div>
                                 <Switch
-                                    checked={syncConfig.enabled}
+                                    checked={syncConfig.enabled || showSyncSetup}
                                     onChange={handleToggleSync}
                                 />
                             </div>
 
-                            {syncConfig.enabled && (
+                            {(syncConfig.enabled || showSyncSetup) && (
                                 <div className="space-y-4 pt-3 border-t border-sand-100">
-                                    <div className="flex flex-wrap justify-between text-xs gap-2">
-                                        <span className="font-bold text-charcoal-500">Sync Status:</span>
-                                        <span className="font-bold capitalize text-sage-800 bg-sage-50 px-2 py-0.5 rounded border border-sage-100 flex items-center gap-1.5">
-                                            {syncConfig.syncStatus === 'syncing' && <RefreshCw size={10} className="animate-spin" />}
-                                            {syncConfig.syncStatus}
-                                        </span>
-                                    </div>
-                                    <div className="flex flex-wrap justify-between text-xs gap-2">
-                                        <span className="font-bold text-charcoal-500">Last Synced:</span>
-                                        <span className="font-sans font-bold text-charcoal-800">
-                                            {syncConfig.lastSyncAt ? new Date(syncConfig.lastSyncAt).toLocaleString() : 'Never'}
-                                        </span>
-                                    </div>
-                                    <div className="flex flex-wrap justify-between text-xs gap-2">
-                                        <span className="font-bold text-charcoal-500">Backup Type:</span>
-                                        <span className="font-bold capitalize text-sage-800">
-                                            {syncConfig.accountUpgradeStatus} {syncConfig.userEmail ? `(${syncConfig.userEmail})` : ''}
-                                        </span>
-                                    </div>
+                                    {syncConfig.enabled ? (
+                                        <>
+                                            <div className="flex flex-wrap justify-between text-xs gap-2">
+                                                <span className="font-bold text-charcoal-500">Sync Status:</span>
+                                                <span className="font-bold capitalize text-sage-800 bg-sage-50 px-2 py-0.5 rounded border border-sage-100 flex items-center gap-1.5">
+                                                    {syncConfig.syncStatus === 'syncing' && <RefreshCw size={10} className="animate-spin" />}
+                                                    {syncConfig.syncStatus}
+                                                </span>
+                                            </div>
+                                            <div className="flex flex-wrap justify-between text-xs gap-2">
+                                                <span className="font-bold text-charcoal-500">Last Synced:</span>
+                                                <span className="font-sans font-bold text-charcoal-800">
+                                                    {syncConfig.lastSyncAt ? new Date(syncConfig.lastSyncAt).toLocaleString() : 'Never'}
+                                                </span>
+                                            </div>
+                                            <div className="flex flex-wrap justify-between text-xs gap-2">
+                                                <span className="font-bold text-charcoal-500">Backup Type:</span>
+                                                <span className="font-bold capitalize text-sage-800">
+                                                    {syncConfig.accountUpgradeStatus} {syncConfig.userEmail ? `(${syncConfig.userEmail})` : ''}
+                                                </span>
+                                            </div>
 
-                                    {/* Action Buttons */}
-                                    {syncConfig.accountUpgradeStatus !== 'local' && (
-                                        <div className="grid grid-cols-2 gap-2 pt-2">
-                                            <button
-                                                onClick={handlePush}
-                                                disabled={syncConfig.syncStatus === 'syncing'}
-                                                className="py-2 px-3 bg-sage-600 hover:bg-sage-700 text-white font-bold text-[10px] uppercase tracking-wider rounded-lg transition-all text-center min-h-[36px]"
-                                            >
-                                                Push Now
-                                            </button>
-                                            <button
-                                                onClick={handlePull}
-                                                disabled={syncConfig.syncStatus === 'syncing'}
-                                                className="py-2 px-3 bg-sand-100 hover:bg-sand-200 text-sage-800 font-bold text-[10px] uppercase tracking-wider rounded-lg transition-all text-center border border-sand-200 min-h-[36px]"
-                                            >
-                                                Pull Latest
-                                            </button>
-                                        </div>
-                                    )}
-
-                                    {/* Upgrade Path for Anonymous Account */}
-                                    {syncConfig.accountUpgradeStatus === 'anonymous' && (
-                                        <div className="p-4 bg-sand-50 rounded-xl space-y-3 border border-sand-200 text-xs">
-                                            <h4 className="font-bold text-sage-950 uppercase text-[9px] tracking-wider">Upgrade to Permanent Account</h4>
-                                            <p className="text-[10px] text-charcoal-500 leading-normal">
-                                                Temporary anonymous backups can be lost if you clear your browser cookies. Link your email to sync across other devices.
-                                            </p>
-                                            <div className="space-y-2">
-                                                <input
-                                                    type="email" placeholder="Email Address"
-                                                    value={authForm.email}
-                                                    onChange={e => setAuthForm({ ...authForm, email: e.target.value })}
-                                                    className="w-full p-2 bg-white rounded border border-sand-300 text-xs outline-none focus:border-sage-500 font-semibold"
-                                                />
-                                                <input
-                                                    type="password" placeholder="Choose Password"
-                                                    value={authForm.password}
-                                                    onChange={e => setAuthForm({ ...authForm, password: e.target.value })}
-                                                    className="w-full p-2 bg-white rounded border border-sand-300 text-xs outline-none focus:border-sage-500 font-semibold"
-                                                />
+                                            {/* Action Buttons */}
+                                            <div className="grid grid-cols-2 gap-2 pt-2">
                                                 <button
-                                                    onClick={handleUpgrade}
-                                                    className="w-full py-1.5 px-3 bg-sage-800 hover:bg-sage-950 text-white font-bold text-[10px] uppercase tracking-wider rounded-lg transition-all"
+                                                    onClick={handlePush}
+                                                    disabled={syncConfig.syncStatus === 'syncing'}
+                                                    className="py-2 px-3 bg-sage-600 hover:bg-sage-700 text-white font-bold text-[10px] uppercase tracking-wider rounded-lg transition-all text-center min-h-[36px]"
                                                 >
-                                                    Link Email Account
+                                                    Push Now
+                                                </button>
+                                                <button
+                                                    onClick={handlePull}
+                                                    disabled={syncConfig.syncStatus === 'syncing'}
+                                                    className="py-2 px-3 bg-sand-100 hover:bg-sand-200 text-sage-800 font-bold text-[10px] uppercase tracking-wider rounded-lg transition-all text-center border border-sand-200 min-h-[36px]"
+                                                >
+                                                    Pull Latest
                                                 </button>
                                             </div>
-                                        </div>
-                                    )}
 
-                                    {/* Sign In form if not logged in but enabled */}
-                                    {syncConfig.accountUpgradeStatus === 'local' && (
+                                            {/* Upgrade Path for Anonymous Account */}
+                                            {syncConfig.accountUpgradeStatus === 'anonymous' && (
+                                                <div className="p-4 bg-sand-50 rounded-xl space-y-3 border border-sand-200 text-xs">
+                                                    <h4 className="font-bold text-sage-950 uppercase text-[9px] tracking-wider">Upgrade to Permanent Account</h4>
+                                                    <p className="text-[10px] text-charcoal-500 leading-normal">
+                                                        Temporary anonymous backups can be lost if you clear your browser cookies. Link your email to sync across other devices.
+                                                    </p>
+                                                    <div className="space-y-2">
+                                                        <input
+                                                            type="email" placeholder="Email Address"
+                                                            value={authForm.email}
+                                                            onChange={e => setAuthForm({ ...authForm, email: e.target.value })}
+                                                            className="w-full p-2 bg-white rounded border border-sand-300 text-xs outline-none focus:border-sage-500 font-semibold"
+                                                        />
+                                                        <input
+                                                            type="password" placeholder="Choose Password"
+                                                            value={authForm.password}
+                                                            onChange={e => setAuthForm({ ...authForm, password: e.target.value })}
+                                                            className="w-full p-2 bg-white rounded border border-sand-300 text-xs outline-none focus:border-sage-500 font-semibold"
+                                                        />
+                                                        <button
+                                                            onClick={handleUpgrade}
+                                                            className="w-full py-1.5 px-3 bg-sage-800 hover:bg-sage-950 text-white font-bold text-[10px] uppercase tracking-wider rounded-lg transition-all"
+                                                        >
+                                                            Link Email Account
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            )}
+
+                                            {/* Delete Remote Backup */}
+                                            <div className="pt-2 border-t border-sand-100 flex justify-between items-center text-xs">
+                                                <span className="text-[10px] text-charcoal-400 font-medium">Want to wipe cloud backups?</span>
+                                                <button
+                                                    onClick={handleDeleteBackup}
+                                                    className="text-terracotta-600 hover:text-terracotta-800 font-bold underline text-[10px]"
+                                                >
+                                                    Delete Remote Data
+                                                </button>
+                                            </div>
+                                        </>
+                                    ) : (
+                                        /* Sign In / Create Account form if setup is open but not yet enabled/authenticated */
                                         <div className="p-4 bg-sand-50 rounded-xl space-y-3 border border-sand-200 text-xs">
                                             <h4 className="font-bold text-sage-950 uppercase text-[9px] tracking-wider">Sign In / Create Account</h4>
                                             <div className="space-y-2">
@@ -405,17 +411,6 @@ const Settings = () => {
                                             </div>
                                         </div>
                                     )}
-
-                                    {/* Delete Remote Backup */}
-                                    <div className="pt-2 border-t border-sand-100 flex justify-between items-center text-xs">
-                                        <span className="text-[10px] text-charcoal-400 font-medium">Want to wipe cloud backups?</span>
-                                        <button
-                                            onClick={handleDeleteBackup}
-                                            className="text-terracotta-600 hover:text-terracotta-800 font-bold underline text-[10px]"
-                                        >
-                                            Delete Remote Data
-                                        </button>
-                                    </div>
                                 </div>
                             )}
                         </div>
