@@ -1,32 +1,24 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Camera } from 'lucide-react';
+import { sanitizeWildlifeImages, getWildlifeImageCategory } from '../utils/wildlifeImageResolver';
 
 const ImageCarousel = ({
     images: initialImages,
     speciesId,
+    collection,
     category = 'wildlife',
+    basePath,
     alt = 'Image',
     enableDiscovery = false
 }) => {
-    // Filter out any invalid image values (empty string, null, undefined, placeholders) and deduplicate
-    const sanitizeImages = (list) => {
-        if (!list || !Array.isArray(list)) return [];
-        const filtered = list.filter(img => 
-            img && 
-            typeof img === 'string' && 
-            img.trim() !== '' && 
-            !['placeholder', 'no-image', 'missing', 'null', 'undefined'].some(term => img.toLowerCase().includes(term))
-        );
-        return [...new Set(filtered)];
-    };
-
-    const [images, setImages] = useState(() => sanitizeImages(initialImages));
+    const [images, setImages] = useState(() => sanitizeWildlifeImages(initialImages));
     const [currentIndex, setCurrentIndex] = useState(0);
+    const [isLoaded, setIsLoaded] = useState(false);
 
     // Sync state if initialImages prop changes
     React.useEffect(() => {
-        setImages(sanitizeImages(initialImages));
+        setImages(sanitizeWildlifeImages(initialImages));
         setCurrentIndex(0);
     }, [initialImages]);
 
@@ -69,15 +61,6 @@ const ImageCarousel = ({
         });
     };
 
-    if (!images || images.length === 0) {
-        return (
-            <div className="w-full h-full bg-sage-100 flex flex-col items-center justify-center text-sage-300">
-                <Camera size={48} />
-                <span className="text-sm mt-2 font-medium">No Image Available</span>
-            </div>
-        );
-    }
-
     const nextImage = (e) => {
         e.stopPropagation();
         setCurrentIndex((prev) => (prev + 1) % images.length);
@@ -89,17 +72,39 @@ const ImageCarousel = ({
     };
 
     const currentImage = images[currentIndex];
-    const imageSrc = currentImage.startsWith('http') || currentImage.startsWith('/')
-        ? currentImage
-        : `/images/${category}/${currentImage}`;
+    const resolvedCategory = getWildlifeImageCategory(collection || category);
+    
+    let imageSrc = '';
+    if (currentImage) {
+        if (currentImage.startsWith('http://') || currentImage.startsWith('https://') || currentImage.startsWith('/')) {
+            imageSrc = currentImage;
+        } else if (basePath) {
+            imageSrc = `${basePath}/${currentImage}`;
+        } else {
+            imageSrc = `/images/${resolvedCategory}/${currentImage}`;
+        }
+    }
+
+    React.useEffect(() => {
+        setIsLoaded(false);
+    }, [imageSrc]);
+
+    if (!images || images.length === 0) {
+        return (
+            <div className="w-full h-full bg-sage-100 flex flex-col items-center justify-center text-sage-400 p-4 border border-sand-200">
+                <Camera size={48} />
+                <span className="text-sm mt-2 font-semibold">No verified image available</span>
+            </div>
+        );
+    }
 
     return (
         <div 
             className="relative w-full h-full group overflow-hidden bg-slate-950 flex items-center justify-center bg-cover bg-center"
-            style={{ backgroundImage: `url("${imageSrc}")` }}
+            style={isLoaded ? { backgroundImage: `url("${imageSrc}")` } : {}}
         >
             {/* Blurred background overlay for premium visual effect */}
-            <div className="absolute inset-0 bg-black/60 backdrop-blur-lg select-none pointer-events-none" />
+            {isLoaded && <div className="absolute inset-0 bg-black/60 backdrop-blur-lg select-none pointer-events-none" />}
             
             <AnimatePresence mode="wait">
                 <motion.img
@@ -111,6 +116,7 @@ const ImageCarousel = ({
                     exit={{ opacity: 0, scale: 0.95 }}
                     transition={{ duration: 0.25, ease: 'easeInOut' }}
                     className="relative z-10 max-w-full max-h-full object-contain"
+                    onLoad={() => setIsLoaded(true)}
                     onError={() => handleImageError(currentImage)}
                 />
             </AnimatePresence>

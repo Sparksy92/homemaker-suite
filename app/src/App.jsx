@@ -7,6 +7,13 @@ import { ToastProvider } from './context/ToastContext';
 import { PwaLifecycleProvider } from './context/PwaLifecycleContext';
 import WelcomePopup from './components/WelcomePopup';
 import OnboardingGate from './components/onboarding/OnboardingGate';
+import PageErrorBoundary from './components/PageErrorBoundary';
+
+// Lazy load pages for better performance and smaller bundle size
+// ... [rest remains the same until App component]
+// Let's modify the routing area:
+// Start of return statement:
+
 
 // Lazy load pages for better performance and smaller bundle size
 const Home = lazy(() => import('./pages/Home'));
@@ -45,30 +52,32 @@ function App() {
                         <OnboardingGate />
                         <WelcomePopup />
                         <HashRouter>
-                            <Suspense fallback={<PageLoader />}>
-                                <Routes>
-                                    <Route path="/" element={<Layout />}>
-                                        <Route index element={<Home />} />
-                                        <Route path="library" element={<Library type="combined" />} />
-                                        <Route path="tools" element={<Tools />} />
-                                        <Route path="feedback" element={<Feedback />} />
-                                        <Route path="meal-plans" element={<MealPlans />} />
-                                        <Route path="wildlife" element={<Wildlife />} />
-                                        <Route path="profile" element={<Profile />} />
-                                        <Route path="settings" element={<Settings />} />
-                                        <Route path="manual/:id" element={<ManualReader />} />
-                                        <Route path="wizard/:id" element={<WizardPage />} />
-                                        <Route path="cookbook" element={<Cookbook />} />
-                                        <Route path="homestead" element={<HomesteadCommandCenter />} />
-                                        <Route path="homestead/garden-plan" element={<GardenPlannerPage />} />
-                                        <Route path="homestead/pantry-plan" element={<PantryPlannerPage />} />
-                                        <Route path="homestead/water-plan" element={<WaterPlannerPage />} />
-                                        <Route path="homestead/energy-plan" element={<EnergyPlannerPage />} />
-                                        <Route path="homestead/build-projects" element={<BuildProjectsPage />} />
-                                        <Route path="field-binder" element={<FieldBinder />} />
-                                    </Route>
-                                </Routes>
-                            </Suspense>
+                            <PageErrorBoundary>
+                                <Suspense fallback={<PageLoader />}>
+                                    <Routes>
+                                        <Route path="/" element={<Layout />}>
+                                            <Route index element={<Home />} />
+                                            <Route path="library" element={<Library type="combined" />} />
+                                            <Route path="tools" element={<Tools />} />
+                                            <Route path="feedback" element={<Feedback />} />
+                                            <Route path="meal-plans" element={<MealPlans />} />
+                                            <Route path="wildlife" element={<Wildlife />} />
+                                            <Route path="profile" element={<Profile />} />
+                                            <Route path="settings" element={<Settings />} />
+                                            <Route path="manual/:id" element={<ManualReader />} />
+                                            <Route path="wizard/:id" element={<WizardPage />} />
+                                            <Route path="cookbook" element={<Cookbook />} />
+                                            <Route path="homestead" element={<HomesteadCommandCenter />} />
+                                            <Route path="homestead/garden-plan" element={<GardenPlannerPage />} />
+                                            <Route path="homestead/pantry-plan" element={<PantryPlannerPage />} />
+                                            <Route path="homestead/water-plan" element={<WaterPlannerPage />} />
+                                            <Route path="homestead/energy-plan" element={<EnergyPlannerPage />} />
+                                            <Route path="homestead/build-projects" element={<BuildProjectsPage />} />
+                                            <Route path="field-binder" element={<FieldBinder />} />
+                                        </Route>
+                                    </Routes>
+                                </Suspense>
+                            </PageErrorBoundary>
                         </HashRouter>
                     </ObservationProvider>
                 </UserProvider>

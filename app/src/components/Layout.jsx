@@ -5,6 +5,7 @@ import { cn } from '../lib/utils';
 import { motion, AnimatePresence } from 'framer-motion';
 import OfflineIndicator from './OfflineIndicator';
 import PwaUpdatePrompt from './PwaUpdatePrompt';
+import PageErrorBoundary from './PageErrorBoundary';
 
 const Layout = () => {
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -93,7 +94,9 @@ const Layout = () => {
             {/* Main Content Area */}
             <main className="flex-1 overflow-y-auto overflow-x-hidden pb-24 scroll-smooth w-full">
                 <AnimatePresence mode="wait">
-                    <Outlet />
+                    <PageErrorBoundary>
+                        <Outlet />
+                    </PageErrorBoundary>
                 </AnimatePresence>
             </main>
 

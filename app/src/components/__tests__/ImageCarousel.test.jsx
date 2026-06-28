@@ -7,7 +7,7 @@ describe('ImageCarousel component', () => {
     it('should render fallback container when no images are provided', () => {
         render(<ImageCarousel images={[]} />);
         
-        expect(screen.getByText(/No Image Available/i)).toBeInTheDocument();
+        expect(screen.getByText(/No verified image available/i)).toBeInTheDocument();
     });
 
     it('should sanitize invalid images (placeholders, missing, null, undefined) and deduplicate them', () => {
@@ -42,7 +42,7 @@ describe('ImageCarousel component', () => {
         // Wait for the state to update and image to be removed
         await waitFor(() => {
             expect(screen.queryByRole('img')).toBeNull();
-            expect(screen.getByText(/No Image Available/i)).toBeInTheDocument();
+            expect(screen.getByText(/No verified image available/i)).toBeInTheDocument();
         });
     });
 

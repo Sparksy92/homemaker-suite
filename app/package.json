@@ -12,7 +12,8 @@
         "deploy:vercel": "vercel --prod",
         "deploy:cloudflare": "npm run build && npx wrangler pages deploy dist --project-name homemaker-suite --commit-dirty=true",
         "test": "vitest run",
-        "test:watch": "vitest"
+        "test:watch": "vitest",
+        "validate:wildlife-images": "node scripts/validate-wildlife-images.js"
     },
     "dependencies": {
         "@capacitor/android": "^8.0.2",

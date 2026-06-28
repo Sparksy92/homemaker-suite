@@ -1474,8 +1474,7 @@
             "behavior": "Aggressive ambush predator. Most active at dawn and dusk. Moves to deep water in midday heat.",
             "best_bait": "Live minnows, worms, crawfish. Lures: Jigs, spinnerbaits, plastic worms.",
             "images": [
-                "largemouth_bass.jpg",
-                "largemouth_bass_2.jpg"
+                "largemouth_bass.jpg"
             ],
             "details": {
                 "processing": "Bleed and gut immediately. Filleting is the standard method. Mild flavor.",
@@ -1796,9 +1795,7 @@
             "category": "Paw",
             "description": "Pigeon-toed (toes point in). Pebble-like texture on pads. Often shows tail drag.",
             "gait": "Walker",
-            "images": [
-                "track_porcupine.jpg"
-            ]
+            "images": []
         }
     ],
     "foraging_calendar": {

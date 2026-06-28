@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Leaf, Bug, Calendar, AlertTriangle, CheckCircle, Search, Footprints, Filter, Camera, X, ChefHat, Info, Mountain, Maximize2, Waves } from 'lucide-react';
 import wildlifeData from '../data/wildlifeData.json';
+import { sanitizeWildlifeImages, getWildlifeImageCategory, buildWildlifeImageSrc } from '../utils/wildlifeImageResolver';
 import ImageCarousel from '../components/ImageCarousel';
 import { useObservations } from '../context/ObservationContext';
 import CameraCapture from '../components/CameraCapture';
@@ -34,15 +35,30 @@ const Wildlife = () => {
         });
     };
 
-    const ImagePreview = ({ images, category = 'wildlife', alt, className = "h-40" }) => {
+    const ImagePreview = ({ images, collection, category, alt, className = "h-40" }) => {
         const [imgError, setImgError] = useState(false);
-        const imageSrc = images && images.length > 0 ? `/images/${category}/${images[0]}` : null;
+        const [isLoaded, setIsLoaded] = useState(false);
+
+        const sanitized = sanitizeWildlifeImages(images);
+        const firstImage = sanitized[0];
+        const imageSrc = firstImage ? buildWildlifeImageSrc({ image: firstImage, collection, category }) : null;
+
+        React.useEffect(() => {
+            setImgError(false);
+            setIsLoaded(false);
+        }, [imageSrc]);
 
         if (!imageSrc || imgError) {
+            const isDev = import.meta.env?.DEV || (typeof process !== 'undefined' && process.env?.NODE_ENV === 'development');
+            if (firstImage && imgError && isDev) {
+                console.warn(`[Wildlife Image Load Error] Failed to load image: ${imageSrc} for ${alt}`);
+            } else if (!firstImage && isDev) {
+                console.warn(`[Wildlife Image Missing] No image specified for ${alt}`);
+            }
             return (
-                <div className={`${className} w-full bg-sage-100 flex flex-col items-center justify-center text-sage-300`}>
+                <div className={`${className} w-full bg-sage-100 flex flex-col items-center justify-center text-sage-400 p-4 border border-sand-200 rounded-t-2xl`}>
                     <Camera size={32} />
-                    <span className="text-xs mt-2 font-medium">No Image Available</span>
+                    <span className="text-xs mt-2 font-semibold">No verified image available</span>
                 </div>
             );
         }
@@ -50,15 +66,18 @@ const Wildlife = () => {
         return (
             <div 
                 className={`${className} w-full bg-slate-950 relative overflow-hidden group flex items-center justify-center bg-cover bg-center`}
-                style={{ backgroundImage: `url("${imageSrc}")` }}
+                style={isLoaded ? { backgroundImage: `url("${imageSrc}")` } : {}}
             >
                 {/* Blurred background overlay */}
-                <div className="absolute inset-0 bg-black/55 backdrop-blur-md select-none pointer-events-none" />
+                {isLoaded && <div className="absolute inset-0 bg-black/55 backdrop-blur-md select-none pointer-events-none" />}
                 <img
                     src={imageSrc}
                     alt={alt}
                     className="relative z-10 max-w-full max-h-full object-contain transition-transform duration-500 group-hover:scale-105"
-                    onError={() => setImgError(true)}
+                    onLoad={() => setIsLoaded(true)}
+                    onError={() => {
+                        setImgError(true);
+                    }}
                 />
             </div>
         );
@@ -166,10 +185,10 @@ const Wildlife = () => {
                             {filterData(wildlifeData.flora).map((plant, index) => (
                                 <div
                                     key={index}
-                                    onClick={() => setSelectedItem({ ...plant, category: 'botany' })}
+                                    onClick={() => setSelectedItem({ ...plant, sourceCollection: 'flora', category: getWildlifeImageCategory('flora', plant) })}
                                     className="bg-white rounded-2xl shadow-sm border border-sand-200 overflow-hidden active:scale-98 transition-transform cursor-pointer"
                                 >
-                                    <ImagePreview images={plant.images} category="botany" alt={plant.name} />
+                                    <ImagePreview images={plant.images} collection="flora" alt={plant.name} />
                                     <div className={`h-2 ${plant.type.includes('Poisonous') ? 'bg-red-500' : plant.type.includes('Medicinal') ? 'bg-blue-500' : 'bg-green-500'}`} />
                                     <div className="p-5">
                                         <div className="flex justify-between items-start mb-2">
@@ -205,10 +224,10 @@ const Wildlife = () => {
                             {filterData(wildlifeData.insects).map((insect, index) => (
                                 <div
                                     key={index}
-                                    onClick={() => setSelectedItem({ ...insect, category: 'wildlife' })}
+                                    onClick={() => setSelectedItem({ ...insect, sourceCollection: 'insects', category: getWildlifeImageCategory('insects', insect) })}
                                     className="bg-white rounded-2xl shadow-sm border border-sand-200 overflow-hidden active:scale-98 transition-transform cursor-pointer"
                                 >
-                                    <ImagePreview images={insect.images} category="wildlife" alt={insect.name} />
+                                    <ImagePreview images={insect.images} collection="insects" alt={insect.name} />
                                     <div className="p-5">
                                         <div className="flex justify-between items-start mb-2">
                                             <div>
@@ -241,10 +260,10 @@ const Wildlife = () => {
                             {filterData(wildlifeData.fauna).map((animal, index) => (
                                 <div
                                     key={index}
-                                    onClick={() => setSelectedItem({ ...animal, category: 'wildlife' })}
+                                    onClick={() => setSelectedItem({ ...animal, sourceCollection: 'fauna', category: getWildlifeImageCategory('fauna', animal) })}
                                     className="bg-white rounded-2xl shadow-sm border border-sand-200 overflow-hidden active:scale-98 transition-transform cursor-pointer"
                                 >
-                                    <ImagePreview images={animal.images} category="wildlife" alt={animal.name} />
+                                    <ImagePreview images={animal.images} collection="fauna" alt={animal.name} />
                                     <div className="p-5">
                                         <div className="flex items-center justify-between mb-3">
                                             <h3 className="text-lg font-bold text-sage-900">{animal.name}</h3>
@@ -275,10 +294,10 @@ const Wildlife = () => {
                             {filterData(wildlifeData.aquatic).map((fish, index) => (
                                 <div
                                     key={index}
-                                    onClick={() => setSelectedItem({ ...fish, category: 'aquatic' })}
+                                    onClick={() => setSelectedItem({ ...fish, sourceCollection: 'aquatic', category: getWildlifeImageCategory('aquatic', fish) })}
                                     className="bg-white rounded-2xl shadow-sm border border-sand-200 overflow-hidden active:scale-98 transition-transform cursor-pointer"
                                 >
-                                    <ImagePreview images={fish.images} alt={fish.name} />
+                                    <ImagePreview images={fish.images} collection="aquatic" alt={fish.name} />
                                     <div className="p-5">
                                         <div className="flex justify-between items-start mb-2">
                                             <div>
@@ -310,13 +329,17 @@ const Wildlife = () => {
                             className="grid md:grid-cols-2 gap-4"
                         >
                             {filterData(wildlifeData.tracking).map((track, index) => (
-                                <div key={index} className="bg-white p-5 rounded-2xl shadow-sm border border-sand-200 flex flex-col">
+                                <div
+                                    key={index}
+                                    onClick={() => setSelectedItem({ ...track, sourceCollection: 'tracking', category: getWildlifeImageCategory('tracking', track) })}
+                                    className="bg-white p-5 rounded-2xl shadow-sm border border-sand-200 flex flex-col active:scale-98 transition-transform cursor-pointer"
+                                >
                                     <div className="flex justify-between items-start mb-2">
                                         <h3 className="text-lg font-bold text-sage-900">{track.name}</h3>
                                         <span className="text-xs bg-sand-100 text-sand-600 px-2 py-1 rounded-md">{track.category}</span>
                                     </div>
                                     <p className="text-sm text-charcoal-600 mb-3 flex-1">{track.description}</p>
-                                    <ImagePreview images={track.images} alt={track.name} className="h-32 rounded-lg mb-3" />
+                                    <ImagePreview images={track.images} collection="tracking" alt={track.name} className="h-32 rounded-lg mb-3" />
                                     <div className="text-xs text-sage-500 bg-sage-50 p-2 rounded-lg">
                                         <span className="font-bold">Gait:</span> {track.gait}
                                     </div>
@@ -387,6 +410,7 @@ const Wildlife = () => {
                                 <ImageCarousel
                                     images={selectedItem.images}
                                     speciesId={selectedItem.id}
+                                    collection={selectedItem.sourceCollection}
                                     category={selectedItem.category}
                                     alt={selectedItem.name}
                                 />
@@ -538,7 +562,8 @@ const Wildlife = () => {
                             <ImageCarousel
                                 images={selectedItem.images}
                                 speciesId={selectedItem.id}
-                                category={selectedItem.category === 'foraging_calendar' ? 'wildlife' : selectedItem.category}
+                                collection={selectedItem.sourceCollection}
+                                category={selectedItem.category}
                                 alt={selectedItem.name}
                             />
                         </div>
