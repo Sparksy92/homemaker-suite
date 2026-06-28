@@ -7,7 +7,8 @@ const DEFAULT_SYNC_CONFIG = {
     enabled: false,
     lastSyncAt: null,
     accountUpgradeStatus: 'local', // local, anonymous, upgraded
-    syncStatus: 'idle', // idle, syncing, error, offline
+    syncStatus: 'idle', // idle, syncing, retrying, error, offline, conflict
+    syncRetryCount: 0,
     userEmail: null
 };
 
@@ -77,7 +78,7 @@ export const triggerSyncPush = (key) => {
 
     if (syncTimeout) clearTimeout(syncTimeout);
     syncTimeout = setTimeout(() => {
-        pushQueue();
+        pushQueueWithRetry();
     }, 3000); // 3 seconds debounce
 };
 
@@ -124,15 +125,115 @@ export const pushQueue = async () => {
             ...config,
             enabled: true,
             lastSyncAt: new Date().toISOString(),
-            syncStatus: 'idle'
+            syncStatus: 'idle',
+            syncRetryCount: 0
         });
     } catch (err) {
         console.error('Push sync error:', err.message);
         saveSyncConfig({
             ...config,
-            syncStatus: 'error'
+            syncStatus: 'error',
+            syncRetryCount: 0
         });
     }
+};
+
+// Retry wrapper for pushQueue
+export const pushQueueWithRetry = async ({ maxAttempts = 3, delayMs = 15000 } = {}) => {
+    if (!isSyncEnabled()) return { status: 'error', message: 'Sync not enabled' };
+    const queue = getSyncQueue();
+    if (queue.length === 0) return { status: 'success', message: 'Queue empty' };
+
+    return new Promise((resolve) => {
+        let attempts = 0;
+        const runAttempt = async () => {
+            attempts++;
+            const config = getSyncConfig();
+            
+            saveSyncConfig({
+                ...config,
+                syncStatus: 'syncing'
+            });
+
+            try {
+                const { data: { user } } = await supabase.auth.getUser();
+                if (!user) throw new Error('Not authenticated');
+
+                for (const key of queue) {
+                    const rawVal = localStorage.getItem(key);
+                    if (rawVal === null) continue;
+                    const parsed = JSON.parse(rawVal);
+
+                    const { error } = await supabase
+                        .from('homestead_plans')
+                        .upsert({
+                            user_id: user.id,
+                            module_key: key,
+                            plan_data: parsed,
+                            updated_at: parsed.updatedAt || new Date().toISOString(),
+                            sync_updated_at: new Date().toISOString(),
+                            deleted_at: parsed.deletedAt || null,
+                            schema_version: parsed.schemaVersion || 1
+                        }, { onConflict: 'user_id,module_key' });
+
+                    if (error) throw error;
+                }
+
+                clearSyncQueue();
+                saveSyncConfig({
+                    ...getSyncConfig(),
+                    lastSyncAt: new Date().toISOString(),
+                    syncStatus: 'idle',
+                    syncRetryCount: 0
+                });
+                resolve({ status: 'success' });
+            } catch (err) {
+                console.warn(`Sync attempt ${attempts} failed: ${err.message}`);
+                if (attempts < maxAttempts) {
+                    saveSyncConfig({
+                        ...getSyncConfig(),
+                        syncStatus: 'retrying',
+                        syncRetryCount: attempts
+                    });
+                    setTimeout(runAttempt, delayMs);
+                } else {
+                    saveSyncConfig({
+                        ...getSyncConfig(),
+                        syncStatus: 'error',
+                        syncRetryCount: 0
+                    });
+                    resolve({ status: 'error', message: err.message });
+                }
+            }
+        };
+
+        runAttempt();
+    });
+};
+
+let reconnectHandlerRegistered = false;
+
+export const initializeSyncReconnectHandler = ({ showToast } = {}) => {
+    if (reconnectHandlerRegistered || typeof window === 'undefined') return;
+    reconnectHandlerRegistered = true;
+
+    window.addEventListener('online', async () => {
+        if (!isSyncEnabled()) return;
+
+        const queue = getSyncQueue();
+        if (queue.length > 0) {
+            if (showToast) showToast('Network reconnected. Syncing pending changes...', 'info');
+            await pushQueueWithRetry();
+        } else {
+            // No dirty local keys, run pullNow silently
+            const res = await pullNow(false); // force = false
+            if (res.status === 'conflict') {
+                if (showToast) showToast('Cloud changes available — review in Settings.', 'warning');
+            } else if (res.status === 'success' && res.mergedCount > 0) {
+                if (showToast) showToast(`Network reconnected. Merged ${res.mergedCount} cloud updates.`, 'success');
+            }
+        }
+    });
 };
 
 // Pull all remote data
@@ -382,6 +483,7 @@ export const enableCloudBackup = async (method, email = '', password = '') => {
             lastSyncAt: new Date().toISOString(),
             accountUpgradeStatus: authUser.email ? 'upgraded' : 'anonymous',
             syncStatus: 'idle',
+            syncRetryCount: 0,
             userEmail: authUser.email || null
         };
         saveSyncConfig(newConfig);
@@ -443,6 +545,7 @@ export const disableCloudBackup = async () => {
         lastSyncAt: null,
         accountUpgradeStatus: 'local',
         syncStatus: 'idle',
+        syncRetryCount: 0,
         userEmail: null
     });
     clearSyncQueue();

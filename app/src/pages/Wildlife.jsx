@@ -48,11 +48,16 @@ const Wildlife = () => {
         }
 
         return (
-            <div className={`${className} w-full bg-sand-200 relative overflow-hidden group`}>
+            <div 
+                className={`${className} w-full bg-slate-950 relative overflow-hidden group flex items-center justify-center bg-cover bg-center`}
+                style={{ backgroundImage: `url("${imageSrc}")` }}
+            >
+                {/* Blurred background overlay */}
+                <div className="absolute inset-0 bg-black/55 backdrop-blur-md select-none pointer-events-none" />
                 <img
                     src={imageSrc}
                     alt={alt}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    className="relative z-10 max-w-full max-h-full object-contain transition-transform duration-500 group-hover:scale-105"
                     onError={() => setImgError(true)}
                 />
             </div>

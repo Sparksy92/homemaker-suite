@@ -456,7 +456,7 @@ const SurvivalToolsList = ({ tools, setActiveToolUrl }) => {
                         {tools.map(tool => (
                             <button
                                 key={tool}
-                                onClick={() => setActiveToolUrl(`/content/50 Interactive Tools/${tool}`)}
+                                onClick={() => setActiveToolUrl(`/content/50%20Interactive%20Tools/${encodeURIComponent(tool)}`)}
                                 className="bg-white p-4 rounded-xl shadow-sm border border-sand-200 text-left hover:border-terracotta-300 transition-all group flex items-center justify-between"
                             >
                                 <div>

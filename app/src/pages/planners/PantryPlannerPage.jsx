@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useUser } from '../../context/UserContext';
 import { loadPlan, savePlan, resetPlan } from '../../services/homesteadPlanningService';
 import { calculatePantryTargets, estimateStorageVolume, generateRotationTasks } from '../../planners/pantryPlanner';
+import PlannerConfidenceIndicator from '../../components/PlannerConfidenceIndicator';
 import { Archive, ArrowLeft, RefreshCw, AlertTriangle, ShieldCheck, CheckSquare } from 'lucide-react';
 
 const PantryPlannerPage = () => {
@@ -108,6 +109,8 @@ const PantryPlannerPage = () => {
                     </button>
                 </div>
             </div>
+
+            <PlannerConfidenceIndicator lastSaved={plan.updatedAt} />
 
             {message && (
                 <div className="p-4 bg-emerald-50 text-emerald-800 border border-emerald-200 rounded-2xl font-semibold text-xs animate-pulse">

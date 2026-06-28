@@ -3,6 +3,8 @@ import { Outlet, NavLink, useLocation } from 'react-router-dom';
 import { Home, BookOpen, Wrench, Menu, User, Settings, LogOut, Leaf, Archive, Utensils, MessageSquare, X } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { motion, AnimatePresence } from 'framer-motion';
+import OfflineIndicator from './OfflineIndicator';
+import PwaUpdatePrompt from './PwaUpdatePrompt';
 
 const Layout = () => {
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -13,56 +15,58 @@ const Layout = () => {
             {/* Mobile Menu Overlay */}
             <AnimatePresence>
                 {isMenuOpen && (
-                    <>
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            onClick={() => setIsMenuOpen(false)}
-                            className="absolute inset-0 bg-black/50 z-40 backdrop-blur-sm"
-                        />
-                        <motion.div
-                            initial={{ x: '100%' }}
-                            animate={{ x: 0 }}
-                            exit={{ x: '100%' }}
-                            transition={{ type: "spring", damping: 25, stiffness: 200 }}
-                            className="absolute right-0 top-0 bottom-0 w-64 bg-white shadow-2xl z-50 p-6 flex flex-col gap-6"
-                        >
-                            <div className="flex justify-between items-center">
-                                <h2 className="text-2xl font-serif text-sage-800 font-bold">Menu</h2>
-                                <button
-                                    onClick={() => setIsMenuOpen(false)}
-                                    className="p-3 hover:bg-sand-100 rounded-full text-sage-600 flex items-center justify-center min-w-[44px] min-h-[44px]"
-                                >
-                                    <X size={24} />
-                                </button>
-                            </div>
+                    <motion.div
+                        key="menu-backdrop"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        onClick={() => setIsMenuOpen(false)}
+                        className="absolute inset-0 bg-black/50 z-40 backdrop-blur-sm"
+                    />
+                )}
+                {isMenuOpen && (
+                    <motion.div
+                        key="menu-sidebar"
+                        initial={{ x: '100%' }}
+                        animate={{ x: 0 }}
+                        exit={{ x: '100%' }}
+                        transition={{ type: "spring", damping: 25, stiffness: 200 }}
+                        className="absolute right-0 top-0 bottom-0 w-64 bg-white shadow-2xl z-50 p-6 flex flex-col gap-6"
+                    >
+                        <div className="flex justify-between items-center">
+                            <h2 className="text-2xl font-serif text-sage-800 font-bold">Menu</h2>
+                            <button
+                                onClick={() => setIsMenuOpen(false)}
+                                className="p-3 hover:bg-sand-100 rounded-full text-sage-600 flex items-center justify-center min-w-[44px] min-h-[44px]"
+                            >
+                                <X size={24} />
+                            </button>
+                        </div>
 
-                            <hr className="border-sand-200" />
+                        <hr className="border-sand-200" />
 
-                            <ul className="flex flex-col gap-4">
-                                <MenuLink to="/homestead" label="Homestead OS" onClick={() => setIsMenuOpen(false)} icon={<Home size={20} />} />
-                                <MenuLink to="/profile" label="Profile" onClick={() => setIsMenuOpen(false)} icon={<User size={20} />} />
-                                <MenuLink to="/settings" label="Settings" onClick={() => setIsMenuOpen(false)} icon={<Settings size={20} />} />
-                                <MenuLink to="/feedback" label="Suggestion Box" onClick={() => setIsMenuOpen(false)} icon={<MessageSquare size={20} />} />
-                                <hr className="border-sand-200 my-2" />
-                                <button
-                                    onClick={() => {
-                                        console.log("Logout clicked");
-                                        setIsMenuOpen(false);
-                                    }}
-                                    className="flex items-center gap-3 px-4 py-3 rounded-lg text-red-600 hover:bg-red-50 transition-colors font-medium w-full text-left"
-                                >
-                                    <LogOut size={20} />
-                                    <span>Logout</span>
-                                </button>
-                            </ul>
+                        <ul className="flex flex-col gap-4">
+                            <MenuLink to="/homestead" label="Homestead OS" onClick={() => setIsMenuOpen(false)} icon={<Home size={20} />} />
+                            <MenuLink to="/profile" label="Profile" onClick={() => setIsMenuOpen(false)} icon={<User size={20} />} />
+                            <MenuLink to="/settings" label="Settings" onClick={() => setIsMenuOpen(false)} icon={<Settings size={20} />} />
+                            <MenuLink to="/feedback" label="Suggestion Box" onClick={() => setIsMenuOpen(false)} icon={<MessageSquare size={20} />} />
+                            <hr className="border-sand-200 my-2" />
+                            <button
+                                onClick={() => {
+                                    console.log("Logout clicked");
+                                    setIsMenuOpen(false);
+                                }}
+                                className="flex items-center gap-3 px-4 py-3 rounded-lg text-red-600 hover:bg-red-50 transition-colors font-medium w-full text-left"
+                            >
+                                <LogOut size={20} />
+                                <span>Logout</span>
+                            </button>
+                        </ul>
 
-                            <div className="mt-auto">
-                                <p className="text-xs text-center text-sage-400">Homemaker Suite v0.1.0</p>
-                            </div>
-                        </motion.div>
-                    </>
+                        <div className="mt-auto">
+                            <p className="text-xs text-center text-sage-400">Homemaker Suite v0.1.0</p>
+                        </div>
+                    </motion.div>
                 )}
             </AnimatePresence>
 
@@ -75,12 +79,15 @@ const Layout = () => {
                     </div>
                     <h1 className="text-xl tracking-wide text-sand-100">Homemaker</h1>
                 </div>
-                <button
-                    onClick={() => setIsMenuOpen(true)}
-                    className="p-3 hover:bg-sage-600 rounded-full transition-colors"
-                >
-                    <Menu size={24} className="text-sand-100" />
-                </button>
+                <div className="flex items-center gap-3">
+                    <OfflineIndicator />
+                    <button
+                        onClick={() => setIsMenuOpen(true)}
+                        className="p-3 hover:bg-sage-600 rounded-full transition-colors"
+                    >
+                        <Menu size={24} className="text-sand-100" />
+                    </button>
+                </div>
             </header>
 
             {/* Main Content Area */}
@@ -100,6 +107,7 @@ const Layout = () => {
                     <NavItem to="/tools" icon={<Wrench size={22} />} label="Tools" />
                 </ul>
             </nav>
+            <PwaUpdatePrompt />
         </div>
     );
 };

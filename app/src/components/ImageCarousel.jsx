@@ -94,17 +94,23 @@ const ImageCarousel = ({
         : `/images/${category}/${currentImage}`;
 
     return (
-        <div className="relative w-full h-full group overflow-hidden bg-sand-200">
+        <div 
+            className="relative w-full h-full group overflow-hidden bg-slate-950 flex items-center justify-center bg-cover bg-center"
+            style={{ backgroundImage: `url("${imageSrc}")` }}
+        >
+            {/* Blurred background overlay for premium visual effect */}
+            <div className="absolute inset-0 bg-black/60 backdrop-blur-lg select-none pointer-events-none" />
+            
             <AnimatePresence mode="wait">
                 <motion.img
                     key={currentImage}
                     src={imageSrc}
                     alt={`${alt} ${currentIndex + 1}`}
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -20 }}
-                    transition={{ duration: 0.3, ease: 'easeInOut' }}
-                    className="w-full h-full object-cover"
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.95 }}
+                    transition={{ duration: 0.25, ease: 'easeInOut' }}
+                    className="relative z-10 max-w-full max-h-full object-contain"
                     onError={() => handleImageError(currentImage)}
                 />
             </AnimatePresence>
