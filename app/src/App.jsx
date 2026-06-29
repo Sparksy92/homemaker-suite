@@ -10,12 +10,6 @@ import OnboardingGate from './components/onboarding/OnboardingGate';
 import PageErrorBoundary from './components/PageErrorBoundary';
 
 // Lazy load pages for better performance and smaller bundle size
-// ... [rest remains the same until App component]
-// Let's modify the routing area:
-// Start of return statement:
-
-
-// Lazy load pages for better performance and smaller bundle size
 const Home = lazy(() => import('./pages/Home'));
 const Library = lazy(() => import('./pages/Library'));
 const Tools = lazy(() => import('./pages/Tools'));
