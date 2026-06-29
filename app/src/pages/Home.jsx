@@ -139,13 +139,13 @@ const Home = () => {
                 <PwaInstallPrompt inline={true} />
 
                 {/* Today on the Homestead Dashboard */}
-                <section className="bg-sage-800 text-white p-6 rounded-[2.5rem] shadow-xl border border-sage-700 space-y-6">
+                <section className="bg-gradient-to-br from-sage-800 via-sage-900 to-charcoal-dark text-white p-6 rounded-[2.5rem] shadow-xl border border-sage-700 space-y-6">
                     <div className="flex items-center justify-between border-b border-white/10 pb-3">
                         <div className="flex items-center gap-2">
                             <div className="p-2 bg-white/10 rounded-xl"><Activity size={18} className="text-sand-100" /></div>
                             <h3 className="text-sm font-black uppercase tracking-wider text-sand-100">Today on the Homestead</h3>
                         </div>
-                        <Link to="/homestead" className="text-xs text-sand-300 hover:text-white underline font-bold">
+                        <Link to="/homestead" className="text-xs text-sand-300 hover:text-white underline font-bold transition-colors">
                             Open Command Center
                         </Link>
                     </div>
@@ -154,14 +154,14 @@ const Home = () => {
                         <div className="bg-white/5 border border-white/10 p-4 rounded-2xl space-y-1">
                             <span className="text-[8px] font-black uppercase text-sand-300 tracking-widest">Water Security</span>
                             <div className="text-sm font-bold text-white">{waterPlan?.targetDays || 90} Days Potable Buffer</div>
-                            <Link to="/homestead/water-plan" className="text-[10px] text-terracotta-300 hover:underline block pt-1">
+                            <Link to="/homestead/water-plan" className="text-[10px] text-terracotta-300 hover:text-terracotta-200 hover:underline block pt-1">
                                 Open Water Planner &rarr;
                             </Link>
                         </div>
                         <div className="bg-white/5 border border-white/10 p-4 rounded-2xl space-y-1">
                             <span className="text-[8px] font-black uppercase text-sand-300 tracking-widest">Pantry Reserves</span>
                             <div className="text-sm font-bold text-white">{pantryPlan?.householdSize || 2} People • {pantryPlan?.targetDays || 90} Days</div>
-                            <Link to="/homestead/pantry-plan" className="text-[10px] text-terracotta-300 hover:underline block pt-1">
+                            <Link to="/homestead/pantry-plan" className="text-[10px] text-terracotta-300 hover:text-terracotta-200 hover:underline block pt-1">
                                 Configure Food Targets &rarr;
                             </Link>
                         </div>
@@ -172,7 +172,7 @@ const Home = () => {
                                 <p className="text-[10px] text-sand-200 leading-normal font-sans">
                                     Next: {activeProjects[0].steps.find(s => !s.completed)?.text || 'Review blueprints'}
                                 </p>
-                                <Link to="/homestead/build-projects" className="text-[10px] text-terracotta-300 hover:underline block pt-1">
+                                <Link to="/homestead/build-projects" className="text-[10px] text-terracotta-300 hover:text-terracotta-200 hover:underline block pt-1">
                                     Track Build Milestones &rarr;
                                 </Link>
                             </div>
@@ -180,7 +180,7 @@ const Home = () => {
                             <div className="bg-white/5 border border-white/10 p-4 rounded-2xl space-y-1 sm:col-span-2">
                                 <span className="text-[8px] font-black uppercase text-sand-300 tracking-widest">Active Project</span>
                                 <div className="text-sm font-bold text-white">No active builds. Setup a project!</div>
-                                <Link to="/homestead/build-projects" className="text-[10px] text-terracotta-300 hover:underline block pt-1">
+                                <Link to="/homestead/build-projects" className="text-[10px] text-terracotta-300 hover:text-terracotta-200 hover:underline block pt-1">
                                     Browse Project Blueprints &rarr;
                                 </Link>
                             </div>
@@ -188,22 +188,22 @@ const Home = () => {
                     </div>
 
                     <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 pt-2 border-t border-white/10">
-                        <Link to="/homestead/garden-plan" className="py-2 px-3 bg-white/10 hover:bg-white/20 text-center font-bold text-[10px] uppercase tracking-wider rounded-xl transition-all">
+                        <Link to="/homestead/garden-plan" className="py-2.5 px-3 bg-white/10 hover:bg-white/20 text-center font-bold text-[10px] uppercase tracking-wider rounded-xl transition-all hover:scale-[1.02] active:scale-[0.98] min-h-[40px] flex items-center justify-center">
                             Plan Garden
                         </Link>
-                        <Link to="/homestead/pantry-plan" className="py-2 px-3 bg-white/10 hover:bg-white/20 text-center font-bold text-[10px] uppercase tracking-wider rounded-xl transition-all">
+                        <Link to="/homestead/pantry-plan" className="py-2.5 px-3 bg-white/10 hover:bg-white/20 text-center font-bold text-[10px] uppercase tracking-wider rounded-xl transition-all hover:scale-[1.02] active:scale-[0.98] min-h-[40px] flex items-center justify-center">
                             Plan Pantry
                         </Link>
-                        <Link to="/homestead/water-plan" className="py-2 px-3 bg-white/10 hover:bg-white/20 text-center font-bold text-[10px] uppercase tracking-wider rounded-xl transition-all">
+                        <Link to="/homestead/water-plan" className="py-2.5 px-3 bg-white/10 hover:bg-white/20 text-center font-bold text-[10px] uppercase tracking-wider rounded-xl transition-all hover:scale-[1.02] active:scale-[0.98] min-h-[40px] flex items-center justify-center">
                             Plan Water
                         </Link>
-                        <Link to="/homestead/energy-plan" className="py-2 px-3 bg-white/10 hover:bg-white/20 text-center font-bold text-[10px] uppercase tracking-wider rounded-xl transition-all">
+                        <Link to="/homestead/energy-plan" className="py-2.5 px-3 bg-white/10 hover:bg-white/20 text-center font-bold text-[10px] uppercase tracking-wider rounded-xl transition-all hover:scale-[1.02] active:scale-[0.98] min-h-[40px] flex items-center justify-center">
                             Plan Energy
                         </Link>
-                        <Link to="/homestead/build-projects" className="py-2 px-3 bg-white/10 hover:bg-white/20 text-center font-bold text-[10px] uppercase tracking-wider rounded-xl transition-all">
+                        <Link to="/homestead/build-projects" className="py-2.5 px-3 bg-white/10 hover:bg-white/20 text-center font-bold text-[10px] uppercase tracking-wider rounded-xl transition-all hover:scale-[1.02] active:scale-[0.98] min-h-[40px] flex items-center justify-center">
                             Build Projects
                         </Link>
-                        <Link to="/field-binder" className="py-2 px-3 bg-terracotta-600 hover:bg-terracotta-700 text-center font-bold text-[10px] uppercase tracking-wider rounded-xl transition-all">
+                        <Link to="/field-binder" className="py-2.5 px-3 bg-terracotta-600 hover:bg-terracotta-700 text-center font-bold text-[10px] uppercase tracking-wider rounded-xl transition-all hover:scale-[1.02] active:scale-[0.98] min-h-[40px] flex items-center justify-center">
                             Print OS Binder
                         </Link>
                     </div>

@@ -716,13 +716,13 @@ const Library = ({ type = 'all' }) => {
                                                     <button
                                                         key={folder}
                                                         onClick={() => setCurrentPath([folder])}
-                                                        className="w-full group/card flex items-center justify-between p-5 bg-white rounded-3xl border border-sand-200 shadow-sm hover:shadow-xl hover:shadow-sage-900/5 hover:border-sage-400 transition-all text-left"
+                                                        className="w-full group/card flex items-center justify-between p-6 bg-white rounded-[2rem] border border-sand-200 shadow-sm hover:shadow-xl hover:shadow-sage-900/5 hover:border-terracotta-400/50 hover:bg-gradient-to-br hover:from-white hover:to-sand-50/20 transition-all text-left duration-300"
                                                     >
                                                         <div className="flex-1 min-w-0">
                                                             <span className="font-serif text-lg font-black text-sage-900 block truncate leading-tight group-hover/card:text-sage-700">{getDisplayName(folder)}</span>
                                                             <span className="text-[10px] font-black text-sand-400 uppercase tracking-widest block mt-1">{fileSystem[folder].length} Resources</span>
                                                         </div>
-                                                        <div className="w-8 h-8 rounded-full bg-sand-50 flex items-center justify-center text-sand-300 group-hover/card:bg-sage-600 group-hover/card:text-white transition-all">
+                                                        <div className="w-8 h-8 rounded-full bg-sand-50 flex items-center justify-center text-sand-300 group-hover/card:bg-sage-600 group-hover/card:text-white transition-all duration-300">
                                                             <ChevronRight size={16} />
                                                         </div>
                                                     </button>
@@ -750,13 +750,13 @@ const Library = ({ type = 'all' }) => {
                                                     <button
                                                         key={folder}
                                                         onClick={() => setCurrentPath([folder])}
-                                                        className="w-full group/card flex items-center justify-between p-5 bg-white rounded-3xl border border-sand-200 shadow-sm hover:shadow-xl hover:shadow-sage-900/5 hover:border-sage-400 transition-all text-left"
+                                                        className="w-full group/card flex items-center justify-between p-6 bg-white rounded-[2rem] border border-sand-200 shadow-sm hover:shadow-xl hover:shadow-sage-900/5 hover:border-terracotta-400/50 hover:bg-gradient-to-br hover:from-white hover:to-sand-50/20 transition-all text-left duration-300"
                                                     >
                                                         <div className="flex-1 min-w-0">
                                                             <span className="font-serif text-lg font-black text-sage-900 block truncate leading-tight group-hover/card:text-sage-700">{getDisplayName(folder)}</span>
                                                             <span className="text-[10px] font-black text-sand-400 uppercase tracking-widest block mt-1">{fileSystem[folder].length} Resources</span>
                                                         </div>
-                                                        <div className="w-8 h-8 rounded-full bg-sand-50 flex items-center justify-center text-sand-300 group-hover/card:bg-sage-600 group-hover/card:text-white transition-all">
+                                                        <div className="w-8 h-8 rounded-full bg-sand-50 flex items-center justify-center text-sand-300 group-hover/card:bg-sage-600 group-hover/card:text-white transition-all duration-300">
                                                             <ChevronRight size={16} />
                                                         </div>
                                                     </button>

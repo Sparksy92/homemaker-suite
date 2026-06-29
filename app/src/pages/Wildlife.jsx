@@ -86,20 +86,20 @@ const Wildlife = () => {
     return (
         <div className="min-h-screen bg-sand-50 pb-24 relative">
             {/* Header */}
-            <div className="bg-sage-800 text-sand-50 p-6 pt-4 pb-6 rounded-b-3xl shadow-lg">
-                <h1 className="text-3xl font-serif font-bold mb-1">Wildlife & Nature</h1>
-                <p className="text-sage-200 opacity-90 text-sm">Field guide to the living world.</p>
+            <div className="bg-gradient-to-br from-sage-500 via-sage-600 to-sage-700 text-white p-6 pt-6 pb-8 rounded-b-[2.5rem] shadow-md border-b border-sage-400/20">
+                <h1 className="text-3xl font-serif font-black mb-1 text-white leading-tight">Wildlife & Nature</h1>
+                <p className="text-sage-100 opacity-90 text-xs font-medium tracking-wide">Field guide to the living world.</p>
 
                 {/* Search & Actions Bar */}
                 <div className="mt-4 flex gap-2">
                     <div className="relative flex-1">
-                        <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-sage-400" size={20} />
+                        <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-sage-200" size={20} />
                         <input
                             type="text"
                             placeholder="Search plants, insects, animals..."
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="w-full pl-12 pr-4 py-3 rounded-xl bg-sage-900/50 border border-sage-700 text-sand-50 placeholder-sage-400 focus:outline-none focus:ring-2 focus:ring-terracotta-500 transition-all font-serif"
+                            className="w-full pl-12 pr-4 py-3 rounded-2xl bg-white/10 border border-white/20 text-white placeholder-sage-200 focus:outline-none focus:ring-2 focus:ring-terracotta-400 focus:bg-white/20 transition-all font-serif text-sm backdrop-blur-sm"
                         />
                     </div>
                     <motion.button
