@@ -183,6 +183,10 @@ const Library = ({ type = 'all' }) => {
         if (folderParam && fileParam) {
             setCurrentPath([folderParam]);
             handleFileClick(fileParam, folderParam);
+        } else if (!folderParam && !fileParam) {
+            // Reset to root categories if no parameters are present (e.g. clicked Guides tab)
+            setCurrentPath([]);
+            setFileContent(null);
         }
     }, [location.search, fileSystem]);
 
@@ -628,7 +632,7 @@ const Library = ({ type = 'all' }) => {
                                             key={item.file}
                                             onClick={() => {
                                                 setCurrentPath([item.folder]);
-                                                handleFileClick(item.file);
+                                                handleFileClick(item.file, item.folder);
                                             }}
                                             className="flex items-center gap-4 p-5 bg-white rounded-3xl border border-sand-100 shadow-sm hover:shadow-md hover:border-terracotta-200 transition-all text-left"
                                         >
@@ -667,7 +671,7 @@ const Library = ({ type = 'all' }) => {
                                             key={item.file}
                                             onClick={() => {
                                                 setCurrentPath([item.folder]);
-                                                handleFileClick(item.file);
+                                                handleFileClick(item.file, item.folder);
                                             }}
                                             className="flex items-center gap-4 p-5 bg-white rounded-3xl border border-sand-100 shadow-sm hover:shadow-md hover:border-terracotta-200 transition-all text-left"
                                         >
@@ -1033,7 +1037,7 @@ const FolderContentList = ({ files, folder, handleFileClick, guidesMetadata = []
                     return (
                         <div key={file} className="relative group">
                             <button
-                                onClick={() => handleFileClick(file)}
+                                onClick={() => handleFileClick(file, folder)}
                                 className="w-full flex items-center gap-6 p-6 bg-white rounded-[2rem] border border-sand-100 shadow-sm hover:shadow-xl hover:shadow-sage-900/5 hover:border-terracotta-400 transition-all text-left"
                             >
                                 <div className="p-3 bg-terracotta-50 rounded-2xl text-terracotta-500">
