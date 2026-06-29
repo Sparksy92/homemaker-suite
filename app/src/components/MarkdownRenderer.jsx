@@ -7,8 +7,75 @@ import { X, Maximize2, AlertTriangle, AlertCircle, Info, ShieldAlert } from 'luc
 const MarkdownRenderer = ({ content }) => {
     const [selectedImage, setSelectedImage] = React.useState(null);
 
+    // Parse YAML frontmatter if present
+    let metadata = null;
+    let markdownBody = content || '';
+
+    if (markdownBody.startsWith('---')) {
+        const parts = markdownBody.split('---');
+        if (parts.length >= 3) {
+            const yamlStr = parts[1];
+            markdownBody = parts.slice(2).join('---').trim();
+
+            // Simple parser for YAML lines
+            metadata = {};
+            const lines = yamlStr.split('\n');
+            lines.forEach(line => {
+                const match = line.match(/^([a-zA-Z0-9_-]+):\s*(.*)$/);
+                if (match) {
+                    const key = match[1].trim();
+                    let val = match[2].trim();
+                    if (val.startsWith('[') && val.endsWith(']')) {
+                        val = val.slice(1, -1).split(',').map(s => s.trim().replace(/^['"]|['"]$/g, ''));
+                    } else {
+                        val = val.replace(/^['"]|['"]$/g, '');
+                    }
+                    metadata[key] = val;
+                }
+            });
+        }
+    }
+
     return (
         <>
+            {metadata && (
+                <div className="mb-8 p-5 bg-gradient-to-br from-sage-50 to-sand-100 rounded-3xl border border-sand-200/60 shadow-sm flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
+                    <div className="space-y-1.5 flex-1 min-w-0">
+                        {metadata.module && (
+                            <span className="text-[10px] font-black text-sage-600 uppercase tracking-widest block font-sans">
+                                {metadata.module} {metadata.section ? `• Section ${metadata.section}` : ''}
+                            </span>
+                        )}
+                        <div className="flex flex-wrap gap-1.5">
+                            {metadata.difficulty && (
+                                <span className={`text-[9px] font-black uppercase tracking-widest px-2.5 py-1 rounded-md border ${
+                                    metadata.difficulty === 'beginner' || metadata.difficulty === 'low'
+                                        ? 'bg-lime-50 text-lime-700 border-lime-200'
+                                        : metadata.difficulty === 'medium' || metadata.difficulty === 'intermediate'
+                                            ? 'bg-amber-50 text-amber-700 border-amber-200'
+                                            : 'bg-terracotta-50 text-terracotta-700 border-terracotta-200'
+                                }`}>
+                                    Diff: {metadata.difficulty}
+                                </span>
+                            )}
+                            {metadata.timeframe && (
+                                <span className="text-[9px] font-black uppercase tracking-widest px-2.5 py-1 rounded-md border bg-sage-50 text-sage-700 border-sage-200">
+                                    Time: {metadata.timeframe}
+                                </span>
+                            )}
+                        </div>
+                    </div>
+                    {metadata.tags && Array.isArray(metadata.tags) && (
+                        <div className="flex flex-wrap gap-1 max-w-xs justify-start sm:justify-end">
+                            {metadata.tags.map(tag => (
+                                <span key={tag} className="text-[9px] font-bold bg-white/70 text-charcoal border border-sand-300 px-2 py-0.5 rounded-lg shadow-sm font-sans">
+                                    #{tag}
+                                </span>
+                            ))}
+                        </div>
+                    )}
+                </div>
+            )}
             <ReactMarkdown
                 remarkPlugins={[remarkGfm]}
                 components={{
@@ -188,7 +255,7 @@ const MarkdownRenderer = ({ content }) => {
                     )
                 }}
             >
-                {content}
+                {markdownBody}
             </ReactMarkdown>
 
             {/* Markdown Image Lightbox */}
