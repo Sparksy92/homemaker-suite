@@ -612,10 +612,15 @@ const BuildProjectsPage = () => {
                 </div>
             </div>
 
-            {/* Blueprint Detail Modal */}
             {selectedBlueprint && (
-                <div className="fixed inset-0 bg-black/60 backdrop-blur-xs flex items-center justify-center z-50 p-4 overflow-y-auto">
-                    <div className="bg-white rounded-[2rem] border border-sand-200 w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-xl p-6 relative space-y-6 my-8">
+                <div 
+                    onClick={() => setSelectedBlueprint(null)}
+                    className="fixed inset-0 bg-black/60 backdrop-blur-xs flex items-center justify-center z-50 p-4 overflow-y-auto"
+                >
+                    <div 
+                        onClick={(e) => e.stopPropagation()}
+                        className="bg-white rounded-[2rem] border border-sand-200 w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-xl p-6 relative space-y-6 my-8"
+                    >
                         <button
                             onClick={() => setSelectedBlueprint(null)}
                             className="absolute top-6 right-6 p-2 text-sand-400 hover:text-charcoal hover:bg-sand-100 rounded-full transition-all min-h-[40px] min-w-[40px] flex items-center justify-center"
