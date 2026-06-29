@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useUser } from '../../context/UserContext';
 import { loadPlan, savePlan, resetPlan, updatePlan } from '../../services/homesteadPlanningService';
-import { PROJECT_TEMPLATES, createProjectFromTemplate, calculateProjectProgress } from '../../planners/projectPlanner';
+import { PROJECT_TEMPLATES, createProjectFromTemplate, calculateProjectProgress, getNextProjectStep } from '../../planners/projectPlanner';
 import PlannerConfidenceIndicator from '../../components/PlannerConfidenceIndicator';
-import { Wrench, ArrowLeft, Plus, Trash2, CheckCircle, Clock, Shield, AlertTriangle } from 'lucide-react';
+import { Wrench, ArrowLeft, Plus, Trash2, CheckCircle, Clock, Shield, AlertTriangle, Search, X } from 'lucide-react';
 
 const BuildProjectsPage = () => {
     const navigate = useNavigate();
@@ -14,6 +14,16 @@ const BuildProjectsPage = () => {
     const [selectedProject, setSelectedProject] = useState(null);
     const [showCustomForm, setShowCustomForm] = useState(false);
     const [message, setMessage] = useState('');
+
+    // Dynamic Blueprints Library states
+    const [blueprints, setBlueprints] = useState([]);
+    const [blueprintsLoading, setBlueprintsLoading] = useState(true);
+    const [blueprintsError, setBlueprintsError] = useState(null);
+    const [blueprintSearch, setBlueprintSearch] = useState('');
+    const [blueprintSystemFilter, setBlueprintSystemFilter] = useState('All');
+    const [visibleBlueprintCount, setVisibleBlueprintCount] = useState(6);
+    const [selectedBlueprint, setSelectedBlueprint] = useState(null);
+    const [isOfflineFallback, setIsOfflineFallback] = useState(false);
 
     // Custom project form states
     const [customProj, setCustomProj] = useState({
@@ -30,7 +40,34 @@ const BuildProjectsPage = () => {
 
     useEffect(() => {
         setProjectsPlan(loadPlan('homemaker_build_projects'));
+
+        const fetchBlueprints = async () => {
+            try {
+                const res = await fetch('/data/blueprints.json');
+                if (!res.ok) throw new Error('Failed to load blueprints database');
+                const data = await res.json();
+                if (data && Array.isArray(data.blueprints)) {
+                    setBlueprints(data.blueprints);
+                } else {
+                    throw new Error('Invalid blueprints data structure');
+                }
+            } catch (err) {
+                console.warn('Using offline fallback templates:', err.message);
+                setBlueprints(PROJECT_TEMPLATES);
+                setIsOfflineFallback(true);
+                setBlueprintsError(err.message);
+            } finally {
+                setBlueprintsLoading(false);
+            }
+        };
+
+        fetchBlueprints();
     }, []);
+
+    // Reset pagination when search or filters change
+    useEffect(() => {
+        setVisibleBlueprintCount(6);
+    }, [blueprintSearch, blueprintSystemFilter]);
 
     const handleSave = (updatedPlan = projectsPlan) => {
         savePlan('homemaker_build_projects', updatedPlan);
@@ -39,14 +76,17 @@ const BuildProjectsPage = () => {
         setTimeout(() => setMessage(''), 3000);
     };
 
-    const handleAddTemplate = (templateId) => {
-        const newProj = createProjectFromTemplate(templateId);
+    const handleAddBlueprint = (blueprint) => {
+        const newProj = createProjectFromTemplate(blueprint);
         if (newProj) {
             const updated = {
                 ...projectsPlan,
                 projects: [...(projectsPlan.projects || []), newProj]
             };
             handleSave(updated);
+            setSelectedBlueprint(null);
+            setMessage(`Added "${blueprint.title}" to active builds!`);
+            setTimeout(() => setMessage(''), 3000);
         }
     };
 
@@ -149,6 +189,26 @@ const BuildProjectsPage = () => {
         }
     };
 
+    // Client-side search and filtering
+    const filteredBlueprints = useMemo(() => {
+        return blueprints.filter(bp => {
+            const query = blueprintSearch.toLowerCase();
+            const matchesSearch = !blueprintSearch || 
+                bp.title.toLowerCase().includes(query) ||
+                bp.system.toLowerCase().includes(query) ||
+                bp.difficulty.toLowerCase().includes(query) ||
+                (bp.notes && bp.notes.toLowerCase().includes(query)) ||
+                (bp.summary && bp.summary.toLowerCase().includes(query)) ||
+                bp.materials.some(m => m.toLowerCase().includes(query)) ||
+                bp.tools.some(t => t.toLowerCase().includes(query));
+            
+            const matchesSystem = blueprintSystemFilter === 'All' || bp.system === blueprintSystemFilter;
+            
+            return matchesSearch && matchesSystem;
+        });
+    }, [blueprints, blueprintSearch, blueprintSystemFilter]);
+
+    const visibleBlueprints = filteredBlueprints.slice(0, visibleBlueprintCount);
     const activeList = projectsPlan.projects || [];
 
     return (
@@ -222,6 +282,8 @@ const BuildProjectsPage = () => {
                                 <option value="Energy">Energy</option>
                                 <option value="Preservation">Preservation</option>
                                 <option value="Infrastructure">Infrastructure</option>
+                                <option value="Sanitation">Sanitation</option>
+                                <option value="Shelter">Shelter</option>
                             </select>
                         </div>
                         <div className="space-y-1">
@@ -285,29 +347,106 @@ const BuildProjectsPage = () => {
 
             {/* Template Catalog */}
             <div className="bg-white border border-sand-200 rounded-[2rem] p-6 shadow-sm space-y-4">
-                <h3 className="text-sm font-black text-sage-900 uppercase tracking-wider border-b border-sand-100 pb-2">
-                    Project Blueprints Library
-                </h3>
-                <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-3">
-                    {PROJECT_TEMPLATES.map(temp => (
-                        <div key={temp.id} className="p-4 bg-sand-50/50 border border-sand-100 rounded-3xl space-y-3 flex flex-col justify-between">
-                            <div className="space-y-1">
-                                <span className="text-[8px] font-black uppercase tracking-widest text-charcoal-400">{temp.system}</span>
-                                <h4 className="font-serif font-black text-sm text-sage-950 leading-tight">{temp.title}</h4>
-                                <div className="flex flex-wrap gap-1 text-[8px] pt-1">
-                                    <span className="bg-sand-200 text-charcoal-700 px-1.5 py-0.5 rounded font-bold">{temp.difficulty}</span>
-                                    <span className="bg-sand-200 text-charcoal-700 px-1.5 py-0.5 rounded font-bold">Safety: {temp.safetyLevel}</span>
-                                </div>
-                            </div>
-                            <button
-                                onClick={() => handleAddTask(temp.id) || handleAddTemplate(temp.id)}
-                                className="w-full py-2 px-3 bg-white border border-sand-300 hover:bg-sand-100 text-charcoal font-bold text-[10px] uppercase tracking-wider rounded-xl shadow-sm transition-all text-center min-h-[36px]"
-                            >
-                                + Add to Active Builds
-                            </button>
-                        </div>
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b border-sand-100 pb-3 gap-3">
+                    <div className="flex flex-wrap items-center gap-2">
+                        <Wrench size={18} className="text-sage-700" />
+                        <h3 className="text-sm font-black text-sage-900 uppercase tracking-wider">
+                            Project Blueprints Library
+                        </h3>
+                        {isOfflineFallback && (
+                            <span className="text-[9px] bg-amber-100 text-amber-800 font-bold px-2 py-0.5 rounded-full border border-amber-200 animate-pulse">
+                                Offline blueprint fallback loaded.
+                            </span>
+                        )}
+                    </div>
+                    {/* Search */}
+                    <div className="relative w-full sm:w-64">
+                        <Search className="absolute left-3 top-2.5 text-sand-400" size={14} />
+                        <input
+                            type="text"
+                            placeholder="Search blueprints..."
+                            value={blueprintSearch}
+                            onChange={(e) => setBlueprintSearch(e.target.value)}
+                            className="w-full pl-9 pr-3 py-1.5 bg-sand-50 border border-sand-200 rounded-xl focus:ring-1 focus:ring-sage-500 outline-none text-xs transition-all placeholder:text-sand-400"
+                        />
+                    </div>
+                </div>
+
+                {/* Categories */}
+                <div className="flex flex-wrap gap-1.5 pb-1">
+                    {['All', 'Garden', 'Water', 'Energy', 'Preservation', 'Infrastructure', 'Sanitation', 'Shelter'].map(cat => (
+                        <button
+                            key={cat}
+                            onClick={() => setBlueprintSystemFilter(cat)}
+                            className={`px-3 py-1 rounded-xl text-[10px] font-black uppercase tracking-tighter transition-all border ${
+                                blueprintSystemFilter === cat
+                                    ? 'bg-sage-600 text-white border-sage-600 shadow-sm'
+                                    : 'bg-sand-50 text-sand-400 border-sand-200 hover:border-sand-300'
+                            }`}
+                        >
+                            {cat}
+                        </button>
                     ))}
                 </div>
+
+                {blueprintsLoading ? (
+                    <div className="text-center py-12 text-xs text-charcoal-400 italic">
+                        Loading blueprints database...
+                    </div>
+                ) : visibleBlueprints.length > 0 ? (
+                    <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
+                        {visibleBlueprints.map(temp => (
+                            <div 
+                                key={temp.id} 
+                                onClick={() => setSelectedBlueprint(temp)}
+                                className="p-4 bg-sand-50/50 hover:bg-white border border-sand-100 hover:border-sage-300 hover:shadow-md cursor-pointer rounded-3xl space-y-3 flex flex-col justify-between transition-all"
+                            >
+                                <div className="space-y-1">
+                                    <div className="flex justify-between items-start">
+                                        <span className="text-[8px] font-black uppercase tracking-widest text-charcoal-400">{temp.system}</span>
+                                        <span className={`text-[8px] font-black px-1.5 py-0.25 rounded uppercase ${
+                                            temp.safetyLevel === 'High' ? 'bg-terracotta-50 text-terracotta-700 border border-terracotta-100' :
+                                            temp.safetyLevel === 'Medium' ? 'bg-amber-50 text-amber-700 border border-amber-100' : 'bg-sand-200 text-charcoal-700'
+                                        }`}>
+                                            Safety: {temp.safetyLevel}
+                                        </span>
+                                    </div>
+                                    <h4 className="font-serif font-black text-sm text-sage-950 leading-tight">{temp.title}</h4>
+                                    <p className="text-[10px] text-charcoal-500 font-sans leading-relaxed line-clamp-2 mt-1">{temp.summary || temp.notes}</p>
+                                    <div className="flex flex-wrap gap-1 text-[8px] pt-1">
+                                        <span className="bg-sand-200 text-charcoal-700 px-1.5 py-0.5 rounded font-bold">{temp.difficulty}</span>
+                                        <span className="bg-sand-200 text-charcoal-700 px-1.5 py-0.5 rounded font-bold">{temp.estimatedTime}</span>
+                                    </div>
+                                </div>
+                                <button
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        setSelectedBlueprint(temp);
+                                    }}
+                                    className="w-full py-2 px-3 bg-white border border-sand-300 hover:bg-sand-100 text-charcoal font-bold text-[10px] uppercase tracking-wider rounded-xl shadow-sm transition-all text-center min-h-[36px]"
+                                >
+                                    Inspect & Add
+                                </button>
+                            </div>
+                        ))}
+                    </div>
+                ) : (
+                    <div className="text-center py-12 text-xs text-charcoal-400 italic">
+                        No blueprints found matching search criteria.
+                    </div>
+                )}
+
+                {/* Load More Button */}
+                {!blueprintsLoading && filteredBlueprints.length > visibleBlueprintCount && (
+                    <div className="flex justify-center pt-2">
+                        <button
+                            onClick={() => setVisibleBlueprintCount(prev => prev + 6)}
+                            className="py-2 px-4 bg-white border border-sand-300 hover:bg-sand-50 text-charcoal font-bold text-xs uppercase tracking-wider rounded-xl shadow-sm transition-all text-center"
+                        >
+                            Load More Blueprints
+                        </button>
+                    </div>
+                )}
             </div>
 
             {/* Active projects list */}
@@ -320,6 +459,7 @@ const BuildProjectsPage = () => {
                         {activeList.length > 0 ? (
                             activeList.map(proj => {
                                 const progress = calculateProjectProgress(proj);
+                                const nextStep = getNextProjectStep(proj);
                                 return (
                                     <button
                                         key={proj.id}
@@ -332,9 +472,21 @@ const BuildProjectsPage = () => {
                                     >
                                         <div className="flex items-center justify-between text-[8px] font-black text-charcoal-400 uppercase tracking-wider mb-1">
                                             <span>{proj.system}</span>
-                                            <span>{proj.status}</span>
+                                            <span className={`px-1.5 py-0.25 rounded ${
+                                                proj.safetyLevel === 'High' ? 'bg-terracotta-50 text-terracotta-700' :
+                                                proj.safetyLevel === 'Medium' ? 'bg-amber-50 text-amber-700' : 'bg-sand-200 text-charcoal-700'
+                                            }`}>
+                                                Safety: {proj.safetyLevel}
+                                            </span>
                                         </div>
                                         <h4 className="font-serif font-black text-xs text-sage-950 leading-tight mb-2">{proj.title}</h4>
+                                        
+                                        {nextStep && (
+                                            <p className="text-[9px] text-charcoal-500 font-sans leading-relaxed line-clamp-1 mb-2 bg-sand-50 px-2 py-1 rounded border border-sand-100">
+                                                Next: {nextStep.text}
+                                            </p>
+                                        )}
+
                                         <div className="h-1 bg-sand-200 rounded-full overflow-hidden">
                                             <div className="h-full bg-sage-600 transition-all" style={{ width: `${progress}%` }} />
                                         </div>
@@ -392,13 +544,13 @@ const BuildProjectsPage = () => {
                                 <div className="space-y-2">
                                     <h4 className="font-bold text-sage-900 border-b border-sand-50 pb-1">Materials Needed</h4>
                                     <ul className="list-disc pl-4 space-y-1 text-charcoal-600 font-sans">
-                                        {selectedProject.materials.map((m, idx) => <li key={idx}>{m}</li>)}
+                                        {selectedProject.materials?.map((m, idx) => <li key={idx}>{m}</li>)}
                                     </ul>
                                 </div>
                                 <div className="space-y-2">
                                     <h4 className="font-bold text-sage-900 border-b border-sand-50 pb-1">Tools Required</h4>
                                     <ul className="list-disc pl-4 space-y-1 text-charcoal-600 font-sans">
-                                        {selectedProject.tools.map((t, idx) => <li key={idx}>{t}</li>)}
+                                        {selectedProject.tools?.map((t, idx) => <li key={idx}>{t}</li>)}
                                     </ul>
                                 </div>
                             </div>
@@ -407,7 +559,7 @@ const BuildProjectsPage = () => {
                             <div className="space-y-3">
                                 <h4 className="font-bold text-sage-950 border-b border-sand-50 pb-1 text-xs">Milestone Steps</h4>
                                 <div className="space-y-2">
-                                    {selectedProject.steps.map(step => (
+                                    {selectedProject.steps?.map(step => (
                                         <button
                                             key={step.id}
                                             onClick={() => handleToggleStep(selectedProject.id, step.id)}
@@ -459,6 +611,114 @@ const BuildProjectsPage = () => {
                     )}
                 </div>
             </div>
+
+            {/* Blueprint Detail Modal */}
+            {selectedBlueprint && (
+                <div className="fixed inset-0 bg-black/60 backdrop-blur-xs flex items-center justify-center z-50 p-4 overflow-y-auto">
+                    <div className="bg-white rounded-[2rem] border border-sand-200 w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-xl p-6 relative space-y-6 my-8">
+                        <button
+                            onClick={() => setSelectedBlueprint(null)}
+                            className="absolute top-6 right-6 p-2 text-sand-400 hover:text-charcoal hover:bg-sand-100 rounded-full transition-all min-h-[40px] min-w-[40px] flex items-center justify-center"
+                        >
+                            <X size={20} />
+                        </button>
+
+                        <div className="border-b border-sand-100 pb-4 pr-8">
+                            <span className="text-[10px] font-black uppercase text-charcoal-400 tracking-widest">{selectedBlueprint.system}</span>
+                            <h3 className="font-serif font-black text-xl text-sage-950 leading-tight">{selectedBlueprint.title}</h3>
+                            <p className="text-xs text-charcoal-500 font-sans mt-1.5 leading-relaxed">{selectedBlueprint.summary}</p>
+                        </div>
+
+                        {/* Specs Grid */}
+                        <div className="grid gap-3 grid-cols-2 sm:grid-cols-4 text-xs">
+                            <div className="p-3 bg-sand-50 rounded-2xl">
+                                <div className="text-[9px] font-black text-charcoal-400 uppercase tracking-wider">Difficulty</div>
+                                <span className="font-bold text-sage-900">{selectedBlueprint.difficulty}</span>
+                            </div>
+                            <div className="p-3 bg-sand-50 rounded-2xl">
+                                <div className="text-[9px] font-black text-charcoal-400 uppercase tracking-wider">Safety Level</div>
+                                <span className="font-bold text-sage-900">{selectedBlueprint.safetyLevel}</span>
+                            </div>
+                            <div className="p-3 bg-sand-50 rounded-2xl">
+                                <div className="text-[9px] font-black text-charcoal-400 uppercase tracking-wider">Est. Time</div>
+                                <span className="font-bold text-sage-900">{selectedBlueprint.estimatedTime}</span>
+                            </div>
+                            <div className="p-3 bg-sand-50 rounded-2xl">
+                                <div className="text-[9px] font-black text-charcoal-400 uppercase tracking-wider">Source</div>
+                                <span className="font-bold text-sage-900 capitalize">{selectedBlueprint.source || 'internal'}</span>
+                            </div>
+                        </div>
+
+                        {/* Materials and Tools */}
+                        <div className="grid gap-6 sm:grid-cols-2 text-xs">
+                            <div className="p-4 bg-sand-50/50 rounded-2xl border border-sand-100 space-y-2">
+                                <h4 className="font-bold text-sage-900 border-b border-sand-100 pb-1">Materials Needed</h4>
+                                <ul className="list-disc pl-4 space-y-1 text-charcoal-600 font-sans">
+                                    {selectedBlueprint.materials?.map((m, idx) => <li key={idx}>{m}</li>)}
+                                </ul>
+                            </div>
+                            <div className="p-4 bg-sand-50/50 rounded-2xl border border-sand-100 space-y-2">
+                                <h4 className="font-bold text-sage-900 border-b border-sand-100 pb-1">Tools Required</h4>
+                                <ul className="list-disc pl-4 space-y-1 text-charcoal-600 font-sans">
+                                    {selectedBlueprint.tools?.map((t, idx) => <li key={idx}>{t}</li>)}
+                                </ul>
+                            </div>
+                        </div>
+
+                        {/* Steps list */}
+                        <div className="space-y-2 text-xs">
+                            <h4 className="font-bold text-sage-955 border-b border-sand-100 pb-1">Milestone Steps Checklist</h4>
+                            <div className="space-y-2 max-h-[200px] overflow-y-auto pr-1">
+                                {selectedBlueprint.steps?.map((step, idx) => (
+                                    <div key={step.id || idx} className="p-3 bg-sand-50 rounded-xl flex gap-3 items-start border border-sand-100/50">
+                                        <div className="w-5 h-5 rounded-full bg-sage-50 border border-sage-200 text-[10px] font-bold text-sage-700 flex items-center justify-center shrink-0 mt-0.5">
+                                            {step.id}
+                                        </div>
+                                        <span className="font-sans text-charcoal-700 leading-relaxed">{step.text}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Notes */}
+                        {selectedBlueprint.notes && (
+                            <div className="p-4 bg-sand-50 rounded-2xl text-xs space-y-1 border border-sand-100">
+                                <h4 className="font-bold text-sage-950">Design Notes</h4>
+                                <p className="text-charcoal-600 font-sans leading-relaxed">{selectedBlueprint.notes}</p>
+                            </div>
+                        )}
+
+                        {/* Safety Notes */}
+                        {selectedBlueprint.safetyNotes && selectedBlueprint.safetyNotes.length > 0 && (
+                            <div className="p-4 bg-amber-50 border border-amber-200 text-amber-900 rounded-2xl text-xs space-y-1.5">
+                                <div className="flex items-center gap-1.5 font-bold text-amber-800">
+                                    <AlertTriangle size={14} />
+                                    <span>Critical Safety Guidelines</span>
+                                </div>
+                                <ul className="list-disc pl-4 space-y-1 font-sans text-amber-800">
+                                    {selectedBlueprint.safetyNotes.map((sn, idx) => <li key={idx}>{sn}</li>)}
+                                </ul>
+                            </div>
+                        )}
+
+                        {/* Modal Action Buttons */}
+                        <div className="flex gap-3 pt-3 border-t border-sand-100">
+                            <button
+                                onClick={() => handleAddBlueprint(selectedBlueprint)}
+                                className="flex-1 py-3 px-4 bg-sage-600 hover:bg-sage-700 text-white font-bold text-xs uppercase tracking-wider rounded-2xl shadow-md transition-all text-center min-h-[44px]"
+                            >
+                                + Add to Active Builds
+                            </button>
+                            <button
+                                onClick={() => setSelectedBlueprint(null)}
+                                className="py-3 px-5 bg-sand-100 hover:bg-sand-200 text-charcoal font-bold text-xs uppercase tracking-wider rounded-2xl transition-all min-h-[44px]"
+                            >
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

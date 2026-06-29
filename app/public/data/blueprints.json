@@ -1,0 +1,563 @@
+{
+  "blueprints": [
+    {
+      "id": "raised_bed",
+      "title": "Raised Bed Frame",
+      "system": "Garden",
+      "difficulty": "Easy",
+      "safetyLevel": "Low",
+      "estimatedTime": "2 hours",
+      "summary": "Build a basic wooden frame to grow vegetables off the ground, improving soil quality and drainage.",
+      "materials": ["2x10 lumber (8ft)", "Deck screws (3-inch)", "Hardware cloth (wire mesh)", "Cardboard (bottom barrier)"],
+      "tools": ["Circular saw or Hand saw", "Drill / Driver", "Tape measure", "Staple gun"],
+      "steps": [
+        { "id": 1, "text": "Cut lumber into two 4ft sections and two 8ft sections.", "completed": false },
+        { "id": 2, "text": "Lay out frame pieces on a flat surface in a rectangle.", "completed": false },
+        { "id": 3, "text": "Pre-drill holes and drive screws to secure corners.", "completed": false },
+        { "id": 4, "text": "Staple hardware cloth to the bottom of the frame to block gophers.", "completed": false },
+        { "id": 5, "text": "Place frame on designated garden bed spot, lay down cardboard layers, and fill with 50/50 topsoil/compost mix.", "completed": false }
+      ],
+      "notes": "Locate in full sun (6-8 hours daily). Ensure bed is level before filling.",
+      "safetyNotes": ["Watch for splinters when handling untreated timber.", "Wear safety glasses during wood cutting."],
+      "source": "internal"
+    },
+    {
+      "id": "compost_bin",
+      "title": "Pallet Compost Bin",
+      "system": "Garden",
+      "difficulty": "Easy",
+      "safetyLevel": "Low",
+      "estimatedTime": "3 hours",
+      "summary": "Construct a three-sided square compost bin using recycled shipping pallets.",
+      "materials": ["4 clean shipping pallets (HT - Heat Treated only, no chemical MB pallets)", "Heavy zip-ties or wire", "Wood stakes"],
+      "tools": ["Hammer", "Wire cutters", "Work gloves"],
+      "steps": [
+        { "id": 1, "text": "Select a shady, well-drained spot near the garden.", "completed": false },
+        { "id": 2, "text": "Stand three pallets on edge to form a three-sided square.", "completed": false },
+        { "id": 3, "text": "Lash the pallets tightly together at the corners with heavy wire or zip-ties.", "completed": false },
+        { "id": 4, "text": "Secure the pallets to wood stakes driven into the ground for stability.", "completed": false },
+        { "id": 5, "text": "Use the fourth pallet as a swing gate or front barrier (removable for turning).", "completed": false }
+      ],
+      "notes": "A standard 3-bin system is ideal: one for fresh deposits, one active/cooking, and one curing/ready.",
+      "safetyNotes": ["Ensure pallets are marked 'HT' (Heat Treated). Never use 'MB' (Methyl Bromide fumigated) pallets as they leach highly toxic gas."],
+      "source": "internal"
+    },
+    {
+      "id": "cold_frame",
+      "title": "Repurposed Glass Window Cold Frame",
+      "system": "Garden",
+      "difficulty": "Medium",
+      "safetyLevel": "Medium",
+      "estimatedTime": "4 hours",
+      "summary": "Use an old glass window to build a sloped mini-greenhouse that protects starter plants from early frost.",
+      "materials": ["Old glass window frame", "2x12 lumber", "Hinges and screws", "Wood glue"],
+      "tools": ["Saw", "Drill", "Screwdriver", "Sandpaper"],
+      "steps": [
+        { "id": 1, "text": "Measure the window frame dimensions.", "completed": false },
+        { "id": 2, "text": "Build a box using 2x12 lumber matching the window footprint, sloping the sides by cutting a diagonal angle so the back wall is taller than the front.", "completed": false },
+        { "id": 3, "text": "Screw box sides together and attach window frame to the back wall with hinges.", "completed": false },
+        { "id": 4, "text": "Set cold frame in a south-facing spot to maximize winter sun.", "completed": false },
+        { "id": 5, "text": "Place potted seedlings inside during late winter, venting the lid on sunny days.", "completed": false }
+      ],
+      "notes": "Watch temperature! If sun hits a closed cold frame, temperatures can spike over 100°F (38°C) within minutes, killing seedlings.",
+      "safetyNotes": ["Old windows may contain lead paint; handle with care and sand outdoors.", "Ensure the hinges are secure to prevent glass panes from slamming down and shattering."],
+      "source": "internal"
+    },
+    {
+      "id": "seed_starting_rack",
+      "title": "Seed Starting Rack",
+      "system": "Garden",
+      "difficulty": "Easy",
+      "safetyLevel": "Low",
+      "estimatedTime": "4 hours",
+      "summary": "Assemble a tiered wooden shelf with adjustable hanging chain grow lights to raise seedlings indoors.",
+      "materials": ["2x4 studs (8ft)", "Plywood sheets (1/2 inch)", "Wood screws", "Hanging shop lights (T5 or LED)", "Adjustable chain links"],
+      "tools": ["Miter saw", "Drill / Driver", "Measuring tape", "Level"],
+      "steps": [
+        { "id": 1, "text": "Cut vertical posts and horizontal shelf braces from 2x4 studs.", "completed": false },
+        { "id": 2, "text": "Assemble the ladder-shaped side frames.", "completed": false },
+        { "id": 3, "text": "Attach horizontal shelf brackets and place cut-to-size plywood shelves.", "completed": false },
+        { "id": 4, "text": "Mount screw hooks under each shelf to hang chains.", "completed": false },
+        { "id": 5, "text": "Attach shop lights to chains, keeping them 2-3 inches above growing seedling trays.", "completed": false }
+      ],
+      "notes": "Ensure lights are plugged into a timer set for 14-16 hours of daily light.",
+      "safetyNotes": ["Route electrical cords safely to avoid contact with watering overflow.", "Use a GFC outlet for all indoor seedling grow lights."],
+      "source": "internal"
+    },
+    {
+      "id": "trellis_panel",
+      "title": "Simple Trellis Panel",
+      "system": "Garden",
+      "difficulty": "Easy",
+      "safetyLevel": "Low",
+      "estimatedTime": "2 hours",
+      "summary": "Build a vertical wooden frame with wire mesh to support climbing plants like peas, beans, and cucumbers.",
+      "materials": ["2x2 lumber (8ft)", "Hog wire panel or netting", "U-nails / staples", "Wood screws"],
+      "tools": ["Saw", "Hammer / Stapler", "Tape measure"],
+      "steps": [
+        { "id": 1, "text": "Cut lumber to make two 7ft vertical posts and two 4ft horizontal frames.", "completed": false },
+        { "id": 2, "text": "Screw the frames together to form a sturdy rectangular panel.", "completed": false },
+        { "id": 3, "text": "Stretch the hog wire or netting across the frame and staple secure.", "completed": false },
+        { "id": 4, "text": "Secure the vertical posts deep into the soil behind your garden beds.", "completed": false }
+      ],
+      "notes": "Position the trellis on the north side of the garden so it does not shade shorter crops.",
+      "safetyNotes": ["Wear work gloves when handling wire mesh to avoid punctures.", "Ensure posts are buried deep enough to resist summer wind storms."],
+      "source": "internal"
+    },
+    {
+      "id": "rain_catchment",
+      "title": "Gravity-Fed Rain Barrel Stand",
+      "system": "Water",
+      "difficulty": "Medium",
+      "safetyLevel": "Medium",
+      "estimatedTime": "3 hours",
+      "summary": "Build an elevated, heavy-duty wooden stand to hold a 55-gallon rain barrel, creating gravity pressure.",
+      "materials": ["4x4 lumber", "2x6 framing lumber", "Deck screws", "Cinder blocks (foundation)"],
+      "tools": ["Saw", "Level", "Drill", "Tape measure"],
+      "steps": [
+        { "id": 1, "text": "Clear and level ground beneath a downspout gutter.", "completed": false },
+        { "id": 2, "text": "Lay cinder blocks flat as a firm, non-settling footprint.", "completed": false },
+        { "id": 3, "text": "Build a heavy-duty platform using 4x4 legs and 2x6 framing.", "completed": false },
+        { "id": 4, "text": "Check platform level in both directions.", "completed": false },
+        { "id": 5, "text": "Place cleaned drum/barrel on top, secure spigot fittings, and connect to gutter downspout diverter.", "completed": false }
+      ],
+      "notes": "Warning: Water is extremely heavy. A 55-gallon barrel weighs 460 lbs. Stand must be perfectly level and solid.",
+      "safetyNotes": [
+        "Water is heavy: 55 Gallons weighs 460 lbs (208 kg). A weak or unlevel stand collapses easily, creating a severe crush hazard.",
+        "Secure the stand to the house wall if possible to prevent tipping."
+      ],
+      "source": "internal"
+    },
+    {
+      "id": "first_flush",
+      "title": "First-Flush Diverter",
+      "system": "Water",
+      "difficulty": "Medium",
+      "safetyLevel": "Medium",
+      "estimatedTime": "4 hours",
+      "summary": "Assemble a PVC pipe system that isolates the initial, contaminated dust/debris runoff from the roof.",
+      "materials": ["4-inch PVC pipe (6ft)", "PVC T-junction", "PVC threaded cleanout cap", "Floating ball (ping pong or custom)", "Diverter valve"],
+      "tools": ["Hacksaw", "PVC primer & cement", "Drill", "Level"],
+      "steps": [
+        { "id": 1, "text": "Mount the PVC vertical pipe branch adjacent to your downspout drop.", "completed": false },
+        { "id": 2, "text": "Install the T-junction so roof water drops straight down into the diversion pipe first.", "completed": false },
+        { "id": 3, "text": "Insert the float ball inside the PVC pipe (it floats up and seals the inlet when full).", "completed": false },
+        { "id": 4, "text": "Install the threaded cleanout cap at the bottom with a tiny bleed-hole for slow drainage.", "completed": false },
+        { "id": 5, "text": "Route the secondary overflow line from the top of the T-junction to fill your rain barrel.", "completed": false }
+      ],
+      "notes": "The bleed hole allows the diverter to empty slowly after rain, resetting it for the next storm.",
+      "safetyNotes": [
+        "Ensure all PVC joints are thoroughly glued to withstand hydraulic pressure.",
+        "Ensure first-flush discharge drains safely away from foundations."
+      ],
+      "source": "internal"
+    },
+    {
+      "id": "sand_charcoal_filter",
+      "title": "Sand/Charcoal Emergency Pre-Filter",
+      "system": "Water",
+      "difficulty": "Medium",
+      "safetyLevel": "Medium",
+      "estimatedTime": "3 hours",
+      "summary": "Construct a multi-layer gravity-fed biological sand filter to clarify raw pond or stream water.",
+      "materials": ["5-gallon food-grade bucket", "Activated charcoal", "Fine silica sand", "Clean washed gravel", "Cotton fabric barrier", "Spigot spouts"],
+      "tools": ["Drill", "Hole saw", "Work gloves"],
+      "steps": [
+        { "id": 1, "text": "Drill a hole at the bottom of the bucket and install the spigot spout.", "completed": false },
+        { "id": 2, "text": "Place a clean cotton cloth or mesh screen at the bottom over the intake.", "completed": false },
+        { "id": 3, "text": "Add a 3-inch base layer of washed gravel, followed by a 2-inch layer of crushed activated charcoal.", "completed": false },
+        { "id": 4, "text": "Cover the charcoal with another cotton barrier, then add 6 inches of fine silica sand.", "completed": false },
+        { "id": 5, "text": "Pour raw water slowly onto the top, ensuring it trickles slowly down through the layers.", "completed": false }
+      ],
+      "notes": "This clarifies water only. It does NOT sterilize biological pathogens. You must boil or chemically treat water after filtration.",
+      "safetyNotes": [
+        "This is a pre-filter. It only removes particulate matter. It DOES NOT remove microscopic pathogens (viruses, bacteria, giardia). Water MUST be boiled or sanitized before drinking.",
+        "Wash all sand and gravel multiple times before assembly."
+      ],
+      "source": "internal"
+    },
+    {
+      "id": "handwashing",
+      "title": "Emergency Foot-Pump Handwashing Station",
+      "system": "Sanitation",
+      "difficulty": "Easy",
+      "safetyLevel": "Low",
+      "estimatedTime": "2 hours",
+      "summary": "Build a hands-free hygiene station using food-grade buckets and a foot-operated bulb pump.",
+      "materials": ["Marine foot bulb pump", "Two 5-gallon food-grade buckets", "Flexible tubing", "Sink basin (or small tub)"],
+      "tools": ["Utility knife", "Drill / Hole saw", "Clamps"],
+      "steps": [
+        { "id": 1, "text": "Clean both buckets. Mark one for 'Clean Water' and one for 'Greywater'.", "completed": false },
+        { "id": 2, "text": "Drill a hole in the clean bucket lid for tubing.", "completed": false },
+        { "id": 3, "text": "Run tubing from the clean bucket bottom to the inlet of the marine foot pump.", "completed": false },
+        { "id": 4, "text": "Run outlet tubing from the foot pump up to a faucet nozzle secured above the sink basin.", "completed": false },
+        { "id": 5, "text": "Position the greywater bucket directly beneath the sink basin drain hole.", "completed": false }
+      ],
+      "notes": "Maintains hygiene during water interruptions. Dispose of greywater safely away from food garden beds.",
+      "safetyNotes": ["Ensure greywater container has a secure lid to avoid mosquito breeding.", "Clean the water container regularly to prevent bacterial biofilm build-up."],
+      "source": "internal"
+    },
+    {
+      "id": "compost_toilet_stall",
+      "title": "Composting Toilet Privacy Stall",
+      "system": "Sanitation",
+      "difficulty": "Hard",
+      "safetyLevel": "High",
+      "estimatedTime": "1.5 days",
+      "summary": "Build a small outhouse privacy shelter with a double-bucket dry toilet and ventilation stack.",
+      "materials": ["2x4 framing studs", "Plywood sheets (1/2-inch)", "Corrugated roofing sheet", "Toilet seat", "3-inch PVC vent pipe", "Screening mesh"],
+      "tools": ["Circular saw", "Drill / Driver", "Level", "Post hole digger"],
+      "steps": [
+        { "id": 1, "text": "Frame a simple 4x4 base floor with 2x4 joists, anchoring to flat blocks.", "completed": false },
+        { "id": 2, "text": "Build wall frames with a sloped roof header, and sheath with plywood panels.", "completed": false },
+        { "id": 3, "text": "Install a dry toilet box inside containing a 5-gallon bucket chamber and a urine-diverting funnel.", "completed": false },
+        { "id": 4, "text": "Run a 3-inch PVC vent pipe from the toilet chamber up through the roof to carry away odors.", "completed": false },
+        { "id": 5, "text": "Mount the corrugated roofing sheet on top, and attach a simple screen-door latch.", "completed": false }
+      ],
+      "notes": "Cover deposits with dry sawdust or peat moss after every use to maintain carbon-nitrogen balance and eliminate smell.",
+      "safetyNotes": [
+        "Human waste handling carries biological hazards. Ensure dry cover material (sawdust, peat moss) is used consistently to block flies.",
+        "Ensure the ventilation chimney extends past the roof line to pull odor away.",
+        "Wear masks and eye protection when cutting pressure-treated lumber."
+      ],
+      "source": "internal"
+    },
+    {
+      "id": "greywater_mulch_basin",
+      "title": "Greywater Mulch Basin",
+      "system": "Sanitation",
+      "difficulty": "Medium",
+      "safetyLevel": "Medium",
+      "estimatedTime": "5 hours",
+      "summary": "Dig a mulch-filled filtering trench to process greywater from outdoor kitchen prep or washing.",
+      "materials": ["Coarse wood chips / mulch", "Non-woven geotextile fabric", "Perforated drain pipe (4-inch)", "River rock"],
+      "tools": ["Shovel", "Wheelbarrow", "Rake"],
+      "steps": [
+        { "id": 1, "text": "Dig a trench 1.5ft deep and 3ft wide in well-draining soil, sloped away from buildings.", "completed": false },
+        { "id": 2, "text": "Line the trench sides with geotextile fabric to prevent soil collapse.", "completed": false },
+        { "id": 3, "text": "Fill the basin bottom with 1ft of coarse organic wood mulch.", "completed": false },
+        { "id": 4, "text": "Lay the perforated drainage pipe over the mulch to distribute the greywater flow.", "completed": false },
+        { "id": 5, "text": "Cover the pipe with river rock and clean mulch, feeding sink drain into the pipe inlet.", "completed": false }
+      ],
+      "notes": "Never feed blackwater (toilet waste) or greasy kitchen sink water directly into a greywater basin.",
+      "safetyNotes": [
+        "Never discharge blackwater (sewage) into greywater systems: it is illegal and creates high pathogen contamination risks.",
+        "Ensure the basin is situated at least 100ft away from wells, streams, or open water tables.",
+        "Basins must never pooling water: standing water breeds mosquitoes and carries bacteria."
+      ],
+      "source": "internal"
+    },
+    {
+      "id": "pantry_shelves",
+      "title": "Heavy-Duty Pantry Canning Shelves",
+      "system": "Preservation",
+      "difficulty": "Medium",
+      "safetyLevel": "Low",
+      "estimatedTime": "5 hours",
+      "summary": "Build sturdy, stud-anchored wooden shelves designed to support the immense weight of canning jars.",
+      "materials": ["2x4 studs", "3/4-inch plywood", "Wood screws", "Metal L-brackets"],
+      "tools": ["Saw", "Level", "Drill", "Stud finder"],
+      "steps": [
+        { "id": 1, "text": "Measure wall space, checking heights and depths (12-inch shelves are best for jars).", "completed": false },
+        { "id": 2, "text": "Use a stud finder to locate wall framing. Canning jars are very heavy; shelves MUST anchor into studs.", "completed": false },
+        { "id": 3, "text": "Build upright ladder frames using 2x4 lumber.", "completed": false },
+        { "id": 4, "text": "Screw shelf supports into ladder uprights and place plywood shelves.", "completed": false },
+        { "id": 5, "text": "Anchor the entire shelving unit to wall studs using L-brackets to prevent tipping.", "completed": false }
+      ],
+      "notes": "Standard glass jars should not be stacked directly on top of each other. Build shelf spacing every 8-10 inches.",
+      "safetyNotes": ["Jars are heavy: a shelf of quart jars can weigh over 150 lbs. You MUST secure brackets into structural wall studs, not plaster/drywall alone."],
+      "source": "internal"
+    },
+    {
+      "id": "root_cellar",
+      "title": "Root Cellar Double-Pipe Ventilation",
+      "system": "Preservation",
+      "difficulty": "Medium",
+      "safetyLevel": "Medium",
+      "estimatedTime": "6 hours",
+      "summary": "Install a high-exhaust and low-intake pipe layout to regulate humidity and cooling in a cellar.",
+      "materials": ["4-inch PVC piping (10ft)", "Elbow joints", "Insect screening wire mesh", "Pipe clamps"],
+      "tools": ["Hacksaw", "Drill / Hole saw", "Measuring tape"],
+      "steps": [
+        { "id": 1, "text": "Plan vent layout: one low intake pipe bringing cool air in, one high exhaust pipe letting warm air out.", "completed": false },
+        { "id": 2, "text": "Cut PVC pipe sections to fit cellar wall penetrations.", "completed": false },
+        { "id": 3, "text": "Install intake pipe running down near the floor (within 1ft).", "completed": false },
+        { "id": 4, "text": "Install exhaust pipe high in the ceiling at the opposite corner of the room.", "completed": false },
+        { "id": 5, "text": "Clamp fine metal wire mesh over both external pipe openings to block rodents/insects.", "completed": false }
+      ],
+      "notes": "Use dampers on both pipes to regulate airflow in deep winter. Close vents if outside air is below freezing.",
+      "safetyNotes": ["Confirm cellar structural walls are sound before drilling/excavating penetrations.", "Clean mesh filters periodically to prevent blockage and air stagnation."],
+      "source": "internal"
+    },
+    {
+      "id": "herb_drying_rack",
+      "title": "Drying Rack / Herb Screen",
+      "system": "Preservation",
+      "difficulty": "Easy",
+      "safetyLevel": "Low",
+      "estimatedTime": "2 hours",
+      "summary": "Assemble stackable wooden frames with breathable mesh to dry chamomile, peppermint, or berries.",
+      "materials": ["1x2 pine slats", "Food-grade fiberglass mesh", "Staples", "Small screws"],
+      "tools": ["Hand saw", "Staple gun", "Drill"],
+      "steps": [
+        { "id": 1, "text": "Cut pine slats to build square 2x2ft frames.", "completed": false },
+        { "id": 2, "text": "Join the corners with small screws and wood glue.", "completed": false },
+        { "id": 3, "text": "Stretch the food-grade mesh tightly across the bottom of the frame.", "completed": false },
+        { "id": 4, "text": "Secure mesh with staples every 2 inches and trim excess.", "completed": false },
+        { "id": 5, "text": "Attach small wooden blocks at the corners to act as spacers for stacking multiple racks.", "completed": false }
+      ],
+      "notes": "Place racks in a warm, dark, ventilated indoor spot. Direct sunlight burns essential oils in drying herbs.",
+      "safetyNotes": ["Use food-grade mesh; avoid treated industrial plastic screen mesh.", "Sand edges to avoid splinters during stacking operations."],
+      "source": "internal"
+    },
+    {
+      "id": "solar_dehydrator",
+      "title": "Solar Dehydrator Cabinet",
+      "system": "Preservation",
+      "difficulty": "Medium",
+      "safetyLevel": "Low",
+      "estimatedTime": "8 hours",
+      "summary": "Build a black-painted solar collector box that channels warm convection air up through drying racks.",
+      "materials": ["Plywood (1/2-inch)", "Old glass pane or clear polycarbonate", "Black high-temperature paint", "Metal screen mesh", "Food-grade racks"],
+      "tools": ["Saw", "Measuring tape", "Drill / Driver", "Paintbrush"],
+      "steps": [
+        { "id": 1, "text": "Build a sloped collector box painted black inside, covered with a glass pane.", "completed": false },
+        { "id": 2, "text": "Frame a vertical cabinet attached to the top of the solar collector.", "completed": false },
+        { "id": 3, "text": "Install shelf runners inside the cabinet to slide drying racks in.", "completed": false },
+        { "id": 4, "text": "Drill intake holes at the collector bottom and exhaust holes at the cabinet top.", "completed": false },
+        { "id": 5, "text": "Cover all holes with fine metal mesh to block insects.", "completed": false }
+      ],
+      "notes": "Convection draws cool air in, heats it in the collector, and pulls it up through the food trays.",
+      "safetyNotes": ["Food preservation temperatures must stay high enough (130°F-160°F / 54°C-71°C) to prevent mold or bacterial growth. Monitor with a thermometer."],
+      "source": "internal"
+    },
+    {
+      "id": "battery_box_shelf",
+      "title": "Small Battery Box Ventilated Shelf",
+      "system": "Energy",
+      "difficulty": "Medium",
+      "safetyLevel": "Medium",
+      "estimatedTime": "3 hours",
+      "summary": "Build a sturdy, ventilated wooden enclosure for lead-acid or lithium battery banks.",
+      "materials": ["3/4-inch plywood", "Wood screws", "Slotted wall vent", "Sealant"],
+      "tools": ["Saw", "Drill", "Jigsaw", "Brush"],
+      "steps": [
+        { "id": 1, "text": "Cut box base and sides, slabbing air vents into the wood sides.", "completed": false },
+        { "id": 2, "text": "Build a heavy-duty frame to handle battery weight (batteries can exceed 60 lbs each).", "completed": false },
+        { "id": 3, "text": "Line the interior with acid-resistant coating or heavy plastic sheet.", "completed": false },
+        { "id": 4, "text": "Install external slotted air vents to allow off-gases to vent outside.", "completed": false },
+        { "id": 5, "text": "Mount the secure lid, leaving cable penetrations sealed with rubber grommets.", "completed": false }
+      ],
+      "notes": "Always house batteries in well-ventilated boxes. Lead-acid batteries release explosive hydrogen gas during charging.",
+      "safetyNotes": [
+        "Batteries release highly explosive hydrogen gas when charging: you MUST vent the box to the outside.",
+        "Always keep batteries off cold concrete floors by using wood spacers."
+      ],
+      "source": "internal"
+    },
+    {
+      "id": "solar_panel_stand",
+      "title": "Portable Solar Panel Tilt Stand",
+      "system": "Energy",
+      "difficulty": "Medium",
+      "safetyLevel": "Medium",
+      "estimatedTime": "3 hours",
+      "summary": "Build an adjustable, folding wooden stand to mount solar panels at optimal seasonal angles.",
+      "materials": ["2x4 lumber", "Hinges", "Wing nuts and carriage bolts", "Eye-hooks"],
+      "tools": ["Saw", "Drill / Bits", "Wrench"],
+      "steps": [
+        { "id": 1, "text": "Build a rectangular wooden frame matching your solar panel perimeter.", "completed": false },
+        { "id": 2, "text": "Screw the solar panel frame to the wooden mount using small brackets.", "completed": false },
+        { "id": 3, "text": "Attach support legs to the frame using heavy hinges.", "completed": false },
+        { "id": 4, "text": "Drill adjustment holes in the legs to set angles for Summer (flat) vs Winter (steep).", "completed": false },
+        { "id": 5, "text": "Tie down stand using ground anchors and stakes to prevent wind uplift.", "completed": false }
+      ],
+      "notes": "Tilt angles equal your latitude in Spring/Fall, latitude minus 15 in Summer, and latitude plus 15 in Winter.",
+      "safetyNotes": [
+        "Solar panels act as kites: high winds will blow untethered stands away. Anchor the frame securely to the ground.",
+        "Ensure wiring runs are protected inside UV-resistant conduit."
+      ],
+      "source": "internal"
+    },
+    {
+      "id": "rocket_stove",
+      "title": "Rocket Stove Cooking Stand",
+      "system": "Energy",
+      "difficulty": "Medium",
+      "safetyLevel": "Medium",
+      "estimatedTime": "4 hours",
+      "summary": "Build a highly efficient outdoor cooking stand using firebricks and a steel casing.",
+      "materials": ["Firebricks (16 units)", "Heavy metal paint can or bucket", "Refractory cement / wood ash", "Perlite insulation"],
+      "tools": ["Chisel", "Drill", "Trowel", "Snips"],
+      "steps": [
+        { "id": 1, "text": "Cut a hole in the bottom side of the metal can for the feed intake.", "completed": false },
+        { "id": 2, "text": "Lay firebricks inside to frame an 'L' shaped combustion tunnel.", "completed": false },
+        { "id": 3, "text": "Fill the gaps between the brick tunnel and can walls with perlite/ash insulation.", "completed": false },
+        { "id": 4, "text": "Seal the top surface with a thin layer of refractory cement.", "completed": false },
+        { "id": 5, "text": "Place a heavy cast iron grate over the top chimney opening.", "completed": false }
+      ],
+      "notes": "Wood burns horizontally in the feed tube, creating draft suction that pulls heat up the vertical chimney.",
+      "safetyNotes": [
+        "For outdoor use only: produces carbon monoxide. Never burn indoors.",
+        "Stove becomes extremely hot; keep clear of dry brush and flammable structures."
+      ],
+      "source": "internal"
+    },
+    {
+      "id": "woodshed",
+      "title": "Simple Wood Curing Shed",
+      "system": "Shelter",
+      "difficulty": "Hard",
+      "safetyLevel": "High",
+      "estimatedTime": "2 days",
+      "summary": "Frame a 4x8 wood storage lean-to with open slats to cure firewood while keeping it dry.",
+      "materials": ["4x4 posts", "2x4 framing studs", "Corrugated metal roofing sheets", "Concrete deck blocks", "Nails / Roofing screws"],
+      "tools": ["Miter saw", "Cordless drill", "Level", "Post hole digger / Shovel"],
+      "steps": [
+        { "id": 1, "text": "Mark a level 4x8 footprint on well-drained ground.", "completed": false },
+        { "id": 2, "text": "Set concrete deck blocks at the corners and level them.", "completed": false },
+        { "id": 3, "text": "Erect 4x4 posts, ensuring back posts are shorter to create a sloped roof slope.", "completed": false },
+        { "id": 4, "text": "Frame the rafters and horizontal slats for walls to allow maximum airflow.", "completed": false },
+        { "id": 5, "text": "Screw metal roof sheets onto the rafters and store split firewood off the wet ground.", "completed": false }
+      ],
+      "notes": "Ensure walls are open slats. Wood needs wind/airflow to cure properly. Curing takes 6-12 months.",
+      "safetyNotes": [
+        "Shed structures present falling and collapse hazards: verify all framing is securely tied using metal hurricane ties.",
+        "Wear steel-toed boots when handling heavy logs and timbers.",
+        "Call local utility locators before digging post holes."
+      ],
+      "source": "internal"
+    },
+    {
+      "id": "tarp_rain_porch",
+      "title": "Tarp Rain Porch / Dry Entry",
+      "system": "Shelter",
+      "difficulty": "Easy",
+      "safetyLevel": "Medium",
+      "estimatedTime": "2 hours",
+      "summary": "Erect a sloped, heavy-duty tarp canopy over a cabin or shelter entry to deflect rain.",
+      "materials": ["Heavy-duty waterproof tarp", "Wood poles or telescoping steel poles", "Para-cord (550lb)", "Tent stakes (rebar)"],
+      "tools": ["Hammer", "Knife", "Measuring tape"],
+      "steps": [
+        { "id": 1, "text": "Identify secure anchor points on the shelter exterior wall.", "completed": false },
+        { "id": 2, "text": "Secure the back edge of the tarp to the wall hooks, ensuring it is slightly higher than the front.", "completed": false },
+        { "id": 3, "text": "Extend the front corners of the tarp using support poles.", "completed": false },
+        { "id": 4, "text": "Tie guy-lines from the poles to heavy rebar stakes driven into the ground at 45 degrees.", "completed": false },
+        { "id": 5, "text": "Tension all lines to avoid water pooling pockets in the center of the tarp.", "completed": false }
+      ],
+      "notes": "Always slope the canopy to prevent water accumulation. 1 gallon of pooled water weighs 8 lbs and can tear grommets.",
+      "safetyNotes": [
+        "Wind loads can lift stakes: ensure rebar stakes are driven fully into solid ground.",
+        "Periodically check grommet tension; loose tarps collapse under heavy wind or downpours."
+      ],
+      "source": "internal"
+    },
+    {
+      "id": "sharpening_station",
+      "title": "Tool Wall & Sharpening Station",
+      "system": "Infrastructure",
+      "difficulty": "Easy",
+      "safetyLevel": "Low",
+      "estimatedTime": "3 hours",
+      "summary": "Organize wall hooks and set up a workspace vice to sharpen axes, pruners, and shovels.",
+      "materials": ["Pegboard or wood panel", "Bench vice", "Screws", "Tool hooks", "Bastard files"],
+      "tools": ["Drill", "Level", "Screwdriver", "File cards"],
+      "steps": [
+        { "id": 1, "text": "Mount the pegboard/plywood panel securely to workshop wall studs.", "completed": false },
+        { "id": 2, "text": "Bolt the bench vice firmly onto a sturdy workshop table.", "completed": false },
+        { "id": 3, "text": "Arrange tool hooks on the panel to hang files, oil, and whetstones.", "completed": false },
+        { "id": 4, "text": "Place axes/shovels in the vice and file at a 25-degree angle to restore cutting edges.", "completed": false }
+      ],
+      "notes": "Maintain file teeth by brushing metal shavings out with a file card. Never oil file surfaces.",
+      "safetyNotes": ["Metal filings are sharp: wear safety glasses and leather gloves when filing.", "Keep fingers clear of vice jaws during locking."],
+      "source": "internal"
+    },
+    {
+      "id": "feed_storage_bin",
+      "title": "Animal Feed Storage Bin",
+      "system": "Infrastructure",
+      "difficulty": "Easy",
+      "safetyLevel": "Low",
+      "estimatedTime": "3 hours",
+      "summary": "Assemble a double-chambered wooden storage chest lined with sheet metal to block rodents.",
+      "materials": ["Plywood sheets (3/4-inch)", "2x2 framing rails", "Sheet metal liners", "Hinges and latches", "Screws"],
+      "tools": ["Circular saw", "Drill / Driver", "Tin snips"],
+      "steps": [
+        { "id": 1, "text": "Cut plywood panels for floor, walls, and lid.", "completed": false },
+        { "id": 2, "text": "Frame the inside edges with 2x2 rails and screw plywood walls together.", "completed": false },
+        { "id": 3, "text": "Cut sheet metal panels to line the internal floor and walls (prevents mice chewing through).", "completed": false },
+        { "id": 4, "text": "Secure metal liners inside with short screws.", "completed": false },
+        { "id": 5, "text": "Attach hinged lid with a locking clasp to keep raccoons out.", "completed": false }
+      ],
+      "notes": "Place bins off the floor on wood blocks to prevent bottom moisture rot.",
+      "safetyNotes": ["Sheet metal edges are extremely sharp: wear heavy gloves when handling and cutting liners.", "Ensure lid latches are tight to avoid finger pinching."],
+      "source": "internal"
+    },
+    {
+      "id": "livestock_waterer",
+      "title": "Small Livestock Waterer Stand",
+      "system": "Infrastructure",
+      "difficulty": "Medium",
+      "safetyLevel": "Low",
+      "estimatedTime": "2 hours",
+      "summary": "Build a stable wooden platform to hold a chicken water bucket equipped with nipple fittings.",
+      "materials": ["2x4 lumber", "Food-grade bucket (5-gallon)", "Waterer nipple threads", "Deck screws"],
+      "tools": ["Saw", "Drill / 11/32-inch bit", "Tape measure"],
+      "steps": [
+        { "id": 1, "text": "Build a rectangular 2x4 base stand matching the chicken eye level height (8-10 inches).", "completed": false },
+        { "id": 2, "text": "Drill 11/32-inch holes in the bottom of the clean 5-gallon bucket.", "completed": false },
+        { "id": 3, "text": "Thread waterer nipples into the holes, using silicone to ensure a tight seal.", "completed": false },
+        { "id": 4, "text": "Place bucket on the elevated stand and fill with clean water.", "completed": false },
+        { "id": 5, "text": "Train flock by tapping nipples to release water droplets.", "completed": false }
+      ],
+      "notes": "An elevated stand prevents chickens from kicking dirt and feces into their water container.",
+      "safetyNotes": ["Ensure stands are wide enough to prevent tipping if goats or larger animals push against them.", "Use only food-grade buckets for livestock water."],
+      "source": "internal"
+    },
+    {
+      "id": "emergency_field_sink",
+      "title": "Emergency Field Sink",
+      "system": "Sanitation",
+      "difficulty": "Medium",
+      "safetyLevel": "Medium",
+      "estimatedTime": "4 hours",
+      "summary": "Assemble a gravity-fed sink stand using food-grade barrels, a drainage tray, and a soap dispenser.",
+      "materials": ["5-gallon water dispenser (clean)", "Drainage basin / tub", "Flexible drains hose", "Soap holder", "2x4 framing studs"],
+      "tools": ["Saw", "Drill / Driver", "Work gloves"],
+      "steps": [
+        { "id": 1, "text": "Build a waist-high wooden frame to hold the dispenser and basin.", "completed": false },
+        { "id": 2, "text": "Mount the basin in the center of the frame.", "completed": false },
+        { "id": 3, "text": "Elevate the water dispenser shelf directly behind the basin.", "completed": false },
+        { "id": 4, "text": "Attach the drain hose to the basin bottom, channeling waste water down into a bucket.", "completed": false },
+        { "id": 5, "text": "Mount soap dispenser and paper towel holder to the frame uprights.", "completed": false }
+      ],
+      "notes": "Perfect for field kitchens. Keep clean water bucket separated from greywater bucket.",
+      "safetyNotes": [
+        "Greywater should be disposed of daily to avoid pathogen accumulation.",
+        "Ensure soap used is biodegradable if greywater is routed to orchard tree basins."
+      ],
+      "source": "internal"
+    },
+    {
+      "id": "binder_wall_station",
+      "title": "Field Binder Wall Station",
+      "system": "Infrastructure",
+      "difficulty": "Easy",
+      "safetyLevel": "Low",
+      "estimatedTime": "1 hour",
+      "summary": "Build a wall-mounted wooden pocket shelf to keep your printed Homemaker Field Binder manuals safe and dry.",
+      "materials": ["1x10 pine board (3ft)", "Plywood backing (1/4-inch)", "Wood glue", "Mounting screws"],
+      "tools": ["Saw", "Drill / Driver", "Level", "Sandpaper"],
+      "steps": [
+        { "id": 1, "text": "Cut the pine board to make a bottom ledge (12 inches) and two side rails (14 inches).", "completed": false },
+        { "id": 2, "text": "Glue and screw the rails together to form a pocket framework.", "completed": false },
+        { "id": 3, "text": "Attach the plywood backing to the rear of the pocket.", "completed": false },
+        { "id": 4, "text": "Screw a thin retaining slat across the front of the pocket to hold binder upright.", "completed": false },
+        { "id": 5, "text": "Mount the station securely to wall studs in a central, dry dry room.", "completed": false }
+      ],
+      "notes": "Always keep printed manuals in a dry room. In power-down scenarios, the printed Field Binder is your primary guide.",
+      "safetyNotes": ["Ensure screws anchor into wall studs to hold the weight of heavy binders.", "Sand all edges to avoid paper tears and splinters."],
+      "source": "internal"
+    }
+  ]
+}

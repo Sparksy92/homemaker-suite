@@ -147,12 +147,18 @@ export const PROJECT_TEMPLATES = [
     }
 ];
 
-export const createProjectFromTemplate = (templateId) => {
-    const template = PROJECT_TEMPLATES.find(t => t.id === templateId);
-    if (!template) return null;
+export const createProjectFromTemplate = (templateOrId) => {
+    let template = null;
+    if (typeof templateOrId === 'string') {
+        template = PROJECT_TEMPLATES.find(t => t.id === templateOrId);
+    } else {
+        template = templateOrId;
+    }
+    if (!template || !template.id) return null;
 
     return {
-        id: `project-${Date.now()}-${Math.random().toString(36).substr(2, 5)}`,
+        id: `project-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
+        sourceBlueprintId: template.id,
         title: template.title,
         system: template.system,
         status: 'planned', // planned, active, paused, complete
@@ -160,10 +166,10 @@ export const createProjectFromTemplate = (templateId) => {
         difficulty: template.difficulty,
         safetyLevel: template.safetyLevel,
         estimatedTime: template.estimatedTime,
-        materials: [...template.materials],
-        tools: [...template.tools],
-        steps: template.steps.map(s => ({ ...s })),
-        notes: template.notes,
+        materials: template.materials ? [...template.materials] : [],
+        tools: template.tools ? [...template.tools] : [],
+        steps: template.steps ? template.steps.map(s => ({ ...s, completed: false })) : [],
+        notes: template.notes || '',
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString()
     };

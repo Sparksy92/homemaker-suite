@@ -1,14 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useUser } from '../context/UserContext';
 import {
     loadPlan,
     savePlan,
-    updatePlan,
-    initializePlansFromHomesteadProfile
+    updatePlan
 } from '../services/homesteadPlanningService';
 import { generateSeasonalTasks } from '../planners/seasonalTaskEngine';
-import { PROJECT_TEMPLATES, createProjectFromTemplate } from '../planners/projectPlanner';
+import { PROJECT_TEMPLATES, createProjectFromTemplate, getNextProjectStep, calculateProjectProgress } from '../planners/projectPlanner';
 import HomesteadOnboarding from '../components/onboarding/HomesteadOnboarding';
 import {
     Home,
@@ -26,43 +25,62 @@ import {
     CheckCircle,
     ArrowRight,
     AlertTriangle,
-    ShieldAlert
+    ShieldAlert,
+    Trash2,
+    Check,
+    Users,
+    Cloud,
+    BookOpen,
+    Sparkles,
+    Flame
 } from 'lucide-react';
 
 const HomesteadCommandCenter = () => {
     const navigate = useNavigate();
-    const { homesteadProfile, readinessScore, readinessBreakdown, updateHomesteadProfile } = useUser();
+    const { homesteadProfile, readinessScore, readinessBreakdown, updateHomesteadProfile, sustainability, toggleTask, addCustomTask, removeTask } = useUser();
 
     const [showOnboarding, setShowOnboarding] = useState(false);
-    const [activeTab, setActiveTab] = useState('overview');
 
     // Planning States
-    const [homesteadPlan, setHomesteadPlan] = useState({});
-    const [gardenPlan, setGardenPlan] = useState({});
-    const [pantryPlan, setPantryPlan] = useState({});
-    const [waterPlan, setWaterPlan] = useState({});
-    const [energyPlan, setEnergyPlan] = useState({});
     const [projectsPlan, setProjectsPlan] = useState({ projects: [] });
 
-    // Load all plans on mount / profile change
+    // Checklist filtering & form states
+    const [filterStatus, setFilterStatus] = useState('All'); // All, Active, Completed
+    const [filterSystem, setFilterSystem] = useState('All');
+    const [newTitle, setNewTitle] = useState('');
+    const [newDesc, setNewDesc] = useState('');
+    const [newSystem, setNewSystem] = useState('Garden');
+    const [formOpen, setFormOpen] = useState(false);
+
+    // Load projects plan on mount / profile change
     useEffect(() => {
-        setHomesteadPlan(loadPlan('homemaker_homestead_plan'));
-        setGardenPlan(loadPlan('homemaker_garden_plan'));
-        setPantryPlan(loadPlan('homemaker_pantry_plan'));
-        setWaterPlan(loadPlan('homemaker_water_plan'));
-        setEnergyPlan(loadPlan('homemaker_energy_plan'));
         setProjectsPlan(loadPlan('homemaker_build_projects'));
     }, [homesteadProfile]);
 
-    const handleAddTask = (task) => {
-        updatePlan('homemaker_seasonal_tasks', (prev) => {
-            const tasks = prev.tasks || [];
-            return {
-                ...prev,
-                tasks: [...tasks, { ...task, id: `task-${Date.now()}`, completed: false }]
-            };
+    // Safe seasonal-task import helper
+    useEffect(() => {
+        if (!sustainability || !sustainability.tasks || !homesteadProfile) return;
+        
+        const seasonalTasks = generateSeasonalTasks({ homesteadProfile });
+        
+        seasonalTasks.forEach(st => {
+            const exists = sustainability.tasks.some(
+                t => t.sourceId === st.id || t.id === `seasonal-${st.id}`
+            );
+            if (!exists) {
+                addCustomTask({
+                    id: `seasonal-${st.id}`,
+                    sourceId: st.id,
+                    title: st.title,
+                    desc: st.desc || '',
+                    system: st.system,
+                    priority: st.priority || 'medium',
+                    completed: false,
+                    type: 'seasonal'
+                });
+            }
         });
-    };
+    }, [sustainability?.tasks, homesteadProfile, addCustomTask]);
 
     const handleCreateProjectFromTemplate = (templateId) => {
         const newProj = createProjectFromTemplate(templateId);
@@ -102,20 +120,6 @@ const HomesteadCommandCenter = () => {
         setProjectsPlan(loadPlan('homemaker_build_projects'));
     };
 
-    const handleUpdateProjectStatus = (projId, status) => {
-        updatePlan('homemaker_build_projects', (prev) => {
-            const currentProjects = prev.projects || [];
-            return {
-                ...prev,
-                projects: currentProjects.map(proj => {
-                    if (proj.id !== projId) return proj;
-                    return { ...proj, status };
-                })
-            };
-        });
-        setProjectsPlan(loadPlan('homemaker_build_projects'));
-    };
-
     // Calculate dynamic readiness labels (Avoid fake precision)
     const getReadinessLabel = (score) => {
         if (!score && score !== 0) return 'Needs setup';
@@ -134,10 +138,17 @@ const HomesteadCommandCenter = () => {
         }
     };
 
-    // Gather today's tasks
-    const seasonalTasksList = generateSeasonalTasks({ homesteadProfile });
+    const getBarColor = (score) => {
+        if (!score && score !== 0) return 'bg-sand-300';
+        if (score <= 25) return 'bg-terracotta-500';
+        if (score <= 50) return 'bg-amber-500';
+        if (score <= 75) return 'bg-blue-500';
+        return 'bg-emerald-600';
+    };
+
+    // Gather active projects
     const activeProjectsList = projectsPlan.projects || [];
-    
+
     // Start Here Pathways
     const pathways = [];
     if (!homesteadProfile || homesteadProfile.skipped) {
@@ -149,33 +160,58 @@ const HomesteadCommandCenter = () => {
             icon: <User className="text-terracotta-600" />
         });
     }
-    if (waterPlan.storageContainers && waterPlan.storageContainers.length === 0) {
-        pathways.push({
-            title: 'Model Water Storage Needs',
-            desc: 'Calculate daily drinking volumes, buffer targets, and estimate roof rain catchment.',
-            action: () => navigate('/homestead/water-plan'),
-            btnText: 'Launch Water Planner',
-            icon: <Droplets className="text-blue-600" />
+
+    // Filtered tasks for checklist
+    const allTasks = sustainability?.tasks || [];
+    
+    const filteredTasks = useMemo(() => {
+        return allTasks.filter(t => {
+            const matchesStatus = 
+                filterStatus === 'All' ? true :
+                filterStatus === 'Active' ? !t.completed :
+                t.completed;
+            
+            const matchesSystem = 
+                filterSystem === 'All' ? true :
+                t.system === filterSystem;
+            
+            return matchesStatus && matchesSystem;
         });
-    }
-    if (gardenPlan.selectedCrops && gardenPlan.selectedCrops.length === 0) {
-        pathways.push({
-            title: 'Map Garden Bed Layouts & Crop Calendar',
-            desc: 'Calculate total soil space, select container-friendly crops, and generate planting dates.',
-            action: () => navigate('/homestead/garden-plan'),
-            btnText: 'Configure Garden Plan',
-            icon: <Home className="text-emerald-600" />
+    }, [allTasks, filterStatus, filterSystem]);
+
+    // Checklist metrics
+    const totalCount = allTasks.length;
+    const completedCount = allTasks.filter(t => t.completed).length;
+    const progressPercent = totalCount > 0 ? Math.round((completedCount / totalCount) * 100) : 0;
+
+    const handleAddCustom = (e) => {
+        e.preventDefault();
+        if (!newTitle.trim()) return;
+
+        addCustomTask({
+            title: newTitle,
+            desc: newDesc,
+            system: newSystem,
+            completed: false,
+            type: 'manual'
         });
-    }
-    if (energyPlan.dailyLoads && energyPlan.dailyLoads.length === 0) {
-        pathways.push({
-            title: 'Audit Off-Grid Electricity Loads',
-            desc: 'Estimate daily Wh energy usage, sizing solar arrays, batteries, and flags safety surges.',
-            action: () => navigate('/homestead/energy-plan'),
-            btnText: 'Design Energy Setup',
-            icon: <Zap className="text-amber-600" />
-        });
-    }
+
+        setNewTitle('');
+        setNewDesc('');
+        setNewSystem('Garden');
+        setFormOpen(false);
+    };
+
+    const getSystemIcon = (system) => {
+        switch (system) {
+            case 'Water': return <Droplets size={12} className="text-blue-500" />;
+            case 'Energy': return <Zap size={12} className="text-yellow-500" />;
+            case 'Garden': return <Home size={12} className="text-emerald-500" />;
+            case 'Preservation': return <Archive size={12} className="text-amber-600" />;
+            case 'Sanitation': return <CheckCircle size={12} className="text-teal-600" />;
+            default: return <Wrench size={12} className="text-sand-500" />;
+        }
+    };
 
     return (
         <div className="space-y-8 pb-16 px-4 sm:px-0">
@@ -221,7 +257,8 @@ const HomesteadCommandCenter = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {/* Left col: Profile & Readiness Radar */}
                 <div className="space-y-6 md:col-span-1">
-                    {/* Profile Summary Card */}
+                    
+                    {/* Tidy Profile Metrics Grid */}
                     <div className="bg-white border border-sand-200 rounded-[2rem] p-6 shadow-sm space-y-4">
                         <div className="flex items-center gap-2 border-b border-sand-100 pb-3">
                             <div className="p-2 bg-sage-50 rounded-xl text-sage-600"><User size={18} /></div>
@@ -229,32 +266,56 @@ const HomesteadCommandCenter = () => {
                         </div>
 
                         {homesteadProfile && !homesteadProfile.skipped ? (
-                            <ul className="space-y-2.5 text-xs text-charcoal">
-                                <li className="flex justify-between border-b border-sand-50 pb-1.5">
-                                    <span className="font-semibold text-charcoal-400">Household:</span>
-                                    <span className="font-bold">{homesteadProfile.household?.size || 1} people</span>
-                                </li>
-                                <li className="flex justify-between border-b border-sand-50 pb-1.5">
-                                    <span className="font-semibold text-charcoal-400">Climate:</span>
-                                    <span className="font-bold capitalize">{homesteadProfile.region?.climate || 'Temperate'}</span>
-                                </li>
-                                <li className="flex justify-between border-b border-sand-50 pb-1.5">
-                                    <span className="font-semibold text-charcoal-400">Water Source:</span>
-                                    <span className="font-bold capitalize">{homesteadProfile.water?.primary?.replace('_', ' ') || 'Well'}</span>
-                                </li>
-                                <li className="flex justify-between border-b border-sand-50 pb-1.5">
-                                    <span className="font-semibold text-charcoal-400">Pantry buffer:</span>
-                                    <span className="font-bold">{homesteadProfile.pantry?.targetDays || 90} days</span>
-                                </li>
-                                <li className="flex justify-between border-b border-sand-50 pb-1.5">
-                                    <span className="font-semibold text-charcoal-400">Energy setup:</span>
-                                    <span className="font-bold capitalize">{homesteadProfile.energy?.setup?.replace('_', ' ') || 'Solar'}</span>
-                                </li>
-                                <li className="flex justify-between">
-                                    <span className="font-semibold text-charcoal-400">Skill Level:</span>
-                                    <span className="font-bold capitalize">{homesteadProfile.experience?.level || 'Beginner'}</span>
-                                </li>
-                            </ul>
+                            <div className="grid grid-cols-2 gap-3">
+                                <div className="p-3 bg-sand-50/50 rounded-2xl border border-sand-100/50 flex flex-col">
+                                    <span className="text-[8px] font-black text-charcoal-400 uppercase tracking-wider mb-1 flex items-center gap-1">
+                                        <Users size={10} /> Household
+                                    </span>
+                                    <span className="font-serif font-black text-xs text-sage-950 leading-tight">
+                                        {homesteadProfile.household?.size || 1} People
+                                    </span>
+                                </div>
+                                <div className="p-3 bg-sand-50/50 rounded-2xl border border-sand-100/50 flex flex-col">
+                                    <span className="text-[8px] font-black text-charcoal-400 uppercase tracking-wider mb-1 flex items-center gap-1">
+                                        <Cloud size={10} /> Climate
+                                    </span>
+                                    <span className="font-serif font-black text-xs text-sage-950 leading-tight capitalize">
+                                        {homesteadProfile.region?.climate || 'Temperate'}
+                                    </span>
+                                </div>
+                                <div className="p-3 bg-sand-50/50 rounded-2xl border border-sand-100/50 flex flex-col">
+                                    <span className="text-[8px] font-black text-charcoal-400 uppercase tracking-wider mb-1 flex items-center gap-1">
+                                        <Droplets size={10} /> Water Source
+                                    </span>
+                                    <span className="font-serif font-black text-xs text-sage-950 leading-tight capitalize truncate">
+                                        {homesteadProfile.water?.primary?.replace('_', ' ') || 'Well'}
+                                    </span>
+                                </div>
+                                <div className="p-3 bg-sand-50/50 rounded-2xl border border-sand-100/50 flex flex-col">
+                                    <span className="text-[8px] font-black text-charcoal-400 uppercase tracking-wider mb-1 flex items-center gap-1">
+                                        <Archive size={10} /> Pantry Buffer
+                                    </span>
+                                    <span className="font-serif font-black text-xs text-sage-950 leading-tight">
+                                        {homesteadProfile.pantry?.targetDays || 90} Days
+                                    </span>
+                                </div>
+                                <div className="p-3 bg-sand-50/50 rounded-2xl border border-sand-100/50 flex flex-col">
+                                    <span className="text-[8px] font-black text-charcoal-400 uppercase tracking-wider mb-1 flex items-center gap-1">
+                                        <Zap size={10} /> Energy Setup
+                                    </span>
+                                    <span className="font-serif font-black text-xs text-sage-950 leading-tight capitalize truncate">
+                                        {homesteadProfile.energy?.setup?.replace('_', ' ') || 'Solar'}
+                                    </span>
+                                </div>
+                                <div className="p-3 bg-sand-50/50 rounded-2xl border border-sand-100/50 flex flex-col">
+                                    <span className="text-[8px] font-black text-charcoal-400 uppercase tracking-wider mb-1 flex items-center gap-1">
+                                        <Sparkles size={10} /> Skill Level
+                                    </span>
+                                    <span className="font-serif font-black text-xs text-sage-950 leading-tight capitalize">
+                                        {homesteadProfile.experience?.level || 'Beginner'}
+                                    </span>
+                                </div>
+                            </div>
                         ) : (
                             <div className="text-center py-4 space-y-2">
                                 <p className="text-xs text-charcoal-400 italic">No custom profile configured yet.</p>
@@ -268,53 +329,85 @@ const HomesteadCommandCenter = () => {
                         )}
                     </div>
 
-                    {/* Readiness Cards */}
+                    {/* Readiness Cards with Security Status Progress Bars */}
                     <div className="bg-white border border-sand-200 rounded-[2rem] p-6 shadow-sm space-y-4">
                         <div className="flex items-center gap-2 border-b border-sand-100 pb-3">
                             <div className="p-2 bg-sage-50 rounded-xl text-sage-600"><Activity size={18} /></div>
                             <h3 className="text-sm font-black text-sage-900 uppercase tracking-wider">System Readiness</h3>
                         </div>
 
-                        <div className="space-y-3">
+                        <div className="space-y-4">
                             {/* Water */}
-                            <div className="flex items-center justify-between p-3 rounded-2xl border border-sand-100 bg-sand-50/50">
-                                <div className="flex items-center gap-2">
-                                    <div className="w-2 h-2 rounded-full bg-blue-500" />
-                                    <span className="text-xs font-bold text-charcoal-700">Water Security</span>
+                            <div className="space-y-1.5">
+                                <div className="flex items-center justify-between text-xs">
+                                    <span className="font-bold text-charcoal-700 flex items-center gap-1.5">
+                                        <div className="w-2.5 h-2.5 rounded-full bg-blue-500" />
+                                        Water Security
+                                    </span>
+                                    <span className={`text-[9px] font-bold px-2 py-0.5 rounded-full border ${getReadinessColor(getReadinessLabel(readinessBreakdown?.water))}`}>
+                                        {getReadinessLabel(readinessBreakdown?.water)}
+                                    </span>
                                 </div>
-                                <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${getReadinessColor(getReadinessLabel(readinessBreakdown?.water))}`}>
-                                    {getReadinessLabel(readinessBreakdown?.water)}
-                                </span>
+                                <div className="h-2 bg-sand-100 rounded-full overflow-hidden border border-sand-200/50">
+                                    <div 
+                                        className={`h-full rounded-full transition-all duration-500 ${getBarColor(readinessBreakdown?.water)}`}
+                                        style={{ width: `${readinessBreakdown?.water || 10}%` }}
+                                    />
+                                </div>
                             </div>
                             {/* Food */}
-                            <div className="flex items-center justify-between p-3 rounded-2xl border border-sand-100 bg-sand-50/50">
-                                <div className="flex items-center gap-2">
-                                    <div className="w-2 h-2 rounded-full bg-amber-500" />
-                                    <span className="text-xs font-bold text-charcoal-700">Pantry & Storage</span>
+                            <div className="space-y-1.5">
+                                <div className="flex items-center justify-between text-xs">
+                                    <span className="font-bold text-charcoal-700 flex items-center gap-1.5">
+                                        <div className="w-2.5 h-2.5 rounded-full bg-amber-500" />
+                                        Pantry & Storage
+                                    </span>
+                                    <span className={`text-[9px] font-bold px-2 py-0.5 rounded-full border ${getReadinessColor(getReadinessLabel(readinessBreakdown?.food))}`}>
+                                        {getReadinessLabel(readinessBreakdown?.food)}
+                                    </span>
                                 </div>
-                                <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${getReadinessColor(getReadinessLabel(readinessBreakdown?.food))}`}>
-                                    {getReadinessLabel(readinessBreakdown?.food)}
-                                </span>
+                                <div className="h-2 bg-sand-100 rounded-full overflow-hidden border border-sand-200/50">
+                                    <div 
+                                        className={`h-full rounded-full transition-all duration-500 ${getBarColor(readinessBreakdown?.food)}`}
+                                        style={{ width: `${readinessBreakdown?.food || 10}%` }}
+                                    />
+                                </div>
                             </div>
                             {/* Energy */}
-                            <div className="flex items-center justify-between p-3 rounded-2xl border border-sand-100 bg-sand-50/50">
-                                <div className="flex items-center gap-2">
-                                    <div className="w-2 h-2 rounded-full bg-yellow-500" />
-                                    <span className="text-xs font-bold text-charcoal-700">Energy & Power</span>
+                            <div className="space-y-1.5">
+                                <div className="flex items-center justify-between text-xs">
+                                    <span className="font-bold text-charcoal-700 flex items-center gap-1.5">
+                                        <div className="w-2.5 h-2.5 rounded-full bg-yellow-500" />
+                                        Energy & Power
+                                    </span>
+                                    <span className={`text-[9px] font-bold px-2 py-0.5 rounded-full border ${getReadinessColor(getReadinessLabel(readinessBreakdown?.energy))}`}>
+                                        {getReadinessLabel(readinessBreakdown?.energy)}
+                                    </span>
                                 </div>
-                                <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${getReadinessColor(getReadinessLabel(readinessBreakdown?.energy))}`}>
-                                    {getReadinessLabel(readinessBreakdown?.energy)}
-                                </span>
+                                <div className="h-2 bg-sand-100 rounded-full overflow-hidden border border-sand-200/50">
+                                    <div 
+                                        className={`h-full rounded-full transition-all duration-500 ${getBarColor(readinessBreakdown?.energy)}`}
+                                        style={{ width: `${readinessBreakdown?.energy || 10}%` }}
+                                    />
+                                </div>
                             </div>
                             {/* Garden */}
-                            <div className="flex items-center justify-between p-3 rounded-2xl border border-sand-100 bg-sand-50/50">
-                                <div className="flex items-center gap-2">
-                                    <div className="w-2 h-2 rounded-full bg-emerald-500" />
-                                    <span className="text-xs font-bold text-charcoal-700">Crop Production</span>
+                            <div className="space-y-1.5">
+                                <div className="flex items-center justify-between text-xs">
+                                    <span className="font-bold text-charcoal-700 flex items-center gap-1.5">
+                                        <div className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
+                                        Crop Production
+                                    </span>
+                                    <span className={`text-[9px] font-bold px-2 py-0.5 rounded-full border ${getReadinessColor(getReadinessLabel(readinessBreakdown?.garden))}`}>
+                                        {getReadinessLabel(readinessBreakdown?.garden)}
+                                    </span>
                                 </div>
-                                <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${getReadinessColor(getReadinessLabel(readinessBreakdown?.garden))}`}>
-                                    {getReadinessLabel(readinessBreakdown?.garden)}
-                                </span>
+                                <div className="h-2 bg-sand-100 rounded-full overflow-hidden border border-sand-200/50">
+                                    <div 
+                                        className={`h-full rounded-full transition-all duration-500 ${getBarColor(readinessBreakdown?.garden)}`}
+                                        style={{ width: `${readinessBreakdown?.garden || 10}%` }}
+                                    />
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -322,6 +415,7 @@ const HomesteadCommandCenter = () => {
 
                 {/* Right col: Pathways & Today's tasks / Projects */}
                 <div className="space-y-6 md:col-span-2">
+                    
                     {/* Start Here Pathway */}
                     {pathways.length > 0 && (
                         <div className="bg-white border border-sand-200 rounded-[2rem] p-6 shadow-sm space-y-4">
@@ -332,7 +426,7 @@ const HomesteadCommandCenter = () => {
 
                             <div className="space-y-3">
                                 {pathways.map((p, idx) => (
-                                    <div key={idx} className="flex flex-col sm:flex-row sm:items-center justify-between p-4 rounded-2xl border border-sand-200 hover:border-sage-300 transition-all gap-4">
+                                    <div key={idx} className="flex flex-col sm:flex-row sm:items-center justify-between p-4 rounded-2xl border border-sand-200 hover:border-sage-400 hover:shadow-md transition-all gap-4">
                                         <div className="flex gap-3 items-start">
                                             <div className="p-2 bg-sand-50 rounded-xl shrink-0 mt-0.5">{p.icon}</div>
                                             <div className="space-y-0.5">
@@ -353,35 +447,181 @@ const HomesteadCommandCenter = () => {
                         </div>
                     )}
 
-                    {/* Today's Tasks */}
+                    {/* Redesigned Interactive Checklist */}
                     <div className="bg-white border border-sand-200 rounded-[2rem] p-6 shadow-sm space-y-4">
-                        <div className="flex items-center gap-2 border-b border-sand-100 pb-3">
-                            <div className="p-2 bg-sage-50 rounded-xl text-sage-600"><CheckSquare size={18} /></div>
-                            <h3 className="text-sm font-black text-sage-900 uppercase tracking-wider">Today's Operating Checklist</h3>
+                        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b border-sand-100 pb-3 gap-3">
+                            <div className="flex items-center gap-2">
+                                <div className="p-2 bg-sage-50 rounded-xl text-sage-600"><CheckSquare size={18} /></div>
+                                <h3 className="text-sm font-black text-sage-900 uppercase tracking-wider">Today's Operating Checklist</h3>
+                            </div>
+                            
+                            <button
+                                onClick={() => setFormOpen(!formOpen)}
+                                className="text-xs text-sage-600 hover:text-sage-800 font-bold flex items-center gap-1 self-start sm:self-center"
+                            >
+                                <Plus size={14} /> Add Task
+                            </button>
                         </div>
 
-                        <div className="space-y-3">
-                            {/* Seasonal Tasks */}
-                            {seasonalTasksList.length > 0 ? (
-                                <div className="space-y-2">
-                                    <h4 className="text-[10px] font-black text-sage-500 uppercase tracking-widest pl-1 mb-2">Active Seasonal Tasks</h4>
-                                    {seasonalTasksList.map((t, idx) => (
-                                        <div key={idx} className="flex gap-3 items-start p-3 bg-sand-50/50 rounded-2xl border border-sand-100 text-xs">
-                                            <div className="p-1 bg-white/80 rounded-lg text-sage-600 shrink-0 mt-0.5">
-                                                <CheckCircle size={14} />
-                                            </div>
-                                            <div className="space-y-0.5">
-                                                <div className="flex items-center gap-2">
-                                                    <span className="font-bold text-charcoal-800">{t.title}</span>
-                                                    <span className="text-[8px] bg-sage-100 text-sage-800 font-bold px-1.5 py-0.25 rounded uppercase tracking-wider">{t.system}</span>
-                                                </div>
-                                                <p className="text-[10px] text-charcoal-500 font-sans leading-relaxed">{t.desc}</p>
-                                            </div>
-                                        </div>
-                                    ))}
+                        {/* Progress Bar Header */}
+                        {totalCount > 0 && (
+                            <div className="space-y-2 p-4 bg-sand-50/50 rounded-2xl border border-sand-100">
+                                <div className="flex justify-between text-xs font-bold text-charcoal-700">
+                                    <span>Operating Progress</span>
+                                    <span>{completedCount} of {totalCount} tasks completed ({progressPercent}%)</span>
                                 </div>
+                                <div className="h-2.5 bg-sand-200 rounded-full overflow-hidden border border-sand-300/30">
+                                    <div 
+                                        className="h-full bg-sage-600 rounded-full transition-all duration-500"
+                                        style={{ width: `${progressPercent}%` }}
+                                    />
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Checklist Filters */}
+                        <div className="flex flex-wrap items-center justify-between gap-3 pt-1">
+                            <div className="flex gap-1">
+                                {['All', 'Active', 'Completed'].map(status => (
+                                    <button
+                                        key={status}
+                                        onClick={() => setFilterStatus(status)}
+                                        className={`px-2.5 py-1 rounded-lg text-[9px] font-black uppercase tracking-wider border transition-all ${
+                                            filterStatus === status 
+                                                ? 'bg-sage-600 text-white border-sage-600 shadow-xs' 
+                                                : 'bg-white text-sand-400 border-sand-200 hover:border-sand-300'
+                                        }`}
+                                    >
+                                        {status}
+                                    </button>
+                                ))}
+                            </div>
+                            
+                            <select
+                                value={filterSystem}
+                                onChange={(e) => setFilterSystem(e.target.value)}
+                                className="p-1.5 bg-sand-50 rounded-xl border border-sand-200 outline-none text-[10px] font-bold text-charcoal-600"
+                            >
+                                <option value="All">All Systems</option>
+                                <option value="Garden">Garden</option>
+                                <option value="Water">Water</option>
+                                <option value="Energy">Energy</option>
+                                <option value="Preservation">Preservation</option>
+                                <option value="Infrastructure">Infrastructure</option>
+                                <option value="Sanitation">Sanitation</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+
+                        {/* Inline Task Form */}
+                        {formOpen && (
+                            <form onSubmit={handleAddCustom} className="p-4 bg-sand-50 border border-sand-200 rounded-2xl space-y-3 animate-fadeIn">
+                                <h4 className="text-[10px] font-black text-sage-900 uppercase tracking-wider">New Custom Task</h4>
+                                <div className="grid gap-3 sm:grid-cols-2">
+                                    <div className="space-y-1">
+                                        <input
+                                            type="text"
+                                            required
+                                            placeholder="Task Title..."
+                                            value={newTitle}
+                                            onChange={(e) => setNewTitle(e.target.value)}
+                                            className="w-full p-2.5 bg-white border border-sand-200 rounded-xl text-xs font-semibold outline-none"
+                                        />
+                                    </div>
+                                    <div className="space-y-1">
+                                        <select
+                                            value={newSystem}
+                                            onChange={(e) => setNewSystem(e.target.value)}
+                                            className="w-full p-2.5 bg-white border border-sand-200 rounded-xl text-xs font-semibold outline-none"
+                                        >
+                                            <option value="Garden">Garden</option>
+                                            <option value="Water">Water</option>
+                                            <option value="Energy">Energy</option>
+                                            <option value="Preservation">Preservation</option>
+                                            <option value="Infrastructure">Infrastructure</option>
+                                            <option value="Sanitation">Sanitation</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div>
+                                    <input
+                                        type="text"
+                                        placeholder="Optional description (e.g. details, tools needed)..."
+                                        value={newDesc}
+                                        onChange={(e) => setNewDesc(e.target.value)}
+                                        className="w-full p-2.5 bg-white border border-sand-200 rounded-xl text-xs font-medium outline-none"
+                                    />
+                                </div>
+                                <div className="flex gap-2">
+                                    <button
+                                        type="submit"
+                                        className="py-1.5 px-3.5 bg-sage-600 hover:bg-sage-700 text-white font-bold text-xs uppercase tracking-wider rounded-lg shadow-sm"
+                                    >
+                                        Add Task
+                                    </button>
+                                    <button
+                                        type="button"
+                                        onClick={() => setFormOpen(false)}
+                                        className="py-1.5 px-3.5 bg-sand-200 hover:bg-sand-300 text-charcoal font-bold text-xs uppercase tracking-wider rounded-lg"
+                                    >
+                                        Cancel
+                                    </button>
+                                </div>
+                            </form>
+                        )}
+
+                        {/* Checklist items list */}
+                        <div className="space-y-2">
+                            {filteredTasks.length > 0 ? (
+                                filteredTasks.map((t) => (
+                                    <div 
+                                        key={t.id} 
+                                        className={`flex gap-3 items-center justify-between p-3.5 rounded-2xl border transition-all ${
+                                            t.completed 
+                                                ? 'bg-sand-50/50 border-sand-100 text-charcoal-400' 
+                                                : 'bg-white border-sand-200 hover:border-sand-300 text-charcoal-800'
+                                        }`}
+                                    >
+                                        <button
+                                            onClick={() => toggleTask(t.id)}
+                                            className="flex gap-3 items-start flex-1 text-left"
+                                        >
+                                            <div className={`mt-0.5 shrink-0 w-4 h-4 rounded border flex items-center justify-center transition-all ${
+                                                t.completed ? 'bg-sage-600 border-sage-600 text-white' : 'border-sand-400 hover:border-sage-500'
+                                            }`}>
+                                                {t.completed && <Check size={10} strokeWidth={4} />}
+                                            </div>
+                                            
+                                            <div className="space-y-0.5">
+                                                <div className="flex flex-wrap items-center gap-1.5">
+                                                    <span className={`font-bold text-xs ${t.completed ? 'line-through text-charcoal-400' : ''}`}>{t.title}</span>
+                                                    <span className="text-[7px] bg-sand-150 text-charcoal-500 font-bold px-1.5 py-0.25 rounded uppercase tracking-wider flex items-center gap-1">
+                                                        {getSystemIcon(t.system)}
+                                                        {t.system}
+                                                    </span>
+                                                    {t.priority === 'high' && !t.completed && (
+                                                        <span className="text-[7px] bg-terracotta-50 text-terracotta-700 font-bold px-1 rounded uppercase">High Priority</span>
+                                                    )}
+                                                </div>
+                                                {t.desc && (
+                                                    <p className={`text-[10px] font-sans leading-relaxed ${t.completed ? 'text-charcoal-400 line-through' : 'text-charcoal-500'}`}>{t.desc}</p>
+                                                )}
+                                            </div>
+                                        </button>
+                                        
+                                        {t.type === 'manual' && (
+                                            <button
+                                                onClick={() => removeTask(t.id)}
+                                                className="p-1 text-sand-400 hover:text-terracotta-600 hover:bg-terracotta-50 rounded-lg transition-all"
+                                            >
+                                                <Trash2 size={14} />
+                                            </button>
+                                        )}
+                                    </div>
+                                ))
                             ) : (
-                                <p className="text-xs text-charcoal-400 italic pl-1">No seasonal tasks generated.</p>
+                                <p className="text-xs text-charcoal-400 italic pl-1 py-4 text-center">No tasks match your filter parameters.</p>
                             )}
                         </div>
                     </div>
@@ -403,59 +643,63 @@ const HomesteadCommandCenter = () => {
 
                         {activeProjectsList.length > 0 ? (
                             <div className="grid gap-4 sm:grid-cols-2">
-                                {activeProjectsList.map((proj) => (
-                                    <div key={proj.id} className="p-4 bg-sand-50/50 border border-sand-200 rounded-3xl space-y-3 shadow-sm flex flex-col justify-between">
-                                        <div className="space-y-1">
-                                            <div className="flex items-center justify-between">
-                                                <span className="text-[8px] font-black uppercase tracking-widest text-charcoal-400">{proj.system}</span>
-                                                <span className={`text-[8px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full ${
-                                                    proj.status === 'complete' ? 'bg-emerald-100 text-emerald-800' :
-                                                    proj.status === 'active' ? 'bg-blue-100 text-blue-800' : 'bg-sand-200 text-charcoal-600'
-                                                }`}>{proj.status}</span>
-                                            </div>
-                                            <h4 className="font-serif font-black text-sm text-sage-900 leading-tight">{proj.title}</h4>
-                                            <p className="text-[10px] text-charcoal-500 font-sans leading-relaxed line-clamp-2">{proj.notes}</p>
-                                        </div>
-
-                                        <div className="space-y-2 pt-2 border-t border-sand-100">
-                                            {/* Progress bar */}
+                                {activeProjectsList.map((proj) => {
+                                    const progress = calculateProjectProgress(proj);
+                                    const nextStep = getNextProjectStep(proj);
+                                    return (
+                                        <div key={proj.id} className="p-4 bg-sand-50/50 border border-sand-200 rounded-3xl space-y-3 shadow-sm flex flex-col justify-between">
                                             <div className="space-y-1">
-                                                <div className="flex justify-between text-[8px] font-bold text-charcoal-400">
-                                                    <span>Progress</span>
-                                                    <span>
-                                                        {Math.round((proj.steps.filter(s => s.completed).length / proj.steps.length) * 100)}%
-                                                    </span>
+                                                <div className="flex items-center justify-between">
+                                                    <span className="text-[8px] font-black uppercase tracking-widest text-charcoal-400">{proj.system}</span>
+                                                    <span className={`text-[8px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full ${
+                                                        proj.status === 'complete' ? 'bg-emerald-100 text-emerald-800' :
+                                                        proj.status === 'active' ? 'bg-blue-100 text-blue-800' : 'bg-sand-200 text-charcoal-600'
+                                                    }`}>{proj.status}</span>
                                                 </div>
-                                                <div className="h-1 bg-sand-200 rounded-full overflow-hidden">
-                                                    <div 
-                                                        className="h-full bg-sage-600 rounded-full transition-all duration-300"
-                                                        style={{ width: `${(proj.steps.filter(s => s.completed).length / proj.steps.length) * 100}%` }}
-                                                    />
-                                                </div>
-                                            </div>
-
-                                            <div className="flex justify-between gap-2 pt-1">
-                                                <button
-                                                    onClick={() => navigate('/homestead/build-projects')}
-                                                    className="py-1 px-2.5 bg-white border border-sand-300 text-charcoal font-bold text-[9px] uppercase tracking-wider rounded-xl hover:bg-sand-100 transition-all flex-1 min-h-[32px]"
-                                                >
-                                                    View Details
-                                                </button>
-                                                {proj.status !== 'complete' && (
-                                                    <button
-                                                        onClick={() => {
-                                                            const nextStep = proj.steps.find(s => !s.completed);
-                                                            if (nextStep) handleToggleProjectStep(proj.id, nextStep.id);
-                                                        }}
-                                                        className="py-1 px-2.5 bg-sage-600 hover:bg-sage-700 text-white font-bold text-[9px] uppercase tracking-wider rounded-xl shadow-sm transition-all flex-1 min-h-[32px]"
-                                                    >
-                                                        Next Step
-                                                    </button>
+                                                <h4 className="font-serif font-black text-sm text-sage-900 leading-tight">{proj.title}</h4>
+                                                
+                                                {nextStep && (
+                                                    <p className="text-[9px] text-charcoal-500 font-sans leading-relaxed line-clamp-1 mb-2 bg-white px-2 py-1 rounded border border-sand-100">
+                                                        Next: {nextStep.text}
+                                                    </p>
                                                 )}
                                             </div>
+
+                                            <div className="space-y-2 pt-2 border-t border-sand-100">
+                                                {/* Progress bar */}
+                                                <div className="space-y-1">
+                                                    <div className="flex justify-between text-[8px] font-bold text-charcoal-400">
+                                                        <span>Progress</span>
+                                                        <span>{progress}%</span>
+                                                    </div>
+                                                    <div className="h-1 bg-sand-200 rounded-full overflow-hidden">
+                                                        <div 
+                                                            className="h-full bg-sage-600 rounded-full transition-all duration-300"
+                                                            style={{ width: `${progress}%` }}
+                                                        />
+                                                    </div>
+                                                </div>
+
+                                                <div className="flex justify-between gap-2 pt-1">
+                                                    <button
+                                                        onClick={() => navigate('/homestead/build-projects')}
+                                                        className="py-1 px-2.5 bg-white border border-sand-300 text-charcoal font-bold text-[9px] uppercase tracking-wider rounded-xl hover:bg-sand-100 transition-all flex-1 min-h-[32px]"
+                                                    >
+                                                        View Details
+                                                    </button>
+                                                    {proj.status !== 'complete' && nextStep && (
+                                                        <button
+                                                            onClick={() => handleToggleProjectStep(proj.id, nextStep.id)}
+                                                            className="py-1 px-2.5 bg-sage-600 hover:bg-sage-700 text-white font-bold text-[9px] uppercase tracking-wider rounded-xl shadow-sm transition-all flex-1 min-h-[32px]"
+                                                        >
+                                                            Next Step
+                                                        </button>
+                                                    )}
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                ))}
+                                    );
+                                })}
                             </div>
                         ) : (
                             <div className="text-center py-6 border-2 border-dashed border-sand-200 rounded-3xl space-y-3">
