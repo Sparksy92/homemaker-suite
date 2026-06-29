@@ -22,7 +22,7 @@ const Layout = () => {
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         onClick={() => setIsMenuOpen(false)}
-                        className="fixed inset-0 bg-black/60 z-40 backdrop-blur-md"
+                        className="absolute inset-0 bg-black/60 z-40 backdrop-blur-md"
                     />
                 )}
                 {isMenuOpen && (
