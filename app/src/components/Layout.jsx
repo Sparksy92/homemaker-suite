@@ -1,6 +1,6 @@
 import React from 'react';
 import { Outlet, NavLink, useLocation } from 'react-router-dom';
-import { Home, BookOpen, Wrench, Menu, User, Settings, LogOut, Leaf, Archive, Utensils, MessageSquare, X } from 'lucide-react';
+import { Home, BookOpen, Wrench, Menu, User, Settings, LogOut, Leaf, Archive, Utensils, MessageSquare, X, Hammer } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { motion, AnimatePresence } from 'framer-motion';
 import OfflineIndicator from './OfflineIndicator';
@@ -48,6 +48,7 @@ const Layout = () => {
 
                         <ul className="flex flex-col gap-4">
                             <MenuLink to="/homestead" label="Homestead OS" onClick={() => setIsMenuOpen(false)} icon={<Home size={20} />} />
+                            <MenuLink to="/homestead/build-projects" label="Build Projects" onClick={() => setIsMenuOpen(false)} icon={<Hammer size={20} />} />
                             <MenuLink to="/profile" label="Profile" onClick={() => setIsMenuOpen(false)} icon={<User size={20} />} />
                             <MenuLink to="/settings" label="Settings" onClick={() => setIsMenuOpen(false)} icon={<Settings size={20} />} />
                             <MenuLink to="/feedback" label="Suggestion Box" onClick={() => setIsMenuOpen(false)} icon={<MessageSquare size={20} />} />
