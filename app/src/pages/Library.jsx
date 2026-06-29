@@ -148,16 +148,18 @@ const Library = ({ type = 'all' }) => {
                 // Fetch fresh data from network and update cache in background
                 const indexRes = await fetch('/library_index.json');
                 if (indexRes.ok) {
+                    const indexClone = indexRes.clone();
                     const data = await indexRes.json();
                     setFileSystem(data);
-                    await cache.put('/library_index.json', indexRes.clone());
+                    await cache.put('/library_index.json', indexClone);
                 }
 
                 const metaRes = await fetch('/guides_metadata.json');
                 if (metaRes.ok) {
+                    const metaClone = metaRes.clone();
                     const data = await metaRes.json();
                     setGuidesMetadata(data);
-                    await cache.put('/guides_metadata.json', metaRes.clone());
+                    await cache.put('/guides_metadata.json', metaClone);
                 }
             } catch (err) {
                 console.error("Failed to load library files/metadata:", err);
