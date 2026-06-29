@@ -3,12 +3,12 @@
 ## Executive Summary
 This report was automatically generated during build validation to audit the integrity of images on the Wildlife and Foraging guides.
 
-* **Total Species/Guides Scanned:** 100
-* **Total Image References Scanned:** 101
+* **Total Species/Guides Scanned:** 101
+* **Total Image References Scanned:** 103
 * **Missing Image Files:** 0
 * **Suspicious Image-to-Species Mappings:** 0
 * **Duplicate/Shared Images:** 0
-* **Species with No Image:** 1
+* **Species with No Image:** 0
 
 ---
 
@@ -29,9 +29,9 @@ _No duplicate image reuse._
 
 ---
 
-## ℹ️ Information: Species/Guides with No Images (1)
+## ℹ️ Information: Species/Guides with No Images (0)
 Fallback rendering is automatically active for these items:
-* **[TRACKING]** Porcupine Track (`track_porcupine`)
+_All species have at least one image reference._
 
 ---
 

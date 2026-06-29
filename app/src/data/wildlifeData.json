@@ -1795,7 +1795,19 @@
             "category": "Paw",
             "description": "Pigeon-toed (toes point in). Pebble-like texture on pads. Often shows tail drag.",
             "gait": "Walker",
-            "images": []
+            "images": [
+                "track_porcupine.jpg"
+            ]
+        },
+        {
+            "id": "track_beaver",
+            "name": "Beaver Track",
+            "category": "Paw",
+            "description": "Webbed hind foot (5-6 inches long). Front track smaller, hand-like. Often accompanied by tail drag.",
+            "gait": "Walker/Waddler",
+            "images": [
+                "track_beaver.jpg"
+            ]
         }
     ],
     "foraging_calendar": {
