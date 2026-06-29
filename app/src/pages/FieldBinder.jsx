@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useUser } from '../context/UserContext';
 import { loadPlan } from '../services/homesteadPlanningService';
 import { generateSeasonalTasks } from '../planners/seasonalTaskEngine';
+import { suggestStorageContainers } from '../planners/waterPlanner';
 import { ArrowLeft, Printer, Copy, Check, AlertTriangle, FileText } from 'lucide-react';
 
 const FieldBinder = () => {
@@ -436,6 +437,81 @@ const FieldBinder = () => {
                                 <div>
                                     <h3 className="font-bold text-amber-900 uppercase text-[10px]">Water Sanitation</h3>
                                     <p className="mt-0.5">Rainwater and surface water contains pathogens. Boil or filter water using tested ceramic or multi-stage filtration tools before consumption.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )}
+
+                {/* 8. Seasonal Tasks */}
+                {selectedSections.tasks && seasonalTasks && seasonalTasks.length > 0 && (
+                    <div className="space-y-4 page-break">
+                        <h2 className="text-lg font-serif font-black text-sage-900 border-b border-sand-300 pb-1 uppercase tracking-wider">
+                            8. Seasonal Homestead Checklist
+                        </h2>
+                        <div className="p-3 bg-sand-50 text-[10px] italic border border-sand-300 rounded-xl text-charcoal-500 leading-relaxed mb-4">
+                            Operational tasks for the current season. Tick checkboxes once completed.
+                        </div>
+                        <table className="w-full text-xs border-collapse">
+                            <thead>
+                                <tr className="border-b border-sand-300 bg-sand-50">
+                                    <th className="p-2 font-bold text-left">Task</th>
+                                    <th className="p-2 font-bold text-left">System</th>
+                                    <th className="p-2 font-bold text-left">Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {seasonalTasks.map((task, i) => (
+                                    <tr key={i} className="border-b border-sand-100">
+                                        <td className="p-2 font-bold flex gap-2 items-center">
+                                            <div className="w-3.5 h-3.5 border border-sand-400 rounded shrink-0" />
+                                            <span>{task.title}</span>
+                                        </td>
+                                        <td className="p-2 text-sage-700 capitalize font-medium">{task.system}</td>
+                                        <td className="p-2 text-charcoal-500">{task.desc}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                )}
+
+                {/* 9. Emergency Protocols */}
+                {selectedSections.emergency && (
+                    <div className="space-y-6 page-break">
+                        <h2 className="text-lg font-serif font-black text-sage-900 border-b border-sand-300 pb-1 uppercase tracking-wider">
+                            9. Emergency Protocols & Contacts
+                        </h2>
+                        <div className="p-4 border border-red-200 bg-red-50/50 rounded-xl text-xs space-y-3">
+                            <h3 className="font-bold text-red-900 uppercase text-[10px] tracking-wider">Homestead Emergency Protocol</h3>
+                            <p className="text-charcoal-700 leading-relaxed">In the event of severe weather, medical emergency, fire, or evacuation, refer to these local details. Keep this page filled out and stored in a visible location.</p>
+                        </div>
+
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-xs font-sans">
+                            <div className="space-y-4">
+                                <h3 className="font-bold text-sage-800 border-b border-sand-200 pb-1">Emergency Contact Numbers</h3>
+                                <div className="space-y-3">
+                                    <div className="border-b border-sand-200 pb-1 flex justify-between"><span className="text-charcoal-500">Local Sheriff:</span><span className="font-bold">____________________</span></div>
+                                    <div className="border-b border-sand-200 pb-1 flex justify-between"><span className="text-charcoal-500">Fire Dispatch:</span><span className="font-bold">____________________</span></div>
+                                    <div className="border-b border-sand-200 pb-1 flex justify-between"><span className="text-charcoal-500">Search & Rescue:</span><span className="font-bold">____________________</span></div>
+                                    <div className="border-b border-sand-200 pb-1 flex justify-between"><span className="text-charcoal-500">Forestry / Ranger:</span><span className="font-bold">____________________</span></div>
+                                </div>
+                            </div>
+                            <div className="space-y-4">
+                                <h3 className="font-bold text-sage-800 border-b border-sand-200 pb-1">Neighborhood & Radio Setup</h3>
+                                <div className="space-y-3">
+                                    <div className="border-b border-sand-200 pb-1 flex justify-between"><span className="text-charcoal-500">Primary UHF/VHF:</span><span className="font-bold">____________________</span></div>
+                                    <div className="border-b border-sand-200 pb-1 flex justify-between"><span className="text-charcoal-500">FRS/GMRS Channel:</span><span className="font-bold">____________________</span></div>
+                                    <div className="border-b border-sand-200 pb-1 flex justify-between"><span className="text-charcoal-500">Ham Frequency:</span><span className="font-bold">____________________</span></div>
+                                    <div className="border-b border-sand-200 pb-1 flex justify-between"><span className="text-charcoal-500">Weather Radio (NOAA):</span><span className="font-bold">____________________</span></div>
+                                </div>
+                            </div>
+                            <div className="space-y-4 sm:col-span-2">
+                                <h3 className="font-bold text-sage-800 border-b border-sand-200 pb-1">Evacuation & Supply Locations</h3>
+                                <div className="space-y-3">
+                                    <div className="border-b border-sand-200 pb-2"><span className="text-charcoal-500 block mb-1">Primary Evacuation Route:</span><div className="h-6" /></div>
+                                    <div className="border-b border-sand-200 pb-2"><span className="text-charcoal-500 block mb-1">Emergency Assembly Point:</span><div className="h-6" /></div>
+                                    <div className="border-b border-sand-200 pb-2"><span className="text-charcoal-500 block mb-1">Shut-off Locations (Water, Solar/Main Breaker, Propane/Fuel Valve):</span><div className="h-10" /></div>
                                 </div>
                             </div>
                         </div>
