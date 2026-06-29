@@ -185,10 +185,14 @@ const Library = ({ type = 'all' }) => {
             handleFileClick(fileParam, folderParam);
         } else if (!folderParam && !fileParam) {
             // Reset to root categories if no parameters are present (e.g. clicked Guides tab)
-            setCurrentPath([]);
-            setFileContent(null);
+            if (currentPath.length > 0) {
+                setCurrentPath([]);
+            }
+            if (fileContent !== null) {
+                setFileContent(null);
+            }
         }
-    }, [location.search, fileSystem]);
+    }, [location.search, fileSystem, currentPath.length, fileContent]);
 
     // Offline Mode Logic (Cache Storage API)
     const [downloading, setDownloading] = useState(false);
