@@ -11,7 +11,7 @@ const Layout = () => {
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
     return (
-        <div className="min-h-[100dvh] flex flex-col max-w-2xl mx-auto bg-sand-50 shadow-2xl overflow-hidden relative border-x border-sand-300">
+        <div className="min-h-[100dvh] flex flex-col max-w-2xl mx-auto bg-sand-50 shadow-2xl overflow-hidden relative border-x border-sand-300 transform translate-x-0">
 
             {/* Mobile Menu Overlay */}
             <AnimatePresence>
@@ -22,7 +22,7 @@ const Layout = () => {
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         onClick={() => setIsMenuOpen(false)}
-                        className="absolute inset-0 bg-black/60 z-40 backdrop-blur-md"
+                        className="fixed inset-0 bg-black/60 z-[100] backdrop-blur-md"
                     />
                 )}
                 {isMenuOpen && (
@@ -32,7 +32,7 @@ const Layout = () => {
                         animate={{ x: 0 }}
                         exit={{ x: '100%' }}
                         transition={{ type: "spring", damping: 25, stiffness: 200 }}
-                        className="absolute right-0 top-0 bottom-0 w-72 bg-white/95 backdrop-blur-md shadow-2xl z-50 p-6 flex flex-col gap-4 border-l border-sand-200"
+                        className="fixed right-0 top-0 bottom-0 w-72 bg-white/95 backdrop-blur-md shadow-2xl z-[110] p-6 flex flex-col gap-4 border-l border-sand-200"
                     >
                         <div className="flex justify-between items-center">
                             <h2 className="text-2xl font-serif text-sage-800 font-bold">Menu</h2>
