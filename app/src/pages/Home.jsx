@@ -79,6 +79,20 @@ const Home = () => {
         return tips[month];
     };
 
+    const getSeasonalGuideLink = () => {
+        const month = new Date().getMonth();
+        if (month >= 2 && month <= 4) {
+            return { folder: "9 Seasonal Guides", file: "9.1 Spring.md", label: "Read Spring Guide" };
+        }
+        if (month >= 5 && month <= 7) {
+            return { folder: "9 Seasonal Guides", file: "9.2 Summer.md", label: "Read Summer Guide" };
+        }
+        if (month >= 8 && month <= 10) {
+            return { folder: "9 Seasonal Guides", file: "9.3 Autumn.md", label: "Read Autumn Guide" };
+        }
+        return { folder: "9 Seasonal Guides", file: "9.4 Winter.md", label: "Read Winter Guide" };
+    };
+
     const tasks = sustainability.tasks || [];
 
     return (
@@ -392,18 +406,30 @@ const Home = () => {
                 )}
 
                 {/* 4.5 Seasonal Tip */}
-                {homeWidgets.seasonalTip && (
-                    <section className="bg-sand-100 p-6 rounded-[2.5rem] border border-sand-200 flex gap-5 items-start">
-                        <div className="bg-white p-4 rounded-2xl text-sage-600 shadow-sm shrink-0">
-                            <Sprout size={24} />
-                        </div>
-                        <div>
-                            <span className="text-[10px] font-black text-sage-500 uppercase tracking-[0.2em] block mb-1">Seasonal Intelligence</span>
-                            <h4 className="text-xl font-serif font-black text-sage-900 mb-1">{getSeasonalTip().title}</h4>
-                            <p className="text-sm text-sand-600 font-medium leading-relaxed">{getSeasonalTip().desc}</p>
-                        </div>
-                    </section>
-                )}
+                {homeWidgets.seasonalTip && (() => {
+                    const guide = getSeasonalGuideLink();
+                    const tip = getSeasonalTip();
+                    return (
+                        <Link 
+                            to={`/library?folder=${encodeURIComponent(guide.folder)}&file=${encodeURIComponent(guide.file)}`}
+                            className="bg-sand-100 p-6 rounded-[2.5rem] border border-sand-200 flex gap-5 items-start hover:shadow-md hover:border-sage-300 transition-all text-left group"
+                        >
+                            <div className="bg-white p-4 rounded-2xl text-sage-600 shadow-sm shrink-0 group-hover:bg-sage-600 group-hover:text-white transition-colors">
+                                <Sprout size={24} />
+                            </div>
+                            <div className="flex-1 min-w-0">
+                                <div className="flex items-center justify-between">
+                                    <span className="text-[10px] font-black text-sage-500 uppercase tracking-[0.2em] block mb-1">Seasonal Intelligence</span>
+                                    <span className="text-[9px] font-black text-terracotta-600 group-hover:underline flex items-center gap-0.5 uppercase tracking-wider">
+                                        {guide.label} &rarr;
+                                    </span>
+                                </div>
+                                <h4 className="text-xl font-serif font-black text-sage-900 mb-1">{tip.title}</h4>
+                                <p className="text-sm text-sand-600 font-medium leading-relaxed">{tip.desc}</p>
+                            </div>
+                        </Link>
+                    );
+                })()}
 
                 {/* 5. Suggestion Box */}
                 {homeWidgets.guideRequest && (
