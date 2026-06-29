@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useUser } from '../context/UserContext';
 import {
@@ -57,28 +57,42 @@ const HomesteadCommandCenter = () => {
         setProjectsPlan(loadPlan('homemaker_build_projects'));
     }, [homesteadProfile]);
 
+    const importedSeasonalRef = useRef(new Set());
+
     // Safe seasonal-task import helper
     useEffect(() => {
-        if (!sustainability || !sustainability.tasks || !homesteadProfile) return;
+        if (!sustainability?.tasks || !homesteadProfile) return;
         
         const seasonalTasks = generateSeasonalTasks({ homesteadProfile });
-        
-        seasonalTasks.forEach(st => {
+        const missingTasks = seasonalTasks.filter(st => {
+            const stableId = `seasonal-${st.id}`;
+            if (importedSeasonalRef.current.has(stableId)) return false;
+
             const exists = sustainability.tasks.some(
-                t => t.sourceId === st.id || t.id === `seasonal-${st.id}`
+                t => t.sourceId === st.id || t.id === stableId
             );
-            if (!exists) {
-                addCustomTask({
-                    id: `seasonal-${st.id}`,
-                    sourceId: st.id,
-                    title: st.title,
-                    desc: st.desc || '',
-                    system: st.system,
-                    priority: st.priority || 'medium',
-                    completed: false,
-                    type: 'seasonal'
-                });
+
+            if (exists) {
+                importedSeasonalRef.current.add(stableId);
+                return false;
             }
+
+            return true;
+        });
+        
+        missingTasks.forEach(st => {
+            const stableId = `seasonal-${st.id}`;
+            importedSeasonalRef.current.add(stableId);
+            addCustomTask({
+                id: stableId,
+                sourceId: st.id,
+                title: st.title,
+                desc: st.desc || '',
+                system: st.system,
+                priority: st.priority || 'medium',
+                completed: false,
+                type: 'seasonal'
+            });
         });
     }, [sustainability?.tasks, homesteadProfile, addCustomTask]);
 
