@@ -132,6 +132,31 @@ describe('Library Page Component', () => {
                     clone: function() { return this; }
                 });
             }
+            if (url.includes('offline_survival_index.json')) {
+                return Promise.resolve({
+                    ok: true,
+                    json: () => Promise.resolve({
+                        "USDA Forest Service (Trails & Saws)": [
+                            {
+                                "name": "usda_forest_service_77712508_crosscut_saw_manual.zip",
+                                "path": "USDA Forest Service/usda_forest_service_77712508_crosscut_saw_manual.zip",
+                                "title": "Crosscut Saw Manual",
+                                "size": 1060055,
+                                "type": "zip"
+                            }
+                        ]
+                    }),
+                    clone: function() { return this; }
+                });
+            }
+            if (url.includes('/offline-survival-library/')) {
+                return Promise.resolve({
+                    ok: true,
+                    text: () => Promise.resolve('mock local content'),
+                    blob: () => Promise.resolve(new Blob(['mock local content'], { type: 'application/pdf' })),
+                    clone: function() { return this; }
+                });
+            }
             if (url.includes('/content/')) {
                 return Promise.resolve({
                     ok: true,
@@ -332,6 +357,42 @@ describe('Library Page Component', () => {
             const loc = screen.getByTestId('location-display').textContent;
             expect(loc).toContain('pdfFolder=Survival-Manuals');
             expect(loc).toContain('pdfFile=SAS-Survival.pdf');
+        });
+    });
+
+    it('local archive filter displays offline categories', async () => {
+        renderComponent();
+
+        // Click on "Local Archive (500GB)" filter button
+        const offlineFilterBtn = await screen.findByText('Local Archive (500GB)');
+        fireEvent.click(offlineFilterBtn);
+
+        // Should display the offline category card
+        await waitFor(() => {
+            expect(screen.getByText('USDA Forest Service (Trails & Saws)')).toBeInTheDocument();
+            expect(screen.getByText('Browse Library')).toBeInTheDocument();
+            expect(screen.getByText('1 Guides')).toBeInTheDocument();
+        });
+    });
+
+    it('clicking an offline folder lists its files, and clicking a file loads it in viewer', async () => {
+        renderComponent('/library?offlineFolder=USDA%20Forest%20Service%20(Trails%20%26%20Saws)');
+
+        // Verify the file list renders and displays title
+        await waitFor(() => {
+            expect(screen.getByText('Crosscut Saw Manual')).toBeInTheDocument();
+            expect(screen.getByText('ZIP • 1.0 MB • Local Archive')).toBeInTheDocument();
+        });
+
+        // Click on the item
+        const item = screen.getByText('Crosscut Saw Manual');
+        fireEvent.click(item.closest('button'));
+
+        // Verify the URL updates to the file path
+        await waitFor(() => {
+            const loc = screen.getByTestId('location-display').textContent;
+            expect(loc).toContain('offlineFolder=USDA+Forest+Service+%28Trails+%26+Saws%29');
+            expect(loc).toContain('offlineFile=usda_forest_service_77712508_crosscut_saw_manual.zip');
         });
     });
 });

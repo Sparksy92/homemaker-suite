@@ -4,8 +4,8 @@
     "version": "0.1.0",
     "type": "module",
     "scripts": {
-        "predev": "node scripts/build-index.js && node scripts/build-metadata.js",
-        "prebuild": "node scripts/build-index.js && node scripts/build-metadata.js",
+        "predev": "node scripts/build-index.js && node scripts/build-metadata.js && node scripts/generate-offline-index.js",
+        "prebuild": "node scripts/build-index.js && node scripts/build-metadata.js && node scripts/generate-offline-index.js",
         "dev": "vite",
         "build": "vite build",
         "lint": "eslint .",
