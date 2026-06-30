@@ -9,6 +9,35 @@ import PageErrorBoundary from './PageErrorBoundary';
 
 const Layout = () => {
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+    const location = useLocation();
+
+    React.useEffect(() => {
+        setIsMenuOpen(false);
+    }, [location.pathname, location.search, location.hash]);
+
+    React.useEffect(() => {
+        if (typeof document === 'undefined') return;
+
+        const previousOverflow = document.body.style.overflow;
+        document.body.style.overflow = isMenuOpen ? 'hidden' : previousOverflow;
+
+        return () => {
+            document.body.style.overflow = previousOverflow;
+        };
+    }, [isMenuOpen]);
+
+    React.useEffect(() => {
+        if (!isMenuOpen) return;
+
+        const handleKeyDown = (event) => {
+            if (event.key === 'Escape') {
+                setIsMenuOpen(false);
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [isMenuOpen]);
 
     return (
         <div className="min-h-[100dvh] flex flex-col max-w-2xl mx-auto bg-sand-50 shadow-2xl overflow-hidden relative border-x border-sand-300 transform translate-x-0">
@@ -27,12 +56,18 @@ const Layout = () => {
                 )}
                 {isMenuOpen && (
                     <motion.div
+                        id="mobile-navigation-menu"
                         key="menu-sidebar"
                         initial={{ x: '100%' }}
                         animate={{ x: 0 }}
                         exit={{ x: '100%' }}
                         transition={{ type: "spring", damping: 25, stiffness: 200 }}
-                        className="fixed right-0 top-0 bottom-0 w-72 bg-white/95 backdrop-blur-md shadow-2xl z-[110] p-6 flex flex-col gap-4 border-l border-sand-200"
+                        className="fixed right-0 top-0 bottom-0 w-[min(20rem,88vw)] bg-white/95 backdrop-blur-md shadow-2xl z-[110] p-6 flex flex-col gap-4 border-l border-sand-200"
+                        style={{
+                            paddingTop: 'max(1.5rem, env(safe-area-inset-top))',
+                            paddingRight: 'max(1.5rem, env(safe-area-inset-right))',
+                            paddingBottom: 'max(1.5rem, env(safe-area-inset-bottom))'
+                        }}
                     >
                         <div className="flex justify-between items-center">
                             <h2 className="text-2xl font-serif text-sage-800 font-bold">Menu</h2>
@@ -111,7 +146,13 @@ const Layout = () => {
             </AnimatePresence>
 
             {/* Header */}
-            <header className="px-6 py-2 bg-sage-700 text-white flex justify-between items-center z-10 sticky top-0 shadow-md">
+            <header
+                className="py-2 bg-sage-700 text-white flex justify-between items-center z-10 sticky top-0 shadow-md"
+                style={{
+                    paddingLeft: 'max(1rem, env(safe-area-inset-left))',
+                    paddingRight: 'max(1rem, env(safe-area-inset-right))'
+                }}
+            >
                 <div className="flex items-center gap-2">
                     {/* Simple Logo Placeholder */}
                     <div className="w-8 h-8 bg-terracotta-500 rounded-full flex items-center justify-center font-serif font-bold text-white border-2 border-sand-200">
@@ -119,13 +160,21 @@ const Layout = () => {
                     </div>
                     <h1 className="text-xl tracking-wide text-sand-100 font-serif">Homemaker</h1>
                 </div>
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2 sm:gap-3 shrink-0">
                     <OfflineIndicator />
                     <button
-                        onClick={() => setIsMenuOpen(true)}
-                        className="p-3 hover:bg-sage-600 rounded-full transition-colors"
+                        type="button"
+                        aria-label={isMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+                        aria-expanded={isMenuOpen}
+                        aria-controls="mobile-navigation-menu"
+                        onClick={() => setIsMenuOpen(prev => !prev)}
+                        className="mr-1 min-w-[48px] min-h-[48px] p-3 hover:bg-sage-600 rounded-full transition-colors flex items-center justify-center touch-manipulation"
                     >
-                        <Menu size={24} className="text-sand-100" />
+                        {isMenuOpen ? (
+                            <X size={26} className="text-sand-100" />
+                        ) : (
+                            <Menu size={26} className="text-sand-100" />
+                        )}
                     </button>
                 </div>
             </header>
