@@ -112,6 +112,7 @@ const Library = ({ type = 'all' }) => {
     const { recordAccess, sustainability, readinessScore, readinessBreakdown, lastAccessedItem, homesteadProfile, readGuides } = useUser();
     const [guidesMetadata, setGuidesMetadata] = useState([]);
     const [externalPdfs, setExternalPdfs] = useState({});
+    const [offlineLibrary, setOfflineLibrary] = useState({});
     const [showOnboarding, setShowOnboarding] = useState(false);
 
     // Refs for active blob URLs and loaded files
@@ -166,6 +167,23 @@ const Library = ({ type = 'all' }) => {
         const params = new URLSearchParams();
         params.set('pdfFolder', folder);
         params.set('pdfFile', fileName);
+        navigate(`/library?${params.toString()}`);
+    }, [navigate, currentPath]);
+
+    const navigateToOfflineFolder = React.useCallback((folder) => {
+        if (!folder) return;
+        const params = new URLSearchParams();
+        params.set('offlineFolder', folder);
+        navigate(`/library?${params.toString()}`);
+    }, [navigate]);
+
+    const navigateToOfflineFile = React.useCallback((fileName, folderOverride = null) => {
+        const folder = folderOverride || currentPath[0];
+        if (!folder || !fileName) return;
+
+        const params = new URLSearchParams();
+        params.set('offlineFolder', folder);
+        params.set('offlineFile', fileName);
         navigate(`/library?${params.toString()}`);
     }, [navigate, currentPath]);
 
@@ -308,6 +326,56 @@ const Library = ({ type = 'all' }) => {
         }
     }, [recordAccess]);
 
+    const loadOfflineFile = React.useCallback(async (filePath, folderName, fileName, type) => {
+        try {
+            let fileUrl = `/offline-survival-library/${encodeURIComponent(filePath)}`;
+            if (fileName.endsWith('.zip')) {
+                fileUrl = `/offline-survival-library/${encodeURIComponent(filePath.substring(0, filePath.length - 4) + '.pdf')}`;
+            }
+
+            let textContent = '';
+            if (type === 'txt') {
+                const response = await fetch(fileUrl);
+                if (response.ok) {
+                    textContent = await response.text();
+                } else {
+                    textContent = 'Error: Could not load text file.';
+                }
+            }
+
+            const cleanTitle = fileName
+                .replace(/\.(zip|pdf|epub|mp4|txt)$/i, '')
+                .replace(/[-_]+/g, ' ')
+                .split(' ')
+                .map(w => w ? w.charAt(0).toUpperCase() + w.slice(1).toLowerCase() : '')
+                .join(' ');
+
+            const contentState = {
+                name: fileName,
+                text: textContent,
+                url: fileUrl,
+                isOffline: true,
+                type: type,
+                cleanTitle: cleanTitle
+            };
+
+            // Record this visit
+            recordAccess({
+                id: fileName,
+                title: cleanTitle,
+                folder: folderName,
+                type: 'offline',
+                url: fileUrl
+            });
+
+            setFileContent(contentState);
+            loadedFileRef.current = { folder: folderName, file: fileName, isOffline: true, path: filePath, type: type };
+        } catch (e) {
+            console.error("Error loading offline file:", e);
+            alert("Could not load local file.");
+        }
+    }, [recordAccess]);
+
     // Deep linking helper - URL parameter sync
     const location = useLocation();
     React.useEffect(() => {
@@ -318,8 +386,10 @@ const Library = ({ type = 'all' }) => {
         const fileParam = params.get('file');
         const pdfFolderParam = params.get('pdfFolder');
         const pdfFileParam = params.get('pdfFile');
+        const offlineFolderParam = params.get('offlineFolder');
+        const offlineFileParam = params.get('offlineFile');
 
-        if (!folderParam && !fileParam && !pdfFolderParam && !pdfFileParam) {
+        if (!folderParam && !fileParam && !pdfFolderParam && !pdfFileParam && !offlineFolderParam && !offlineFileParam) {
             if (currentPath.length > 0) {
                 setCurrentPath([]);
             }
@@ -364,7 +434,8 @@ const Library = ({ type = 'all' }) => {
                 const alreadyLoaded =
                     loadedFileRef.current?.folder === folderParam &&
                     loadedFileRef.current?.file === fileParam &&
-                    !loadedFileRef.current?.isExternal;
+                    !loadedFileRef.current?.isExternal &&
+                    !loadedFileRef.current?.isOffline;
 
                 if (!alreadyLoaded) {
                     loadFileContent(fileParam, folderParam);
@@ -415,7 +486,54 @@ const Library = ({ type = 'all' }) => {
                 return;
             }
         }
-    }, [location.search, fileSystem, externalPdfs, navigate, loadFileContent, loadExternalPdf]);
+
+        // Handle local offline archive
+        if (offlineFolderParam) {
+            if (Object.keys(offlineLibrary).length > 0 && !offlineLibrary[offlineFolderParam]) {
+                console.warn(`[Library] Unknown offline folder param: ${offlineFolderParam}`);
+                if (currentPath.length > 0) {
+                    setCurrentPath([]);
+                }
+                if (fileContent !== null) {
+                    setFileContent(null);
+                }
+                loadedFileRef.current = null;
+                navigate('/library', { replace: true });
+                return;
+            }
+
+            if (!offlineFileParam) {
+                if (currentPath.length !== 1 || currentPath[0] !== offlineFolderParam) {
+                    setCurrentPath([offlineFolderParam]);
+                }
+                if (fileContent !== null) {
+                    setFileContent(null);
+                }
+                loadedFileRef.current = null;
+                return;
+            }
+
+            if (offlineFileParam) {
+                if (currentPath.length !== 1 || currentPath[0] !== offlineFolderParam) {
+                    setCurrentPath([offlineFolderParam]);
+                }
+
+                const alreadyLoaded =
+                    loadedFileRef.current?.folder === offlineFolderParam &&
+                    loadedFileRef.current?.file === offlineFileParam &&
+                    loadedFileRef.current?.isOffline;
+
+                if (!alreadyLoaded) {
+                    const files = offlineLibrary[offlineFolderParam] || [];
+                    const fileItem = files.find(f => f.name === offlineFileParam);
+                    if (fileItem) {
+                        loadOfflineFile(fileItem.path, offlineFolderParam, fileItem.name, fileItem.type);
+                    }
+                }
+                return;
+            }
+        }
+    }, [location.search, fileSystem, externalPdfs, offlineLibrary, navigate, loadFileContent, loadExternalPdf, loadOfflineFile]);
 
     // Onboarding Gate
     React.useEffect(() => {
@@ -479,6 +597,13 @@ const Library = ({ type = 'all' }) => {
                     const data = await pdfsRes.json();
                     setExternalPdfs(data);
                     await cache.put('/external_pdfs.json', pdfsClone);
+                }
+
+                // Fetch local offline index
+                const offlineRes = await fetch('/offline_survival_index.json');
+                if (offlineRes.ok) {
+                    const data = await offlineRes.json();
+                    setOfflineLibrary(data);
                 }
             } catch (err) {
                 console.error("Failed to load library files/metadata:", err);
@@ -728,8 +853,29 @@ const Library = ({ type = 'all' }) => {
             });
         }
 
+        // 3. Search local offline archive
+        if (offlineLibrary && Object.keys(offlineLibrary).length > 0) {
+            Object.keys(offlineLibrary).forEach(folder => {
+                offlineLibrary[folder].forEach(file => {
+                    const titleMatch = file.title.toLowerCase().includes(query);
+                    const folderMatch = folder.toLowerCase().includes(query);
+                    if (titleMatch || folderMatch) {
+                        results.push({
+                            file: file.name,
+                            folder: folder,
+                            title: file.title,
+                            size: file.size,
+                            type: file.type,
+                            path: file.path,
+                            isOffline: true
+                        });
+                    }
+                });
+            });
+        }
+
         return results;
-    }, [searchQuery, guidesMetadata, allFiles, externalPdfs]);
+    }, [searchQuery, guidesMetadata, allFiles, externalPdfs, offlineLibrary]);
 
     const [activeFilter, setActiveFilter] = useState('all');
 
@@ -843,7 +989,10 @@ const Library = ({ type = 'all' }) => {
 
                         {/* Discovery Filters */}
                         <div className="flex gap-2 overflow-x-auto pb-4 mb-6 no-scrollbar scroll-smooth w-full">
-                            {['all', 'visual', 'safety', 'seasonal', 'start', 'build', 'pdf'].map(filter => {
+                            {[
+                                'all', 'visual', 'safety', 'seasonal', 'start', 'build', 'pdf',
+                                ...(Object.keys(offlineLibrary).length > 0 ? ['offline'] : [])
+                            ].map(filter => {
                                 const labels = {
                                     all: 'All Categories',
                                     visual: 'Visual Guides',
@@ -851,7 +1000,8 @@ const Library = ({ type = 'all' }) => {
                                     seasonal: 'Seasonal Planning',
                                     start: 'Start Here',
                                     build: 'Build Projects',
-                                    pdf: 'Civilization PDF Archive'
+                                    pdf: 'Civilization PDF Archive',
+                                    offline: 'Local Archive (500GB)'
                                 };
                                 return (
                                     <button
@@ -877,7 +1027,9 @@ const Library = ({ type = 'all' }) => {
                                         <button
                                             key={item.file}
                                             onClick={() => {
-                                                if (item.isExternal) {
+                                                if (item.isOffline) {
+                                                    navigateToOfflineFile(item.file, item.folder);
+                                                } else if (item.isExternal) {
                                                     navigateToPdfFile(item.file, item.folder);
                                                 } else {
                                                     navigateToFile(item.file, item.folder);
@@ -888,12 +1040,12 @@ const Library = ({ type = 'all' }) => {
                                             <div className="p-3 bg-sage-50 rounded-2xl text-sage-500"><FileText size={20} /></div>
                                             <div className="flex-1 min-w-0">
                                                 <span className="block text-lg font-serif font-black text-sage-900 truncate">
-                                                    {item.isExternal ? item.title : getDisplayName(item.file)}
+                                                    {item.isOffline || item.isExternal ? item.title : getDisplayName(item.file)}
                                                 </span>
                                                 <span className="text-[10px] text-sand-400 font-black uppercase tracking-widest block mt-0.5">
-                                                    {item.isExternal ? `${item.folder.replace(/[-_]+/g, ' ')} (PDF)` : getDisplayName(item.folder)}
+                                                    {item.isOffline ? `${item.folder} (Local Archive)` : item.isExternal ? `${item.folder.replace(/[-_]+/g, ' ')} (PDF)` : getDisplayName(item.folder)}
                                                 </span>
-                                                {item.isExternal ? (
+                                                {item.isOffline || item.isExternal ? (
                                                     <span className="inline-block text-[8px] font-black uppercase tracking-widest bg-sage-50 text-sage-600 px-1.5 py-0.5 rounded-md border border-sage-100 mt-1">
                                                         {(item.size / (1024 * 1024)).toFixed(1)} MB
                                                     </span>
@@ -913,6 +1065,41 @@ const Library = ({ type = 'all' }) => {
                                         </button>
                                     ))}
                                 </div>
+                            </div>
+                        ) : activeFilter === 'offline' ? (
+                            /* Local Offline Library Category Grid */
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                                {Object.keys(offlineLibrary).map(folder => (
+                                    <div key={folder} className="space-y-4 group">
+                                        <div className="flex items-center gap-3 px-1">
+                                            <div className="p-2 rounded-lg text-white bg-sage-600 shadow-sm">
+                                                <Archive size={18} />
+                                            </div>
+                                            <h3 className="text-xs font-black text-sage-600 uppercase tracking-widest truncate max-w-[200px]">
+                                                {folder}
+                                            </h3>
+                                        </div>
+
+                                        <div className="space-y-3">
+                                            <button
+                                                onClick={() => navigateToOfflineFolder(folder)}
+                                                className="w-full group/card flex items-center justify-between p-6 bg-white rounded-[2rem] border border-sand-200 shadow-sm hover:shadow-xl hover:shadow-sage-900/5 hover:border-sage-400 hover:bg-gradient-to-br hover:from-white hover:to-sand-50/20 transition-all text-left duration-300"
+                                            >
+                                                <div className="flex-1 min-w-0">
+                                                    <span className="font-serif text-lg font-black text-sage-900 block truncate leading-tight group-hover/card:text-sage-700">
+                                                        Browse Library
+                                                    </span>
+                                                    <span className="text-[10px] font-black text-sand-400 uppercase tracking-widest block mt-1">
+                                                        {offlineLibrary[folder].length} Guides
+                                                    </span>
+                                                </div>
+                                                <div className="w-8 h-8 rounded-full bg-sand-50 flex items-center justify-center text-sand-300 group-hover/card:bg-sage-600 group-hover/card:text-white transition-all duration-300">
+                                                    <ChevronRight size={16} />
+                                                </div>
+                                            </button>
+                                        </div>
+                                    </div>
+                                ))}
                             </div>
                         ) : activeFilter === 'pdf' ? (
                             /* PDF Category Grid */
@@ -1076,7 +1263,31 @@ const Library = ({ type = 'all' }) => {
                         >
                             <ArrowLeft size={18} /> Back to Library
                         </button>
-                        {externalPdfs && externalPdfs[currentPath[0]] ? (
+                        {offlineLibrary && offlineLibrary[currentPath[0]] ? (
+                            <>
+                                <h2 className="text-2xl sm:text-4xl mb-6 font-serif text-sage-900">{currentPath[0]}</h2>
+                                <div className="grid gap-3">
+                                    {offlineLibrary[currentPath[0]].map(file => (
+                                        <button
+                                            key={file.name}
+                                            onClick={() => navigateToOfflineFile(file.name, currentPath[0])}
+                                            className="flex items-center justify-between p-5 bg-white rounded-3xl border border-sand-100 shadow-sm hover:shadow-md hover:border-sage-400 hover:bg-sage-50/10 transition-all text-left"
+                                        >
+                                            <div className="flex items-center gap-4 min-w-0">
+                                                <div className="p-3 bg-sage-50 rounded-2xl text-sage-500"><FileText size={20} /></div>
+                                                <div className="min-w-0">
+                                                    <span className="block text-lg font-serif font-black text-sage-900 truncate">{file.title}</span>
+                                                    <span className="text-[10px] text-sand-400 font-black uppercase tracking-widest block mt-0.5">
+                                                        {file.type.toUpperCase()} • {(file.size / (1024 * 1024)).toFixed(1)} MB • Local Archive
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <ChevronRight size={18} className="text-sand-300" />
+                                        </button>
+                                    ))}
+                                </div>
+                            </>
+                        ) : externalPdfs && externalPdfs[currentPath[0]] ? (
                             <>
                                 <h2 className="text-2xl sm:text-4xl mb-6 font-serif text-sage-900">{currentPath[0].replace(/[-_]+/g, ' ')}</h2>
                                 <div className="grid gap-3">
@@ -1169,8 +1380,13 @@ const Library = ({ type = 'all' }) => {
                                 onClick={() => {
                                     const params = new URLSearchParams(location.search);
                                     const pdfFolder = params.get('pdfFolder');
+                                    const offlineFolder = params.get('offlineFolder');
                                     const folder = currentPath[0];
-                                    if (pdfFolder) {
+                                    if (offlineFolder) {
+                                        const newParams = new URLSearchParams();
+                                        newParams.set('offlineFolder', offlineFolder);
+                                        navigate(`/library?${newParams.toString()}`);
+                                    } else if (pdfFolder) {
                                         const newParams = new URLSearchParams();
                                         newParams.set('pdfFolder', pdfFolder);
                                         navigate(`/library?${newParams.toString()}`);
@@ -1188,14 +1404,14 @@ const Library = ({ type = 'all' }) => {
                             </button>
 
                             <h1 className="font-serif font-bold text-xl text-sage-900 truncate max-w-md hidden md:block">
-                                {fileContent.name.endsWith('.pdf') ? fileContent.name.replace(/\.pdf$/i, '').replace(/[-_]+/g, ' ') : getDisplayName(fileContent.name)}
+                                {fileContent.isOffline ? fileContent.cleanTitle : fileContent.name.endsWith('.pdf') ? fileContent.name.replace(/\.pdf$/i, '').replace(/[-_]+/g, ' ') : getDisplayName(fileContent.name)}
                             </h1>
 
                             <FavoriteButton
                                 item={{
                                     id: fileContent.name,
-                                    title: fileContent.name.endsWith('.pdf') ? fileContent.name.replace(/\.pdf$/i, '').replace(/[-_]+/g, ' ') : getDisplayName(fileContent.name),
-                                    category: currentPath[0] || 'PDF Library'
+                                    title: fileContent.isOffline ? fileContent.cleanTitle : fileContent.name.endsWith('.pdf') ? fileContent.name.replace(/\.pdf$/i, '').replace(/[-_]+/g, ' ') : getDisplayName(fileContent.name),
+                                    category: currentPath[0] || (fileContent.isOffline ? 'Offline Library' : 'PDF Library')
                                 }}
                             />
                         </div>
@@ -1203,7 +1419,7 @@ const Library = ({ type = 'all' }) => {
                         {/* Content Area */}
                         <div className="flex-1 overflow-y-auto bg-sand-50">
                             <div className="max-w-5xl mx-auto h-full flex flex-col">
-                                {fileContent.name.endsWith('.pdf') ? (
+                                {fileContent.type === 'pdf' || fileContent.name.endsWith('.pdf') || fileContent.name.endsWith('.zip') ? (
                                     <div className="flex-1 p-4 h-full">
                                         {/* Object Tag is reliable for PDF display */}
                                         <object
@@ -1217,7 +1433,7 @@ const Library = ({ type = 'all' }) => {
                                             </div>
                                         </object>
                                     </div>
-                                ) : fileContent.name.endsWith('.mp4') ? (
+                                ) : fileContent.type === 'mp4' || fileContent.name.endsWith('.mp4') ? (
                                     <div className="flex-1 p-4 flex items-center justify-center min-h-[50vh]">
                                         <div className="w-full max-w-4xl bg-black rounded-2xl overflow-hidden shadow-xl">
                                             <video controls className="w-full">
@@ -1225,6 +1441,27 @@ const Library = ({ type = 'all' }) => {
                                                 Your browser does not support the video tag.
                                             </video>
                                         </div>
+                                    </div>
+                                ) : fileContent.type === 'epub' || fileContent.name.endsWith('.epub') ? (
+                                    <div className="flex-grow flex flex-col items-center justify-center p-8 text-center bg-white rounded-3xl border border-sand-200 shadow-sm max-w-xl mx-auto my-12">
+                                        <div className="p-4 bg-sage-50 text-sage-600 rounded-full mb-6">
+                                            <BookOpen size={48} />
+                                        </div>
+                                        <h2 className="text-2xl font-serif text-sage-900 font-bold mb-3">{fileContent.cleanTitle}</h2>
+                                        <p className="text-sage-600 text-sm mb-6 max-w-sm">
+                                            EPUB eBooks offer customizable text, layouts, and font sizes, but cannot be read directly inside the browser.
+                                        </p>
+                                        <a
+                                            href={fileContent.url}
+                                            download
+                                            className="px-8 py-3.5 bg-sage-600 text-white font-bold rounded-full shadow-lg shadow-sage-900/10 hover:bg-sage-700 transition-all text-sm uppercase tracking-wider"
+                                        >
+                                            Download EPUB
+                                        </a>
+                                    </div>
+                                ) : fileContent.type === 'txt' || fileContent.name.endsWith('.txt') ? (
+                                    <div className="flex-1 p-6 bg-white rounded-3xl border border-sand-200 shadow-sm m-4 overflow-x-auto">
+                                        <pre className="text-sm text-sage-800 font-mono whitespace-pre-wrap leading-relaxed">{fileContent.text}</pre>
                                     </div>
                                 ) : fileContent.name.endsWith('.html') ? (
                                     <div className="flex-1 h-full min-h-[85vh]">
