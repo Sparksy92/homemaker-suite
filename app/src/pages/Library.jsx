@@ -113,6 +113,185 @@ const Library = ({ type = 'all' }) => {
     const [guidesMetadata, setGuidesMetadata] = useState([]);
     const [showOnboarding, setShowOnboarding] = useState(false);
 
+    // Refs for active blob URLs and loaded files
+    const loadedFileRef = React.useRef(null);
+    const activeBlobUrlRef = React.useRef(null);
+
+    // Offline Mode States
+    const [downloading, setDownloading] = useState(false);
+    const [downloadProgress, setDownloadProgress] = useState(0);
+    const [showSafetyAck, setShowSafetyAck] = useState(null); // { file, folder }
+    const [isOfflineReady, setIsOfflineReady] = useState(false);
+
+    // Files that require explicit safety acknowledgment
+    const LETHAL_RISK_FILES = [
+        "12.3 Mushroom Safety.md",
+        "13.2 Salting and Smoking.md",
+        "15.1 Water Procurement.md",
+        "14.1 Herbal Medicine.md",
+        "4.2 Pressure Canning.md",
+        "15.7 Bio-Sand Filtration.md"
+    ];
+
+    // Navigation callbacks
+    const navigateToFolder = React.useCallback((folder) => {
+        if (!folder) return;
+        const params = new URLSearchParams();
+        params.set('folder', folder);
+        navigate(`/library?${params.toString()}`);
+    }, [navigate]);
+
+    const navigateToFile = React.useCallback((fileName, folderOverride = null) => {
+        const folder = folderOverride || currentPath[0];
+        if (!folder || !fileName) return;
+
+        const params = new URLSearchParams();
+        params.set('folder', folder);
+        params.set('file', fileName);
+        navigate(`/library?${params.toString()}`);
+    }, [navigate, currentPath]);
+
+    // Cleanup active blob URL on unmount
+    React.useEffect(() => {
+        return () => {
+            if (activeBlobUrlRef.current) {
+                URL.revokeObjectURL(activeBlobUrlRef.current);
+                activeBlobUrlRef.current = null;
+            }
+        };
+    }, []);
+
+    // File Content Loader (Direct loading logic)
+    const loadFileContent = React.useCallback(async (fileName, folderOverride = null) => {
+        const folder = folderOverride || (loadedFileRef.current ? loadedFileRef.current.folder : '');
+        if (LETHAL_RISK_FILES.includes(fileName) && !sessionStorage.getItem(`safety_ack_${fileName}`)) {
+            setShowSafetyAck({ file: fileName, folder: folder });
+            return;
+        }
+
+        try {
+            const url = `/content/${encodeURIComponent(folder)}/${encodeURIComponent(fileName)}`;
+            let contentState = { name: fileName, text: '', url: url };
+
+            const isBinary = fileName.endsWith('.pdf') || fileName.endsWith('.mp4') || fileName.endsWith('.html');
+
+            // 1. Try Cache API first (Offline First strategy)
+            const cache = await caches.open('homemaker-v2');
+            const cachedResponse = await cache.match(url);
+
+            if (cachedResponse) {
+                if (isBinary) {
+                    const blob = await cachedResponse.blob();
+                    if (activeBlobUrlRef.current) {
+                        URL.revokeObjectURL(activeBlobUrlRef.current);
+                        activeBlobUrlRef.current = null;
+                    }
+                    const blobUrl = URL.createObjectURL(blob);
+                    contentState.url = blobUrl;
+                    activeBlobUrlRef.current = blobUrl;
+                } else {
+                    contentState.text = await cachedResponse.text();
+                }
+            } else {
+                // 2. Fallback to Network
+                if (isBinary) {
+                    // Binary handling - for now, just set the URL directly for iframe/object
+                    contentState.url = url;
+                } else {
+                    const response = await fetch(url);
+                    if (!response.ok) throw new Error("Network response was not ok");
+                    contentState.text = await response.text();
+                }
+            }
+
+            // Record this visit
+            recordAccess({
+                id: fileName,
+                title: getDisplayName(fileName),
+                folder: folder,
+                type: isBinary ? 'tool' : 'guide',
+                url: url
+            });
+
+            setFileContent(contentState);
+            loadedFileRef.current = { folder, file: fileName };
+        } catch (e) {
+            console.error("Error reading file:", e);
+            alert("Could not load guide. Are you offline?");
+        }
+    }, [recordAccess]);
+
+    const confirmSafetyAck = async () => {
+        if (showSafetyAck) {
+            sessionStorage.setItem(`safety_ack_${showSafetyAck.file}`, 'true');
+            const { file, folder } = showSafetyAck;
+            setShowSafetyAck(null);
+
+            // Re-trigger loadFileContent to load the file now that ack is confirmed
+            await loadFileContent(file, folder);
+        }
+    };
+
+    // Deep linking helper - URL parameter sync
+    const location = useLocation();
+    React.useEffect(() => {
+        if (Object.keys(fileSystem).length === 0) return;
+
+        const params = new URLSearchParams(location.search);
+        const folderParam = params.get('folder');
+        const fileParam = params.get('file');
+
+        if (!folderParam && !fileParam) {
+            if (currentPath.length > 0) {
+                setCurrentPath([]);
+            }
+            if (fileContent !== null) {
+                setFileContent(null);
+            }
+            loadedFileRef.current = null;
+            return;
+        }
+
+        if (folderParam && !fileSystem[folderParam]) {
+            console.warn(`[Library] Unknown folder param: ${folderParam}`);
+            if (currentPath.length > 0) {
+                setCurrentPath([]);
+            }
+            if (fileContent !== null) {
+                setFileContent(null);
+            }
+            loadedFileRef.current = null;
+            navigate('/library', { replace: true });
+            return;
+        }
+
+        if (folderParam && !fileParam) {
+            if (currentPath.length !== 1 || currentPath[0] !== folderParam) {
+                setCurrentPath([folderParam]);
+            }
+            if (fileContent !== null) {
+                setFileContent(null);
+            }
+            loadedFileRef.current = null;
+            return;
+        }
+
+        if (folderParam && fileParam) {
+            if (currentPath.length !== 1 || currentPath[0] !== folderParam) {
+                setCurrentPath([folderParam]);
+            }
+
+            const alreadyLoaded =
+                loadedFileRef.current?.folder === folderParam &&
+                loadedFileRef.current?.file === fileParam;
+
+            if (!alreadyLoaded) {
+                loadFileContent(fileParam, folderParam);
+            }
+        }
+    }, [location.search, fileSystem, navigate, loadFileContent]);
+
+    // Onboarding Gate
     React.useEffect(() => {
         if (homesteadProfile === null) {
             setShowOnboarding(true);
@@ -170,45 +349,6 @@ const Library = ({ type = 'all' }) => {
 
         loadCacheAndFetch();
     }, []);
-
-    // Deep linking helper
-    const location = useLocation();
-    React.useEffect(() => {
-        if (Object.keys(fileSystem).length === 0) return;
-
-        const params = new URLSearchParams(location.search);
-        const folderParam = params.get('folder');
-        const fileParam = params.get('file');
-
-        if (folderParam && fileParam) {
-            setCurrentPath([folderParam]);
-            handleFileClick(fileParam, folderParam);
-        } else if (!folderParam && !fileParam) {
-            // Reset to root categories if no parameters are present (e.g. clicked Guides tab)
-            if (currentPath.length > 0) {
-                setCurrentPath([]);
-            }
-            if (fileContent !== null) {
-                setFileContent(null);
-            }
-        }
-    }, [location.search, fileSystem, currentPath.length, fileContent]);
-
-    // Offline Mode Logic (Cache Storage API)
-    const [downloading, setDownloading] = useState(false);
-    const [downloadProgress, setDownloadProgress] = useState(0);
-    const [showSafetyAck, setShowSafetyAck] = useState(null); // { file, folder }
-
-    // Files that require explicit safety acknowledgment
-    const LETHAL_RISK_FILES = [
-        "12.3 Mushroom Safety.md",
-        "13.2 Salting and Smoking.md",
-        "15.1 Water Procurement.md",
-        "14.1 Herbal Medicine.md",
-        "4.2 Pressure Canning.md",
-        "15.7 Bio-Sand Filtration.md"
-    ];
-    const [isOfflineReady, setIsOfflineReady] = useState(false);
 
     // Check if offline cache is populated
     React.useEffect(() => {
@@ -277,70 +417,6 @@ const Library = ({ type = 'all' }) => {
             setDownloading(false);
         }
     };
-
-    const handleFileClick = async (fileName, folderOverride = null) => {
-        const folder = folderOverride || currentPath[0];
-        if (LETHAL_RISK_FILES.includes(fileName) && !sessionStorage.getItem(`safety_ack_${fileName}`)) {
-            setShowSafetyAck({ file: fileName, folder: folder });
-            return;
-        }
-
-        try {
-            const url = `/content/${encodeURIComponent(folder)}/${encodeURIComponent(fileName)}`;
-            let contentState = { name: fileName, text: '', url: url };
-
-            const isBinary = fileName.endsWith('.pdf') || fileName.endsWith('.mp4') || fileName.endsWith('.html');
-
-            // 1. Try Cache API first (Offline First strategy)
-            const cache = await caches.open('homemaker-v2');
-            const cachedResponse = await cache.match(url);
-
-            if (cachedResponse) {
-                if (isBinary) {
-                    const blob = await cachedResponse.blob();
-                    contentState.url = URL.createObjectURL(blob);
-                } else {
-                    contentState.text = await cachedResponse.text();
-                }
-            } else {
-                // 2. Fallback to Network
-                if (isBinary) {
-                    // Binary handling - for now, just set the URL directly for iframe/object
-                    contentState.url = url;
-                } else {
-                    const response = await fetch(url);
-                    if (!response.ok) throw new Error("Network response was not ok");
-                    contentState.text = await response.text();
-                }
-            }
-
-            // Record this visit
-            recordAccess({
-                id: fileName,
-                title: getDisplayName(fileName),
-                folder: folder,
-                type: isBinary ? 'tool' : 'guide',
-                url: url
-            });
-
-            setFileContent(contentState);
-        } catch (e) {
-            console.error("Error reading file:", e);
-            alert("Could not load guide. Are you offline?");
-        }
-    };
-
-    const confirmSafetyAck = async () => {
-        if (showSafetyAck) {
-            sessionStorage.setItem(`safety_ack_${showSafetyAck.file}`, 'true');
-            const { file, folder } = showSafetyAck;
-            setShowSafetyAck(null);
-
-            // Re-trigger handleFileClick to load the file now that ack is confirmed
-            await handleFileClick(file, folder);
-        }
-    };
-
 
     // Search State
     const [searchQuery, setSearchQuery] = useState('');
@@ -576,8 +652,7 @@ const Library = ({ type = 'all' }) => {
                                                 if (rec.folder === 'onboarding') {
                                                     setShowOnboarding(true);
                                                 } else {
-                                                    setCurrentPath([rec.folder]);
-                                                    handleFileClick(rec.file, rec.folder);
+                                                    navigateToFile(rec.file, rec.folder);
                                                 }
                                             }}
                                             className="group bg-terracotta-600 p-5 rounded-[2rem] text-white shadow-xl shadow-terracotta-200/50 hover:bg-terracotta-700 transition-all text-left flex items-start gap-4"
@@ -635,8 +710,7 @@ const Library = ({ type = 'all' }) => {
                                         <button
                                             key={item.file}
                                             onClick={() => {
-                                                setCurrentPath([item.folder]);
-                                                handleFileClick(item.file, item.folder);
+                                                navigateToFile(item.file, item.folder);
                                             }}
                                             className="flex items-center gap-4 p-5 bg-white rounded-3xl border border-sand-100 shadow-sm hover:shadow-md hover:border-terracotta-200 transition-all text-left"
                                         >
@@ -674,8 +748,7 @@ const Library = ({ type = 'all' }) => {
                                         <button
                                             key={item.file}
                                             onClick={() => {
-                                                setCurrentPath([item.folder]);
-                                                handleFileClick(item.file, item.folder);
+                                                navigateToFile(item.file, item.folder);
                                             }}
                                             className="flex items-center gap-4 p-5 bg-white rounded-3xl border border-sand-100 shadow-sm hover:shadow-md hover:border-terracotta-200 transition-all text-left"
                                         >
@@ -719,7 +792,7 @@ const Library = ({ type = 'all' }) => {
                                                 return (
                                                     <button
                                                         key={folder}
-                                                        onClick={() => setCurrentPath([folder])}
+                                                        onClick={() => navigateToFolder(folder)}
                                                         className="w-full group/card flex items-center justify-between p-6 bg-white rounded-[2rem] border border-sand-200 shadow-sm hover:shadow-xl hover:shadow-sage-900/5 hover:border-terracotta-400/50 hover:bg-gradient-to-br hover:from-white hover:to-sand-50/20 transition-all text-left duration-300"
                                                     >
                                                         <div className="flex-1 min-w-0">
@@ -753,7 +826,7 @@ const Library = ({ type = 'all' }) => {
                                                 {uncategorizedFolders.map(folder => (
                                                     <button
                                                         key={folder}
-                                                        onClick={() => setCurrentPath([folder])}
+                                                        onClick={() => navigateToFolder(folder)}
                                                         className="w-full group/card flex items-center justify-between p-6 bg-white rounded-[2rem] border border-sand-200 shadow-sm hover:shadow-xl hover:shadow-sage-900/5 hover:border-terracotta-400/50 hover:bg-gradient-to-br hover:from-white hover:to-sand-50/20 transition-all text-left duration-300"
                                                     >
                                                         <div className="flex-1 min-w-0">
@@ -782,34 +855,34 @@ const Library = ({ type = 'all' }) => {
                         className="p-4 pb-24 max-w-5xl mx-auto w-full"
                     >
                         <button
-                            onClick={() => setCurrentPath([])}
+                            onClick={() => navigate('/library')}
                             className="flex items-center gap-2 text-sage-600 font-bold mb-8 hover:text-sage-800 transition-colors bg-white px-4 py-2 rounded-full shadow-sm w-fit"
                         >
                             <ArrowLeft size={18} /> Back to Library
                         </button>
                         {currentPath[0] === '5 Gardening' ? (
                             <GardeningLanding
-                                handleFileClick={handleFileClick}
+                                handleFileClick={(file) => navigateToFile(file, currentPath[0])}
                                 files={fileSystem[currentPath[0]]}
                             />
                         ) : currentPath[0] === '15 Infrastructure' ? (
                             <WaterLanding
-                                handleFileClick={handleFileClick}
+                                handleFileClick={(file) => navigateToFile(file, currentPath[0])}
                                 files={fileSystem[currentPath[0]]}
                             />
                         ) : currentPath[0] === '18 Energy & Lighting' ? (
                             <EnergyLanding
-                                handleFileClick={handleFileClick}
+                                handleFileClick={(file) => navigateToFile(file, currentPath[0])}
                                 files={fileSystem[currentPath[0]]}
                             />
                         ) : currentPath[0] === '17 Shelter & Weatherproofing' ? (
                             <ShelterLanding
-                                handleFileClick={handleFileClick}
+                                handleFileClick={(file) => navigateToFile(file, currentPath[0])}
                                 files={fileSystem[currentPath[0]]}
                             />
                         ) : (currentPath[0] === '1 Pantry Systems' || currentPath[0] === '4 Food Storage & Pantry' || currentPath[0] === '4 Preservation') ? (
                             <PreservationLanding
-                                handleFileClick={handleFileClick}
+                                handleFileClick={(file, folder) => navigateToFile(file, folder || currentPath[0])}
                                 files={[
                                     ...(fileSystem['1 Pantry Systems'] || []).map(file => ({ file, folder: '1 Pantry Systems' })),
                                     ...(fileSystem['4 Food Storage & Pantry'] || []).map(file => ({ file, folder: '4 Food Storage & Pantry' })),
@@ -818,12 +891,12 @@ const Library = ({ type = 'all' }) => {
                             />
                         ) : currentPath[0] === '14 Health & First Aid' ? (
                             <HealthSanitationLanding
-                                handleFileClick={handleFileClick}
+                                handleFileClick={(file) => navigateToFile(file, currentPath[0])}
                                 files={fileSystem[currentPath[0]]}
                             />
                         ) : (currentPath[0] === '16 Tools & Workshop' || currentPath[0] === '10 Tools & Wizards' || currentPath[0] === '50 Interactive Tools') ? (
                             <ToolsRepairLanding
-                                handleFileClick={handleFileClick}
+                                handleFileClick={(file, folder) => navigateToFile(file, folder || currentPath[0])}
                                 files={[
                                     ...(fileSystem['16 Tools & Workshop'] || []).map(file => ({ file, folder: '16 Tools & Workshop' })),
                                     ...(fileSystem['10 Tools & Wizards'] || []).map(file => ({ file, folder: '10 Tools & Wizards' })),
@@ -836,7 +909,7 @@ const Library = ({ type = 'all' }) => {
                                 <FolderContentList
                                     files={fileSystem[currentPath[0]]}
                                     folder={currentPath[0]}
-                                    handleFileClick={handleFileClick}
+                                    handleFileClick={(file, folder) => navigateToFile(file, folder || currentPath[0])}
                                     guidesMetadata={guidesMetadata}
                                 />
                             </>
@@ -856,8 +929,14 @@ const Library = ({ type = 'all' }) => {
                         <div className="px-6 py-4 bg-white/80 backdrop-blur-md border-b border-sand-200 flex justify-between items-center sticky top-0 z-10">
                             <button
                                 onClick={() => {
-                                    setFileContent(null);
-                                    navigate('/library', { replace: true });
+                                    const folder = currentPath[0];
+                                    if (folder) {
+                                        const params = new URLSearchParams();
+                                        params.set('folder', folder);
+                                        navigate(`/library?${params.toString()}`);
+                                    } else {
+                                        navigate('/library');
+                                    }
                                 }}
                                 className="flex items-center gap-2 px-4 py-2 bg-white rounded-full border border-sand-300 hover:bg-sand-50 transition-colors shadow-sm text-sage-700 font-medium"
                             >

@@ -22,7 +22,7 @@ describe('Layout component', () => {
         expect(screen.queryByText('Menu')).toBeNull();
 
         // Click the hamburger menu button in the header
-        const menuBtn = screen.getByRole('button', { name: '' }); // The only button in header is Menu
+        const menuBtn = screen.getByRole('button', { name: 'Open navigation menu' });
         fireEvent.click(menuBtn);
 
         // Menu should be open
