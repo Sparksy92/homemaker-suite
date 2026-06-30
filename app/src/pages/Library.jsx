@@ -111,6 +111,7 @@ const Library = ({ type = 'all' }) => {
     const [loading, setLoading] = useState(true);
     const { recordAccess, sustainability, readinessScore, readinessBreakdown, lastAccessedItem, homesteadProfile, readGuides } = useUser();
     const [guidesMetadata, setGuidesMetadata] = useState([]);
+    const [externalPdfs, setExternalPdfs] = useState({});
     const [showOnboarding, setShowOnboarding] = useState(false);
 
     // Refs for active blob URLs and loaded files
@@ -148,6 +149,23 @@ const Library = ({ type = 'all' }) => {
         const params = new URLSearchParams();
         params.set('folder', folder);
         params.set('file', fileName);
+        navigate(`/library?${params.toString()}`);
+    }, [navigate, currentPath]);
+
+    const navigateToPdfFolder = React.useCallback((folder) => {
+        if (!folder) return;
+        const params = new URLSearchParams();
+        params.set('pdfFolder', folder);
+        navigate(`/library?${params.toString()}`);
+    }, [navigate]);
+
+    const navigateToPdfFile = React.useCallback((fileName, folderOverride = null) => {
+        const folder = folderOverride || currentPath[0];
+        if (!folder || !fileName) return;
+
+        const params = new URLSearchParams();
+        params.set('pdfFolder', folder);
+        params.set('pdfFile', fileName);
         navigate(`/library?${params.toString()}`);
     }, [navigate, currentPath]);
 
@@ -232,6 +250,64 @@ const Library = ({ type = 'all' }) => {
         }
     };
 
+    const loadExternalPdf = React.useCallback(async (fileName, folderName) => {
+        try {
+            const url = `https://raw.githubusercontent.com/PR0M3TH3AN/Survival-Data/master/HOME/${folderName}/${encodeURIComponent(fileName)}`;
+            let contentState = { name: fileName, text: '', url: url };
+
+            // 1. Try Cache API first (Offline First strategy)
+            const cache = await caches.open('homemaker-v2');
+            const cachedResponse = await cache.match(url);
+
+            if (cachedResponse) {
+                const blob = await cachedResponse.blob();
+                if (activeBlobUrlRef.current) {
+                    URL.revokeObjectURL(activeBlobUrlRef.current);
+                    activeBlobUrlRef.current = null;
+                }
+                const blobUrl = URL.createObjectURL(blob);
+                contentState.url = blobUrl;
+                activeBlobUrlRef.current = blobUrl;
+            } else {
+                // 2. Fallback to Network
+                const response = await fetch(url);
+                if (!response.ok) throw new Error("Could not load PDF");
+
+                // Cache it
+                const responseClone = response.clone();
+                try {
+                    await cache.put(url, responseClone);
+                } catch (e) {
+                    console.error("Failed to cache external PDF:", e);
+                }
+
+                const blob = await response.blob();
+                if (activeBlobUrlRef.current) {
+                    URL.revokeObjectURL(activeBlobUrlRef.current);
+                    activeBlobUrlRef.current = null;
+                }
+                const blobUrl = URL.createObjectURL(blob);
+                contentState.url = blobUrl;
+                activeBlobUrlRef.current = blobUrl;
+            }
+
+            // Record this visit
+            recordAccess({
+                id: fileName,
+                title: fileName.replace(/\.pdf$/i, '').replace(/[-_]+/g, ' '),
+                folder: folderName,
+                type: 'guide',
+                url: url
+            });
+
+            setFileContent(contentState);
+            loadedFileRef.current = { folder: folderName, file: fileName, isExternal: true };
+        } catch (e) {
+            console.error("Error reading external PDF:", e);
+            alert("Could not load PDF. Are you offline?");
+        }
+    }, [recordAccess]);
+
     // Deep linking helper - URL parameter sync
     const location = useLocation();
     React.useEffect(() => {
@@ -240,8 +316,10 @@ const Library = ({ type = 'all' }) => {
         const params = new URLSearchParams(location.search);
         const folderParam = params.get('folder');
         const fileParam = params.get('file');
+        const pdfFolderParam = params.get('pdfFolder');
+        const pdfFileParam = params.get('pdfFile');
 
-        if (!folderParam && !fileParam) {
+        if (!folderParam && !fileParam && !pdfFolderParam && !pdfFileParam) {
             if (currentPath.length > 0) {
                 setCurrentPath([]);
             }
@@ -252,44 +330,92 @@ const Library = ({ type = 'all' }) => {
             return;
         }
 
-        if (folderParam && !fileSystem[folderParam]) {
-            console.warn(`[Library] Unknown folder param: ${folderParam}`);
-            if (currentPath.length > 0) {
-                setCurrentPath([]);
+        // Handle standard local guides
+        if (folderParam) {
+            if (!fileSystem[folderParam]) {
+                console.warn(`[Library] Unknown folder param: ${folderParam}`);
+                if (currentPath.length > 0) {
+                    setCurrentPath([]);
+                }
+                if (fileContent !== null) {
+                    setFileContent(null);
+                }
+                loadedFileRef.current = null;
+                navigate('/library', { replace: true });
+                return;
             }
-            if (fileContent !== null) {
-                setFileContent(null);
+
+            if (!fileParam) {
+                if (currentPath.length !== 1 || currentPath[0] !== folderParam) {
+                    setCurrentPath([folderParam]);
+                }
+                if (fileContent !== null) {
+                    setFileContent(null);
+                }
+                loadedFileRef.current = null;
+                return;
             }
-            loadedFileRef.current = null;
-            navigate('/library', { replace: true });
-            return;
+
+            if (fileParam) {
+                if (currentPath.length !== 1 || currentPath[0] !== folderParam) {
+                    setCurrentPath([folderParam]);
+                }
+
+                const alreadyLoaded =
+                    loadedFileRef.current?.folder === folderParam &&
+                    loadedFileRef.current?.file === fileParam &&
+                    !loadedFileRef.current?.isExternal;
+
+                if (!alreadyLoaded) {
+                    loadFileContent(fileParam, folderParam);
+                }
+                return;
+            }
         }
 
-        if (folderParam && !fileParam) {
-            if (currentPath.length !== 1 || currentPath[0] !== folderParam) {
-                setCurrentPath([folderParam]);
+        // Handle external PDF guides
+        if (pdfFolderParam) {
+            if (Object.keys(externalPdfs).length > 0 && !externalPdfs[pdfFolderParam]) {
+                console.warn(`[Library] Unknown PDF folder param: ${pdfFolderParam}`);
+                if (currentPath.length > 0) {
+                    setCurrentPath([]);
+                }
+                if (fileContent !== null) {
+                    setFileContent(null);
+                }
+                loadedFileRef.current = null;
+                navigate('/library', { replace: true });
+                return;
             }
-            if (fileContent !== null) {
-                setFileContent(null);
+
+            if (!pdfFileParam) {
+                if (currentPath.length !== 1 || currentPath[0] !== pdfFolderParam) {
+                    setCurrentPath([pdfFolderParam]);
+                }
+                if (fileContent !== null) {
+                    setFileContent(null);
+                }
+                loadedFileRef.current = null;
+                return;
             }
-            loadedFileRef.current = null;
-            return;
+
+            if (pdfFileParam) {
+                if (currentPath.length !== 1 || currentPath[0] !== pdfFolderParam) {
+                    setCurrentPath([pdfFolderParam]);
+                }
+
+                const alreadyLoaded =
+                    loadedFileRef.current?.folder === pdfFolderParam &&
+                    loadedFileRef.current?.file === pdfFileParam &&
+                    loadedFileRef.current?.isExternal;
+
+                if (!alreadyLoaded) {
+                    loadExternalPdf(pdfFileParam, pdfFolderParam);
+                }
+                return;
+            }
         }
-
-        if (folderParam && fileParam) {
-            if (currentPath.length !== 1 || currentPath[0] !== folderParam) {
-                setCurrentPath([folderParam]);
-            }
-
-            const alreadyLoaded =
-                loadedFileRef.current?.folder === folderParam &&
-                loadedFileRef.current?.file === fileParam;
-
-            if (!alreadyLoaded) {
-                loadFileContent(fileParam, folderParam);
-            }
-        }
-    }, [location.search, fileSystem, navigate, loadFileContent]);
+    }, [location.search, fileSystem, externalPdfs, navigate, loadFileContent, loadExternalPdf]);
 
     // Onboarding Gate
     React.useEffect(() => {
@@ -324,6 +450,12 @@ const Library = ({ type = 'all' }) => {
                     setGuidesMetadata(data);
                 }
 
+                const cachedPdfs = await cache.match('/external_pdfs.json');
+                if (cachedPdfs) {
+                    const data = await cachedPdfs.json();
+                    setExternalPdfs(data);
+                }
+
                 // Fetch fresh data from network and update cache in background
                 const indexRes = await fetch('/library_index.json');
                 if (indexRes.ok) {
@@ -339,6 +471,14 @@ const Library = ({ type = 'all' }) => {
                     const data = await metaRes.json();
                     setGuidesMetadata(data);
                     await cache.put('/guides_metadata.json', metaClone);
+                }
+
+                const pdfsRes = await fetch('/external_pdfs.json');
+                if (pdfsRes.ok) {
+                    const pdfsClone = pdfsRes.clone();
+                    const data = await pdfsRes.json();
+                    setExternalPdfs(data);
+                    await cache.put('/external_pdfs.json', pdfsClone);
                 }
             } catch (err) {
                 console.error("Failed to load library files/metadata:", err);
@@ -545,8 +685,11 @@ const Library = ({ type = 'all' }) => {
         const query = searchQuery.toLowerCase().trim();
         if (!query) return [];
 
+        const results = [];
+
+        // 1. Search local guides
         if (guidesMetadata && guidesMetadata.length > 0) {
-            return guidesMetadata.filter(item => {
+            const localResults = guidesMetadata.filter(item => {
                 const titleMatch = item.title.toLowerCase().includes(query);
                 const categoryMatch = item.category.toLowerCase().includes(query);
                 const tagMatch = item.tags.some(tag => tag.toLowerCase().includes(query));
@@ -555,15 +698,38 @@ const Library = ({ type = 'all' }) => {
             }).map(item => {
                 const parts = item.path.split('/');
                 const file = parts[parts.length - 1];
-                return { file, folder: item.category, metadata: item };
+                return { file, folder: item.category, metadata: item, isExternal: false };
+            });
+            results.push(...localResults);
+        } else {
+            const localResults = allFiles.filter(item =>
+                getDisplayName(item.file).toLowerCase().includes(query) ||
+                getDisplayName(item.folder).toLowerCase().includes(query)
+            ).map(item => ({ ...item, isExternal: false }));
+            results.push(...localResults);
+        }
+
+        // 2. Search external PDFs
+        if (externalPdfs && Object.keys(externalPdfs).length > 0) {
+            Object.keys(externalPdfs).forEach(folder => {
+                externalPdfs[folder].forEach(pdf => {
+                    const titleMatch = pdf.title.toLowerCase().includes(query);
+                    const folderMatch = folder.toLowerCase().includes(query);
+                    if (titleMatch || folderMatch) {
+                        results.push({
+                            file: pdf.name,
+                            folder: folder,
+                            title: pdf.title,
+                            size: pdf.size,
+                            isExternal: true
+                        });
+                    }
+                });
             });
         }
 
-        return allFiles.filter(item =>
-            getDisplayName(item.file).toLowerCase().includes(query) ||
-            getDisplayName(item.folder).toLowerCase().includes(query)
-        );
-    }, [searchQuery, guidesMetadata, allFiles]);
+        return results;
+    }, [searchQuery, guidesMetadata, allFiles, externalPdfs]);
 
     const [activeFilter, setActiveFilter] = useState('all');
 
@@ -677,14 +843,15 @@ const Library = ({ type = 'all' }) => {
 
                         {/* Discovery Filters */}
                         <div className="flex gap-2 overflow-x-auto pb-4 mb-6 no-scrollbar scroll-smooth w-full">
-                            {['all', 'visual', 'safety', 'seasonal', 'start', 'build'].map(filter => {
+                            {['all', 'visual', 'safety', 'seasonal', 'start', 'build', 'pdf'].map(filter => {
                                 const labels = {
                                     all: 'All Categories',
                                     visual: 'Visual Guides',
                                     safety: 'Safety Critical',
                                     seasonal: 'Seasonal Planning',
                                     start: 'Start Here',
-                                    build: 'Build Projects'
+                                    build: 'Build Projects',
+                                    pdf: 'Civilization PDF Archive'
                                 };
                                 return (
                                     <button
@@ -710,28 +877,77 @@ const Library = ({ type = 'all' }) => {
                                         <button
                                             key={item.file}
                                             onClick={() => {
-                                                navigateToFile(item.file, item.folder);
+                                                if (item.isExternal) {
+                                                    navigateToPdfFile(item.file, item.folder);
+                                                } else {
+                                                    navigateToFile(item.file, item.folder);
+                                                }
                                             }}
                                             className="flex items-center gap-4 p-5 bg-white rounded-3xl border border-sand-100 shadow-sm hover:shadow-md hover:border-terracotta-200 transition-all text-left"
                                         >
                                             <div className="p-3 bg-sage-50 rounded-2xl text-sage-500"><FileText size={20} /></div>
                                             <div className="flex-1 min-w-0">
-                                                <span className="block text-lg font-serif font-black text-sage-900 truncate">{getDisplayName(item.file)}</span>
-                                                <span className="text-[10px] text-sand-400 font-black uppercase tracking-widest block mt-0.5">{getDisplayName(item.folder)}</span>
-                                                {item.metadata && item.metadata.tags && item.metadata.tags.length > 0 && (
-                                                    <div className="flex flex-wrap gap-1 mt-1.5">
-                                                        {item.metadata.tags.map(tag => (
-                                                            <span key={tag} className="text-[8px] font-black uppercase tracking-widest bg-sage-50 text-sage-600 px-1.5 py-0.5 rounded-md border border-sage-100">
-                                                                {tag}
-                                                            </span>
-                                                        ))}
-                                                    </div>
+                                                <span className="block text-lg font-serif font-black text-sage-900 truncate">
+                                                    {item.isExternal ? item.title : getDisplayName(item.file)}
+                                                </span>
+                                                <span className="text-[10px] text-sand-400 font-black uppercase tracking-widest block mt-0.5">
+                                                    {item.isExternal ? `${item.folder.replace(/[-_]+/g, ' ')} (PDF)` : getDisplayName(item.folder)}
+                                                </span>
+                                                {item.isExternal ? (
+                                                    <span className="inline-block text-[8px] font-black uppercase tracking-widest bg-sage-50 text-sage-600 px-1.5 py-0.5 rounded-md border border-sage-100 mt-1">
+                                                        {(item.size / (1024 * 1024)).toFixed(1)} MB
+                                                    </span>
+                                                ) : (
+                                                    item.metadata && item.metadata.tags && item.metadata.tags.length > 0 && (
+                                                        <div className="flex flex-wrap gap-1 mt-1.5">
+                                                            {item.metadata.tags.map(tag => (
+                                                                <span key={tag} className="text-[8px] font-black uppercase tracking-widest bg-sage-50 text-sage-600 px-1.5 py-0.5 rounded-md border border-sage-100">
+                                                                    {tag}
+                                                                </span>
+                                                            ))}
+                                                        </div>
+                                                    )
                                                 )}
                                             </div>
                                             <ChevronRight size={18} className="text-sand-300" />
                                         </button>
                                     ))}
                                 </div>
+                            </div>
+                        ) : activeFilter === 'pdf' ? (
+                            /* PDF Category Grid */
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                                {Object.keys(externalPdfs).map(folder => (
+                                    <div key={folder} className="space-y-4 group">
+                                        <div className="flex items-center gap-3 px-1">
+                                            <div className="p-2 rounded-lg text-white bg-sage-500 shadow-sm">
+                                                <Folder size={18} />
+                                            </div>
+                                            <h3 className="text-xs font-black text-sage-600 uppercase tracking-widest">
+                                                {folder.replace(/[-_]+/g, ' ')}
+                                            </h3>
+                                        </div>
+
+                                        <div className="space-y-3">
+                                            <button
+                                                onClick={() => navigateToPdfFolder(folder)}
+                                                className="w-full group/card flex items-center justify-between p-6 bg-white rounded-[2rem] border border-sand-200 shadow-sm hover:shadow-xl hover:shadow-sage-900/5 hover:border-sage-400 hover:bg-gradient-to-br hover:from-white hover:to-sand-50/20 transition-all text-left duration-300"
+                                            >
+                                                <div className="flex-1 min-w-0">
+                                                    <span className="font-serif text-lg font-black text-sage-900 block truncate leading-tight group-hover/card:text-sage-700">
+                                                        Browse Guides
+                                                    </span>
+                                                    <span className="text-[10px] font-black text-sand-400 uppercase tracking-widest block mt-1">
+                                                        {externalPdfs[folder].length} PDF Manuals
+                                                    </span>
+                                                </div>
+                                                <div className="w-8 h-8 rounded-full bg-sand-50 flex items-center justify-center text-sand-300 group-hover/card:bg-sage-600 group-hover/card:text-white transition-all duration-300">
+                                                    <ChevronRight size={16} />
+                                                </div>
+                                            </button>
+                                        </div>
+                                    </div>
+                                ))}
                             </div>
                         ) : activeFilter !== 'all' ? (
                             <div className="space-y-4">
@@ -860,7 +1076,29 @@ const Library = ({ type = 'all' }) => {
                         >
                             <ArrowLeft size={18} /> Back to Library
                         </button>
-                        {currentPath[0] === '5 Gardening' ? (
+                        {externalPdfs && externalPdfs[currentPath[0]] ? (
+                            <>
+                                <h2 className="text-2xl sm:text-4xl mb-6 font-serif text-sage-900">{currentPath[0].replace(/[-_]+/g, ' ')}</h2>
+                                <div className="grid gap-3">
+                                    {externalPdfs[currentPath[0]].map(pdf => (
+                                        <button
+                                            key={pdf.name}
+                                            onClick={() => navigateToPdfFile(pdf.name, currentPath[0])}
+                                            className="flex items-center justify-between p-5 bg-white rounded-3xl border border-sand-100 shadow-sm hover:shadow-md hover:border-sage-400 hover:bg-sage-50/10 transition-all text-left"
+                                        >
+                                            <div className="flex items-center gap-4 min-w-0">
+                                                <div className="p-3 bg-sage-50 rounded-2xl text-sage-500"><FileText size={20} /></div>
+                                                <div className="min-w-0">
+                                                    <span className="block text-lg font-serif font-black text-sage-900 truncate">{pdf.title}</span>
+                                                    <span className="text-[10px] text-sand-400 font-black uppercase tracking-widest block mt-0.5">{(pdf.size / (1024 * 1024)).toFixed(1)} MB • Offline-Ready</span>
+                                                </div>
+                                            </div>
+                                            <ChevronRight size={18} className="text-sand-300" />
+                                        </button>
+                                    ))}
+                                </div>
+                            </>
+                        ) : currentPath[0] === '5 Gardening' ? (
                             <GardeningLanding
                                 handleFileClick={(file) => navigateToFile(file, currentPath[0])}
                                 files={fileSystem[currentPath[0]]}
@@ -929,11 +1167,17 @@ const Library = ({ type = 'all' }) => {
                         <div className="px-6 py-4 bg-white/80 backdrop-blur-md border-b border-sand-200 flex justify-between items-center sticky top-0 z-10">
                             <button
                                 onClick={() => {
+                                    const params = new URLSearchParams(location.search);
+                                    const pdfFolder = params.get('pdfFolder');
                                     const folder = currentPath[0];
-                                    if (folder) {
-                                        const params = new URLSearchParams();
-                                        params.set('folder', folder);
-                                        navigate(`/library?${params.toString()}`);
+                                    if (pdfFolder) {
+                                        const newParams = new URLSearchParams();
+                                        newParams.set('pdfFolder', pdfFolder);
+                                        navigate(`/library?${newParams.toString()}`);
+                                    } else if (folder) {
+                                        const newParams = new URLSearchParams();
+                                        newParams.set('folder', folder);
+                                        navigate(`/library?${newParams.toString()}`);
                                     } else {
                                         navigate('/library');
                                     }
@@ -944,11 +1188,15 @@ const Library = ({ type = 'all' }) => {
                             </button>
 
                             <h1 className="font-serif font-bold text-xl text-sage-900 truncate max-w-md hidden md:block">
-                                {getDisplayName(fileContent.name)}
+                                {fileContent.name.endsWith('.pdf') ? fileContent.name.replace(/\.pdf$/i, '').replace(/[-_]+/g, ' ') : getDisplayName(fileContent.name)}
                             </h1>
 
                             <FavoriteButton
-                                item={{ id: fileContent.name, title: getDisplayName(fileContent.name), category: currentPath[0] }}
+                                item={{
+                                    id: fileContent.name,
+                                    title: fileContent.name.endsWith('.pdf') ? fileContent.name.replace(/\.pdf$/i, '').replace(/[-_]+/g, ' ') : getDisplayName(fileContent.name),
+                                    category: currentPath[0] || 'PDF Library'
+                                }}
                             />
                         </div>
 

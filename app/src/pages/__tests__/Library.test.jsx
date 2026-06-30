@@ -54,6 +54,14 @@ describe('Library Page Component', () => {
         vi.clearAllMocks();
         localStorage.clear();
 
+        window.alert = vi.fn();
+        if (typeof window.URL.createObjectURL === 'undefined') {
+            window.URL.createObjectURL = vi.fn(() => 'mock-blob-url');
+        }
+        if (typeof window.URL.revokeObjectURL === 'undefined') {
+            window.URL.revokeObjectURL = vi.fn();
+        }
+
         useUser.mockReturnValue({
             homesteadProfile: { skipped: false },
             readinessScore: 75,
@@ -108,11 +116,35 @@ describe('Library Page Component', () => {
                     clone: function() { return this; }
                 });
             }
+            if (url.includes('external_pdfs.json')) {
+                return Promise.resolve({
+                    ok: true,
+                    json: () => Promise.resolve({
+                        "Survival-Manuals": [
+                            {
+                                "name": "SAS-Survival.pdf",
+                                "title": "SAS Survival",
+                                "url": "https://raw.githubusercontent.com/PR0M3TH3AN/Survival-Data/master/HOME/Survival-Manuals/SAS-Survival.pdf",
+                                "size": 1048576
+                            }
+                        ]
+                    }),
+                    clone: function() { return this; }
+                });
+            }
             if (url.includes('/content/')) {
                 return Promise.resolve({
                     ok: true,
                     json: () => Promise.resolve({}),
                     text: () => Promise.resolve('# Mock Guide Title\nThis is mock guide content.'),
+                    clone: function() { return this; }
+                });
+            }
+            if (url.includes('raw.githubusercontent.com')) {
+                return Promise.resolve({
+                    ok: true,
+                    json: () => Promise.resolve({}),
+                    blob: () => Promise.resolve(new Blob()),
                     clone: function() { return this; }
                 });
             }
@@ -265,5 +297,41 @@ describe('Library Page Component', () => {
         const loc = screen.getByTestId('location-display').textContent;
         expect(loc).toContain('folder=14');
         expect(loc).toContain('file=14.1');
+    });
+
+    it('pdf filter displays external PDF categories', async () => {
+        renderComponent();
+
+        // Click on "Civilization PDF Archive" filter button
+        const pdfFilterBtn = await screen.findByText('Civilization PDF Archive');
+        fireEvent.click(pdfFilterBtn);
+
+        // Should display the "Survival Manuals" category browse card
+        await waitFor(() => {
+            expect(screen.getByText('Survival Manuals')).toBeInTheDocument();
+            expect(screen.getByText('Browse Guides')).toBeInTheDocument();
+            expect(screen.getByText('1 PDF Manuals')).toBeInTheDocument();
+        });
+    });
+
+    it('clicking an external PDF folder lists its files, and clicking a file loads it in viewer', async () => {
+        renderComponent('/library?pdfFolder=Survival-Manuals');
+
+        // Verify the PDF list renders and displays file title
+        await waitFor(() => {
+            expect(screen.getByText('SAS Survival')).toBeInTheDocument();
+            expect(screen.getByText('1.0 MB • Offline-Ready')).toBeInTheDocument();
+        });
+
+        // Click on the PDF item
+        const pdfItem = screen.getByText('SAS Survival');
+        fireEvent.click(pdfItem.closest('button'));
+
+        // Verify the URL updates to the file path
+        await waitFor(() => {
+            const loc = screen.getByTestId('location-display').textContent;
+            expect(loc).toContain('pdfFolder=Survival-Manuals');
+            expect(loc).toContain('pdfFile=SAS-Survival.pdf');
+        });
     });
 });
