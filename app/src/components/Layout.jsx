@@ -1,6 +1,6 @@
 import React from 'react';
 import { Outlet, NavLink, useLocation } from 'react-router-dom';
-import { Home, BookOpen, Wrench, Menu, User, Settings, LogOut, Leaf, Archive, Utensils, MessageSquare, X, Hammer, Compass } from 'lucide-react';
+import { Home, BookOpen, Wrench, Menu, User, Settings, LogOut, Leaf, Archive, Utensils, MessageSquare, X, Hammer, Compass, ShieldAlert } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { motion, AnimatePresence } from 'framer-motion';
 import OfflineIndicator from './OfflineIndicator';
@@ -97,6 +97,7 @@ const Layout = () => {
                                 <span className="text-[9px] font-black text-sand-400 uppercase tracking-widest block px-3">Command & Build</span>
                                 <ul className="space-y-1">
                                     <MenuLink to="/homestead" label="Command Center" onClick={() => setIsMenuOpen(false)} icon={<Compass size={18} />} />
+                                    <MenuLink to="/homestead/missions" label="Missions" onClick={() => setIsMenuOpen(false)} icon={<ShieldAlert size={18} />} />
                                     <MenuLink to="/homestead/build-projects" label="Build Projects" onClick={() => setIsMenuOpen(false)} icon={<Hammer size={18} />} />
                                 </ul>
                             </div>
