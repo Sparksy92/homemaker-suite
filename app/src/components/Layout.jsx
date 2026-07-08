@@ -13,15 +13,11 @@ const Layout = () => {
     const location = useLocation();
 
     const closeMenu = React.useCallback(() => {
-        setIsMenuOpen(prev => {
-            if (prev) {
-                setIsTransitioning(true);
-                setTimeout(() => {
-                    setIsTransitioning(false);
-                }, 350);
-            }
-            return false;
-        });
+        setIsMenuOpen(false);
+        setIsTransitioning(true);
+        setTimeout(() => {
+            setIsTransitioning(false);
+        }, 350);
     }, []);
 
     const toggleMenu = React.useCallback(() => {
@@ -29,18 +25,22 @@ const Layout = () => {
         setIsMenuOpen(prev => {
             const next = !prev;
             if (!next) {
-                setIsTransitioning(true);
                 setTimeout(() => {
-                    setIsTransitioning(false);
-                }, 350);
+                    setIsTransitioning(true);
+                    setTimeout(() => {
+                        setIsTransitioning(false);
+                    }, 350);
+                }, 0);
             }
             return next;
         });
     }, [isTransitioning]);
 
     React.useEffect(() => {
-        closeMenu();
-    }, [location.pathname, location.search, location.hash, closeMenu]);
+        if (isMenuOpen) {
+            closeMenu();
+        }
+    }, [location.pathname, location.search, location.hash, isMenuOpen, closeMenu]);
 
     React.useEffect(() => {
         if (typeof document === 'undefined') return;
@@ -109,7 +109,7 @@ const Layout = () => {
                         <hr className="border-sand-200" />
 
                         {/* Navigation Links Grouped */}
-                        <div className="flex-1 overflow-y-auto no-scrollbar py-2 -mx-2 px-2 space-y-6">
+                        <div onClick={closeMenu} className="flex-1 overflow-y-auto no-scrollbar py-2 -mx-2 px-2 space-y-6">
                             {/* Section 1: Dashboard */}
                             <div className="space-y-2">
                                 <span className="text-[9px] font-black text-sand-400 uppercase tracking-widest block px-3">Dashboard</span>
