@@ -9,11 +9,38 @@ import PageErrorBoundary from './PageErrorBoundary';
 
 const Layout = () => {
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+    const [isTransitioning, setIsTransitioning] = React.useState(false);
     const location = useLocation();
 
+    const closeMenu = React.useCallback(() => {
+        setIsMenuOpen(prev => {
+            if (prev) {
+                setIsTransitioning(true);
+                setTimeout(() => {
+                    setIsTransitioning(false);
+                }, 350);
+            }
+            return false;
+        });
+    }, []);
+
+    const toggleMenu = React.useCallback(() => {
+        if (isTransitioning) return;
+        setIsMenuOpen(prev => {
+            const next = !prev;
+            if (!next) {
+                setIsTransitioning(true);
+                setTimeout(() => {
+                    setIsTransitioning(false);
+                }, 350);
+            }
+            return next;
+        });
+    }, [isTransitioning]);
+
     React.useEffect(() => {
-        setIsMenuOpen(false);
-    }, [location.pathname, location.search, location.hash]);
+        closeMenu();
+    }, [location.pathname, location.search, location.hash, closeMenu]);
 
     React.useEffect(() => {
         if (typeof document === 'undefined') return;
@@ -31,13 +58,13 @@ const Layout = () => {
 
         const handleKeyDown = (event) => {
             if (event.key === 'Escape') {
-                setIsMenuOpen(false);
+                closeMenu();
             }
         };
 
         window.addEventListener('keydown', handleKeyDown);
         return () => window.removeEventListener('keydown', handleKeyDown);
-    }, [isMenuOpen]);
+    }, [isMenuOpen, closeMenu]);
 
     return (
         <div className="min-h-[100dvh] flex flex-col max-w-2xl mx-auto bg-sand-50 shadow-2xl overflow-hidden relative border-x border-sand-300 transform translate-x-0">
@@ -50,7 +77,7 @@ const Layout = () => {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        onClick={() => setIsMenuOpen(false)}
+                        onClick={closeMenu}
                         className="fixed inset-0 bg-black/60 z-[100] backdrop-blur-md"
                     />
                 )}
@@ -72,7 +99,7 @@ const Layout = () => {
                         <div className="flex justify-between items-center">
                             <h2 className="text-2xl font-serif text-sage-800 font-bold">Menu</h2>
                             <button
-                                onClick={() => setIsMenuOpen(false)}
+                                onClick={closeMenu}
                                 className="p-3 hover:bg-sand-100 rounded-full text-sage-600 flex items-center justify-center min-w-[44px] min-h-[44px]"
                             >
                                 <X size={24} />
@@ -87,8 +114,8 @@ const Layout = () => {
                             <div className="space-y-2">
                                 <span className="text-[9px] font-black text-sand-400 uppercase tracking-widest block px-3">Dashboard</span>
                                 <ul className="space-y-1">
-                                    <MenuLink to="/" label="Home" onClick={() => setIsMenuOpen(false)} icon={<Home size={18} />} />
-                                    <MenuLink to="/field-binder" label="Field Binder" onClick={() => setIsMenuOpen(false)} icon={<Archive size={18} />} />
+                                    <MenuLink to="/" label="Home" onClick={closeMenu} icon={<Home size={18} />} />
+                                    <MenuLink to="/field-binder" label="Field Binder" onClick={closeMenu} icon={<Archive size={18} />} />
                                 </ul>
                             </div>
 
@@ -96,9 +123,9 @@ const Layout = () => {
                             <div className="space-y-2">
                                 <span className="text-[9px] font-black text-sand-400 uppercase tracking-widest block px-3">Command & Build</span>
                                 <ul className="space-y-1">
-                                    <MenuLink to="/homestead" label="Command Center" onClick={() => setIsMenuOpen(false)} icon={<Compass size={18} />} />
-                                    <MenuLink to="/homestead/missions" label="Missions" onClick={() => setIsMenuOpen(false)} icon={<ShieldAlert size={18} />} />
-                                    <MenuLink to="/homestead/build-projects" label="Build Projects" onClick={() => setIsMenuOpen(false)} icon={<Hammer size={18} />} />
+                                    <MenuLink to="/homestead" label="Command Center" onClick={closeMenu} icon={<Compass size={18} />} />
+                                    <MenuLink to="/homestead/missions" label="Missions" onClick={closeMenu} icon={<ShieldAlert size={18} />} />
+                                    <MenuLink to="/homestead/build-projects" label="Build Projects" onClick={closeMenu} icon={<Hammer size={18} />} />
                                 </ul>
                             </div>
 
@@ -106,10 +133,10 @@ const Layout = () => {
                             <div className="space-y-2">
                                 <span className="text-[9px] font-black text-sand-400 uppercase tracking-widest block px-3">Reference Library</span>
                                 <ul className="space-y-1">
-                                    <MenuLink to="/cookbook" label="Recipes" onClick={() => setIsMenuOpen(false)} icon={<Utensils size={18} />} />
-                                    <MenuLink to="/library" label="Guides" onClick={() => setIsMenuOpen(false)} icon={<BookOpen size={18} />} />
-                                    <MenuLink to="/wildlife" label="Nature" onClick={() => setIsMenuOpen(false)} icon={<Leaf size={18} />} />
-                                    <MenuLink to="/tools" label="Toolkit" onClick={() => setIsMenuOpen(false)} icon={<Wrench size={18} />} />
+                                    <MenuLink to="/cookbook" label="Recipes" onClick={closeMenu} icon={<Utensils size={18} />} />
+                                    <MenuLink to="/library" label="Guides" onClick={closeMenu} icon={<BookOpen size={18} />} />
+                                    <MenuLink to="/wildlife" label="Nature" onClick={closeMenu} icon={<Leaf size={18} />} />
+                                    <MenuLink to="/tools" label="Toolkit" onClick={closeMenu} icon={<Wrench size={18} />} />
                                 </ul>
                             </div>
 
@@ -117,9 +144,9 @@ const Layout = () => {
                             <div className="space-y-2">
                                 <span className="text-[9px] font-black text-sand-400 uppercase tracking-widest block px-3">System</span>
                                 <ul className="space-y-1">
-                                    <MenuLink to="/profile" label="Profile" onClick={() => setIsMenuOpen(false)} icon={<User size={18} />} />
-                                    <MenuLink to="/settings" label="Settings" onClick={() => setIsMenuOpen(false)} icon={<Settings size={18} />} />
-                                    <MenuLink to="/feedback" label="Suggestion Box" onClick={() => setIsMenuOpen(false)} icon={<MessageSquare size={18} />} />
+                                    <MenuLink to="/profile" label="Profile" onClick={closeMenu} icon={<User size={18} />} />
+                                    <MenuLink to="/settings" label="Settings" onClick={closeMenu} icon={<Settings size={18} />} />
+                                    <MenuLink to="/feedback" label="Suggestion Box" onClick={closeMenu} icon={<MessageSquare size={18} />} />
                                 </ul>
                             </div>
                         </div>
@@ -130,7 +157,7 @@ const Layout = () => {
                             <button
                                 onClick={() => {
                                     console.log("Logout clicked");
-                                    setIsMenuOpen(false);
+                                    closeMenu();
                                 }}
                                 className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-red-600 hover:bg-red-50 transition-colors font-medium w-full text-left font-sans text-sm"
                             >
@@ -168,8 +195,11 @@ const Layout = () => {
                         aria-label={isMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
                         aria-expanded={isMenuOpen}
                         aria-controls="mobile-navigation-menu"
-                        onClick={() => setIsMenuOpen(prev => !prev)}
-                        className="mr-1 min-w-[48px] min-h-[48px] p-3 hover:bg-sage-600 rounded-full transition-colors flex items-center justify-center touch-manipulation"
+                        onClick={toggleMenu}
+                        className={cn(
+                            "mr-1 min-w-[48px] min-h-[48px] p-3 hover:bg-sage-600 rounded-full transition-colors flex items-center justify-center touch-manipulation",
+                            isTransitioning && "pointer-events-none"
+                        )}
                     >
                         {isMenuOpen ? (
                             <X size={26} className="text-sand-100" />
