@@ -12,37 +12,35 @@ const Layout = () => {
     const [isTransitioning, setIsTransitioning] = React.useState(false);
     const location = useLocation();
 
-    const isMenuOpenRef = React.useRef(false);
-    React.useEffect(() => {
-        isMenuOpenRef.current = isMenuOpen;
-    }, [isMenuOpen]);
-
     const closeMenu = React.useCallback(() => {
-        if (isMenuOpenRef.current) {
-            setIsMenuOpen(false);
-            setIsTransitioning(true);
-            setTimeout(() => {
-                setIsTransitioning(false);
-            }, 350);
-        }
+        setIsMenuOpen(false);
+        setIsTransitioning(true);
+        setTimeout(() => {
+            setIsTransitioning(false);
+        }, 350);
     }, []);
 
     const toggleMenu = React.useCallback(() => {
         if (isTransitioning) return;
-        if (isMenuOpenRef.current) {
-            setIsMenuOpen(false);
-            setIsTransitioning(true);
-            setTimeout(() => {
-                setIsTransitioning(false);
-            }, 350);
-        } else {
-            setIsMenuOpen(true);
-        }
+        setIsMenuOpen(prev => {
+            const next = !prev;
+            if (!next) {
+                setTimeout(() => {
+                    setIsTransitioning(true);
+                    setTimeout(() => {
+                        setIsTransitioning(false);
+                    }, 350);
+                }, 0);
+            }
+            return next;
+        });
     }, [isTransitioning]);
 
     React.useEffect(() => {
-        closeMenu();
-    }, [location.pathname, location.search, location.hash, closeMenu]);
+        if (isMenuOpen) {
+            closeMenu();
+        }
+    }, [location.pathname, location.search, location.hash, isMenuOpen, closeMenu]);
 
     React.useEffect(() => {
         if (typeof document === 'undefined') return;
