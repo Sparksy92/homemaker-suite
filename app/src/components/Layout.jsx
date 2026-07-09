@@ -66,104 +66,104 @@ const Layout = () => {
             {/* Mobile Menu Overlay */}
             <AnimatePresence>
                 {isMenuOpen && (
-                    <motion.div
-                        key="menu-backdrop"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        onClick={closeMenu}
-                        className="fixed inset-0 bg-black/60 z-[100] backdrop-blur-md"
-                    />
-                )}
-                {isMenuOpen && (
-                    <motion.div
-                        id="mobile-navigation-menu"
-                        key="menu-sidebar"
-                        initial={{ x: '100%' }}
-                        animate={{ x: 0 }}
-                        exit={{ x: '100%' }}
-                        transition={{ type: "spring", damping: 25, stiffness: 200 }}
-                        className="fixed right-0 top-0 bottom-0 w-[min(20rem,88vw)] bg-white/95 backdrop-blur-md shadow-2xl z-[110] p-6 flex flex-col gap-4 border-l border-sand-200"
-                        style={{
-                            paddingTop: 'max(1.5rem, env(safe-area-inset-top))',
-                            paddingRight: 'max(1.5rem, env(safe-area-inset-right))',
-                            paddingBottom: 'max(1.5rem, env(safe-area-inset-bottom))'
-                        }}
-                    >
-                        <div className="flex justify-between items-center">
-                            <h2 className="text-2xl font-serif text-sage-800 font-bold">Menu</h2>
-                            <button
-                                onClick={closeMenu}
-                                className="p-3 hover:bg-sand-100 rounded-full text-sage-600 flex items-center justify-center min-w-[44px] min-h-[44px]"
-                            >
-                                <X size={24} />
-                            </button>
-                        </div>
-
-                        <hr className="border-sand-200" />
-
-                        {/* Navigation Links Grouped */}
-                        <div onClick={closeMenu} className="flex-1 overflow-y-auto no-scrollbar py-2 -mx-2 px-2 space-y-6">
-                            {/* Section 1: Dashboard */}
-                            <div className="space-y-2">
-                                <span className="text-[9px] font-black text-sand-400 uppercase tracking-widest block px-3">Dashboard</span>
-                                <ul className="space-y-1">
-                                    <MenuLink to="/" label="Home" onClick={closeMenu} icon={<Home size={18} />} />
-                                    <MenuLink to="/field-binder" label="Field Binder" onClick={closeMenu} icon={<Archive size={18} />} />
-                                </ul>
+                    <>
+                        <motion.div
+                            key="menu-backdrop"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            onClick={closeMenu}
+                            className="fixed inset-0 bg-black/60 z-[100] backdrop-blur-md"
+                        />
+                        <motion.div
+                            id="mobile-navigation-menu"
+                            key="menu-sidebar"
+                            initial={{ x: '100%' }}
+                            animate={{ x: 0 }}
+                            exit={{ x: '100%' }}
+                            transition={{ type: "spring", damping: 25, stiffness: 200 }}
+                            className="fixed right-0 top-0 bottom-0 w-[min(20rem,88vw)] bg-white/95 backdrop-blur-md shadow-2xl z-[110] p-6 flex flex-col gap-4 border-l border-sand-200"
+                            style={{
+                                paddingTop: 'max(1.5rem, env(safe-area-inset-top))',
+                                paddingRight: 'max(1.5rem, env(safe-area-inset-right))',
+                                paddingBottom: 'max(1.5rem, env(safe-area-inset-bottom))'
+                            }}
+                        >
+                            <div className="flex justify-between items-center">
+                                <h2 className="text-2xl font-serif text-sage-800 font-bold">Menu</h2>
+                                <button
+                                    onClick={closeMenu}
+                                    className="p-3 hover:bg-sand-100 rounded-full text-sage-600 flex items-center justify-center min-w-[44px] min-h-[44px]"
+                                >
+                                    <X size={24} />
+                                </button>
                             </div>
 
-                            {/* Section 2: Planners */}
-                            <div className="space-y-2">
-                                <span className="text-[9px] font-black text-sand-400 uppercase tracking-widest block px-3">Command & Build</span>
-                                <ul className="space-y-1">
-                                    <MenuLink to="/homestead" label="Command Center" onClick={closeMenu} icon={<Compass size={18} />} />
-                                    <MenuLink to="/homestead/missions" label="Missions" onClick={closeMenu} icon={<ShieldAlert size={18} />} />
-                                    <MenuLink to="/homestead/build-projects" label="Build Projects" onClick={closeMenu} icon={<Hammer size={18} />} />
-                                </ul>
+                            <hr className="border-sand-200" />
+
+                            {/* Navigation Links Grouped */}
+                            <div onClick={closeMenu} className="flex-1 overflow-y-auto no-scrollbar py-2 -mx-2 px-2 space-y-6">
+                                {/* Section 1: Dashboard */}
+                                <div className="space-y-2">
+                                    <span className="text-[9px] font-black text-sand-400 uppercase tracking-widest block px-3">Dashboard</span>
+                                    <ul className="space-y-1">
+                                        <MenuLink to="/" label="Home" onClick={closeMenu} icon={<Home size={18} />} />
+                                        <MenuLink to="/field-binder" label="Field Binder" onClick={closeMenu} icon={<Archive size={18} />} />
+                                    </ul>
+                                </div>
+
+                                {/* Section 2: Planners */}
+                                <div className="space-y-2">
+                                    <span className="text-[9px] font-black text-sand-400 uppercase tracking-widest block px-3">Command & Build</span>
+                                    <ul className="space-y-1">
+                                        <MenuLink to="/homestead" label="Command Center" onClick={closeMenu} icon={<Compass size={18} />} />
+                                        <MenuLink to="/homestead/missions" label="Missions" onClick={closeMenu} icon={<ShieldAlert size={18} />} />
+                                        <MenuLink to="/homestead/build-projects" label="Build Projects" onClick={closeMenu} icon={<Hammer size={18} />} />
+                                    </ul>
+                                </div>
+
+                                {/* Section 3: Reference */}
+                                <div className="space-y-2">
+                                    <span className="text-[9px] font-black text-sand-400 uppercase tracking-widest block px-3">Reference Library</span>
+                                    <ul className="space-y-1">
+                                        <MenuLink to="/cookbook" label="Recipes" onClick={closeMenu} icon={<Utensils size={18} />} />
+                                        <MenuLink to="/library" label="Guides" onClick={closeMenu} icon={<BookOpen size={18} />} />
+                                        <MenuLink to="/wildlife" label="Nature" onClick={closeMenu} icon={<Leaf size={18} />} />
+                                        <MenuLink to="/tools" label="Toolkit" onClick={closeMenu} icon={<Wrench size={18} />} />
+                                    </ul>
+                                </div>
+
+                                {/* Section 4: System */}
+                                <div className="space-y-2">
+                                    <span className="text-[9px] font-black text-sand-400 uppercase tracking-widest block px-3">System</span>
+                                    <ul className="space-y-1">
+                                        <MenuLink to="/profile" label="Profile" onClick={closeMenu} icon={<User size={18} />} />
+                                        <MenuLink to="/settings" label="Settings" onClick={closeMenu} icon={<Settings size={18} />} />
+                                        <MenuLink to="/feedback" label="Suggestion Box" onClick={closeMenu} icon={<MessageSquare size={18} />} />
+                                    </ul>
+                                </div>
                             </div>
 
-                            {/* Section 3: Reference */}
-                            <div className="space-y-2">
-                                <span className="text-[9px] font-black text-sand-400 uppercase tracking-widest block px-3">Reference Library</span>
-                                <ul className="space-y-1">
-                                    <MenuLink to="/cookbook" label="Recipes" onClick={closeMenu} icon={<Utensils size={18} />} />
-                                    <MenuLink to="/library" label="Guides" onClick={closeMenu} icon={<BookOpen size={18} />} />
-                                    <MenuLink to="/wildlife" label="Nature" onClick={closeMenu} icon={<Leaf size={18} />} />
-                                    <MenuLink to="/tools" label="Toolkit" onClick={closeMenu} icon={<Wrench size={18} />} />
-                                </ul>
+                            <hr className="border-sand-200" />
+                            
+                            <ul className="space-y-1">
+                                <button
+                                    onClick={() => {
+                                        console.log("Logout clicked");
+                                        closeMenu();
+                                    }}
+                                    className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-red-600 hover:bg-red-50 transition-colors font-medium w-full text-left font-sans text-sm"
+                                >
+                                    <LogOut size={18} />
+                                    <span className="font-semibold tracking-tight">Logout</span>
+                                </button>
+                            </ul>
+
+                            <div className="pt-2">
+                                <p className="text-[10px] text-center text-sage-400 font-sans tracking-wide">Homemaker Suite v0.1.0</p>
                             </div>
-
-                            {/* Section 4: System */}
-                            <div className="space-y-2">
-                                <span className="text-[9px] font-black text-sand-400 uppercase tracking-widest block px-3">System</span>
-                                <ul className="space-y-1">
-                                    <MenuLink to="/profile" label="Profile" onClick={closeMenu} icon={<User size={18} />} />
-                                    <MenuLink to="/settings" label="Settings" onClick={closeMenu} icon={<Settings size={18} />} />
-                                    <MenuLink to="/feedback" label="Suggestion Box" onClick={closeMenu} icon={<MessageSquare size={18} />} />
-                                </ul>
-                            </div>
-                        </div>
-
-                        <hr className="border-sand-200" />
-                        
-                        <ul className="space-y-1">
-                            <button
-                                onClick={() => {
-                                    console.log("Logout clicked");
-                                    closeMenu();
-                                }}
-                                className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-red-600 hover:bg-red-50 transition-colors font-medium w-full text-left font-sans text-sm"
-                            >
-                                <LogOut size={18} />
-                                <span className="font-semibold tracking-tight">Logout</span>
-                            </button>
-                        </ul>
-
-                        <div className="pt-2">
-                            <p className="text-[10px] text-center text-sage-400 font-sans tracking-wide">Homemaker Suite v0.1.0</p>
-                        </div>
-                    </motion.div>
+                        </motion.div>
+                    </>
                 )}
             </AnimatePresence>
 
