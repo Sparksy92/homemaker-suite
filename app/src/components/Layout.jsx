@@ -9,32 +9,22 @@ import PageErrorBoundary from './PageErrorBoundary';
 
 const Layout = () => {
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-    const [isTransitioning, setIsTransitioning] = React.useState(false);
     const location = useLocation();
+
+    const lastCloseTimeRef = React.useRef(0);
 
     const closeMenu = React.useCallback(() => {
         setIsMenuOpen(false);
-        setIsTransitioning(true);
-        setTimeout(() => {
-            setIsTransitioning(false);
-        }, 350);
+        lastCloseTimeRef.current = Date.now();
     }, []);
 
     const toggleMenu = React.useCallback(() => {
-        if (isTransitioning) return;
-        setIsMenuOpen(prev => {
-            const next = !prev;
-            if (!next) {
-                setTimeout(() => {
-                    setIsTransitioning(true);
-                    setTimeout(() => {
-                        setIsTransitioning(false);
-                    }, 350);
-                }, 0);
-            }
-            return next;
-        });
-    }, [isTransitioning]);
+        // Prevent ghost clicks within 400ms of closing
+        if (Date.now() - lastCloseTimeRef.current < 400) {
+            return;
+        }
+        setIsMenuOpen(prev => !prev);
+    }, []);
 
     const prevPathRef = React.useRef(location.pathname + location.search + location.hash);
 
@@ -200,10 +190,7 @@ const Layout = () => {
                         aria-expanded={isMenuOpen}
                         aria-controls="mobile-navigation-menu"
                         onClick={toggleMenu}
-                        className={cn(
-                            "mr-1 min-w-[48px] min-h-[48px] p-3 hover:bg-sage-600 rounded-full transition-colors flex items-center justify-center touch-manipulation",
-                            isTransitioning && "pointer-events-none"
-                        )}
+                        className="mr-1 min-w-[48px] min-h-[48px] p-3 hover:bg-sage-600 rounded-full transition-colors flex items-center justify-center touch-manipulation"
                     >
                         {isMenuOpen ? (
                             <X size={26} className="text-sand-100" />
