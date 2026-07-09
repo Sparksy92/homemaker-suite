@@ -36,11 +36,15 @@ const Layout = () => {
         });
     }, [isTransitioning]);
 
+    const prevPathRef = React.useRef(location.pathname + location.search + location.hash);
+
     React.useEffect(() => {
-        if (isMenuOpen) {
+        const currentPath = location.pathname + location.search + location.hash;
+        if (prevPathRef.current !== currentPath) {
+            prevPathRef.current = currentPath;
             closeMenu();
         }
-    }, [location.pathname, location.search, location.hash, isMenuOpen, closeMenu]);
+    }, [location.pathname, location.search, location.hash, closeMenu]);
 
     React.useEffect(() => {
         if (typeof document === 'undefined') return;
